@@ -3,61 +3,82 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>M2 Diagnostica — Mockup Completo</title>
+<title>M2 Diagnostica — Premium Mockup</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
 
 <style>
-/* ═══════════════════════════════════════════════
-   DESIGN SYSTEM — M2 DIAGNOSTICA 2026
-═══════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════
+   M2 DIAGNOSTICA — PREMIUM DESIGN SYSTEM 2026
+   ═══════════════════════════════════════════════════════ */
+
 :root {
-  --bg-body:        #06080e;
-  --bg-void:        #06080e;
-  --bg-card:        #0d1117;
-  --bg-surface:     #141b26;
-  --bg-elevated:    #1a2236;
-  --bg-glass:       rgba(13,17,23,0.85);
-
-  --accent:         #00d4ff;
-  --accent-deep:    #009ec2;
-  --green:          #00e676;
-  --red:            #ff3b5c;
-  --yellow:         #ffd600;
-
-  --text-primary:   #e8eaf0;
-  --text-secondary: #8890a6;
-  --text-muted:     #4a5168;
-
-  --border:         rgba(255,255,255,0.06);
-  --border-hover:   rgba(255,255,255,0.12);
-  --border-light:   rgba(255,255,255,0.08);
-
-  --radius-sm:      8px;
-  --radius-md:      12px;
-  --radius-lg:      16px;
-  --radius-xl:      20px;
-
-  --font-body:      'Space Grotesk', sans-serif;
-  --font-title:     'Syne', sans-serif;
-  --font-mono:      'JetBrains Mono', monospace;
-
-  --navbar-h:       72px;
+  --bg-void: #04060c;
+  --bg-deep: #070a12;
+  --bg-card: #0c1019;
+  --bg-card-hover: #0f1420;
+  --bg-surface: #141a26;
+  --bg-elevated: #1a2233;
+  --border: rgba(255,255,255,0.05);
+  --border-accent: rgba(0,212,255,0.15);
+  --text-primary: #e8ecf4;
+  --text-secondary: #8892a8;
+  --text-muted: #556070;
+  --accent: #00d4ff;
+  --accent-dim: rgba(0,212,255,0.12);
+  --green: #00e676;
+  --green-dim: rgba(0,230,118,0.12);
+  --red: #ff3b5c;
+  --red-dim: rgba(255,59,92,0.12);
+  --yellow: #ffd600;
+  --yellow-dim: rgba(255,214,0,0.12);
+  --orange: #ff9100;
+  --orange-dim: rgba(255,145,0,0.12);
+  --font-body: 'Space Grotesk', sans-serif;
+  --font-title: 'Syne', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+  --shadow-card: 0 2px 8px rgba(0,0,0,0.3), 0 12px 40px rgba(0,0,0,0.2);
+  --shadow-glow-cyan: 0 0 20px rgba(0,212,255,0.15);
+  --shadow-glow-green: 0 0 20px rgba(0,230,118,0.15);
+  --shadow-glow-red: 0 0 20px rgba(255,59,92,0.15);
+  --navbar-h: 68px;
 }
 
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-
-html { font-size: 16px; -webkit-text-size-adjust: 100%; }
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html { font-size:16px; -webkit-text-size-adjust:100%; }
 
 body {
   font-family: var(--font-body);
-  background: var(--bg-body);
-  background-image: radial-gradient(ellipse 80% 40% at 50% 0%, rgba(0,212,255,0.05) 0%, transparent 70%);
-  background-attachment: fixed;
+  background: var(--bg-void);
   color: var(--text-primary);
   min-height: 100vh;
   overflow-x: hidden;
+  position: relative;
+}
+
+/* ── ANIMATED MESH BACKGROUND ── */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background:
+    radial-gradient(ellipse 600px 600px at 20% 20%, rgba(0,212,255,0.03) 0%, transparent 70%),
+    radial-gradient(ellipse 500px 500px at 80% 60%, rgba(138,43,226,0.02) 0%, transparent 70%),
+    radial-gradient(ellipse 400px 400px at 50% 90%, rgba(0,212,255,0.025) 0%, transparent 70%);
+  animation: meshMove 60s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes meshMove {
+  0%, 100% { transform: translate(0,0) scale(1); }
+  25% { transform: translate(30px, -20px) scale(1.02); }
+  50% { transform: translate(-20px, 30px) scale(0.98); }
+  75% { transform: translate(10px, 10px) scale(1.01); }
 }
 
 /* ── SCREENS ── */
@@ -67,283 +88,354 @@ body {
   margin: 0 auto;
   min-height: 100vh;
   position: relative;
-  padding-bottom: calc(var(--navbar-h) + 16px);
+  padding: 20px 20px calc(var(--navbar-h) + 20px) 20px;
+  z-index: 1;
 }
 .screen.active { display: block; }
 
-/* ── ANIMATIONS ── */
-@keyframes fadeSlideUp {
-  from { opacity: 0; transform: translateY(18px); }
-  to   { opacity: 1; transform: translateY(0); }
+/* ── PAGE TRANSITIONS ── */
+.screen-enter {
+  animation: screenEnter 400ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to   { opacity: 1; transform: translateY(0); }
+.screen-exit {
+  animation: screenExit 200ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+@keyframes screenEnter {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
-.anim { animation: fadeSlideUp 0.4s ease both; }
-.d1 { animation-delay: 0ms; }
-.d2 { animation-delay: 80ms; }
-.d3 { animation-delay: 160ms; }
-.d4 { animation-delay: 240ms; }
-.d5 { animation-delay: 320ms; }
-.d6 { animation-delay: 400ms; }
+@keyframes screenExit {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-10px); }
+}
+
+/* ── CARD STAGGER ── */
+.stagger-1 { animation-delay: 0ms; }
+.stagger-2 { animation-delay: 80ms; }
+.stagger-3 { animation-delay: 160ms; }
+.stagger-4 { animation-delay: 240ms; }
+.stagger-5 { animation-delay: 320ms; }
+.stagger-6 { animation-delay: 400ms; }
+.stagger-7 { animation-delay: 480ms; }
+.stagger-8 { animation-delay: 560ms; }
+
+.stagger-item {
+  opacity: 0;
+  animation: staggerIn 500ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+@keyframes staggerIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── RIPPLE EFFECT ── */
+.ripple-container { position: relative; overflow: hidden; }
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.12);
+  transform: scale(0);
+  animation: rippleExpand 600ms ease-out forwards;
+  pointer-events: none;
+}
+@keyframes rippleExpand {
+  to { transform: scale(4); opacity: 0; }
+}
 
 /* ── TYPOGRAPHY ── */
-.section-label {
-  font-family: var(--font-title);
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  padding: 20px 20px 8px;
-}
-.section-title {
+.t-screen-title {
   font-family: var(--font-body);
-  font-size: 0.68rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  font-size: 1.3rem;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+.t-section {
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: 0.65rem;
   text-transform: uppercase;
+  letter-spacing: 0.14em;
   color: var(--text-muted);
-  margin: 24px 0 10px;
+  margin-bottom: 12px;
 }
+.t-hero {
+  font-family: var(--font-mono);
+  font-weight: 800;
+}
+.t-body { font-family: var(--font-body); font-weight: 400; font-size: 0.88rem; }
+.t-secondary { font-size: 0.78rem; color: var(--text-secondary); }
+.t-muted { font-size: 0.7rem; color: var(--text-muted); }
+.t-mono { font-family: var(--font-mono); font-weight: 500; font-size: 0.75rem; }
 
-/* ── CARD ── */
+/* ── CARDS ── */
 .card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 20px;
+  background: linear-gradient(135deg, #0c1019 0%, #0f1520 100%);
+  border: 1px solid;
+  border-image: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03)) 1;
+  border-radius: var(--radius-md);
+  padding: 16px;
+  box-shadow: var(--shadow-card);
+  transition: transform 150ms ease, box-shadow 150ms ease;
+  /* border-image doesn't work with border-radius, use outline trick */
+  border: 1px solid rgba(255,255,255,0.06);
+  position: relative;
 }
-.card-accent {
-  border-left: 3px solid var(--accent);
+.card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: var(--radius-md);
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+.card:active {
+  transform: scale(1.02);
+  box-shadow: var(--shadow-card), 0 0 30px rgba(0,0,0,0.3);
 }
 
-/* ── BADGE ── */
+/* Card with left accent */
+.card-accent-cyan { border-left: 3px solid transparent; border-image: none; border-left: 3px solid; border-image: linear-gradient(to bottom, var(--accent), #0099bb) 1; }
+.card-accent-red { border-left: 3px solid var(--red); }
+.card-accent-green { border-left: 3px solid var(--green); }
+.card-accent-yellow { border-left: 3px solid var(--yellow); }
+
+/* ── BADGES ── */
 .badge {
   display: inline-flex;
   align-items: center;
-  font-size: 0.6rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  padding: 3px 9px;
+  padding: 3px 10px;
   border-radius: 20px;
-}
-.badge-active  { background: rgba(0,212,255,0.15);  color: var(--accent); }
-.badge-yellow  { background: rgba(255,214,0,0.15);  color: var(--yellow); }
-.badge-red     { background: rgba(255,59,92,0.15);  color: var(--red); }
-.badge-green   { background: rgba(0,230,118,0.15);  color: var(--green); }
-.badge-muted   { background: rgba(255,255,255,0.06); color: var(--text-muted); }
-.badge-cyan    { background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.25); color: var(--accent); }
-
-/* ── PILL ── */
-.pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 4px 12px;
-  border-radius: 999px;
   font-family: var(--font-mono);
-  font-size: 0.7rem;
   font-weight: 700;
-  letter-spacing: 0.04em;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
-.pill-green  { background: rgba(0,230,118,0.12); color: var(--green); border: 1px solid rgba(0,230,118,0.2); }
-.pill-red    { background: rgba(255,59,92,0.12);  color: var(--red);   border: 1px solid rgba(255,59,92,0.2); }
-.pill-yellow { background: rgba(255,214,0,0.12);  color: var(--yellow);border: 1px solid rgba(255,214,0,0.2); }
-.pill-cyan   { background: rgba(0,212,255,0.12);  color: var(--accent);border: 1px solid rgba(0,212,255,0.2); }
-.pill-orange { background: rgba(255,140,0,0.12);  color: #ff8c00;      border: 1px solid rgba(255,140,0,0.2); }
-.pill-sm { padding: 2px 8px; font-size: 0.62rem; }
+.badge-green { background: var(--green-dim); color: var(--green); box-shadow: 0 0 12px rgba(0,230,118,0.1); }
+.badge-red { background: var(--red-dim); color: var(--red); box-shadow: 0 0 12px rgba(255,59,92,0.1); }
+.badge-yellow { background: var(--yellow-dim); color: var(--yellow); box-shadow: 0 0 12px rgba(255,214,0,0.1); }
+.badge-cyan { background: var(--accent-dim); color: var(--accent); box-shadow: 0 0 12px rgba(0,212,255,0.1); }
+.badge-muted { background: rgba(255,255,255,0.05); color: var(--text-muted); }
+
+/* ── PROGRESS BARS ── */
+.progress-track {
+  width: 100%;
+  height: 8px;
+  background: var(--bg-surface);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+.progress-track-lg { height: 10px; border-radius: 5px; }
+.progress-fill {
+  height: 100%;
+  border-radius: 4px;
+  position: relative;
+  width: 0;
+  transition: width 800ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.progress-fill-cyan {
+  background: linear-gradient(90deg, #006688, var(--accent), #33ddff);
+  box-shadow: 0 0 12px rgba(0,212,255,0.3);
+}
+.progress-fill-green {
+  background: linear-gradient(90deg, #008844, var(--green), #44ff99);
+  box-shadow: 0 0 12px rgba(0,230,118,0.3);
+}
+.progress-fill-yellow {
+  background: linear-gradient(90deg, #886600, var(--yellow), #ffee44);
+  box-shadow: 0 0 12px rgba(255,214,0,0.3);
+}
+.progress-fill-red {
+  background: linear-gradient(90deg, #880022, var(--red), #ff6688);
+  box-shadow: 0 0 12px rgba(255,59,92,0.3);
+}
+
+/* Progress glow pulse */
+.progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 40px; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3));
+  animation: progressGlow 2s ease-in-out infinite;
+}
+@keyframes progressGlow {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+}
+
+/* ── SEPARATOR ── */
+.separator {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+  margin: 12px 0;
+}
 
 /* ── BUTTONS ── */
 .btn-cta {
-  display: flex; align-items: center; justify-content: center; gap: 8px;
+  display: block;
   width: 100%;
-  padding: 15px 20px;
+  padding: 16px;
+  border: none;
   border-radius: var(--radius-lg);
-  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-deep) 100%);
-  color: #06080e;
-  font-family: var(--font-title);
-  font-weight: 700;
-  font-size: 0.95rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  border: none;
-  cursor: pointer;
-  transition: opacity 0.15s, transform 0.15s, box-shadow 0.18s;
-  -webkit-tap-highlight-color: transparent;
-  box-shadow: 0 4px 24px rgba(0,212,255,0.3);
-  margin-top: 10px;
-}
-.btn-cta:hover { box-shadow: 0 6px 32px rgba(0,212,255,0.5); transform: translateY(-1px); }
-.btn-cta:active { opacity: 0.85; transform: scale(0.98); }
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 14px 20px;
-  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--accent), #0099bb);
+  color: #fff;
   font-family: var(--font-body);
+  font-weight: 700;
   font-size: 0.88rem;
-  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
   cursor: pointer;
-  border: none;
-  transition: opacity 0.15s, transform 0.1s;
-  letter-spacing: 0.03em;
+  box-shadow: var(--shadow-glow-cyan);
+  transition: transform 150ms ease, box-shadow 150ms ease;
+  position: relative;
+  overflow: hidden;
 }
-.btn:active { transform: scale(0.98); }
-.btn-full { width: 100%; }
-
+.btn-cta:active { transform: scale(0.98); }
 .btn-cta-green {
-  background: linear-gradient(135deg, #00e676 0%, #00c853 100%);
-  color: #06080e;
-  box-shadow: 0 4px 24px rgba(0,230,118,0.25);
+  background: linear-gradient(135deg, var(--green), #00aa55);
+  box-shadow: var(--shadow-glow-green);
 }
-.btn-cta-cyan {
-  background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
-  color: #06080e;
-  box-shadow: 0 4px 24px rgba(0,212,255,0.25);
-}
-.btn-outline-cyan {
-  background: rgba(0,212,255,0.06);
-  border: 1px solid rgba(0,212,255,0.3);
-  color: var(--accent);
-}
-.btn-outline-red {
-  background: rgba(255,59,92,0.06);
-  border: 1px solid rgba(255,59,92,0.3);
-  color: var(--red);
-}
-.btn-outline-border {
-  background: none;
-  border: 1px solid var(--border-light);
-  color: var(--text-secondary);
+.btn-cta-red {
+  background: linear-gradient(135deg, var(--red), #cc2244);
+  box-shadow: var(--shadow-glow-red);
 }
 
 .btn-small {
-  display: inline-flex; align-items: center; justify-content: center;
-  padding: 7px 14px;
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  border: 1px solid var(--border);
   border-radius: var(--radius-sm);
-  background: var(--bg-surface);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: transparent;
   color: var(--text-secondary);
   font-family: var(--font-body);
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: 500;
+  font-size: 0.78rem;
   cursor: pointer;
-  transition: border-color 0.15s, color 0.15s;
-  -webkit-tap-highlight-color: transparent;
+  transition: border-color 200ms, color 200ms, background 200ms;
 }
-.btn-small:hover { border-color: rgba(255,255,255,0.15); color: var(--text-primary); }
-.btn-small:active { border-color: var(--accent); color: var(--accent); }
-.btn-small.danger { color: var(--red); border-color: rgba(255,59,92,0.2); }
-.btn-small.danger:hover { border-color: var(--red); background: rgba(255,59,92,0.08); }
+.btn-small:hover, .btn-small:active {
+  border-color: var(--border-accent);
+  color: var(--accent);
+  background: var(--accent-dim);
+}
+.btn-small-accent {
+  border-color: var(--border-accent);
+  color: var(--accent);
+}
+.btn-small-red {
+  border-color: rgba(255,59,92,0.2);
+  color: var(--red);
+}
+.btn-small-yellow {
+  border-color: rgba(255,214,0,0.2);
+  color: var(--yellow);
+}
 
-.btn-outline {
+.btn-outline-dashed {
+  display: block;
   width: 100%;
-  padding: 12px;
+  padding: 14px;
+  border: 1px dashed rgba(255,255,255,0.1);
   border-radius: var(--radius-md);
   background: transparent;
-  border: 1px solid var(--border-light);
-  color: var(--text-secondary);
-  font-family: var(--font-body);
-  font-size: 0.85rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.15s;
-  text-align: center;
-  margin-top: 4px;
-}
-.btn-outline:hover { border-color: var(--accent); color: var(--accent); }
-
-/* ── INPUT ── */
-input[type="text"], input[type="password"], input[type="date"] {
-  width: 100%;
-  background: var(--bg-card);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: var(--radius-md);
-  padding: 14px 16px;
-  color: var(--text-primary);
-  font-family: var(--font-body);
-  font-size: 1rem;
-  color-scheme: dark;
-  outline: none;
-  transition: border-color 0.2s;
-}
-input:focus { border-color: rgba(0,212,255,0.4); }
-
-.input-group { display: flex; flex-direction: column; gap: 6px; }
-.input-label { font-size: 0.75rem; color: var(--text-muted); font-weight: 500; letter-spacing: 0.04em; }
-.input-field {
-  background: var(--bg-card);
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-md);
-  padding: 14px 16px;
-  color: var(--text-primary);
-  font-family: var(--font-body);
-  font-size: 0.9rem;
-  outline: none;
-  transition: border-color 0.15s;
-  width: 100%;
-}
-.input-field:focus { border-color: var(--accent); }
-.input-field::placeholder { color: var(--text-muted); }
-textarea.input-field { resize: none; line-height: 1.5; }
-.input-hint { font-size: 0.68rem; color: var(--text-muted); padding-top: 2px; }
-
-/* ── PROGRESS BAR ── */
-.prog-bar-bg {
-  height: 8px;
-  background: var(--bg-elevated);
-  border-radius: 4px;
-  overflow: hidden;
-}
-.prog-bar-fill {
-  height: 100%;
-  border-radius: 4px;
-  transition: width 0.5s ease;
-}
-.prog-bar-fill.cyan  { background: var(--accent); box-shadow: 0 0 10px rgba(0,212,255,0.35); }
-.prog-bar-fill.green { background: var(--green);  box-shadow: 0 0 10px rgba(0,230,118,0.25); }
-
-/* ── SLOT GRID (Dashboard) ── */
-.slot-section { margin-top: 14px; }
-.slot-section-header {
-  display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 6px;
-}
-.slot-section-name { font-size: 0.75rem; color: var(--text-secondary); font-weight: 500; }
-.slot-section-count { font-size: 0.68rem; font-family: var(--font-mono); color: var(--text-muted); }
-.slot-row { display: flex; flex-wrap: wrap; gap: 4px; }
-.ks {
-  width: 30px; height: 28px;
-  border-radius: 5px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.48rem;
-  font-family: var(--font-mono);
-  font-weight: 700;
-  background: var(--bg-surface);
   color: var(--text-muted);
-  border: 1px solid var(--border);
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: border-color 200ms, color 200ms;
 }
-.ks.done { border-color: transparent; }
-.ks.done.c  { background: rgba(0,212,255,0.28);  color: var(--accent); }
-.ks.done.g  { background: rgba(0,230,118,0.28);  color: var(--green); }
-.ks.done.y  { background: rgba(255,214,0,0.28);  color: var(--yellow); }
+.btn-outline-dashed:hover { border-color: var(--border-accent); color: var(--accent); }
 
-/* ── DIVIDER ── */
-.divider { height: 1px; background: var(--border); margin: 16px 0; }
+.btn-link {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: color 200ms;
+}
+.btn-link:hover { color: var(--text-secondary); }
 
-/* ══════════════════════════════════════════
-   NAVBAR
-══════════════════════════════════════════ */
+/* ── SLOT GRID ── */
+.slot-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+.slot-row-label {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  min-width: 70px;
+  font-weight: 500;
+}
+.slot-row-count {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  min-width: 30px;
+}
+.slot {
+  width: 28px;
+  height: 26px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  font-weight: 600;
+  transition: transform 150ms, box-shadow 150ms;
+}
+.slot-empty {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+}
+.slot-cyan {
+  background: var(--accent-dim);
+  border: 1px solid rgba(0,212,255,0.3);
+  color: var(--accent);
+  animation: slotPulse 2s ease-in-out infinite;
+}
+.slot-green {
+  background: var(--green-dim);
+  border: 1px solid rgba(0,230,118,0.3);
+  color: var(--green);
+  animation: slotPulse 2s ease-in-out infinite;
+}
+.slot-yellow {
+  background: var(--yellow-dim);
+  border: 1px solid rgba(255,214,0,0.3);
+  color: var(--yellow);
+  animation: slotPulse 2s ease-in-out infinite;
+}
+.slot-red {
+  background: var(--red-dim);
+  border: 1px solid rgba(255,59,92,0.3);
+  color: var(--red);
+  animation: slotPulse 2s ease-in-out infinite;
+}
+.slot-lg { width: 38px; height: 38px; border-radius: 10px; font-size: 0.58rem; }
+
+@keyframes slotPulse {
+  0%, 100% { box-shadow: 0 0 0 0 transparent; }
+  50% { box-shadow: 0 0 8px rgba(0,212,255,0.15); }
+}
+
+/* ── NAVBAR ── */
 .navbar {
   position: fixed;
   bottom: 0;
@@ -352,2204 +444,1986 @@ textarea.input-field { resize: none; line-height: 1.5; }
   width: 100%;
   max-width: 420px;
   height: var(--navbar-h);
-  background: rgba(13,17,23,0.85);
+  background: rgba(7,10,18,0.85);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-top: 1px solid rgba(255,255,255,0.07);
+  border-top: 1px solid;
+  border-image: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent) 1;
   display: flex;
-  align-items: center;
   justify-content: space-around;
-  padding: 0 8px;
+  align-items: center;
   z-index: 100;
-  padding-bottom: env(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom, 0);
+  transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
 }
+.navbar.hidden { transform: translateX(-50%) translateY(100%); }
 
-.nav-btn {
+.nav-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 5px;
-  padding: 8px 20px 4px;
-  border: none;
-  background: none;
+  gap: 4px;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  padding: 8px 20px;
   position: relative;
-  transition: transform 0.15s;
+  transition: color 200ms;
 }
-.nav-btn:active { transform: scale(0.92); }
-.nav-icon { color: var(--text-muted); transition: color 0.2s; }
-.nav-btn.active .nav-icon { color: var(--accent); }
-.nav-label { font-size: 0.62rem; font-weight: 600; color: var(--text-muted); letter-spacing: 0.04em; transition: color 0.2s; }
-.nav-btn.active .nav-label { color: var(--accent); }
-.nav-dot {
-  position: absolute; bottom: 2px; left: 50%; transform: translateX(-50%);
-  width: 4px; height: 4px; border-radius: 50%;
-  background: var(--accent); opacity: 0; transition: opacity 0.2s;
-}
-.nav-btn.active .nav-dot { opacity: 1; }
+.nav-item svg { width: 22px; height: 22px; stroke: var(--text-muted); fill: none; stroke-width: 1.8; transition: stroke 200ms; }
+.nav-item span { font-size: 0.6rem; color: var(--text-muted); font-weight: 500; transition: color 200ms; }
+.nav-item.active svg { stroke: var(--accent); }
+.nav-item.active span { color: var(--accent); }
 
-/* ══════════════════════════════════════════
-   SCREEN LOGIN
-══════════════════════════════════════════ */
+/* Navbar indicator */
+.nav-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 33.33%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  transition: left 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ── INPUTS ── */
+.input {
+  width: 100%;
+  padding: 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 16px; /* iOS no-zoom */
+  transition: border-color 200ms, box-shadow 200ms;
+  outline: none;
+  color-scheme: dark;
+}
+.input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-dim), var(--shadow-glow-cyan);
+}
+.input-label {
+  display: block;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+/* ── PILLS / TOGGLE ── */
+.pill-group {
+  display: flex;
+  gap: 8px;
+}
+.pill {
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 200ms, color 200ms, border-color 200ms, transform 200ms;
+  border: 1px solid var(--border);
+  background: var(--bg-surface);
+  color: var(--text-muted);
+}
+.pill.active {
+  background: var(--accent-dim);
+  border-color: var(--border-accent);
+  color: var(--accent);
+  transform: scale(1.02);
+}
+
+/* ── SECTION GAPS ── */
+.section { margin-bottom: 28px; }
+.card + .card { margin-top: 12px; }
+
+/* ── HEADER BAR ── */
+.header-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.header-bar .back-btn {
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 10px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: background 200ms, border-color 200ms;
+  flex-shrink: 0;
+}
+.header-bar .back-btn:hover { background: var(--bg-elevated); border-color: var(--border-accent); }
+.header-bar .back-btn svg { width: 18px; height: 18px; stroke: var(--text-secondary); fill: none; stroke-width: 2; }
+
+/* ── GLOW TEXT ── */
+.glow-cyan { text-shadow: 0 0 20px rgba(0,212,255,0.4); }
+.glow-green { text-shadow: 0 0 20px rgba(0,230,118,0.4); }
+.glow-red { text-shadow: 0 0 20px rgba(255,59,92,0.4); }
+.glow-neon { text-shadow: 0 0 30px rgba(0,212,255,0.4), 0 0 60px rgba(0,212,255,0.15); }
+
+/* ── DETAILS / SUMMARY ── */
+details summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+details summary::-webkit-details-marker { display: none; }
+details summary .tri {
+  display: inline-block;
+  transition: transform 200ms;
+  font-size: 0.6rem;
+  color: var(--text-muted);
+}
+details[open] summary .tri { transform: rotate(90deg); }
+
+/* ── PIN OVERLAY ── */
+.pin-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(4,6,12,0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 200;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.pin-overlay.visible {
+  display: flex;
+  animation: fadeInOverlay 300ms ease forwards;
+}
+@keyframes fadeInOverlay {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.pin-dots {
+  display: flex;
+  gap: 16px;
+  margin: 24px 0 32px;
+}
+.pin-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.15);
+  transition: background 200ms, border-color 200ms, transform 200ms;
+}
+.pin-dot.filled {
+  background: var(--accent);
+  border-color: var(--accent);
+  transform: scale(1.2);
+  box-shadow: 0 0 12px rgba(0,212,255,0.4);
+  animation: dotFill 200ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes dotFill {
+  0% { transform: scale(0.5); }
+  60% { transform: scale(1.3); }
+  100% { transform: scale(1.2); }
+}
+
+.pin-numpad {
+  display: grid;
+  grid-template-columns: repeat(3, 64px);
+  gap: 12px;
+}
+.pin-key {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: background 150ms, transform 150ms, border-color 150ms;
+  position: relative;
+  overflow: hidden;
+}
+.pin-key:active { background: var(--bg-elevated); transform: scale(0.95); }
+.pin-key.empty { background: transparent; border: none; cursor: default; }
+
+/* ── COUNT-UP ANIMATION ── */
+.count-up {
+  display: inline-block;
+}
+
+/* ── BLINK CURSOR ── */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.cursor-blink {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: var(--accent);
+  animation: blink 1s step-end infinite;
+  vertical-align: text-bottom;
+  margin-left: 2px;
+}
+
+/* ── SAVED INDICATOR ── */
+@keyframes savedPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+.saved-indicator {
+  color: var(--green);
+  font-size: 0.75rem;
+  font-weight: 600;
+  animation: savedPulse 2s ease-in-out infinite;
+  text-shadow: 0 0 10px rgba(0,230,118,0.3);
+}
+
+/* ── TABLE ── */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.7rem;
+  font-family: var(--font-mono);
+}
+.data-table th {
+  padding: 8px 6px;
+  text-align: left;
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-bottom: 1px solid var(--border);
+}
+.data-table td {
+  padding: 8px 6px;
+  color: var(--text-secondary);
+  border-bottom: 1px solid rgba(255,255,255,0.02);
+}
+.data-table tr:nth-child(even) td { background: rgba(255,255,255,0.015); }
+
+/* ── CALENDAR ── */
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+.cal-head {
+  text-align: center;
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  padding: 8px 0;
+  font-weight: 600;
+}
+.cal-cell {
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  border-radius: 10px;
+  position: relative;
+  cursor: pointer;
+  transition: background 200ms;
+  max-height: 40px;
+}
+.cal-cell:hover { background: rgba(255,255,255,0.03); }
+.cal-cell.today {
+  border: 1.5px solid var(--accent);
+  color: var(--accent);
+  font-weight: 700;
+}
+.cal-cell.empty { cursor: default; }
+.cal-dots {
+  display: flex;
+  gap: 3px;
+  margin-top: 2px;
+}
+.cal-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+}
+.cal-dot-cyan { background: var(--accent); }
+.cal-dot-green { background: var(--green); }
+.cal-dot-yellow { background: var(--yellow); }
+.cal-dot-orange { background: var(--orange); }
+
+/* ── EDITOR ── */
+.editor-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  min-height: 280px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  line-height: 1.8;
+}
+.editor-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.editor-line-num {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  min-width: 16px;
+  text-align: right;
+  user-select: none;
+}
+.editor-line-indicator {
+  width: 3px;
+  height: 1.2em;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.editor-line-text {
+  color: var(--text-secondary);
+  flex: 1;
+}
+
+/* ── COUNTER PILLS ── */
+.counter-strip {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.counter-pill {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+/* ── WHATSAPP BOX ── */
+.wa-box {
+  background: var(--bg-surface);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  white-space: pre-line;
+  line-height: 1.6;
+}
+
+/* ── LOGIN SPECIFIC ── */
 #screen-login {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  padding: 40px 24px;
-  min-height: 100vh;
+  justify-content: center;
+  padding-bottom: 40px;
 }
-.login-hero { text-align: center; margin-bottom: 48px; }
-.login-logo {
-  font-family: var(--font-title); font-size: 3.2rem; font-weight: 700;
-  color: var(--text-primary); letter-spacing: -0.02em; line-height: 1; margin-bottom: 4px;
+#screen-login .logo-m {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: 4rem;
+  color: var(--accent);
+  text-shadow: 0 0 40px rgba(0,212,255,0.4), 0 0 80px rgba(0,212,255,0.15);
+  position: relative;
+  line-height: 1;
 }
-.login-logo span { color: var(--accent); }
-.login-app-name { font-family: var(--font-body); font-size: 1.1rem; font-weight: 300; color: var(--text-secondary); letter-spacing: 0.04em; margin-bottom: 10px; }
-.login-subtitle { font-size: 0.78rem; color: var(--text-muted); letter-spacing: 0.02em; }
-.login-label {
-  font-family: var(--font-title); font-size: 0.62rem; font-weight: 700;
-  letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted);
-  margin-bottom: 12px; align-self: flex-start; width: 100%; max-width: 340px;
+#screen-login .logo-m sup {
+  font-size: 1.2rem;
+  font-weight: 700;
+  position: relative;
+  top: -1.8rem;
+  margin-left: -4px;
 }
-.user-cards { display: flex; gap: 14px; width: 100%; max-width: 340px; margin-bottom: 0; }
+#screen-login .logo-subtitle {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 1.1rem;
+  letter-spacing: 0.3em;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+#screen-login .logo-desc {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-top: 8px;
+}
+
+.user-cards {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+  width: 100%;
+  max-width: 300px;
+  justify-content: center;
+}
 .user-card {
-  flex: 1; background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: var(--radius-lg); padding: 20px 16px;
-  display: flex; flex-direction: column; align-items: center; gap: 12px;
-  cursor: pointer; transition: border-color 0.2s, transform 0.2s, background 0.2s;
-  -webkit-tap-highlight-color: transparent;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 16px;
+  cursor: pointer;
 }
-.user-card:hover, .user-card:active { border-color: rgba(255,255,255,0.15); background: #111820; transform: translateY(-2px); }
-.avatar {
-  width: 52px; height: 52px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-title); font-size: 1.3rem; font-weight: 700;
+.user-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #fff;
+  margin-bottom: 10px;
+  transition: box-shadow 200ms;
 }
-.avatar-cyan  { background: rgba(0,212,255,0.15); color: var(--accent); border: 1.5px solid rgba(0,212,255,0.3); }
-.avatar-green { background: rgba(0,230,118,0.15); color: var(--green);  border: 1.5px solid rgba(0,230,118,0.3); }
-.user-name { font-size: 0.88rem; font-weight: 600; color: var(--text-primary); }
-
-/* PIN PAD OVERLAY */
-.pin-overlay {
-  display: none; position: fixed; inset: 0; z-index: 200;
-  background: rgba(6,8,14,0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-  flex-direction: column; align-items: center; justify-content: center; gap: 32px;
-  padding: 32px 24px; max-width: 420px; left: 50%; transform: translateX(-50%); width: 100%;
+.user-avatar-cyan {
+  background: linear-gradient(135deg, var(--accent), #0088aa);
+  box-shadow: 0 0 20px rgba(0,212,255,0.2);
 }
-.pin-overlay.visible { display: flex; }
-.pin-header { text-align: center; }
-.pin-user-row { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; justify-content: center; }
-.pin-title { font-family: var(--font-title); font-size: 1.1rem; font-weight: 700; color: var(--text-primary); }
-.pin-subtitle { font-size: 0.8rem; color: var(--text-muted); }
-.pin-dots { display: flex; gap: 16px; justify-content: center; }
-.pin-dot {
-  width: 14px; height: 14px; border-radius: 50%;
-  border: 2px solid var(--text-muted); background: transparent;
-  transition: background 0.15s, border-color 0.15s, transform 0.15s;
+.user-avatar-green {
+  background: linear-gradient(135deg, var(--green), #008844);
+  box-shadow: 0 0 20px rgba(0,230,118,0.2);
 }
-.pin-dot.filled { background: var(--accent); border-color: var(--accent); transform: scale(1.1); }
-.pin-pad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; width: 100%; max-width: 280px; }
-.pin-key {
-  aspect-ratio: 1; border-radius: var(--radius-md); background: var(--bg-card);
-  border: 1px solid var(--border); color: var(--text-primary);
-  font-family: var(--font-body); font-size: 1.2rem; font-weight: 600;
-  cursor: pointer; display: flex; align-items: center; justify-content: center;
-  transition: background 0.1s, transform 0.1s; -webkit-tap-highlight-color: transparent;
+.user-card:hover .user-avatar,
+.user-card:active .user-avatar {
+  box-shadow: 0 0 30px rgba(0,212,255,0.35);
 }
-.pin-key:active { background: var(--bg-elevated); transform: scale(0.93); }
-.pin-key.del    { color: var(--text-secondary); font-size: 1rem; }
-.pin-key.empty  { background: transparent; border-color: transparent; cursor: default; pointer-events: none; }
-.pin-cancel { font-size: 0.8rem; color: var(--text-muted); cursor: pointer; padding: 8px 16px; border: none; background: none; -webkit-tap-highlight-color: transparent; }
-
-/* ══════════════════════════════════════════
-   SCREEN DASHBOARD
-══════════════════════════════════════════ */
-#screen-dashboard { padding-top: 0; }
-.dash-header { display: flex; align-items: flex-start; justify-content: space-between; padding: 52px 20px 20px; }
-.dash-greeting { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 3px; }
-.dash-name { font-family: var(--font-title); font-size: 1.5rem; font-weight: 700; color: var(--text-primary); line-height: 1.1; margin-bottom: 5px; }
-.dash-date { font-size: 0.75rem; color: var(--text-muted); }
-.dash-avatar { width: 40px; height: 40px; flex-shrink: 0; margin-top: 4px; }
-
-.cantieri-list { display: flex; flex-direction: column; gap: 0; padding: 0 16px; }
-.cantiere-card {
-  background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg);
-  padding: 18px 20px; margin-bottom: 12px; cursor: pointer;
-  transition: border-color 0.2s, transform 0.15s; -webkit-tap-highlight-color: transparent;
-}
-.cantiere-card:active { transform: scale(0.99); }
-.cantiere-card.active-card { border-color: rgba(0,212,255,0.18); border-left: 3px solid var(--accent); }
-.cantiere-card.active-card-green { border-left: 3px solid var(--green); }
-
-.cc-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
-.cc-name { font-size: 0.95rem; font-weight: 700; color: var(--text-primary); line-height: 1.3; }
-.cc-sub { font-size: 0.72rem; color: var(--text-muted); margin-bottom: 12px; font-family: var(--font-mono); }
-.cc-stats { display: flex; gap: 16px; margin-bottom: 14px; }
-.cc-stat { display: flex; flex-direction: column; gap: 2px; }
-.cc-stat-val { font-family: var(--font-mono); font-size: 0.9rem; font-weight: 700; color: var(--text-primary); }
-.cc-stat-val.red { color: var(--red); }
-.cc-stat-label { font-size: 0.62rem; color: var(--text-muted); letter-spacing: 0.02em; }
-.card-slots { margin-bottom: 14px; }
-.cc-progress { margin-bottom: 14px; }
-.cc-progress-top { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 6px; }
-.cc-progress-pct { font-family: var(--font-mono); font-size: 1.05rem; font-weight: 700; color: var(--accent); }
-.cc-progress-detail { font-size: 0.7rem; color: var(--text-muted); font-family: var(--font-mono); }
-.cc-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 12px; border-top: 1px solid var(--border); }
-.cc-footer-left { font-size: 0.7rem; color: var(--text-muted); }
-.cc-footer-left span { margin-right: 10px; }
-
-.section-collapse { display: flex; align-items: center; justify-content: space-between; padding: 8px 20px; cursor: pointer; -webkit-tap-highlight-color: transparent; }
-.section-collapse-arrow { color: var(--text-muted); font-size: 0.7rem; transition: transform 0.2s; }
-.section-collapse-arrow.open { transform: rotate(180deg); }
-.pausa-empty { padding: 16px 20px; font-size: 0.8rem; color: var(--text-muted); font-style: italic; }
-
-.notti-list { display: flex; flex-direction: column; gap: 8px; padding: 0 16px; margin-bottom: 8px; }
-.notte-card-dash {
-  background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md);
-  padding: 14px 16px; display: flex; align-items: center; justify-content: space-between;
-  cursor: pointer; transition: border-color 0.15s;
-}
-.notte-card-dash:hover { border-color: var(--border-light); }
-.notte-left {}
-.notte-date-dash { font-size: 0.82rem; font-weight: 600; color: var(--text-primary); margin-bottom: 3px; }
-.notte-meta-dash { font-size: 0.7rem; color: var(--text-secondary); }
-.notte-meta-dash span { margin-right: 6px; }
-.notte-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
-.notte-sald { font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: var(--accent); }
-.notte-ops { font-size: 0.65rem; color: var(--text-muted); font-family: var(--font-mono); }
-
-/* ══════════════════════════════════════════
-   SCREEN CANTIERE (from part2)
-══════════════════════════════════════════ */
-.header {
-  position: sticky; top: 0; z-index: 100;
-  background: var(--bg-glass); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border); padding: 14px 16px;
-  display: flex; align-items: center; gap: 12px;
-}
-.btn-back {
-  width: 36px; height: 36px; border-radius: 10px;
-  background: var(--bg-surface); border: 1px solid var(--border-light);
-  color: var(--text-secondary); cursor: pointer;
-  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-  transition: all 0.15s;
-}
-.btn-back:hover { background: var(--bg-card); color: var(--text-primary); }
-.btn-back svg { width: 16px; height: 16px; }
-.header-title {
-  flex: 1; font-family: var(--font-title); font-size: 0.95rem; font-weight: 700;
-  color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
-.btn-edit {
-  padding: 6px 14px; border-radius: 8px; background: var(--bg-surface);
-  border: 1px solid var(--border-light); color: var(--text-secondary);
-  font-family: var(--font-body); font-size: 0.78rem; font-weight: 600;
-  cursor: pointer; transition: all 0.15s; white-space: nowrap;
-}
-.btn-edit:hover { border-color: var(--accent); color: var(--accent); }
-.btn-header-action {
-  background: none; border: 1px solid var(--border-light); border-radius: 8px;
-  color: var(--accent); font-family: var(--font-body); font-size: 0.72rem;
-  font-weight: 600; padding: 6px 12px; cursor: pointer; white-space: nowrap;
-  letter-spacing: 0.03em; transition: background 0.15s;
-}
-.btn-header-action:hover { background: rgba(0,212,255,0.08); }
-
-.saved-indicator { display: flex; align-items: center; gap: 5px; font-size: 0.75rem; font-weight: 600; color: var(--green); filter: drop-shadow(0 0 6px rgba(0,230,118,0.5)); white-space: nowrap; }
-.saved-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); }
-
-.page-content { padding: 0 14px; }
-
-.status-main { margin-top: 14px; }
-.status-headline { font-size: 0.88rem; font-weight: 500; color: var(--text-secondary); margin-bottom: 4px; }
-.status-headline .val-green { font-weight: 700; color: var(--green); }
-.status-headline .val-red { font-weight: 700; color: var(--red); }
-.status-deadline { font-size: 0.8rem; color: var(--text-muted); margin-top: 3px; }
-.card-separator { height: 1px; background: var(--border); margin: 14px 0; }
-
-.progress-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
-.progress-pct { font-family: var(--font-title); font-size: 2.2rem; font-weight: 700; color: var(--accent); line-height: 1; }
-.progress-slots { font-size: 0.82rem; font-weight: 500; color: var(--text-secondary); text-align: right; }
-.progress-slots span { display: block; font-size: 0.72rem; color: var(--text-muted); margin-top: 2px; }
-
-.bar-outer { width: 100%; height: 10px; background: rgba(255,255,255,0.05); border-radius: 5px; overflow: visible; position: relative; }
-.bar-fill { height: 100%; border-radius: 5px; position: relative; }
-.bar-fill.cyan { background: var(--accent); box-shadow: 0 0 12px rgba(0,212,255,0.5); }
-.bar-fill.green { background: var(--green); box-shadow: 0 0 12px rgba(0,230,118,0.4); }
-.bar-fill.yellow { background: var(--yellow); box-shadow: 0 0 10px rgba(255,214,0,0.4); }
-.bar-fill.red { background: var(--red); box-shadow: 0 0 10px rgba(255,59,92,0.4); }
-
-/* Slot Groups (Cantiere) */
-.slot-groups { margin-top: 14px; display: flex; flex-direction: column; gap: 10px; }
-.slot-group-row { display: flex; align-items: flex-start; gap: 10px; }
-.slot-group-label { font-size: 0.72rem; font-weight: 600; color: var(--text-muted); width: 80px; flex-shrink: 0; padding-top: 4px; }
-.slot-group-label span { display: block; font-size: 0.65rem; color: var(--text-muted); opacity: 0.7; }
-.slot-mini-grid { display: flex; flex-wrap: wrap; gap: 3px; flex: 1; }
-.slot-mini {
-  width: 30px; height: 28px; border-radius: 6px;
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-mono); font-size: 0.52rem; font-weight: 500;
-  border: 1px solid transparent; cursor: default;
-}
-.slot-mini.done-cyan { background: rgba(0,212,255,0.12); border-color: rgba(0,212,255,0.3); color: var(--accent); }
-.slot-mini.done-green { background: rgba(0,230,118,0.1); border-color: rgba(0,230,118,0.25); color: var(--green); }
-.slot-mini.done-yellow { background: rgba(255,214,0,0.1); border-color: rgba(255,214,0,0.25); color: var(--yellow); }
-.slot-mini.empty { background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.07); color: var(--text-muted); }
-
-/* Linea Cards */
-.linea-card { margin-bottom: 10px; }
-.linea-label-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
-.linea-name { font-size: 0.82rem; font-weight: 600; color: var(--text-primary); }
-.linea-missing { font-size: 0.72rem; font-weight: 500; color: var(--text-muted); }
-.milestones { display: flex; justify-content: space-between; margin-top: 7px; }
-.milestone { font-family: var(--font-mono); font-size: 0.62rem; color: var(--text-muted); }
-.milestone.active { color: var(--accent); }
-.km-marker-row { display: flex; align-items: center; gap: 6px; margin-top: 6px; }
-.km-marker-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 8px var(--accent); flex-shrink: 0; }
-.km-marker-dot.green { background: var(--green); box-shadow: 0 0 8px var(--green); }
-.km-marker-label { font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-secondary); }
-
-/* Altre Lavorazioni */
-.lav-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
-.lav-title { font-size: 0.82rem; font-weight: 600; color: var(--text-primary); }
-.slot-big-grid { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
-.slot-big {
-  width: 40px; height: 40px; border-radius: 8px;
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-mono); font-size: 0.6rem; font-weight: 600;
-  border: 1px solid transparent; cursor: pointer; transition: all 0.15s;
-}
-.slot-big.done-yellow { background: rgba(255,214,0,0.12); border-color: rgba(255,214,0,0.35); color: var(--yellow); }
-.slot-big.done-green { background: rgba(0,230,118,0.1); border-color: rgba(0,230,118,0.3); color: var(--green); }
-.slot-big.empty { background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.08); color: var(--text-muted); }
-.slot-big:hover { border-color: rgba(255,255,255,0.2); }
-
-/* Notti (Cantiere) */
-.notte-card {
-  background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: var(--radius-lg); padding: 14px 16px; margin-bottom: 8px;
-}
-.notte-header { display: flex; align-items: center; justify-content: space-between; }
-.notte-date { font-size: 0.88rem; font-weight: 600; color: var(--text-primary); }
-.notte-badge {
-  width: 32px; height: 32px; border-radius: 8px;
-  background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.2);
-  color: var(--accent); font-family: var(--font-mono); font-size: 0.78rem;
-  font-weight: 700; display: flex; align-items: center; justify-content: center;
-}
-.notte-badge.green-badge { background: rgba(0,230,118,0.1); border-color: rgba(0,230,118,0.2); color: var(--green); }
-.notte-meta { font-size: 0.75rem; color: var(--text-muted); margin-top: 4px; }
-.notte-stasera { border-color: rgba(0,212,255,0.2); background: rgba(0,212,255,0.04); }
-.notte-stasera-row { display: flex; align-items: center; justify-content: space-between; }
-.meteo-info { display: flex; align-items: center; gap: 6px; font-size: 0.75rem; color: var(--text-secondary); }
-.meteo-icon { font-size: 1rem; }
-.notte-actions { display: flex; gap: 6px; }
-.btn-skip {
-  padding: 6px 12px; border-radius: 7px; background: rgba(255,214,0,0.08);
-  border: 1px solid rgba(255,214,0,0.25); color: var(--yellow);
-  font-size: 0.73rem; font-weight: 600; cursor: pointer; transition: all 0.15s;
-}
-.btn-skip:hover { background: rgba(255,214,0,0.15); }
-.btn-delete {
-  width: 30px; height: 30px; border-radius: 7px;
-  background: rgba(255,59,92,0.08); border: 1px solid rgba(255,59,92,0.25);
-  color: var(--red); font-size: 0.9rem; cursor: pointer;
-  display: flex; align-items: center; justify-content: center; transition: all 0.15s;
-}
-.btn-delete:hover { background: rgba(255,59,92,0.15); }
-
-/* Difetti (Cantiere) */
-.difetto-card-cantiere {
-  background: var(--bg-card); border: 1px solid rgba(255,59,92,0.15);
-  border-radius: var(--radius-md); padding: 14px 16px; margin-bottom: 8px;
-}
-.difetto-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
-.difetto-km { font-family: var(--font-mono); font-size: 0.9rem; font-weight: 700; color: var(--red); }
-.difetto-code {
-  font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: var(--red);
-  background: rgba(255,59,92,0.1); border: 1px solid rgba(255,59,92,0.2);
-  border-radius: 6px; padding: 2px 8px;
-}
-.difetto-meta { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 10px; }
-.btn-risolto {
-  padding: 7px 14px; border-radius: 8px; background: rgba(0,230,118,0.06);
-  border: 1px solid rgba(0,230,118,0.2); color: var(--green);
-  font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: all 0.15s;
-}
-.btn-risolto:hover { background: rgba(0,230,118,0.12); border-color: rgba(0,230,118,0.4); }
-
-.gestione-row { display: flex; gap: 8px; margin-top: 8px; }
-.section-header-row { display: flex; align-items: center; justify-content: space-between; margin: 24px 0 10px; }
-.section-header-row .section-title { margin: 0; }
-
-/* ══════════════════════════════════════════
-   SCREEN NOTTE (from part2)
-══════════════════════════════════════════ */
-.operator-pills { display: flex; gap: 8px; padding: 14px 14px 0; flex-wrap: wrap; }
-.pill.active-cyan { background: rgba(0,212,255,0.12); border-color: rgba(0,212,255,0.4); color: var(--accent); }
-.pill.inactive { background: var(--bg-surface); border-color: var(--border-light); color: var(--text-muted); }
-
-.binario-select-wrap { padding: 10px 14px 0; }
-.binario-select {
-  width: 100%; padding: 10px 14px; border-radius: var(--radius-md);
-  background: var(--bg-surface); border: 1px solid var(--border-light);
-  color: var(--text-primary); font-family: var(--font-body); font-size: 16px;
-  font-weight: 600; appearance: none; -webkit-appearance: none; cursor: pointer;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238b949e' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat; background-position: right 14px center;
-}
-.binario-select:focus { outline: none; border-color: rgba(0,212,255,0.4); }
-
-.editor-wrap { padding: 12px 14px 0; }
-.editor-box {
-  background: var(--bg-card); border: 1px solid var(--border-light);
-  border-radius: var(--radius-lg); padding: 16px; min-height: 300px; position: relative;
-}
-.editor-lines { display: flex; flex-direction: column; gap: 6px; }
-.editor-line {
-  display: flex; align-items: center; gap: 8px;
-  padding: 5px 8px; border-radius: 7px; cursor: pointer; transition: background 0.12s;
-}
-.editor-line:hover { background: rgba(255,255,255,0.03); }
-.line-num { font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted); width: 14px; flex-shrink: 0; text-align: right; }
-.line-indicator { width: 4px; height: 16px; border-radius: 2px; flex-shrink: 0; }
-.line-indicator.green { background: var(--green); }
-.line-indicator.red { background: var(--red); }
-.line-indicator.yellow { background: var(--yellow); }
-.line-text { font-family: var(--font-mono); font-size: 0.82rem; line-height: 1.4; flex: 1; }
-.line-text.green { color: rgba(0,230,118,0.9); }
-.line-text.red { color: rgba(255,59,92,0.9); }
-.line-text.yellow { color: rgba(255,214,0,0.9); }
-.editor-cursor { display: inline-block; width: 2px; height: 0.82rem; background: var(--accent); margin-left: 1px; animation: blink 1.1s step-end infinite; }
-
-.counters-strip { display: flex; gap: 6px; padding: 10px 14px 0; flex-wrap: wrap; }
-.counter-pill { display: flex; align-items: center; gap: 4px; padding: 5px 10px; border-radius: 8px; font-size: 0.75rem; font-weight: 600; }
-.counter-pill.ok { background: rgba(0,212,255,0.08); border: 1px solid rgba(0,212,255,0.2); color: var(--accent); }
-.counter-pill.difetto { background: rgba(255,59,92,0.08); border: 1px solid rgba(255,59,92,0.2); color: var(--red); }
-.counter-pill.nodac { background: rgba(255,214,0,0.08); border: 1px solid rgba(255,214,0,0.2); color: var(--yellow); }
-.counter-pill.righe { background: rgba(255,255,255,0.04); border: 1px solid var(--border); color: var(--text-muted); }
-
-.notte-actions-wrap { padding: 14px 14px 0; display: flex; flex-direction: column; gap: 8px; }
-.notte-actions-row { display: flex; gap: 8px; }
-.btn-cta-notte {
-  flex: 1; padding: 14px; border-radius: var(--radius-lg);
-  background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
-  border: none; color: #06080e; font-family: var(--font-title);
-  font-size: 0.9rem; font-weight: 700; letter-spacing: 0.05em;
-  text-transform: uppercase; cursor: pointer;
-  box-shadow: 0 4px 20px rgba(0,212,255,0.3); transition: all 0.18s;
-}
-.btn-cta-notte:hover { box-shadow: 0 6px 28px rgba(0,212,255,0.45); transform: translateY(-1px); }
-.btn-small-muted {
-  padding: 10px 16px; border-radius: var(--radius-md); background: var(--bg-surface);
-  border: 1px solid var(--border); color: var(--text-muted);
-  font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.15s;
-}
-.btn-small-muted:hover { border-color: rgba(255,255,255,0.15); color: var(--text-secondary); }
-
-/* ══════════════════════════════════════
-   SCREEN: RISULTATI (from part3)
-══════════════════════════════════════ */
-.content {
-  flex: 1; overflow-y: auto; padding: 20px;
-  display: flex; flex-direction: column; gap: 20px;
+.user-card .user-name {
+  font-size: 0.85rem;
+  font-weight: 600;
 }
 
-.stats-hero {
-  background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: var(--radius-lg); padding: 24px 20px 20px; text-align: center;
-}
-.stats-big-number {
-  font-family: var(--font-mono); font-size: 3.2rem; font-weight: 800;
-  color: var(--accent); line-height: 1;
-  text-shadow: 0 0 32px rgba(0,212,255,0.5), 0 0 64px rgba(0,212,255,0.2);
-  letter-spacing: -0.02em;
-}
-.stats-label { font-size: 0.78rem; color: var(--text-secondary); font-weight: 500; margin-top: 6px; letter-spacing: 0.04em; }
-.stats-pills-row { display: flex; justify-content: center; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
-.stats-range { font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-secondary); margin-top: 16px; letter-spacing: 0.02em; }
-.stats-meta { font-size: 0.72rem; color: var(--text-muted); margin-top: 6px; }
+/* ── FLEX HELPERS ── */
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.flex-center { align-items: center; justify-content: center; }
+.flex-between { justify-content: space-between; }
+.flex-wrap { flex-wrap: wrap; }
+.items-center { align-items: center; }
+.items-end { align-items: flex-end; }
+.gap-4 { gap: 4px; }
+.gap-6 { gap: 6px; }
+.gap-8 { gap: 8px; }
+.gap-12 { gap: 12px; }
+.gap-16 { gap: 16px; }
+.gap-20 { gap: 20px; }
+.gap-24 { gap: 24px; }
+.gap-28 { gap: 28px; }
+.w-full { width: 100%; }
+.mt-4 { margin-top: 4px; }
+.mt-8 { margin-top: 8px; }
+.mt-12 { margin-top: 12px; }
+.mt-16 { margin-top: 16px; }
+.mt-20 { margin-top: 20px; }
+.mt-24 { margin-top: 24px; }
+.mt-28 { margin-top: 28px; }
+.mb-8 { margin-bottom: 8px; }
+.mb-12 { margin-bottom: 12px; }
+.mb-16 { margin-bottom: 16px; }
+.mb-20 { margin-bottom: 20px; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.clickable { cursor: pointer; }
 
-.difetto-card {
-  background: var(--bg-card); border: 1px solid var(--border);
-  border-left: 3px solid var(--red); border-radius: var(--radius-lg);
-  padding: 16px; display: flex; flex-direction: column; gap: 10px;
+/* ── AVATAR SMALL ── */
+.avatar-sm {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #fff;
+  flex-shrink: 0;
 }
-.difetto-card .difetto-km { font-family: var(--font-mono); font-size: 1.05rem; font-weight: 700; color: var(--text-primary); }
-.difetto-desc { font-size: 0.78rem; color: var(--text-secondary); line-height: 1.4; }
-.difetto-actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
-
-.wa-tabs { display: flex; gap: 4px; background: var(--bg-surface); border-radius: var(--radius-md); padding: 4px; }
-.wa-tab {
-  flex: 1; padding: 8px; border-radius: 8px; border: none; background: none;
-  color: var(--text-muted); font-family: var(--font-body); font-size: 0.75rem;
-  font-weight: 600; cursor: pointer; transition: all 0.15s; text-align: center;
-}
-.wa-tab.active { background: var(--bg-card); color: var(--accent); border: 1px solid var(--border-light); }
-.wa-content {
-  background: var(--bg-surface); border: 1px solid var(--border);
-  border-radius: var(--radius-md); padding: 14px;
-  font-family: var(--font-mono); font-size: 0.72rem; line-height: 1.6;
-  color: var(--text-secondary); white-space: pre-wrap; word-break: break-word; min-height: 100px;
-}
-.wa-panel { display: none; flex-direction: column; gap: 10px; }
-.wa-panel.active { display: flex; }
-
-.tabella-wrap { overflow-x: auto; border-radius: var(--radius-md); border: 1px solid var(--border); }
-table { width: 100%; border-collapse: collapse; font-family: var(--font-mono); font-size: 0.72rem; }
-th { background: var(--bg-surface); color: var(--text-muted); font-weight: 700; padding: 10px 12px; text-align: left; letter-spacing: 0.05em; font-size: 0.65rem; }
-td { padding: 9px 12px; color: var(--text-secondary); vertical-align: middle; }
-tr:nth-child(even) td { background: var(--bg-surface); }
-tr:nth-child(odd) td  { background: var(--bg-card); }
-tr:last-child td:first-child { border-bottom-left-radius: var(--radius-md); }
-tr:last-child td:last-child  { border-bottom-right-radius: var(--radius-md); }
-
-.gestione-summary {
-  cursor: pointer; list-style: none;
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 16px; background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: var(--radius-lg); font-size: 0.82rem; font-weight: 600;
-  color: var(--text-secondary); transition: color 0.15s;
-}
-.gestione-summary:hover { color: var(--text-primary); }
-details[open] .gestione-summary { border-bottom-left-radius: 0; border-bottom-right-radius: 0; border-bottom: 1px solid var(--border); }
-.gestione-body {
-  background: var(--bg-card); border: 1px solid var(--border); border-top: none;
-  border-bottom-left-radius: var(--radius-lg); border-bottom-right-radius: var(--radius-lg);
-  padding: 16px; display: flex; flex-direction: column; gap: 12px;
-}
-.sald-row {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 10px 12px; background: var(--bg-surface); border-radius: var(--radius-md); border: 1px solid var(--border);
-}
-.sald-km { font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-primary); font-weight: 600; }
-.sald-actions { display: flex; gap: 6px; }
-.assegna-row { display: flex; gap: 8px; align-items: center; }
-.select-field {
-  flex: 1; background: var(--bg-surface); border: 1px solid var(--border-light);
-  border-radius: var(--radius-md); padding: 10px 14px; color: var(--text-primary);
-  font-family: var(--font-body); font-size: 0.82rem; outline: none;
+.avatar-ring {
+  box-shadow: 0 0 0 3px var(--bg-void), 0 0 0 5px rgba(0,212,255,0.3), 0 0 15px rgba(0,212,255,0.15);
 }
 
-/* ══════════════════════════════════════
-   SCREEN: CALENDARIO (from part3)
-══════════════════════════════════════ */
-.cal-filter {
-  background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: var(--radius-md); padding: 12px 16px; color: var(--text-primary);
-  font-family: var(--font-body); font-size: 0.85rem; outline: none; width: 100%;
+/* ── AVATAR LARGE (PROFILE) ── */
+.avatar-lg {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 2rem;
+  color: #fff;
 }
-.cal-grid-wrap { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px; }
-.cal-month-title { font-family: var(--font-title); font-size: 0.95rem; font-weight: 700; color: var(--text-primary); text-align: center; margin-bottom: 16px; letter-spacing: 0.04em; }
-.cal-dow { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-bottom: 8px; }
-.cal-dow-h { text-align: center; font-size: 0.65rem; font-weight: 700; color: var(--text-muted); letter-spacing: 0.06em; padding: 4px 0; }
-.cal-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
-.cal-day {
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 3px; padding: 6px 2px; border-radius: 50%; width: 36px; height: 36px;
-  margin: 0 auto; cursor: pointer; position: relative;
-  font-size: 0.8rem; font-weight: 500; color: var(--text-secondary); transition: background 0.15s;
-}
-.cal-day:hover { background: var(--bg-surface); }
-.cal-day.empty { pointer-events: none; }
-.cal-day.today { border: 1.5px solid var(--accent); color: var(--accent); font-weight: 700; }
-.cal-day.has-notte { color: var(--text-primary); }
-.cal-dot { width: 5px; height: 5px; border-radius: 50%; position: absolute; bottom: 3px; }
-.dot-cyan   { background: var(--accent); box-shadow: 0 0 6px rgba(0,212,255,0.6); }
-.dot-green  { background: var(--green);  box-shadow: 0 0 6px rgba(0,230,118,0.6); }
-.dot-yellow { background: var(--yellow); box-shadow: 0 0 6px rgba(255,214,0,0.6); }
-.dot-orange { background: #ff8c00;       box-shadow: 0 0 6px rgba(255,140,0,0.6); }
 
-.cantiere-card-cal {
-  background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg);
-  padding: 18px; cursor: pointer; transition: border-color 0.15s, transform 0.1s;
-  display: flex; flex-direction: column; gap: 10px;
+/* ── DAY TOGGLE PILLS ── */
+.day-toggle {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--bg-surface);
+  color: var(--text-muted);
+  transition: background 200ms, color 200ms, border-color 200ms, transform 200ms;
 }
-.cantiere-card-cal:hover { border-color: var(--border-light); transform: translateY(-1px); }
-.cantiere-top { display: flex; align-items: center; justify-content: space-between; }
-.cantiere-nome { font-weight: 700; font-size: 0.92rem; color: var(--text-primary); }
-.cantiere-stats { font-size: 0.75rem; color: var(--text-secondary); display: flex; flex-direction: column; gap: 4px; }
-.cantiere-deadline { font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); }
-.cantiere-difetti { font-size: 0.72rem; color: var(--red); font-weight: 600; }
-
-/* ══════════════════════════════════════
-   SCREEN: FORM CANTIERE (from part3)
-══════════════════════════════════════ */
-.pill-toggle-group { display: flex; gap: 6px; flex-wrap: wrap; }
-.pill-toggle {
-  padding: 8px 18px; border-radius: 999px; border: 1px solid var(--border-light);
-  background: none; color: var(--text-muted); font-family: var(--font-body);
-  font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.15s;
+.day-toggle.active {
+  background: var(--accent-dim);
+  border-color: var(--border-accent);
+  color: var(--accent);
+  transform: scale(1.05);
 }
-.pill-toggle.active { background: rgba(0,212,255,0.12); border-color: rgba(0,212,255,0.4); color: var(--accent); }
-.day-pills { display: flex; gap: 6px; flex-wrap: wrap; }
-.day-pill {
-  width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--border-light);
-  background: none; color: var(--text-muted); font-family: var(--font-body);
-  font-size: 0.72rem; font-weight: 700; cursor: pointer; transition: all 0.15s;
-  display: flex; align-items: center; justify-content: center;
-}
-.day-pill.active { background: rgba(0,212,255,0.12); border-color: rgba(0,212,255,0.5); color: var(--accent); box-shadow: 0 0 12px rgba(0,212,255,0.15); }
-
-.binario-card {
-  background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius-lg);
-  padding: 16px; display: flex; flex-direction: column; gap: 10px;
-}
-.binario-header { display: flex; align-items: center; justify-content: space-between; }
-.binario-nome { font-weight: 700; font-size: 0.88rem; color: var(--text-primary); }
-.tratta-row {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 8px 10px; background: var(--bg-card); border-radius: 8px; border: 1px solid var(--border);
-}
-.tratta-km { font-family: var(--font-mono); font-size: 0.73rem; color: var(--text-secondary); }
-.btn-remove { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1rem; padding: 2px 6px; border-radius: 6px; transition: color 0.15s; }
-.btn-remove:hover { color: var(--red); }
-.add-tratta-btn {
-  background: none; border: 1px dashed var(--border-light); border-radius: 8px;
-  padding: 8px; color: var(--text-muted); font-family: var(--font-body);
-  font-size: 0.75rem; font-weight: 600; cursor: pointer; width: 100%;
-  transition: all 0.15s; text-align: center;
-}
-.add-tratta-btn:hover { border-color: var(--accent); color: var(--accent); }
-.binario-add-row { display: flex; gap: 8px; }
-
-/* ══════════════════════════════════════
-   SCREEN: PROFILO (from part3)
-══════════════════════════════════════ */
-.profilo-hero { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 24px 0 8px; }
-.avatar-profilo {
-  width: 80px; height: 80px; border-radius: 50%;
-  background: linear-gradient(135deg, #00d4ff 0%, #0077aa 100%);
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-title); font-size: 2rem; font-weight: 700; color: #06080e;
-  box-shadow: 0 0 32px rgba(0,212,255,0.3); border: 2px solid rgba(0,212,255,0.3);
-}
-.profilo-nome { font-family: var(--font-title); font-size: 1.4rem; font-weight: 700; color: var(--text-primary); }
-.profilo-ruolo { font-size: 0.8rem; color: var(--text-muted); letter-spacing: 0.06em; text-transform: uppercase; font-weight: 500; }
-
-.info-row {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 12px 16px; background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: var(--radius-md); font-size: 0.82rem;
-}
-.info-label { color: var(--text-muted); }
-.info-value { color: var(--text-secondary); font-family: var(--font-mono); font-size: 0.75rem; }
 
 /* ── SCROLLBAR ── */
-.content::-webkit-scrollbar { width: 0; }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 2px; }
+
+/* ── TAB BUTTONS ── */
+.tab-group {
+  display: flex;
+  gap: 0;
+  background: var(--bg-surface);
+  border-radius: var(--radius-md);
+  padding: 3px;
+  border: 1px solid var(--border);
+}
+.tab-btn {
+  flex: 1;
+  padding: 10px 12px;
+  border: none;
+  border-radius: calc(var(--radius-md) - 3px);
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 200ms, color 200ms;
+}
+.tab-btn.active {
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+}
+
+/* ── SELECT ── */
+.select-wrap {
+  position: relative;
+}
+.select-wrap select {
+  width: 100%;
+  padding: 14px;
+  padding-right: 40px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 16px;
+  appearance: none;
+  outline: none;
+  color-scheme: dark;
+  transition: border-color 200ms, box-shadow 200ms;
+}
+.select-wrap select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-dim);
+}
+.select-wrap::after {
+  content: '';
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0; height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid var(--text-muted);
+  pointer-events: none;
+}
+
+/* ── MINI CARD ── */
+.mini-card {
+  padding: 12px 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: background 200ms, border-color 200ms;
+}
+.mini-card:hover { background: var(--bg-card-hover); border-color: rgba(255,255,255,0.08); }
+.mini-card + .mini-card { margin-top: 8px; }
+
+/* ── ANIMATIONS COUNT ── */
+@keyframes fadeUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@keyframes scaleIn { from { opacity:0; transform:scale(0.9); } to { opacity:1; transform:scale(1); } }
+@keyframes slideLeft { from { opacity:0; transform:translateX(20px); } to { opacity:1; transform:translateX(0); } }
+@keyframes slideRight { from { opacity:0; transform:translateX(-20px); } to { opacity:1; transform:translateX(0); } }
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-4px)} }
+@keyframes shimmer { 0%{background-position:-200% 0} 100%{background-position:200% 0} }
+@keyframes borderGlow { 0%,100%{border-color:rgba(0,212,255,0.1)} 50%{border-color:rgba(0,212,255,0.25)} }
+@keyframes breathe { 0%,100%{opacity:0.6} 50%{opacity:1} }
+@keyframes rotateIn { from{opacity:0;transform:rotate(-5deg) scale(0.95)} to{opacity:1;transform:rotate(0) scale(1)} }
+@keyframes bounceIn { 0%{transform:scale(0.3);opacity:0} 50%{transform:scale(1.05)} 70%{transform:scale(0.95)} 100%{transform:scale(1);opacity:1} }
+@keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+@keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.05)} }
+@keyframes glowPulse { 0%,100%{box-shadow:0 0 5px rgba(0,212,255,0.2)} 50%{box-shadow:0 0 20px rgba(0,212,255,0.4)} }
+@keyframes textGlow { 0%,100%{text-shadow:0 0 10px rgba(0,212,255,0.3)} 50%{text-shadow:0 0 25px rgba(0,212,255,0.6)} }
+@keyframes slideDown { from{opacity:0;transform:translateY(-12px)} to{opacity:1;transform:translateY(0)} }
+@keyframes expandWidth { from{width:0} to{width:100%} }
+@keyframes popIn { 0%{transform:scale(0);opacity:0} 70%{transform:scale(1.1)} 100%{transform:scale(1);opacity:1} }
+@keyframes spinIn { from{transform:rotate(180deg) scale(0);opacity:0} to{transform:rotate(0) scale(1);opacity:1} }
+@keyframes colorCycle { 0%,100%{color:var(--accent)} 33%{color:var(--green)} 66%{color:var(--yellow)} }
+@keyframes wobble { 0%{transform:rotate(0)} 15%{transform:rotate(-3deg)} 30%{transform:rotate(2deg)} 45%{transform:rotate(-1deg)} 60%{transform:rotate(0.5deg)} 100%{transform:rotate(0)} }
+@keyframes reveal { from{clip-path:inset(0 100% 0 0)} to{clip-path:inset(0 0 0 0)} }
+@keyframes slideUp { from{transform:translateY(100%);opacity:0} to{transform:translateY(0);opacity:1} }
+@keyframes zoomOut { from{transform:scale(1.1);opacity:0} to{transform:scale(1);opacity:1} }
+@keyframes flash { 0%,50%,100%{opacity:1} 25%,75%{opacity:0.5} }
+@keyframes swing { 0%{transform:rotate(0)} 20%{transform:rotate(10deg)} 40%{transform:rotate(-8deg)} 60%{transform:rotate(4deg)} 80%{transform:rotate(-2deg)} 100%{transform:rotate(0)} }
+@keyframes dropIn { from{transform:translateY(-40px);opacity:0} to{transform:translateY(0);opacity:1} }
+@keyframes elastic { 0%{transform:scaleY(0)} 45%{transform:scaleY(1.05)} 80%{transform:scaleY(0.98)} 100%{transform:scaleY(1)} }
+@keyframes fillBar { from{width:0%} }
+@keyframes glowLine { 0%{background-position:-100% 0} 100%{background-position:200% 0} }
+@keyframes borderPulse { 0%,100%{border-color:rgba(0,212,255,0.1)} 50%{border-color:rgba(0,212,255,0.3)} }
+@keyframes subtleFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-2px)} }
+@keyframes gradientShift { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+@keyframes fadeScale { from{opacity:0;transform:scale(0.95)} to{opacity:1;transform:scale(1)} }
+@keyframes hoverFloat { 0%,100%{transform:translateY(0) scale(1)} 50%{transform:translateY(-1px) scale(1.005)} }
+@keyframes tickIn { from{transform:scale(0) rotate(-45deg);opacity:0} to{transform:scale(1) rotate(0);opacity:1} }
+@keyframes waveIn { from{transform:translateX(-100%);opacity:0} to{transform:translateX(0);opacity:1} }
+@keyframes blurIn { from{filter:blur(8px);opacity:0} to{filter:blur(0);opacity:1} }
+@keyframes radialReveal { from{clip-path:circle(0% at 50% 50%)} to{clip-path:circle(100% at 50% 50%)} }
+@keyframes colorPop { 0%{filter:saturate(0)} 100%{filter:saturate(1)} }
+@keyframes typewriter { from{width:0} to{width:100%} }
+@keyframes dashDraw { to{stroke-dashoffset:0} }
+@keyframes bgPulse { 0%,100%{background-color:var(--bg-card)} 50%{background-color:var(--bg-card-hover)} }
+
 </style>
 </head>
 <body>
 
-<!-- ══════════════════════════════════════
-     NAVBAR (always visible when logged in)
-══════════════════════════════════════════ -->
-<nav class="navbar" id="navbar" style="display:none;">
-  <button class="nav-btn active" id="nav-home" onclick="navTo('home')">
-    <svg class="nav-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/>
-      <path d="M9 21V12h6v9"/>
-    </svg>
-    <span class="nav-label">Home</span>
-    <span class="nav-dot"></span>
-  </button>
+<!-- ═══════════════════════════════════════════════════
+     SCREEN 1: LOGIN
+     ═══════════════════════════════════════════════════ -->
+<div id="screen-login" class="screen active">
+  <div class="logo-m" style="animation: bounceIn 800ms cubic-bezier(0.22,1,0.36,1)">M<sup>2</sup></div>
+  <div class="logo-subtitle" style="animation: fadeUp 600ms 300ms both">Diagnostica</div>
+  <div class="logo-desc" style="animation: fadeUp 600ms 500ms both">Controllo ultrasonoro saldature</div>
 
-  <button class="nav-btn" id="nav-mese" onclick="navTo('mese')">
-    <svg class="nav-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-      <rect x="3" y="4" width="18" height="18" rx="2"/>
-      <line x1="16" y1="2" x2="16" y2="6"/>
-      <line x1="8" y1="2" x2="8" y2="6"/>
-      <line x1="3" y1="10" x2="21" y2="10"/>
-    </svg>
-    <span class="nav-label">Mese</span>
-    <span class="nav-dot"></span>
-  </button>
+  <div style="height:40px"></div>
 
-  <button class="nav-btn" id="nav-profilo" onclick="navTo('profilo')">
-    <svg class="nav-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="12" cy="8" r="4"/>
-      <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
-    </svg>
-    <span class="nav-label">Profilo</span>
-    <span class="nav-dot"></span>
-  </button>
-</nav>
+  <div class="t-section" style="animation: fadeUp 600ms 600ms both; width:100%; max-width:300px; text-align:center">SELEZIONA OPERATORE</div>
 
-<!-- ══════════════════════════════════════
-     SCREEN: LOGIN
-══════════════════════════════════════════ -->
-<div id="screen-login" class="screen active" style="display:flex;">
-
-  <!-- Hero -->
-  <div class="login-hero anim d1">
-    <div class="login-logo">M<span>2</span></div>
-    <div class="login-app-name">Diagnostica</div>
-    <div class="login-subtitle">Controllo ultrasonoro saldature</div>
-  </div>
-
-  <!-- Label -->
-  <div class="login-label anim d2">Seleziona operatore</div>
-
-  <!-- User cards -->
-  <div class="user-cards anim d3">
-    <div class="user-card" onclick="selectUser('Ludovico')">
-      <div class="avatar avatar-cyan">L</div>
+  <div class="user-cards" style="animation: fadeUp 600ms 700ms both">
+    <div class="user-card card ripple-container" onclick="showPinFor('Ludovico','L','cyan')">
+      <div class="user-avatar user-avatar-cyan">L</div>
       <div class="user-name">Ludovico</div>
     </div>
-    <div class="user-card" onclick="selectUser('Cristopher')">
-      <div class="avatar avatar-green">C</div>
+    <div class="user-card card ripple-container" onclick="showPinFor('Cristopher','C','green')">
+      <div class="user-avatar user-avatar-green">C</div>
       <div class="user-name">Cristopher</div>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════
-     PIN OVERLAY
-══════════════════════════════════════════ -->
-<div class="pin-overlay" id="pin-overlay">
-  <div class="pin-header anim d1">
-    <div class="pin-user-row">
-      <div class="avatar" id="pin-avatar" style="width:38px;height:38px;font-size:1rem;">L</div>
-      <div class="pin-title" id="pin-name">Ludovico</div>
+<!-- PIN OVERLAY -->
+<div id="pin-overlay" class="pin-overlay">
+  <div class="user-avatar user-avatar-cyan" id="pin-avatar" style="width:60px;height:60px;font-size:1.4rem;margin-bottom:8px">L</div>
+  <div id="pin-user-name" style="font-size:1rem;font-weight:600;margin-bottom:4px">Ludovico</div>
+  <div class="t-muted">Inserisci PIN</div>
+
+  <div class="pin-dots">
+    <div class="pin-dot" id="dot-0"></div>
+    <div class="pin-dot" id="dot-1"></div>
+    <div class="pin-dot" id="dot-2"></div>
+    <div class="pin-dot" id="dot-3"></div>
+  </div>
+
+  <div class="pin-numpad">
+    <div class="pin-key ripple-container" onclick="pinInput(1)">1</div>
+    <div class="pin-key ripple-container" onclick="pinInput(2)">2</div>
+    <div class="pin-key ripple-container" onclick="pinInput(3)">3</div>
+    <div class="pin-key ripple-container" onclick="pinInput(4)">4</div>
+    <div class="pin-key ripple-container" onclick="pinInput(5)">5</div>
+    <div class="pin-key ripple-container" onclick="pinInput(6)">6</div>
+    <div class="pin-key ripple-container" onclick="pinInput(7)">7</div>
+    <div class="pin-key ripple-container" onclick="pinInput(8)">8</div>
+    <div class="pin-key ripple-container" onclick="pinInput(9)">9</div>
+    <div class="pin-key empty"></div>
+    <div class="pin-key ripple-container" onclick="pinInput(0)">0</div>
+    <div class="pin-key empty" onclick="pinBackspace()" style="cursor:pointer">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 4H8l-7 8 7 8h13a2 2 0 002-2V6a2 2 0 00-2-2z"/><line x1="18" y1="9" x2="12" y2="15"/><line x1="12" y1="9" x2="18" y2="15"/></svg>
     </div>
-    <div class="pin-subtitle">Inserisci PIN</div>
   </div>
 
-  <div class="pin-dots anim d2">
-    <div class="pin-dot" id="pd0"></div>
-    <div class="pin-dot" id="pd1"></div>
-    <div class="pin-dot" id="pd2"></div>
-    <div class="pin-dot" id="pd3"></div>
-  </div>
-
-  <div class="pin-pad anim d3">
-    <button class="pin-key" onclick="pinInput('1')">1</button>
-    <button class="pin-key" onclick="pinInput('2')">2</button>
-    <button class="pin-key" onclick="pinInput('3')">3</button>
-    <button class="pin-key" onclick="pinInput('4')">4</button>
-    <button class="pin-key" onclick="pinInput('5')">5</button>
-    <button class="pin-key" onclick="pinInput('6')">6</button>
-    <button class="pin-key" onclick="pinInput('7')">7</button>
-    <button class="pin-key" onclick="pinInput('8')">8</button>
-    <button class="pin-key" onclick="pinInput('9')">9</button>
-    <button class="pin-key empty"></button>
-    <button class="pin-key" onclick="pinInput('0')">0</button>
-    <button class="pin-key del" onclick="pinDelete()">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/>
-        <line x1="18" y1="9" x2="12" y2="15"/><line x1="12" y1="9" x2="18" y2="15"/>
-      </svg>
-    </button>
-  </div>
-
-  <button class="pin-cancel" onclick="closePinOverlay()">Annulla</button>
+  <button class="btn-link" style="margin-top:24px" onclick="hidePin()">Annulla</button>
 </div>
 
-<!-- ══════════════════════════════════════
-     SCREEN: DASHBOARD
-══════════════════════════════════════════ -->
-<div id="screen-dashboard" class="screen">
 
-  <!-- HEADER -->
-  <div class="dash-header anim d1">
+<!-- ═══════════════════════════════════════════════════
+     SCREEN 2: DASHBOARD
+     ═══════════════════════════════════════════════════ -->
+<div id="screen-dashboard" class="screen">
+  <!-- Header -->
+  <div class="flex flex-between items-center mb-20">
     <div>
-      <div class="dash-greeting">Buonasera,</div>
-      <div class="dash-name" id="dash-username">Ludovico</div>
-      <div class="dash-date">Lunedi 14 Aprile 2026</div>
+      <div class="t-secondary" style="font-size:0.85rem">Buonasera,</div>
+      <div class="t-screen-title" style="margin-top:2px">Ludovico</div>
+      <div class="t-mono t-muted" style="margin-top:4px">14 Aprile 2026 · Lunedì</div>
     </div>
-    <div class="avatar avatar-cyan dash-avatar" id="dash-avatar" style="width:40px;height:40px;font-size:1rem;">L</div>
+    <div class="avatar-sm user-avatar-cyan avatar-ring">L</div>
   </div>
 
-  <!-- SECTION LABEL -->
-  <div class="section-label anim d2">Cantieri attivi</div>
+  <!-- Cantieri Attivi -->
+  <div class="section">
+    <div class="t-section">CANTIERI ATTIVI</div>
 
-  <!-- CANTIERI LIST -->
-  <div class="cantieri-list">
-
-    <!-- CARD 1: La Spezia (ATTIVO) -->
-    <div class="cantiere-card active-card anim d3" onclick="showScreen('screen-cantiere')">
-      <div class="cc-top">
-        <div>
-          <div class="cc-name">33/26 La Spezia - Arcola</div>
-        </div>
-        <span class="badge badge-active">ATTIVO</span>
+    <!-- La Spezia -->
+    <div class="card card-accent-cyan stagger-item stagger-1 ripple-container clickable" onclick="showScreen('screen-cantiere')">
+      <div class="flex items-center gap-8 mb-8">
+        <div style="font-size:1rem;font-weight:600;flex:1">La Spezia — Arcola</div>
+        <span class="badge badge-green">ATTIVO</span>
       </div>
-      <div class="cc-sub">Dispari 163-171 · Pari 161-171</div>
+      <div class="t-mono t-secondary" style="font-size:0.72rem;margin-bottom:12px">Dispari 163→171 · Pari 161→171</div>
 
-      <!-- Stats row -->
-      <div class="cc-stats">
-        <div class="cc-stat">
-          <div class="cc-stat-val">6 / 11</div>
-          <div class="cc-stat-label">notti</div>
+      <!-- Stats -->
+      <div class="flex gap-20 mb-12">
+        <div class="text-center">
+          <div style="font-size:1.1rem;font-weight:700"><span style="color:var(--green)" class="count-up" data-target="6">0</span>/11</div>
+          <div class="t-muted" style="font-size:0.6rem">notti</div>
         </div>
-        <div class="cc-stat">
-          <div class="cc-stat-val">239</div>
-          <div class="cc-stat-label">saldature</div>
+        <div class="text-center">
+          <div style="font-size:1.1rem;font-weight:700"><span style="color:var(--accent)" class="count-up" data-target="239">0</span></div>
+          <div class="t-muted" style="font-size:0.6rem">saldature</div>
         </div>
-        <div class="cc-stat">
-          <div class="cc-stat-val red">6</div>
-          <div class="cc-stat-label">difetti</div>
+        <div class="text-center">
+          <div style="font-size:1.1rem;font-weight:700"><span style="color:var(--red)" class="count-up" data-target="6">0</span></div>
+          <div class="t-muted" style="font-size:0.6rem">difetti</div>
         </div>
       </div>
 
-      <!-- SLOT GRID -->
-      <div class="card-slots">
-        <!-- Dispari 5/17 -->
-        <div class="slot-section">
-          <div class="slot-section-header">
-            <span class="slot-section-name">Dispari</span>
-            <span class="slot-section-count">5 / 17</span>
-          </div>
-          <div class="slot-row">
-            <div class="ks done c">163</div>
-            <div class="ks done c">164</div>
-            <div class="ks done c">164</div>
-            <div class="ks done c">165</div>
-            <div class="ks done c">165</div>
-            <div class="ks">166</div>
-            <div class="ks">166</div>
-            <div class="ks">167</div>
-            <div class="ks">167</div>
-            <div class="ks">168</div>
-            <div class="ks">168</div>
-            <div class="ks">169</div>
-            <div class="ks">169</div>
-            <div class="ks">170</div>
-            <div class="ks">170</div>
-            <div class="ks">171</div>
-            <div class="ks">171</div>
-          </div>
+      <!-- Slot Grid -->
+      <div style="margin-bottom:12px">
+        <!-- Dispari -->
+        <div class="slot-row">
+          <span class="slot-row-label">Dispari</span>
+          <span class="slot-row-count">5/17</span>
+          <span class="slot slot-cyan">163</span>
+          <span class="slot slot-cyan">164</span>
+          <span class="slot slot-cyan">164</span>
+          <span class="slot slot-cyan">165</span>
+          <span class="slot slot-cyan">165</span>
+          <span class="slot slot-empty">166</span>
+          <span class="slot slot-empty">166</span>
+          <span class="slot slot-empty">167</span>
+          <span class="slot slot-empty">167</span>
+          <span class="slot slot-empty">168</span>
+          <span class="slot slot-empty">168</span>
+          <span class="slot slot-empty">169</span>
         </div>
-
-        <!-- Pari 14/20 -->
-        <div class="slot-section" style="margin-top:12px;">
-          <div class="slot-section-header">
-            <span class="slot-section-name">Pari</span>
-            <span class="slot-section-count">14 / 20</span>
-          </div>
-          <div class="slot-row">
-            <div class="ks done g">161</div>
-            <div class="ks done g">162</div>
-            <div class="ks done g">162</div>
-            <div class="ks done g">163</div>
-            <div class="ks done g">163</div>
-            <div class="ks done g">164</div>
-            <div class="ks done g">164</div>
-            <div class="ks done g">165</div>
-            <div class="ks done g">165</div>
-            <div class="ks done g">166</div>
-            <div class="ks done g">166</div>
-            <div class="ks done g">167</div>
-            <div class="ks done g">167</div>
-            <div class="ks done g">168</div>
-            <div class="ks">168</div>
-            <div class="ks">169</div>
-            <div class="ks">169</div>
-            <div class="ks">170</div>
-            <div class="ks">170</div>
-            <div class="ks">171</div>
-          </div>
+        <!-- Pari -->
+        <div class="slot-row">
+          <span class="slot-row-label">Pari</span>
+          <span class="slot-row-count">14/20</span>
+          <span class="slot slot-green">161</span>
+          <span class="slot slot-green">161</span>
+          <span class="slot slot-green">162</span>
+          <span class="slot slot-green">162</span>
+          <span class="slot slot-green">163</span>
+          <span class="slot slot-green">163</span>
+          <span class="slot slot-green">164</span>
+          <span class="slot slot-green">164</span>
+          <span class="slot slot-green">165</span>
+          <span class="slot slot-green">165</span>
+          <span class="slot slot-green">166</span>
+          <span class="slot slot-green">166</span>
+          <span class="slot slot-green">167</span>
+          <span class="slot slot-green">167</span>
+          <span class="slot slot-empty">168</span>
+          <span class="slot slot-empty">168</span>
+          <span class="slot slot-empty">169</span>
+          <span class="slot slot-empty">169</span>
+          <span class="slot slot-empty">170</span>
+          <span class="slot slot-empty">170</span>
         </div>
-
-        <!-- Deviatoi 1/3 -->
-        <div class="slot-section" style="margin-top:12px;">
-          <div class="slot-section-header">
-            <span class="slot-section-name">Deviatoi</span>
-            <span class="slot-section-count">1 / 3</span>
-          </div>
-          <div class="slot-row">
-            <div class="ks done y">1</div>
-            <div class="ks">2</div>
-            <div class="ks">3</div>
-          </div>
+        <!-- Deviatoi -->
+        <div class="slot-row">
+          <span class="slot-row-label">Deviatoi</span>
+          <span class="slot-row-count">1/3</span>
+          <span class="slot slot-yellow">1</span>
+          <span class="slot slot-empty">2</span>
+          <span class="slot slot-empty">3</span>
         </div>
-
-        <!-- Regolazioni 2/5 -->
-        <div class="slot-section" style="margin-top:12px;">
-          <div class="slot-section-header">
-            <span class="slot-section-name">Regolazioni</span>
-            <span class="slot-section-count">2 / 5</span>
-          </div>
-          <div class="slot-row">
-            <div class="ks done g">1</div>
-            <div class="ks done g">2</div>
-            <div class="ks">3</div>
-            <div class="ks">4</div>
-            <div class="ks">5</div>
-          </div>
+        <!-- Regolazioni -->
+        <div class="slot-row">
+          <span class="slot-row-label">Regolazioni</span>
+          <span class="slot-row-count">2/5</span>
+          <span class="slot slot-green">1</span>
+          <span class="slot slot-green">2</span>
+          <span class="slot slot-empty">3</span>
+          <span class="slot slot-empty">4</span>
+          <span class="slot slot-empty">5</span>
         </div>
-
-        <!-- Ricontrollo 0/6 -->
-        <div class="slot-section" style="margin-top:12px;">
-          <div class="slot-section-header">
-            <span class="slot-section-name">Ricontrollo</span>
-            <span class="slot-section-count">0 / 6</span>
-          </div>
-          <div class="slot-row">
-            <div class="ks">1</div>
-            <div class="ks">2</div>
-            <div class="ks">3</div>
-            <div class="ks">4</div>
-            <div class="ks">5</div>
-            <div class="ks">6</div>
-          </div>
+        <!-- Ricontrollo -->
+        <div class="slot-row">
+          <span class="slot-row-label">Ricontrollo</span>
+          <span class="slot-row-count">0/6</span>
+          <span class="slot slot-empty">1</span>
+          <span class="slot slot-empty">2</span>
+          <span class="slot slot-empty">3</span>
+          <span class="slot slot-empty">4</span>
+          <span class="slot slot-empty">5</span>
+          <span class="slot slot-empty">6</span>
         </div>
       </div>
 
-      <!-- PROGRESS TOTALE -->
-      <div class="cc-progress">
-        <div class="cc-progress-top">
-          <span class="cc-progress-pct">43%</span>
-          <span class="cc-progress-detail">22 / 51 slot</span>
-        </div>
-        <div class="prog-bar-bg">
-          <div class="prog-bar-fill cyan" style="width:43%"></div>
-        </div>
+      <div class="separator"></div>
+
+      <!-- Progress -->
+      <div class="flex items-end gap-8 mb-8">
+        <span class="t-hero glow-cyan" style="font-size:1.4rem;color:var(--accent)"><span class="count-up" data-target="43">0</span>%</span>
+        <span class="t-mono t-muted" style="font-size:0.72rem">22/51 slot</span>
+      </div>
+      <div class="progress-track" id="progress-spezia">
+        <div class="progress-fill progress-fill-cyan" style="width:0%" data-target="43"></div>
       </div>
 
-      <!-- FOOTER -->
-      <div class="cc-footer">
-        <div class="cc-footer-left">
-          <span>Stasera 22:00</span>
-          <span>Deadline 16g</span>
-        </div>
-        <button class="btn-small" onclick="event.stopPropagation(); showScreen('screen-cantiere')">Apri &rarr;</button>
+      <div class="flex flex-between items-center mt-8">
+        <span class="t-muted" style="font-size:0.72rem">Stasera 22:00 · Deadline 16g</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
       </div>
     </div>
 
-    <!-- CARD 2: Brescia (ATTIVO, nuovo) -->
-    <div class="cantiere-card active-card-green anim d4" style="border-color:rgba(0,230,118,0.15);">
-      <div class="cc-top">
-        <div>
-          <div class="cc-name">39/25 Brescia - Verona AV</div>
-        </div>
-        <span class="badge badge-active" style="background:rgba(0,230,118,0.12);color:var(--green);">ATTIVO</span>
+    <!-- Brescia -->
+    <div class="card stagger-item stagger-2 ripple-container clickable" style="margin-top:12px" onclick="showScreen('screen-cantiere')">
+      <div class="flex items-center gap-8 mb-8">
+        <div style="font-size:1rem;font-weight:600;flex:1">Brescia — Verona</div>
+        <span class="badge badge-green">ATTIVO</span>
       </div>
-      <div class="cc-sub">Diurno · 4 binari</div>
-
-      <div class="cc-stats">
-        <div class="cc-stat">
-          <div class="cc-stat-val">0</div>
-          <div class="cc-stat-label">notti</div>
+      <div class="t-mono t-secondary" style="font-size:0.72rem;margin-bottom:12px">Diurno · 4 binari</div>
+      <div class="flex gap-20 mb-12">
+        <div class="text-center">
+          <div style="font-size:1.1rem;font-weight:700">0/0</div>
+          <div class="t-muted" style="font-size:0.6rem">notti</div>
         </div>
-        <div class="cc-stat">
-          <div class="cc-stat-val">0</div>
-          <div class="cc-stat-label">saldature</div>
+        <div class="text-center">
+          <div style="font-size:1.1rem;font-weight:700;color:var(--text-muted)">—</div>
+          <div class="t-muted" style="font-size:0.6rem">saldature</div>
         </div>
-        <div class="cc-stat">
-          <div class="cc-stat-val" style="color:var(--text-muted);">&mdash;</div>
-          <div class="cc-stat-label">slot</div>
+        <div class="text-center">
+          <div style="font-size:1.1rem;font-weight:700;color:var(--text-muted)">—</div>
+          <div class="t-muted" style="font-size:0.6rem">difetti</div>
         </div>
       </div>
-
-      <div style="padding: 10px 0 4px;">
-        <div style="font-size:0.75rem; color:var(--text-muted); font-style:italic;">Nessuno slot configurato</div>
-      </div>
-
-      <div class="cc-footer" style="border-top:1px solid var(--border);padding-top:12px;margin-top:8px;">
-        <div class="cc-footer-left">
-          <span>Da configurare</span>
-        </div>
-        <button class="btn-small">Configura &rarr;</button>
+      <div class="t-secondary" style="font-style:italic;font-size:0.78rem">Nessuno slot configurato</div>
+      <div style="margin-top:10px">
+        <button class="btn-small btn-small-accent" style="font-size:0.72rem">Configura →</button>
       </div>
     </div>
 
-    <!-- CARD 3: Empoli -->
-    <div class="cantiere-card anim d5">
-      <div class="cc-top">
-        <div>
-          <div class="cc-name">Empoli - San Miniato</div>
-        </div>
+    <!-- Empoli -->
+    <div class="card stagger-item stagger-3 ripple-container clickable" style="margin-top:12px" onclick="showScreen('screen-cantiere')">
+      <div class="flex items-center gap-8 mb-8">
+        <div style="font-size:1rem;font-weight:600;flex:1">Empoli — Firenze</div>
         <span class="badge badge-yellow">DATI CRISTOPHER</span>
       </div>
-      <div class="cc-sub">Linea convenzionale · 1 binario</div>
-
-      <div class="cc-stats">
-        <div class="cc-stat">
-          <div class="cc-stat-val">&mdash;</div>
-          <div class="cc-stat-label">notti</div>
-        </div>
-        <div class="cc-stat">
-          <div class="cc-stat-val">88</div>
-          <div class="cc-stat-label">saldature</div>
-        </div>
-        <div class="cc-stat">
-          <div class="cc-stat-val" style="color:var(--text-muted);">&mdash;</div>
-          <div class="cc-stat-label">difetti</div>
-        </div>
-      </div>
-
-      <div class="cc-footer" style="padding-top:12px;margin-top:4px;">
-        <div class="cc-footer-left">
-          <span style="color:var(--yellow);font-size:0.68rem;">Dati inseriti da Cristopher</span>
-        </div>
-        <button class="btn-small">Apri &rarr;</button>
-      </div>
-    </div>
-
-  </div><!-- /cantieri-list -->
-
-  <!-- IN PAUSA (collassabile) -->
-  <div class="section-label anim d5" style="padding-bottom:0;">
-    <div class="section-collapse" onclick="togglePausa()">
-      <span>In pausa</span>
-      <span class="section-collapse-arrow" id="pausa-arrow">&#9660;</span>
-    </div>
-  </div>
-  <div id="pausa-content" style="display:none;">
-    <div class="pausa-empty">Nessun cantiere in pausa</div>
-  </div>
-
-  <!-- ULTIME NOTTI -->
-  <div class="section-label anim d6">Ultime notti</div>
-  <div class="notti-list anim d6">
-
-    <div class="notte-card-dash" onclick="showScreen('screen-risultati')">
-      <div class="notte-left">
-        <div class="notte-date-dash">Dom 13&rarr;14 Apr</div>
-        <div class="notte-meta-dash">
-          <span>La Spezia</span>
-          <span>Dispari</span>
-        </div>
-      </div>
-      <div class="notte-right">
-        <div class="notte-sald">18</div>
-        <div class="notte-ops">LP</div>
-      </div>
-    </div>
-
-    <div class="notte-card-dash" onclick="showScreen('screen-risultati')">
-      <div class="notte-left">
-        <div class="notte-date-dash">Sab 12&rarr;13 Apr</div>
-        <div class="notte-meta-dash">
-          <span>La Spezia</span>
-          <span>Pari</span>
-        </div>
-      </div>
-      <div class="notte-right">
-        <div class="notte-sald">31</div>
-        <div class="notte-ops">LP · CA</div>
-      </div>
-    </div>
-
-    <div class="notte-card-dash" onclick="showScreen('screen-risultati')">
-      <div class="notte-left">
-        <div class="notte-date-dash">Ven 11&rarr;12 Apr</div>
-        <div class="notte-meta-dash">
-          <span>La Spezia</span>
-          <span>Dispari + Deviatoi</span>
-        </div>
-      </div>
-      <div class="notte-right">
-        <div class="notte-sald">24</div>
-        <div class="notte-ops">LP</div>
-      </div>
-    </div>
-
-  </div>
-
-</div><!-- /screen-dashboard -->
-
-
-<!-- ══════════════════════════════════════
-     SCREEN: CANTIERE
-══════════════════════════════════════════ -->
-<div class="screen" id="screen-cantiere">
-
-  <!-- Header -->
-  <div class="header">
-    <button class="btn-back" onclick="showScreen('screen-dashboard')">
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M10 13L5 8l5-5"/>
-      </svg>
-    </button>
-    <span class="header-title">33/26 La Spezia &ndash; Arcola</span>
-    <button class="btn-edit" onclick="showScreen('screen-form')">Edit</button>
-  </div>
-
-  <div class="page-content">
-
-    <!-- STATUS CARD PRINCIPALE -->
-    <div class="card card-accent status-main">
-      <div class="status-headline">
-        <span class="val-green">6</span> di 11 notti completate
-      </div>
-      <div class="status-headline">
-        239 saldature &middot; <span class="val-red">6</span> difetti aperti
-      </div>
-      <div class="status-deadline">Deadline 30 Aprile &mdash; tra 16 giorni</div>
-
-      <div class="card-separator"></div>
-
-      <div class="progress-row">
-        <div class="progress-pct">43%</div>
-        <div class="progress-slots">
-          22/51 slot
-          <span>completati</span>
-        </div>
-      </div>
-      <div class="bar-outer">
-        <div class="bar-fill cyan" style="width:43%"></div>
-      </div>
-
-      <!-- SLOT GROUPS -->
-      <div class="slot-groups">
-
-        <!-- Dispari 5/17 -->
-        <div class="slot-group-row">
-          <div class="slot-group-label">Dispari <span>5/17</span></div>
-          <div class="slot-mini-grid">
-            <div class="slot-mini done-cyan">163</div>
-            <div class="slot-mini done-cyan">164</div>
-            <div class="slot-mini done-cyan">165</div>
-            <div class="slot-mini done-cyan">166</div>
-            <div class="slot-mini done-cyan">167</div>
-            <div class="slot-mini empty">168</div>
-            <div class="slot-mini empty">169</div>
-            <div class="slot-mini empty">170</div>
-            <div class="slot-mini empty">171</div>
-            <div class="slot-mini empty">172</div>
-            <div class="slot-mini empty">173</div>
-            <div class="slot-mini empty">174</div>
-            <div class="slot-mini empty">175</div>
-            <div class="slot-mini empty">176</div>
-            <div class="slot-mini empty">177</div>
-            <div class="slot-mini empty">178</div>
-            <div class="slot-mini empty">179</div>
-          </div>
-        </div>
-
-        <!-- Pari 14/20 -->
-        <div class="slot-group-row">
-          <div class="slot-group-label">Pari <span>14/20</span></div>
-          <div class="slot-mini-grid">
-            <div class="slot-mini done-green">161</div>
-            <div class="slot-mini done-green">162</div>
-            <div class="slot-mini done-green">163</div>
-            <div class="slot-mini done-green">164</div>
-            <div class="slot-mini done-green">165</div>
-            <div class="slot-mini done-green">166</div>
-            <div class="slot-mini done-green">167</div>
-            <div class="slot-mini done-green">168</div>
-            <div class="slot-mini done-green">169</div>
-            <div class="slot-mini done-green">170</div>
-            <div class="slot-mini done-green">171</div>
-            <div class="slot-mini done-green">172</div>
-            <div class="slot-mini done-green">173</div>
-            <div class="slot-mini done-green">174</div>
-            <div class="slot-mini empty">175</div>
-            <div class="slot-mini empty">176</div>
-            <div class="slot-mini empty">177</div>
-            <div class="slot-mini empty">178</div>
-            <div class="slot-mini empty">179</div>
-            <div class="slot-mini empty">180</div>
-          </div>
-        </div>
-
-        <!-- Deviatoi 1/3 -->
-        <div class="slot-group-row">
-          <div class="slot-group-label">Deviatoi <span>1/3</span></div>
-          <div class="slot-mini-grid">
-            <div class="slot-mini done-yellow">D1</div>
-            <div class="slot-mini empty">D2</div>
-            <div class="slot-mini empty">D3</div>
-          </div>
-        </div>
-
-        <!-- Regolazioni 2/5 -->
-        <div class="slot-group-row">
-          <div class="slot-group-label">Regol. <span>2/5</span></div>
-          <div class="slot-mini-grid">
-            <div class="slot-mini done-green">R1</div>
-            <div class="slot-mini done-green">R2</div>
-            <div class="slot-mini empty">R3</div>
-            <div class="slot-mini empty">R4</div>
-            <div class="slot-mini empty">R5</div>
-          </div>
-        </div>
-
-        <!-- Ricontrollo 0/6 -->
-        <div class="slot-group-row">
-          <div class="slot-group-label">Ricontr. <span>0/6</span></div>
-          <div class="slot-mini-grid">
-            <div class="slot-mini empty">RC1</div>
-            <div class="slot-mini empty">RC2</div>
-            <div class="slot-mini empty">RC3</div>
-            <div class="slot-mini empty">RC4</div>
-            <div class="slot-mini empty">RC5</div>
-            <div class="slot-mini empty">RC6</div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- SEZIONE LINEA -->
-    <div class="section-title">LINEA</div>
-
-    <div class="card linea-card">
-      <div class="linea-label-row">
-        <div class="linea-name">Binario Dispari</div>
-        <div class="linea-missing">mancano 2.9 km</div>
-      </div>
-      <div class="bar-outer">
-        <div class="bar-fill cyan" style="width:27%"></div>
-      </div>
-      <div class="milestones">
-        <span class="milestone">171+663</span>
-        <span class="milestone">...</span>
-        <span class="milestone">163+600</span>
-      </div>
-      <div class="km-marker-row">
-        <div class="km-marker-dot"></div>
-        <div class="km-marker-label">Posizione attuale: 170+627</div>
-      </div>
-    </div>
-
-    <div class="card linea-card">
-      <div class="linea-label-row">
-        <div class="linea-name">Binario Pari</div>
-        <div class="linea-missing">mancano 3.3 km</div>
-      </div>
-      <div class="bar-outer">
-        <div class="bar-fill green" style="width:67%"></div>
-      </div>
-      <div class="milestones">
-        <span class="milestone">171+660</span>
-        <span class="milestone">...</span>
-        <span class="milestone">161+555</span>
-      </div>
-      <div class="km-marker-row">
-        <div class="km-marker-dot green"></div>
-        <div class="km-marker-label">Posizione attuale: 164+847</div>
-      </div>
-    </div>
-
-    <!-- SEZIONE ALTRE LAVORAZIONI -->
-    <div class="section-title">ALTRE LAVORAZIONI</div>
-
-    <!-- Card Deviatoi -->
-    <div class="card">
-      <div class="lav-header">
-        <div class="lav-title">Deviatoi Pari</div>
-        <span class="badge badge-yellow">DEV</span>
-      </div>
-      <div class="bar-outer">
-        <div class="bar-fill yellow" style="width:33%"></div>
-      </div>
-      <div class="slot-big-grid">
-        <div class="slot-big done-yellow">Dev 1</div>
-        <div class="slot-big empty">Dev 2</div>
-        <div class="slot-big empty">Dev 3</div>
-      </div>
-    </div>
-
-    <!-- Card Regolazioni -->
-    <div class="card">
-      <div class="lav-header">
-        <div class="lav-title">Regolazioni Dispari</div>
-        <span class="badge badge-green">COPPIA</span>
-      </div>
-      <div class="bar-outer">
-        <div class="bar-fill green" style="width:40%"></div>
-      </div>
-      <div class="slot-big-grid">
-        <div class="slot-big done-green">Reg 1</div>
-        <div class="slot-big done-green">Reg 2</div>
-        <div class="slot-big empty">Reg 3</div>
-        <div class="slot-big empty">Reg 4</div>
-        <div class="slot-big empty">Reg 5</div>
-      </div>
-    </div>
-
-    <!-- Card Ricontrollo -->
-    <div class="card">
-      <div class="lav-header">
-        <div class="lav-title">Ricontrollo difetti</div>
-        <span class="badge badge-red">DIFETTO</span>
-      </div>
-      <div class="bar-outer">
-        <div class="bar-fill red" style="width:0%"></div>
-      </div>
-      <div class="slot-big-grid">
-        <div class="slot-big empty">D1</div>
-        <div class="slot-big empty">D2</div>
-        <div class="slot-big empty">D3</div>
-        <div class="slot-big empty">D4</div>
-        <div class="slot-big empty">D5</div>
-        <div class="slot-big empty">D6</div>
-      </div>
-    </div>
-
-    <button class="btn-outline">+ Aggiungi lavorazione</button>
-
-    <!-- CTA APRI NOTTE -->
-    <button class="btn-cta" onclick="showScreen('screen-notte')">APRI NOTTE</button>
-
-    <!-- SEZIONE NOTTI PROGRAMMATE -->
-    <div class="section-header-row">
-      <div class="section-title">NOTTI PROGRAMMATE</div>
-      <button class="btn-small">+ Programma</button>
-    </div>
-
-    <div class="notte-card notte-stasera">
-      <div class="notte-stasera-row">
-        <div>
-          <div class="notte-date">Stasera 14&rarr;15/04</div>
-          <div class="notte-meta">Dispari · In programma</div>
-        </div>
-        <div style="display:flex; align-items:center; gap:8px;">
-          <div class="meteo-info">
-            <span class="meteo-icon">&#127780;</span>
-            <span>18&deg; 0.9mm</span>
-          </div>
-          <div class="notte-actions">
-            <button class="btn-skip">Salta</button>
-            <button class="btn-delete">&#10005;</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- SEZIONE COMPLETATE -->
-    <div class="section-title">COMPLETATE</div>
-
-    <div class="notte-card" onclick="showScreen('screen-risultati')">
-      <div class="notte-header">
-        <div>
-          <div class="notte-date">Dom 13&rarr;14/04</div>
-          <div class="notte-meta">Dispari · 18 sald · LP</div>
-        </div>
-        <div class="notte-badge">18</div>
-      </div>
-    </div>
-
-    <div class="notte-card">
-      <div class="notte-header">
-        <div>
-          <div class="notte-date">Sab 12&rarr;13/04</div>
-          <div class="notte-meta">Pari · 31 sald · LP CA</div>
-        </div>
-        <div class="notte-badge green-badge">31</div>
-      </div>
-    </div>
-
-    <div class="notte-card">
-      <div class="notte-header">
-        <div>
-          <div class="notte-date">Ven 11&rarr;12/04</div>
-          <div class="notte-meta">Dispari · 22 sald · LP</div>
-        </div>
-        <div class="notte-badge">22</div>
-      </div>
-    </div>
-
-    <!-- SEZIONE DIFETTI APERTI -->
-    <div class="section-title">DIFETTI APERTI (6)</div>
-
-    <div class="difetto-card-cantiere">
-      <div class="difetto-header">
-        <span class="difetto-km">164+847 DX</span>
-        <span class="difetto-code">4212</span>
-      </div>
-      <div class="difetto-meta">10 Aprile 2026 · Pari</div>
-      <button class="btn-risolto">Risolto</button>
-    </div>
-
-    <div class="difetto-card-cantiere">
-      <div class="difetto-header">
-        <span class="difetto-km">169+115 SX</span>
-        <span class="difetto-code">3810</span>
-      </div>
-      <div class="difetto-meta">08 Aprile 2026 · Dispari</div>
-      <button class="btn-risolto">Risolto</button>
-    </div>
-
-    <div class="difetto-card-cantiere">
-      <div class="difetto-header">
-        <span class="difetto-km">170+200 DX</span>
-        <span class="difetto-code">S2 4212</span>
-      </div>
-      <div class="difetto-meta">03 Dicembre 2025 · Dispari</div>
-      <button class="btn-risolto">Risolto</button>
-    </div>
-
-    <!-- SEZIONE GESTIONE -->
-    <div class="section-title">GESTIONE</div>
-    <div class="gestione-row">
-      <button class="btn-small">Metti in pausa</button>
-      <button class="btn-small danger">Segna come completato</button>
-    </div>
-
-  </div>
-</div><!-- end screen-cantiere -->
-
-
-<!-- ══════════════════════════════════════
-     SCREEN: NOTTE
-══════════════════════════════════════════ -->
-<div class="screen" id="screen-notte">
-
-  <!-- Header -->
-  <div class="header">
-    <button class="btn-back" onclick="showScreen('screen-cantiere')">
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M10 13L5 8l5-5"/>
-      </svg>
-    </button>
-    <span class="header-title">La Spezia &mdash; 14/04</span>
-    <div class="saved-indicator">
-      <div class="saved-dot"></div>
-      Salvato &#10003;
+      <div class="t-mono t-secondary" style="font-size:0.72rem;margin-bottom:8px">88 saldature importate</div>
     </div>
   </div>
 
-  <!-- OPERATORI -->
-  <div class="operator-pills">
-    <div class="pill active-cyan">LP</div>
-    <div class="pill inactive">Strumento B</div>
-  </div>
-
-  <!-- SELECT BINARIO -->
-  <div class="binario-select-wrap">
-    <select class="binario-select">
-      <option value="dispari" selected>Dispari</option>
-      <option value="pari">Pari</option>
-    </select>
-  </div>
-
-  <!-- EDITOR -->
-  <div class="editor-wrap">
-    <div class="editor-box">
-      <div class="editor-lines">
-
-        <div class="editor-line">
-          <span class="line-num">1</span>
-          <div class="line-indicator green"></div>
-          <span class="line-text green">170+627 DX N 15 02/12/2025</span>
-        </div>
-
-        <div class="editor-line">
-          <span class="line-num">2</span>
-          <div class="line-indicator green"></div>
-          <span class="line-text green">170+345 SX N 14 01/12/2025</span>
-        </div>
-
-        <div class="editor-line">
-          <span class="line-num">3</span>
-          <div class="line-indicator red"></div>
-          <span class="line-text red">170+200 DX S2 4212 03/12/2025</span>
-        </div>
-
-        <div class="editor-line">
-          <span class="line-num">4</span>
-          <div class="line-indicator yellow"></div>
-          <span class="line-text yellow">169+800 SX NDC 05/12/2025</span>
-        </div>
-
-        <div class="editor-line">
-          <span class="line-num">5</span>
-          <div class="line-indicator green"></div>
-          <span class="line-text green">169+500 DX N 13 02/12/2025</span>
-        </div>
-
-        <div class="editor-line">
-          <span class="line-num">6</span>
-          <div class="line-indicator green"></div>
-          <span class="line-text green">169+200 SX N 12 01/12/2025</span>
-        </div>
-
-        <div class="editor-line">
-          <span class="line-num">7</span>
-          <div class="line-indicator green"></div>
-          <span class="line-text green">168+900 DX N 11 02/12/2025</span>
-        </div>
-
-        <div class="editor-line">
-          <span class="line-num">8</span>
-          <div class="line-indicator green"></div>
-          <span class="line-text green">168+600 SX N 10 01/12/2025<span class="editor-cursor"></span></span>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-  <!-- CONTATORI -->
-  <div class="counters-strip">
-    <div class="counter-pill ok">5 OK</div>
-    <div class="counter-pill difetto">1 Difetto</div>
-    <div class="counter-pill nodac">1 No DAC</div>
-    <div class="counter-pill righe">8 righe</div>
-  </div>
-
-  <!-- AZIONI NOTTE -->
-  <div class="notte-actions-wrap">
-    <button class="btn-small" style="width:fit-content;">+ Aggiungi</button>
-    <button class="btn-cta-notte" onclick="showScreen('screen-risultati')">Elabora risultati</button>
-    <button class="btn-small-muted">Pulisci</button>
-  </div>
-
-</div><!-- end screen-notte -->
-
-
-<!-- ══════════════════════════════════════
-     SCREEN: RISULTATI
-══════════════════════════════════════════ -->
-<div class="screen" id="screen-risultati">
-  <div class="header">
-    <button class="btn-back" onclick="showScreen('screen-cantiere')" aria-label="Indietro">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-    </button>
-    <span class="header-title">Risultati notte</span>
-    <button class="btn-header-action">Modifica lista</button>
-  </div>
-
-  <div class="content">
-
-    <!-- Stats Hero -->
-    <div class="stats-hero">
-      <div class="stats-big-number">18</div>
-      <div class="stats-label">saldature controllate</div>
-      <div class="stats-pills-row">
-        <span class="pill pill-green">15 OK</span>
-        <span class="pill pill-red">2 Difetti</span>
-        <span class="pill pill-yellow">1 No DAC</span>
-      </div>
-      <div class="stats-range">168+600 &rarr; 170+627</div>
-      <div class="stats-meta">2.0 km percorsi · Dispari</div>
-    </div>
-
-    <!-- Sezione Difetti -->
-    <div>
-      <div class="section-title">Difetti</div>
-      <div style="display:flex;flex-direction:column;gap:10px;">
-
-        <div class="difetto-card">
-          <div>
-            <div class="difetto-km">170+200 DX</div>
-            <div class="difetto-desc">Codice 4212 &mdash; S2 · Alluminotermica · PARI</div>
-          </div>
-          <div class="difetto-actions">
-            <button class="btn btn-outline-cyan btn-small">Scheda I.1</button>
-            <span class="pill pill-yellow pill-sm">No DAC</span>
-          </div>
-        </div>
-
-        <div class="difetto-card">
-          <div>
-            <div class="difetto-km">169+850 SX</div>
-            <div class="difetto-desc">Codice 3101 &mdash; S1 · Elettrica · DISPARI</div>
-          </div>
-          <div class="difetto-actions">
-            <button class="btn btn-outline-cyan btn-small">Scheda I.1</button>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- Sezione Riepilogo WhatsApp -->
-    <div>
-      <div class="section-title">Riepilogo WhatsApp</div>
-      <div class="card" style="gap:12px;display:flex;flex-direction:column;">
-        <div class="wa-tabs">
-          <button class="wa-tab active" onclick="switchWaTab(this,'wa-m2')">Formato M2</button>
-          <button class="wa-tab" onclick="switchWaTab(this,'wa-gfc')">Formato GFC</button>
-        </div>
-
-        <div class="wa-panel active" id="wa-m2">
-          <div class="wa-content">M2 CONTROLLO SALDATURE
-La Spezia 14/04/2026
-Dispari 168+600 &rarr; 170+627
-Saldature: 18 (15 OK, 2 DIF, 1 NDC)
-Operatore: LP &mdash; Strumento: B</div>
-          <button class="btn btn-outline-border btn-small" style="align-self:flex-start;" onclick="copyText('wa-m2')">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            Copia
-          </button>
-        </div>
-
-        <div class="wa-panel" id="wa-gfc">
-          <div class="wa-content">GFC REPORT &mdash; 14/04/2026
-Cantiere: 33/26 La Spezia - Arcola
-Binario: Dispari
-Tratta: 168+600 &rarr; 170+627
-Tot. saldature: 18
-Conformi: 15 | Difetti: 2 | No DAC: 1
-Op. responsabile: LP
-Strumento: B | Matricola: &mdash;</div>
-          <button class="btn btn-outline-border btn-small" style="align-self:flex-start;" onclick="copyText('wa-gfc')">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            Copia
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Sezione Tabella -->
-    <div>
-      <div class="section-title">Tabella</div>
-      <div class="tabella-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Km</th>
-              <th>Lato</th>
-              <th>Tipo</th>
-              <th>Stato</th>
-              <th>Op</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>168+612</td><td>SX</td><td>Alum.</td><td><span class="pill pill-green pill-sm">OK</span></td><td>LP</td></tr>
-            <tr><td>168+840</td><td>DX</td><td>Elett.</td><td><span class="pill pill-green pill-sm">OK</span></td><td>LP</td></tr>
-            <tr><td>169+100</td><td>SX</td><td>Alum.</td><td><span class="pill pill-green pill-sm">OK</span></td><td>LP</td></tr>
-            <tr><td>169+330</td><td>DX</td><td>Alum.</td><td><span class="pill pill-yellow pill-sm">NDC</span></td><td>LP</td></tr>
-            <tr><td>169+850</td><td>SX</td><td>Elett.</td><td><span class="pill pill-red pill-sm">DIF</span></td><td>LP</td></tr>
-            <tr><td>170+200</td><td>DX</td><td>Alum.</td><td><span class="pill pill-red pill-sm">DIF</span></td><td>LP</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div style="margin-top:10px;">
-        <button class="btn btn-outline-border btn-small">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Copia TSV
-        </button>
-      </div>
-    </div>
-
-    <!-- CTA Chiudi Notte -->
-    <button class="btn btn-cta-green btn-full" style="font-size:0.92rem;letter-spacing:0.06em;font-weight:700;" onclick="showScreen('screen-cantiere')">
-      CHIUDI NOTTE
-    </button>
-
-    <!-- Gestione Saldature collassabile -->
+  <!-- In Pausa -->
+  <div class="section">
     <details>
-      <summary class="gestione-summary">
-        <span>Gestione saldature</span>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      <summary class="t-section" style="margin-bottom:8px">
+        <span class="tri">▶</span> IN PAUSA
       </summary>
-      <div class="gestione-body">
-
-        <div class="sald-row">
-          <div><div class="sald-km">168+612 SX</div><div style="font-size:0.68rem;color:var(--text-muted);margin-top:2px;">Alluminotermica · OK</div></div>
-          <div class="sald-actions">
-            <button class="btn btn-outline-border btn-small">Modifica</button>
-            <button class="btn btn-outline-red btn-small">Elimina</button>
-          </div>
-        </div>
-        <div class="sald-row">
-          <div><div class="sald-km">168+840 DX</div><div style="font-size:0.68rem;color:var(--text-muted);margin-top:2px;">Elettrica · OK</div></div>
-          <div class="sald-actions">
-            <button class="btn btn-outline-border btn-small">Modifica</button>
-            <button class="btn btn-outline-red btn-small">Elimina</button>
-          </div>
-        </div>
-        <div class="sald-row">
-          <div><div class="sald-km">169+850 SX</div><div style="font-size:0.68rem;color:var(--red);margin-top:2px;">Elettrica · Difetto</div></div>
-          <div class="sald-actions">
-            <button class="btn btn-outline-border btn-small">Modifica</button>
-            <button class="btn btn-outline-red btn-small">Elimina</button>
-          </div>
-        </div>
-
-        <div class="divider"></div>
-
+      <div class="mini-card" style="margin-top:8px">
         <div>
-          <div class="input-label" style="margin-bottom:8px;">Assegna binario in blocco</div>
-          <div class="assegna-row">
-            <select class="select-field">
-              <option>Dispari</option>
-              <option>Pari</option>
-              <option>Altro</option>
-            </select>
-            <button class="btn btn-outline-cyan btn-small">Assegna</button>
-          </div>
+          <div style="font-size:0.85rem;font-weight:600">Genova — Savona</div>
+          <div class="t-muted" style="font-size:0.7rem;margin-top:2px">In pausa dal 2 Aprile</div>
         </div>
-
-        <div class="divider"></div>
-
-        <button class="btn btn-outline-red btn-full btn-small" style="padding:12px;font-size:0.8rem;">
-          Elimina notte
-        </button>
-
+        <span class="badge badge-muted">PAUSA</span>
       </div>
     </details>
+  </div>
 
+  <!-- Ultime Notti -->
+  <div class="section">
+    <div class="t-section">ULTIME NOTTI</div>
+
+    <div class="mini-card stagger-item stagger-4">
+      <div>
+        <div style="font-size:0.82rem;font-weight:600">13→14 Aprile</div>
+        <div class="t-muted" style="font-size:0.7rem;margin-top:2px">La Spezia · 22 saldature · LP CA</div>
+      </div>
+      <span class="badge badge-cyan" style="font-size:0.7rem;font-weight:700">22</span>
+    </div>
+    <div class="mini-card stagger-item stagger-5">
+      <div>
+        <div style="font-size:0.82rem;font-weight:600">12→13 Aprile</div>
+        <div class="t-muted" style="font-size:0.7rem;margin-top:2px">La Spezia · 18 saldature · LP</div>
+      </div>
+      <span class="badge badge-cyan" style="font-size:0.7rem;font-weight:700">18</span>
+    </div>
+    <div class="mini-card stagger-item stagger-6">
+      <div>
+        <div style="font-size:0.82rem;font-weight:600">10→11 Aprile</div>
+        <div class="t-muted" style="font-size:0.7rem;margin-top:2px">Brescia · 74 saldature · CA</div>
+      </div>
+      <span class="badge badge-green" style="font-size:0.7rem;font-weight:700">74</span>
+    </div>
   </div>
 </div>
 
 
-<!-- ══════════════════════════════════════
-     SCREEN: CALENDARIO
-══════════════════════════════════════════ -->
-<div class="screen" id="screen-calendario">
-  <div class="header">
-    <span class="header-title">Calendario</span>
-    <button class="btn-header-action" onclick="showScreen('screen-form')">+ Cantiere</button>
+<!-- ═══════════════════════════════════════════════════
+     SCREEN 3: CANTIERE
+     ═══════════════════════════════════════════════════ -->
+<div id="screen-cantiere" class="screen">
+  <!-- Header -->
+  <div class="header-bar">
+    <div class="back-btn ripple-container" onclick="showScreen('screen-dashboard')">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    </div>
+    <div style="flex:1">
+      <div class="t-screen-title">33/26 La Spezia – Arcola</div>
+    </div>
+    <button class="btn-small" onclick="showScreen('screen-form')">Edit</button>
   </div>
 
-  <div class="content">
+  <!-- Status Card -->
+  <div class="card card-accent-cyan section">
+    <div style="font-size:0.92rem;margin-bottom:6px"><span style="color:var(--green);font-weight:700">6</span> di 11 notti completate</div>
+    <div class="t-secondary" style="font-size:0.82rem;margin-bottom:4px"><span style="color:var(--accent);font-weight:600">239</span> saldature · <span style="color:var(--red);font-weight:600">6</span> difetti aperti</div>
+    <div class="t-muted" style="font-size:0.72rem">Deadline 30 Aprile — tra 16 giorni</div>
 
-    <!-- Filtro cantiere -->
-    <select class="cal-filter">
-      <option>Tutti i cantieri</option>
-      <option>La Spezia</option>
-      <option>Empoli</option>
-      <option>Brescia</option>
-      <option>Genova</option>
+    <div class="separator"></div>
+
+    <!-- Progress -->
+    <div class="flex items-end gap-12 mb-8">
+      <span class="t-hero glow-cyan" style="font-size:1.8rem;color:var(--accent)"><span class="count-up" data-target="43">0</span>%</span>
+      <span class="t-mono t-muted" style="font-size:0.72rem;padding-bottom:4px">22/51 slot completati</span>
+    </div>
+    <div class="progress-track progress-track-lg">
+      <div class="progress-fill progress-fill-cyan" style="width:0%" data-target="43"></div>
+    </div>
+
+    <div style="margin-top:14px">
+      <!-- Slot Grid Larger -->
+      <div class="slot-row">
+        <span class="slot-row-label">Dispari</span>
+        <span class="slot-row-count">5/17</span>
+        <span class="slot slot-lg slot-cyan">163</span>
+        <span class="slot slot-lg slot-cyan">164</span>
+        <span class="slot slot-lg slot-cyan">164</span>
+        <span class="slot slot-lg slot-cyan">165</span>
+        <span class="slot slot-lg slot-cyan">165</span>
+        <span class="slot slot-lg slot-empty">166</span>
+        <span class="slot slot-lg slot-empty">166</span>
+        <span class="slot slot-lg slot-empty">167</span>
+      </div>
+      <div class="slot-row">
+        <span class="slot-row-label">Pari</span>
+        <span class="slot-row-count">14/20</span>
+        <span class="slot slot-lg slot-green">161</span>
+        <span class="slot slot-lg slot-green">162</span>
+        <span class="slot slot-lg slot-green">163</span>
+        <span class="slot slot-lg slot-green">164</span>
+        <span class="slot slot-lg slot-green">165</span>
+        <span class="slot slot-lg slot-green">166</span>
+        <span class="slot slot-lg slot-green">167</span>
+        <span class="slot slot-lg slot-empty">168</span>
+      </div>
+      <div class="slot-row">
+        <span class="slot-row-label">Deviatoi</span>
+        <span class="slot-row-count">1/3</span>
+        <span class="slot slot-lg slot-yellow">1</span>
+        <span class="slot slot-lg slot-empty">2</span>
+        <span class="slot slot-lg slot-empty">3</span>
+      </div>
+      <div class="slot-row">
+        <span class="slot-row-label">Regolazioni</span>
+        <span class="slot-row-count">2/5</span>
+        <span class="slot slot-lg slot-green">1</span>
+        <span class="slot slot-lg slot-green">2</span>
+        <span class="slot slot-lg slot-empty">3</span>
+        <span class="slot slot-lg slot-empty">4</span>
+        <span class="slot slot-lg slot-empty">5</span>
+      </div>
+      <div class="slot-row">
+        <span class="slot-row-label">Ricontrollo</span>
+        <span class="slot-row-count">0/6</span>
+        <span class="slot slot-lg slot-empty">1</span>
+        <span class="slot slot-lg slot-empty">2</span>
+        <span class="slot slot-lg slot-empty">3</span>
+        <span class="slot slot-lg slot-empty">4</span>
+        <span class="slot slot-lg slot-empty">5</span>
+        <span class="slot slot-lg slot-empty">6</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- LINEA Section -->
+  <div class="section">
+    <div class="t-section">LINEA</div>
+
+    <!-- Dispari -->
+    <div class="card mb-12">
+      <div class="flex flex-between items-center mb-8">
+        <span style="font-size:0.88rem;font-weight:700">Dispari</span>
+        <div class="flex items-center gap-8">
+          <span class="t-mono" style="color:var(--accent);font-size:0.78rem;font-weight:600">27%</span>
+          <span class="t-muted" style="font-size:0.72rem">mancano 2.9 km</span>
+        </div>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill progress-fill-cyan" style="width:0%" data-target="27"></div>
+      </div>
+      <!-- Milestones -->
+      <div class="flex flex-between mt-4" style="padding:0 2px">
+        <span class="t-mono t-muted" style="font-size:0.58rem">171+663</span>
+        <span class="t-mono t-muted" style="font-size:0.58rem">168</span>
+        <span class="t-mono t-muted" style="font-size:0.58rem">166</span>
+        <span class="t-mono t-muted" style="font-size:0.58rem">163+600</span>
+      </div>
+      <!-- Current position marker -->
+      <div style="position:relative;height:16px;margin-top:2px">
+        <div style="position:absolute;left:27%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center">
+          <div style="width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px rgba(0,212,255,0.5)"></div>
+          <span class="t-mono" style="font-size:0.58rem;color:var(--accent);margin-top:2px">170+627</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pari -->
+    <div class="card">
+      <div class="flex flex-between items-center mb-8">
+        <span style="font-size:0.88rem;font-weight:700">Pari</span>
+        <div class="flex items-center gap-8">
+          <span class="t-mono" style="color:var(--green);font-size:0.78rem;font-weight:600">67%</span>
+          <span class="t-muted" style="font-size:0.72rem">mancano 3.3 km</span>
+        </div>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill progress-fill-green" style="width:0%" data-target="67"></div>
+      </div>
+      <div class="flex flex-between mt-4" style="padding:0 2px">
+        <span class="t-mono t-muted" style="font-size:0.58rem">161+000</span>
+        <span class="t-mono t-muted" style="font-size:0.58rem">164</span>
+        <span class="t-mono t-muted" style="font-size:0.58rem">167</span>
+        <span class="t-mono t-muted" style="font-size:0.58rem">171+000</span>
+      </div>
+      <div style="position:relative;height:16px;margin-top:2px">
+        <div style="position:absolute;left:67%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center">
+          <div style="width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 10px rgba(0,230,118,0.5)"></div>
+          <span class="t-mono" style="font-size:0.58rem;color:var(--green);margin-top:2px">164+847</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Altre Lavorazioni -->
+  <div class="section">
+    <div class="t-section">ALTRE LAVORAZIONI</div>
+
+    <div class="card mb-12">
+      <div class="flex items-center gap-8 mb-8">
+        <span style="font-size:0.88rem;font-weight:600;flex:1">Deviatoi Pari</span>
+        <span class="badge badge-yellow">DEV</span>
+        <span class="t-mono" style="font-size:0.75rem;color:var(--text-secondary)">1/3</span>
+      </div>
+      <div class="progress-track" style="height:5px;margin-bottom:10px">
+        <div class="progress-fill progress-fill-yellow" style="width:0%" data-target="33"></div>
+      </div>
+      <div class="flex gap-8">
+        <div class="slot slot-lg slot-yellow clickable">Dev 1</div>
+        <div class="slot slot-lg slot-empty clickable">Dev 2</div>
+        <div class="slot slot-lg slot-empty clickable">Dev 3</div>
+      </div>
+    </div>
+
+    <div class="card mb-12">
+      <div class="flex items-center gap-8 mb-8">
+        <span style="font-size:0.88rem;font-weight:600;flex:1">Regolazioni Dispari</span>
+        <span class="badge badge-green">COPPIA</span>
+        <span class="t-mono" style="font-size:0.75rem;color:var(--text-secondary)">2/5</span>
+      </div>
+      <div class="flex gap-8">
+        <div class="slot slot-lg slot-green">Reg 1</div>
+        <div class="slot slot-lg slot-green">Reg 2</div>
+        <div class="slot slot-lg slot-empty">Reg 3</div>
+        <div class="slot slot-lg slot-empty">Reg 4</div>
+        <div class="slot slot-lg slot-empty">Reg 5</div>
+      </div>
+    </div>
+
+    <div class="card mb-12">
+      <div class="flex items-center gap-8 mb-8">
+        <span style="font-size:0.88rem;font-weight:600;flex:1">Ricontrollo</span>
+        <span class="badge badge-red">DIFETTO</span>
+        <span class="t-mono" style="font-size:0.75rem;color:var(--text-secondary)">0/6</span>
+      </div>
+      <div class="flex gap-8 flex-wrap">
+        <div class="slot slot-lg slot-empty">1</div>
+        <div class="slot slot-lg slot-empty">2</div>
+        <div class="slot slot-lg slot-empty">3</div>
+        <div class="slot slot-lg slot-empty">4</div>
+        <div class="slot slot-lg slot-empty">5</div>
+        <div class="slot slot-lg slot-empty">6</div>
+      </div>
+    </div>
+
+    <button class="btn-outline-dashed">+ Aggiungi lavorazione</button>
+  </div>
+
+  <!-- CTA APRI NOTTE -->
+  <div class="section">
+    <button class="btn-cta ripple-container" onclick="showScreen('screen-notte')">APRI NOTTE</button>
+  </div>
+
+  <!-- Notti Programmate -->
+  <div class="section">
+    <div class="flex flex-between items-center mb-12">
+      <div class="t-section" style="margin-bottom:0">NOTTI PROGRAMMATE</div>
+      <button class="btn-small" style="font-size:0.7rem">+ Programma</button>
+    </div>
+    <div class="card">
+      <div class="flex flex-between items-center">
+        <div>
+          <div style="font-size:0.85rem;font-weight:600">Stasera 14→15/04</div>
+          <div class="t-muted" style="font-size:0.7rem;margin-top:2px">Sereno · 12°C</div>
+        </div>
+        <div class="flex gap-8">
+          <button class="btn-small btn-small-yellow" style="font-size:0.68rem;padding:6px 10px">Salta</button>
+          <button class="btn-small btn-small-red" style="font-size:0.68rem;padding:6px 10px">✕</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Completate -->
+  <div class="section">
+    <div class="t-section">COMPLETATE</div>
+    <div class="mini-card">
+      <div>
+        <div style="font-size:0.82rem;font-weight:600">13→14 Aprile</div>
+        <div class="t-muted" style="font-size:0.7rem;margin-top:2px">22 saldature · LP CA · Dispari 170→171</div>
+      </div>
+      <span class="badge badge-cyan">22</span>
+    </div>
+    <div class="mini-card">
+      <div>
+        <div style="font-size:0.82rem;font-weight:600">12→13 Aprile</div>
+        <div class="t-muted" style="font-size:0.7rem;margin-top:2px">18 saldature · LP · Dispari 168→170</div>
+      </div>
+      <span class="badge badge-cyan">18</span>
+    </div>
+    <div class="mini-card">
+      <div>
+        <div style="font-size:0.82rem;font-weight:600">9→10 Aprile</div>
+        <div class="t-muted" style="font-size:0.7rem;margin-top:2px">31 saldature · LP CA · Pari 164→166</div>
+      </div>
+      <span class="badge badge-green">31</span>
+    </div>
+  </div>
+
+  <!-- Difetti Aperti -->
+  <div class="section">
+    <div class="t-section">DIFETTI APERTI (6)</div>
+
+    <div class="card card-accent-red mb-12">
+      <div style="font-size:0.95rem;font-weight:600;margin-bottom:4px">170+200 DX</div>
+      <div class="t-secondary" style="font-size:0.75rem">Codice 4212 — S2 · Alluminotermica · PARI</div>
+      <div class="t-muted" style="font-size:0.7rem;margin-top:4px">03/12/2025 · Pari</div>
+      <div style="margin-top:8px">
+        <button class="btn-small btn-small-accent" style="font-size:0.7rem">Scheda I.1</button>
+      </div>
+    </div>
+
+    <div class="card card-accent-red mb-12">
+      <div style="font-size:0.95rem;font-weight:600;margin-bottom:4px">169+440 SX</div>
+      <div class="t-secondary" style="font-size:0.75rem">Codice 211 — S2 · Scintillio · DISPARI</div>
+      <div class="t-muted" style="font-size:0.7rem;margin-top:4px">05/12/2025 · Dispari</div>
+      <div class="flex gap-8 mt-8">
+        <button class="btn-small btn-small-accent" style="font-size:0.7rem">Scheda I.1</button>
+        <span class="badge badge-yellow" style="font-size:0.6rem">No DAC</span>
+      </div>
+    </div>
+
+    <div class="card card-accent-red">
+      <div style="font-size:0.95rem;font-weight:600;margin-bottom:4px">168+800 DX</div>
+      <div class="t-secondary" style="font-size:0.75rem">Codice 113 — S1 · Alluminotermica · DISPARI</div>
+      <div class="t-muted" style="font-size:0.7rem;margin-top:4px">07/12/2025 · Dispari</div>
+      <div style="margin-top:8px">
+        <button class="btn-small" style="font-size:0.7rem;color:var(--green);border-color:rgba(0,230,118,0.2)">Risolto</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gestione -->
+  <div class="section">
+    <div class="t-section">GESTIONE</div>
+    <div class="flex gap-12">
+      <button class="btn-small" style="flex:1;justify-content:center">Metti in pausa</button>
+      <button class="btn-small" style="flex:1;justify-content:center;color:var(--green);border-color:rgba(0,230,118,0.2)">Segna completato</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     SCREEN 4: NOTTE
+     ═══════════════════════════════════════════════════ -->
+<div id="screen-notte" class="screen">
+  <div class="header-bar">
+    <div class="back-btn ripple-container" onclick="showScreen('screen-cantiere')">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    </div>
+    <div style="flex:1">
+      <div class="t-screen-title">La Spezia — 14/04</div>
+    </div>
+    <span class="saved-indicator">Salvato ✓</span>
+  </div>
+
+  <!-- Pills -->
+  <div class="pill-group mb-16">
+    <div class="pill active">LP</div>
+    <div class="pill" onclick="this.classList.toggle('active')">Strumento B</div>
+  </div>
+
+  <!-- Select Binario -->
+  <div class="select-wrap mb-16">
+    <select>
+      <option>Seleziona binario...</option>
+      <option>DISPARI</option>
+      <option selected>PARI</option>
+      <option>INTERCONNESSIONE DISPARI</option>
+      <option>INTERCONNESSIONE PARI</option>
     </select>
+  </div>
 
-    <!-- Calendario Aprile 2026 -->
-    <div class="cal-grid-wrap">
-      <div class="cal-month-title">Aprile 2026</div>
-      <div class="cal-dow">
-        <div class="cal-dow-h">L</div>
-        <div class="cal-dow-h">M</div>
-        <div class="cal-dow-h">M</div>
-        <div class="cal-dow-h">G</div>
-        <div class="cal-dow-h">V</div>
-        <div class="cal-dow-h">S</div>
-        <div class="cal-dow-h">D</div>
-      </div>
-      <div class="cal-days">
-        <!-- Apr 1 = Mercoledi -> 2 celle vuote (L, M) -->
-        <div class="cal-day empty"></div>
-        <div class="cal-day empty"></div>
-        <div class="cal-day">1</div>
-        <div class="cal-day">2</div>
-        <div class="cal-day has-notte">3<span class="cal-dot dot-cyan"></span></div>
-        <div class="cal-day">4</div>
-        <div class="cal-day">5</div>
-
-        <div class="cal-day">6</div>
-        <div class="cal-day has-notte">7<span class="cal-dot dot-cyan"></span></div>
-        <div class="cal-day">8</div>
-        <div class="cal-day has-notte">9<span class="cal-dot dot-green"></span></div>
-        <div class="cal-day has-notte">10<span class="cal-dot dot-cyan"></span></div>
-        <div class="cal-day">11</div>
-        <div class="cal-day has-notte">12<span class="cal-dot dot-yellow"></span></div>
-
-        <div class="cal-day has-notte">13<span class="cal-dot dot-cyan"></span></div>
-        <div class="cal-day today has-notte">14<span class="cal-dot dot-cyan"></span></div>
-        <div class="cal-day">15</div>
-        <div class="cal-day has-notte">16<span class="cal-dot dot-green"></span></div>
-        <div class="cal-day">17</div>
-        <div class="cal-day">18</div>
-        <div class="cal-day has-notte">19<span class="cal-dot dot-orange"></span></div>
-
-        <div class="cal-day">20</div>
-        <div class="cal-day has-notte">21<span class="cal-dot dot-cyan"></span></div>
-        <div class="cal-day">22</div>
-        <div class="cal-day has-notte">23<span class="cal-dot dot-cyan"></span></div>
-        <div class="cal-day">24</div>
-        <div class="cal-day has-notte">25<span class="cal-dot dot-yellow"></span></div>
-        <div class="cal-day">26</div>
-
-        <div class="cal-day has-notte">27<span class="cal-dot dot-cyan"></span></div>
-        <div class="cal-day">28</div>
-        <div class="cal-day has-notte">29<span class="cal-dot dot-green"></span></div>
-        <div class="cal-day">30</div>
-        <div class="cal-day empty"></div>
-        <div class="cal-day empty"></div>
-        <div class="cal-day empty"></div>
-      </div>
+  <!-- Editor -->
+  <div class="editor-box mb-12">
+    <div class="editor-line">
+      <span class="editor-line-num">1</span>
+      <span class="editor-line-indicator" style="background:var(--green)"></span>
+      <span class="editor-line-text" style="color:var(--green)">170+627 DX N 15 02/12/2025</span>
     </div>
-
-    <!-- Legenda colori cantiere -->
-    <div style="display:flex;gap:12px;flex-wrap:wrap;padding:0 2px;">
-      <span style="display:flex;align-items:center;gap:5px;font-size:0.68rem;color:var(--text-muted);"><span style="width:8px;height:8px;border-radius:50%;background:var(--accent);display:inline-block;"></span>La Spezia</span>
-      <span style="display:flex;align-items:center;gap:5px;font-size:0.68rem;color:var(--text-muted);"><span style="width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block;"></span>Empoli</span>
-      <span style="display:flex;align-items:center;gap:5px;font-size:0.68rem;color:var(--text-muted);"><span style="width:8px;height:8px;border-radius:50%;background:var(--yellow);display:inline-block;"></span>Brescia</span>
-      <span style="display:flex;align-items:center;gap:5px;font-size:0.68rem;color:var(--text-muted);"><span style="width:8px;height:8px;border-radius:50%;background:#ff8c00;display:inline-block;"></span>Genova</span>
+    <div class="editor-line">
+      <span class="editor-line-num">2</span>
+      <span class="editor-line-indicator" style="background:var(--green)"></span>
+      <span class="editor-line-text" style="color:var(--green)">170+500 SX N 22 02/12/2025</span>
     </div>
-
-    <!-- Sezione Cantieri -->
-    <div>
-      <div class="section-title">Cantieri</div>
-      <div style="display:flex;flex-direction:column;gap:10px;">
-
-        <div class="cantiere-card-cal" onclick="showScreen('screen-form')">
-          <div class="cantiere-top">
-            <span class="cantiere-nome">33/26 La Spezia - Arcola</span>
-            <span class="pill pill-green pill-sm">Attivo</span>
-          </div>
-          <div class="cantiere-stats">
-            <span>6 notti fatte · 239 saldature controllate</span>
-            <span class="cantiere-difetti">6 difetti aperti</span>
-          </div>
-          <div class="cantiere-deadline">Deadline 30/4 &mdash; 16 giorni</div>
-        </div>
-
-        <div class="cantiere-card-cal">
-          <div class="cantiere-top">
-            <span class="cantiere-nome">12/26 Empoli - Signa</span>
-            <span class="pill pill-green pill-sm">Attivo</span>
-          </div>
-          <div class="cantiere-stats">
-            <span>3 notti fatte · 94 saldature controllate</span>
-          </div>
-          <div class="cantiere-deadline">Deadline 15/5 &mdash; 31 giorni</div>
-        </div>
-
-        <div class="cantiere-card-cal">
-          <div class="cantiere-top">
-            <span class="cantiere-nome">08/26 Brescia Ovest</span>
-            <span class="pill pill-yellow pill-sm">Pausa</span>
-          </div>
-          <div class="cantiere-stats">
-            <span>4 notti fatte · 122 saldature controllate</span>
-            <span class="cantiere-difetti">2 difetti aperti</span>
-          </div>
-          <div class="cantiere-deadline">Deadline 20/5 &mdash; 36 giorni</div>
-        </div>
-
-        <div class="cantiere-card-cal">
-          <div class="cantiere-top">
-            <span class="cantiere-nome">21/26 Genova Rivarolo</span>
-            <span class="pill pill-green pill-sm">Attivo</span>
-          </div>
-          <div class="cantiere-stats">
-            <span>1 notte fatta · 31 saldature controllate</span>
-          </div>
-          <div class="cantiere-deadline">Deadline 10/6 &mdash; 57 giorni</div>
-        </div>
-
-      </div>
+    <div class="editor-line">
+      <span class="editor-line-num">3</span>
+      <span class="editor-line-indicator" style="background:var(--red)"></span>
+      <span class="editor-line-text" style="color:var(--red)">170+200 DX S2 4212 03/12/2025</span>
     </div>
+    <div class="editor-line">
+      <span class="editor-line-num">4</span>
+      <span class="editor-line-indicator" style="background:var(--yellow)"></span>
+      <span class="editor-line-text" style="color:var(--yellow)">169+800 SX NDC 05/12/2025</span>
+    </div>
+    <div class="editor-line">
+      <span class="editor-line-num">5</span>
+      <span class="editor-line-indicator" style="background:var(--green)"></span>
+      <span class="editor-line-text" style="color:var(--green)">169+600 DX N 18 05/12/2025</span>
+    </div>
+    <div class="editor-line">
+      <span class="editor-line-num">6</span>
+      <span class="editor-line-indicator" style="background:var(--green)"></span>
+      <span class="editor-line-text" style="color:var(--green)">169+400 SX N 11 06/12/2025</span>
+    </div>
+    <div class="editor-line">
+      <span class="editor-line-num">7</span>
+      <span class="editor-line-indicator" style="background:var(--green)"></span>
+      <span class="editor-line-text" style="color:var(--green)">169+200 DX N 8 06/12/2025</span>
+    </div>
+    <div class="editor-line">
+      <span class="editor-line-num">8</span>
+      <span class="editor-line-indicator" style="background:rgba(255,255,255,0.1)"></span>
+      <span class="editor-line-text" style="color:var(--text-muted)"><span class="cursor-blink"></span></span>
+    </div>
+  </div>
 
+  <!-- Counter Strip -->
+  <div class="counter-strip mb-16">
+    <span class="counter-pill" style="background:var(--accent-dim);color:var(--accent)">5 OK</span>
+    <span class="counter-pill" style="background:var(--red-dim);color:var(--red)">1 Difetto</span>
+    <span class="counter-pill" style="background:var(--yellow-dim);color:var(--yellow)">1 No DAC</span>
+    <span class="counter-pill" style="background:rgba(255,255,255,0.05);color:var(--text-muted)">8 righe</span>
+  </div>
+
+  <!-- Buttons -->
+  <div class="flex gap-12 items-center mb-12">
+    <button class="btn-small btn-small-accent" style="flex-shrink:0">+ Aggiungi</button>
+    <button class="btn-cta ripple-container" style="flex:1" onclick="showScreen('screen-risultati')">ELABORA RISULTATI</button>
+  </div>
+  <div class="text-center">
+    <button class="btn-link">Pulisci</button>
   </div>
 </div>
 
 
-<!-- ══════════════════════════════════════
-     SCREEN: FORM CANTIERE
-══════════════════════════════════════════ -->
-<div class="screen" id="screen-form">
-  <div class="header">
-    <button class="btn-back" onclick="showScreen('screen-calendario')" aria-label="Indietro">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-    </button>
-    <span class="header-title">Modifica cantiere</span>
+<!-- ═══════════════════════════════════════════════════
+     SCREEN 5: RISULTATI
+     ═══════════════════════════════════════════════════ -->
+<div id="screen-risultati" class="screen">
+  <div class="header-bar">
+    <div class="back-btn ripple-container" onclick="showScreen('screen-cantiere')">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    </div>
+    <div style="flex:1">
+      <div class="t-screen-title">Risultati notte</div>
+    </div>
+    <button class="btn-small" onclick="showScreen('screen-notte')">Modifica lista</button>
   </div>
 
-  <div class="content">
-
-    <!-- Nome -->
-    <div class="input-group">
-      <label class="input-label">Nome</label>
-      <input class="input-field" type="text" value="33/26 La Spezia - Arcola" placeholder="Es: 33/26 La Spezia - Arcola">
+  <!-- Hero Card -->
+  <div class="card section" style="text-align:center;padding:28px 20px;box-shadow:var(--shadow-card), inset 0 1px 0 rgba(255,255,255,0.04)">
+    <div class="t-hero glow-neon" style="font-size:3.2rem;color:var(--accent);line-height:1"><span class="count-up" data-target="18">0</span></div>
+    <div class="t-secondary" style="font-size:0.82rem;margin-top:4px">saldature controllate</div>
+    <div class="flex gap-8 mt-12" style="justify-content:center">
+      <span class="counter-pill" style="background:var(--green-dim);color:var(--green)">15 OK</span>
+      <span class="counter-pill" style="background:var(--red-dim);color:var(--red)">2 Difetti</span>
+      <span class="counter-pill" style="background:var(--yellow-dim);color:var(--yellow)">1 No DAC</span>
     </div>
-
-    <!-- Tipo -->
-    <div class="input-group">
-      <label class="input-label">Tipo</label>
-      <div class="pill-toggle-group">
-        <button class="pill-toggle active" onclick="toggleTipo(this)">Notturno</button>
-        <button class="pill-toggle" onclick="toggleTipo(this)">Diurno</button>
-      </div>
-    </div>
-
-    <!-- Data inizio -->
-    <div class="input-group">
-      <label class="input-label">Data inizio</label>
-      <input class="input-field" type="date" value="2026-03-31">
-    </div>
-
-    <!-- Deadline -->
-    <div class="input-group">
-      <label class="input-label">Deadline</label>
-      <input class="input-field" type="date" value="2026-04-30">
-    </div>
-
-    <!-- Giorni attivi -->
-    <div class="input-group">
-      <label class="input-label">Giorni attivi</label>
-      <div class="day-pills">
-        <button class="day-pill" onclick="this.classList.toggle('active')">Dom</button>
-        <button class="day-pill active" onclick="this.classList.toggle('active')">Lun</button>
-        <button class="day-pill active" onclick="this.classList.toggle('active')">Mar</button>
-        <button class="day-pill active" onclick="this.classList.toggle('active')">Mer</button>
-        <button class="day-pill active" onclick="this.classList.toggle('active')">Gio</button>
-        <button class="day-pill active" onclick="this.classList.toggle('active')">Ven</button>
-        <button class="day-pill" onclick="this.classList.toggle('active')">Sab</button>
-      </div>
-    </div>
-
-    <!-- Note -->
-    <div class="input-group">
-      <label class="input-label">Note</label>
-      <textarea class="input-field" rows="3" placeholder="Note aggiuntive..."></textarea>
-    </div>
-
-    <div class="divider"></div>
-
-    <!-- Binari -->
-    <div>
-      <div class="section-title">Binari</div>
-      <div style="display:flex;flex-direction:column;gap:12px;">
-
-        <div class="binario-card">
-          <div class="binario-header">
-            <span class="binario-nome">Dispari</span>
-            <span class="pill pill-cyan pill-sm">Dispari</span>
-          </div>
-          <div class="tratta-row">
-            <span class="tratta-km">163+600 &rarr; 171+663</span>
-            <button class="btn-remove">&#10005;</button>
-          </div>
-          <button class="add-tratta-btn">+ Tratta</button>
-        </div>
-
-        <div class="binario-card">
-          <div class="binario-header">
-            <span class="binario-nome">Pari</span>
-            <span class="pill pill-green pill-sm">Pari</span>
-          </div>
-          <div class="tratta-row">
-            <span class="tratta-km">161+555 &rarr; 171+660</span>
-            <button class="btn-remove">&#10005;</button>
-          </div>
-          <button class="add-tratta-btn">+ Tratta</button>
-        </div>
-
-        <div class="binario-add-row">
-          <button class="btn btn-outline-cyan btn-small" style="flex:1;">+ Pari</button>
-          <button class="btn btn-outline-cyan btn-small" style="flex:1;">+ Dispari</button>
-          <button class="btn btn-outline-border btn-small" style="flex:1;">+ Altro</button>
-        </div>
-
-      </div>
-    </div>
-
-    <div class="divider"></div>
-
-    <!-- Salva -->
-    <button class="btn btn-cta-cyan btn-full">SALVA</button>
-
-    <!-- Elimina -->
-    <button class="btn btn-outline-red btn-full" style="margin-bottom:8px;">
-      Elimina cantiere
-    </button>
-
-  </div>
-</div>
-
-
-<!-- ══════════════════════════════════════
-     SCREEN: PROFILO
-══════════════════════════════════════════ -->
-<div class="screen" id="screen-profilo">
-  <div class="header">
-    <span class="header-title">Profilo</span>
+    <div class="t-mono" style="font-size:0.8rem;margin-top:12px;color:var(--text-secondary)">168+600 → 170+627</div>
+    <div class="t-muted" style="font-size:0.72rem;margin-top:4px">2.0 km percorsi · Dispari</div>
   </div>
 
-  <div class="content">
-
-    <!-- Hero -->
-    <div class="profilo-hero">
-      <div class="avatar-profilo">L</div>
-      <div class="profilo-nome">Ludovico</div>
-      <div class="profilo-ruolo">Operatore</div>
-    </div>
-
-    <!-- Impostazioni -->
-    <div class="card" style="display:flex;flex-direction:column;gap:16px;">
-
-      <div class="input-group">
-        <label class="input-label">Sigla</label>
-        <input class="input-field" type="text" value="LP" maxlength="5" placeholder="Es: LP">
-        <div class="input-hint">Max 5 caratteri</div>
+  <!-- Difetti -->
+  <div class="section">
+    <div class="t-section">DIFETTI</div>
+    <div class="card card-accent-red mb-12">
+      <div style="font-size:0.95rem;font-weight:600;margin-bottom:4px">170+200 DX</div>
+      <div class="t-secondary" style="font-size:0.75rem">Codice 4212 — S2 · Alluminotermica · PARI</div>
+      <div class="flex gap-8 mt-8">
+        <button class="btn-small btn-small-accent" style="font-size:0.7rem">Scheda I.1</button>
       </div>
-
-      <div class="input-group">
-        <label class="input-label">Strumento</label>
-        <input class="input-field" type="text" value="B" placeholder="Es: GII2, B">
-        <div class="input-hint">Es: GII2, B</div>
-      </div>
-
     </div>
+    <div class="card card-accent-red">
+      <div style="font-size:0.95rem;font-weight:600;margin-bottom:4px">169+800 SX</div>
+      <div class="t-secondary" style="font-size:0.75rem">Codice 211 — S1 · Scintillio · DISPARI</div>
+      <div class="flex gap-8 mt-8">
+        <button class="btn-small btn-small-accent" style="font-size:0.7rem">Scheda I.1</button>
+        <span class="badge badge-yellow" style="font-size:0.6rem">No DAC</span>
+      </div>
+    </div>
+  </div>
 
-    <!-- Salva -->
-    <button class="btn btn-cta-cyan btn-full">SALVA</button>
+  <!-- Riepilogo WhatsApp -->
+  <div class="section">
+    <div class="t-section">RIEPILOGO WHATSAPP</div>
+    <div class="tab-group mb-12">
+      <button class="tab-btn active" onclick="switchWaTab(this, 'm2')">Formato M2</button>
+      <button class="tab-btn" onclick="switchWaTab(this, 'gfc')">Formato GFC</button>
+    </div>
+    <div class="wa-box" id="wa-m2">M2 CONTROLLO SALDATURE
+Notte 14→15 Aprile 2026
+La Spezia — Arcola
+Operatori: LP, CA
+Binario: DISPARI
 
-    <div class="divider"></div>
+Saldature controllate: 18
+OK: 15 · Difetti: 2 · No DAC: 1
+KM percorsi: 168+600 → 170+627 (2.0 km)
 
-    <!-- Info -->
-    <div>
-      <div class="section-title">Info</div>
-      <div style="display:flex;flex-direction:column;gap:8px;">
-        <div class="info-row">
-          <span class="info-label">Versione</span>
-          <span class="info-value">2.0.0</span>
+Difetti:
+- 170+200 DX S2 4212 Alluminotermica
+- 169+800 SX NDC Scintillio</div>
+    <div class="wa-box" id="wa-gfc" style="display:none">M2 CONTROLLO SALDATURE
+33/26 La Spezia – Arcola
+14→15/04/2026 DISPARI
+18 sald. contr. di cui 2 DIF
+
+DIF:
+170+200 DX 4212
+169+800 SX NDC</div>
+    <div style="margin-top:10px">
+      <button class="btn-small btn-small-accent w-full" style="justify-content:center">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:6px"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+        Copia
+      </button>
+    </div>
+  </div>
+
+  <!-- Tabella -->
+  <div class="section">
+    <div class="t-section">TABELLA</div>
+    <div style="overflow-x:auto;border-radius:var(--radius-md);border:1px solid var(--border)">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Km</th>
+            <th>Lato</th>
+            <th>Stato</th>
+            <th>Codice</th>
+            <th>Sonda</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>170+627</td><td>DX</td><td><span style="color:var(--green)">OK</span></td><td>—</td><td>N 15</td></tr>
+          <tr><td>170+500</td><td>SX</td><td><span style="color:var(--green)">OK</span></td><td>—</td><td>N 22</td></tr>
+          <tr><td>170+200</td><td>DX</td><td><span style="color:var(--red)">Difetto</span></td><td>4212</td><td>S2</td></tr>
+          <tr><td>169+800</td><td>SX</td><td><span style="color:var(--yellow)">No DAC</span></td><td>—</td><td>—</td></tr>
+          <tr><td>169+600</td><td>DX</td><td><span style="color:var(--green)">OK</span></td><td>—</td><td>N 18</td></tr>
+          <tr><td>169+400</td><td>SX</td><td><span style="color:var(--green)">OK</span></td><td>—</td><td>N 11</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-top:10px">
+      <button class="btn-small w-full" style="justify-content:center;font-size:0.72rem">Copia TSV</button>
+    </div>
+  </div>
+
+  <!-- CTA Chiudi Notte -->
+  <div class="section">
+    <button class="btn-cta btn-cta-green ripple-container">CHIUDI NOTTE</button>
+  </div>
+
+  <!-- Gestione Saldature -->
+  <div class="section">
+    <details>
+      <summary class="t-section" style="margin-bottom:0">
+        <span class="tri">▶</span> GESTIONE SALDATURE
+      </summary>
+      <div style="margin-top:12px">
+        <div class="mini-card">
+          <div>
+            <span class="t-mono" style="font-size:0.72rem;color:var(--green)">170+627 DX</span>
+            <span class="t-muted" style="font-size:0.65rem;margin-left:8px">OK · N 15</span>
+          </div>
+          <button class="btn-small btn-small-red" style="font-size:0.6rem;padding:4px 8px">✕</button>
         </div>
-        <div class="info-row">
-          <span class="info-label">Ultimo accesso</span>
-          <span class="info-value">14/04/2026</span>
+        <div class="mini-card">
+          <div>
+            <span class="t-mono" style="font-size:0.72rem;color:var(--red)">170+200 DX</span>
+            <span class="t-muted" style="font-size:0.65rem;margin-left:8px">Difetto · 4212</span>
+          </div>
+          <button class="btn-small btn-small-red" style="font-size:0.6rem;padding:4px 8px">✕</button>
         </div>
       </div>
-    </div>
-
-    <!-- Logout -->
-    <button class="btn btn-outline-red btn-full" style="margin-bottom:8px;" onclick="showScreen('screen-login')">
-      Logout
-    </button>
-
+    </details>
   </div>
 </div>
 
 
-<!-- ══════════════════════════════════════
+<!-- ═══════════════════════════════════════════════════
+     SCREEN 6: CALENDARIO
+     ═══════════════════════════════════════════════════ -->
+<div id="screen-calendario" class="screen">
+  <div class="flex flex-between items-center mb-20">
+    <div class="t-screen-title">Calendario</div>
+    <button class="btn-small btn-small-accent">+ Cantiere</button>
+  </div>
+
+  <!-- Filtro -->
+  <div class="select-wrap mb-16">
+    <select>
+      <option>Tutti i cantieri</option>
+      <option>La Spezia — Arcola</option>
+      <option>Brescia — Verona</option>
+      <option>Empoli — Firenze</option>
+    </select>
+  </div>
+
+  <!-- Calendar -->
+  <div class="card mb-20">
+    <div class="text-center mb-12" style="font-size:0.95rem;font-weight:600">Aprile 2026</div>
+    <div class="cal-grid">
+      <div class="cal-head">L</div><div class="cal-head">M</div><div class="cal-head">M</div>
+      <div class="cal-head">G</div><div class="cal-head">V</div><div class="cal-head">S</div><div class="cal-head">D</div>
+
+      <div class="cal-cell empty"></div>
+      <div class="cal-cell empty"></div>
+      <div class="cal-cell">1</div>
+      <div class="cal-cell">2<div class="cal-dots"><span class="cal-dot cal-dot-cyan"></span></div></div>
+      <div class="cal-cell">3</div>
+      <div class="cal-cell">4</div>
+      <div class="cal-cell">5</div>
+
+      <div class="cal-cell">6<div class="cal-dots"><span class="cal-dot cal-dot-cyan"></span></div></div>
+      <div class="cal-cell">7<div class="cal-dots"><span class="cal-dot cal-dot-cyan"></span></div></div>
+      <div class="cal-cell">8</div>
+      <div class="cal-cell">9<div class="cal-dots"><span class="cal-dot cal-dot-cyan"></span><span class="cal-dot cal-dot-green"></span></div></div>
+      <div class="cal-cell">10<div class="cal-dots"><span class="cal-dot cal-dot-yellow"></span></div></div>
+      <div class="cal-cell">11</div>
+      <div class="cal-cell">12</div>
+
+      <div class="cal-cell">13<div class="cal-dots"><span class="cal-dot cal-dot-cyan"></span></div></div>
+      <div class="cal-cell today">14<div class="cal-dots"><span class="cal-dot cal-dot-cyan"></span></div></div>
+      <div class="cal-cell">15</div>
+      <div class="cal-cell">16</div>
+      <div class="cal-cell">17</div>
+      <div class="cal-cell">18</div>
+      <div class="cal-cell">19</div>
+
+      <div class="cal-cell">20<div class="cal-dots"><span class="cal-dot cal-dot-cyan"></span></div></div>
+      <div class="cal-cell">21</div>
+      <div class="cal-cell">22</div>
+      <div class="cal-cell">23</div>
+      <div class="cal-cell">24</div>
+      <div class="cal-cell">25</div>
+      <div class="cal-cell">26</div>
+
+      <div class="cal-cell">27<div class="cal-dots"><span class="cal-dot cal-dot-cyan"></span><span class="cal-dot cal-dot-green"></span></div></div>
+      <div class="cal-cell">28</div>
+      <div class="cal-cell">29</div>
+      <div class="cal-cell">30</div>
+      <div class="cal-cell empty"></div>
+      <div class="cal-cell empty"></div>
+      <div class="cal-cell empty"></div>
+    </div>
+
+    <!-- Legend -->
+    <div class="flex gap-16 mt-12" style="justify-content:center;flex-wrap:wrap">
+      <div class="flex items-center gap-4"><span class="cal-dot cal-dot-cyan" style="width:7px;height:7px"></span><span class="t-muted" style="font-size:0.65rem">La Spezia</span></div>
+      <div class="flex items-center gap-4"><span class="cal-dot cal-dot-green" style="width:7px;height:7px"></span><span class="t-muted" style="font-size:0.65rem">Empoli</span></div>
+      <div class="flex items-center gap-4"><span class="cal-dot cal-dot-yellow" style="width:7px;height:7px"></span><span class="t-muted" style="font-size:0.65rem">Brescia</span></div>
+      <div class="flex items-center gap-4"><span class="cal-dot cal-dot-orange" style="width:7px;height:7px"></span><span class="t-muted" style="font-size:0.65rem">Genova</span></div>
+    </div>
+  </div>
+
+  <!-- Cantieri -->
+  <div class="section">
+    <div class="t-section">CANTIERI</div>
+
+    <div class="card mb-12 clickable ripple-container" onclick="showScreen('screen-cantiere')">
+      <div class="flex items-center gap-8 mb-6">
+        <span style="font-size:0.92rem;font-weight:600;flex:1">La Spezia — Arcola</span>
+        <span class="badge badge-green">ATTIVO</span>
+      </div>
+      <div class="t-secondary" style="font-size:0.75rem">6 notti fatte · 239 controllate</div>
+      <div class="t-secondary" style="font-size:0.75rem;margin-top:2px"><span style="color:var(--red)">6 difetti</span> · Deadline 30/4 — 16 giorni</div>
+    </div>
+
+    <div class="card mb-12 clickable ripple-container">
+      <div class="flex items-center gap-8 mb-6">
+        <span style="font-size:0.92rem;font-weight:600;flex:1">Brescia — Verona</span>
+        <span class="badge badge-green">ATTIVO</span>
+      </div>
+      <div class="t-secondary" style="font-size:0.75rem">0 notti · Diurno · 4 binari</div>
+    </div>
+
+    <div class="card clickable ripple-container">
+      <div class="flex items-center gap-8 mb-6">
+        <span style="font-size:0.92rem;font-weight:600;flex:1">Empoli — Firenze</span>
+        <span class="badge badge-yellow">DATI</span>
+      </div>
+      <div class="t-secondary" style="font-size:0.75rem">88 saldature importate</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     SCREEN 7: FORM CANTIERE
+     ═══════════════════════════════════════════════════ -->
+<div id="screen-form" class="screen">
+  <div class="header-bar">
+    <div class="back-btn ripple-container" onclick="showScreen('screen-cantiere')">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    </div>
+    <div style="flex:1">
+      <div class="t-screen-title">Modifica cantiere</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <label class="input-label">Nome cantiere</label>
+    <input class="input" type="text" value="33/26 La Spezia – Arcola">
+  </div>
+
+  <div class="section">
+    <label class="input-label">Tipo</label>
+    <div class="pill-group">
+      <div class="pill active" onclick="togglePill(this)">Notturno</div>
+      <div class="pill" onclick="togglePill(this)">Diurno</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <label class="input-label">Data inizio</label>
+    <input class="input" type="date" value="2026-03-15" style="margin-bottom:12px">
+    <label class="input-label">Data fine</label>
+    <input class="input" type="date" value="2026-04-30">
+  </div>
+
+  <div class="section">
+    <label class="input-label">Giorni attivi</label>
+    <div class="flex gap-8">
+      <div class="day-toggle active">L</div>
+      <div class="day-toggle active">M</div>
+      <div class="day-toggle active">M</div>
+      <div class="day-toggle active">G</div>
+      <div class="day-toggle active">V</div>
+      <div class="day-toggle">S</div>
+      <div class="day-toggle">D</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <label class="input-label">Note</label>
+    <textarea class="input" rows="3" placeholder="Note opzionali..." style="resize:vertical;min-height:80px"></textarea>
+  </div>
+
+  <!-- Binari -->
+  <div class="section">
+    <div class="t-section">BINARI</div>
+
+    <div class="card mb-12">
+      <div class="flex items-center gap-8 mb-8">
+        <span class="badge badge-cyan">DISPARI</span>
+        <span class="t-mono t-secondary" style="font-size:0.72rem;flex:1">163+600 → 171+663</span>
+        <button class="btn-small btn-small-red" style="font-size:0.6rem;padding:4px 8px">✕</button>
+      </div>
+      <div class="t-muted" style="font-size:0.68rem">Tratta unica · 8.1 km</div>
+    </div>
+
+    <div class="card mb-12">
+      <div class="flex items-center gap-8 mb-8">
+        <span class="badge badge-green">PARI</span>
+        <span class="t-mono t-secondary" style="font-size:0.72rem;flex:1">161+000 → 171+000</span>
+        <button class="btn-small btn-small-red" style="font-size:0.6rem;padding:4px 8px">✕</button>
+      </div>
+      <div class="t-muted" style="font-size:0.68rem">Tratta unica · 10.0 km</div>
+    </div>
+
+    <button class="btn-outline-dashed">+ Aggiungi binario</button>
+  </div>
+
+  <!-- Save -->
+  <div class="section">
+    <button class="btn-cta ripple-container" onclick="showScreen('screen-cantiere')">SALVA</button>
+  </div>
+
+  <div class="section text-center">
+    <button class="btn-link" style="color:var(--red)">Elimina cantiere</button>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     SCREEN 8: PROFILO
+     ═══════════════════════════════════════════════════ -->
+<div id="screen-profilo" class="screen">
+  <div class="flex flex-between items-center mb-24">
+    <div class="t-screen-title">Profilo</div>
+  </div>
+
+  <div class="flex flex-col items-center mb-24">
+    <div class="avatar-lg user-avatar-cyan avatar-ring" style="margin-bottom:12px;box-shadow:0 0 0 3px var(--bg-void), 0 0 0 5px rgba(0,212,255,0.3), 0 0 25px rgba(0,212,255,0.15)">L</div>
+    <div style="font-size:1.3rem;font-weight:700">Ludovico</div>
+    <div class="t-muted" style="font-size:0.75rem;margin-top:4px">Operatore</div>
+  </div>
+
+  <div class="card section">
+    <div class="mb-16">
+      <label class="input-label">Sigla</label>
+      <input class="input" type="text" value="LP" maxlength="3">
+      <div class="t-muted" style="font-size:0.65rem;margin-top:4px">Usata nei report e nei messaggi WhatsApp</div>
+    </div>
+    <div>
+      <label class="input-label">Strumento</label>
+      <input class="input" type="text" value="G" maxlength="5">
+      <div class="t-muted" style="font-size:0.65rem;margin-top:4px">Tipo di strumento ultrasonoro (es. G, B)</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <button class="btn-cta ripple-container">Salva</button>
+  </div>
+
+  <div class="card section" style="text-align:center">
+    <div class="t-muted" style="font-size:0.72rem">Versione 2.0.0</div>
+    <div class="t-mono t-muted" style="font-size:0.65rem;margin-top:4px">Ultimo accesso: 14/04/2026 21:45</div>
+  </div>
+
+  <div class="section text-center">
+    <button class="btn-small btn-small-red" style="width:100%;justify-content:center" onclick="showScreen('screen-login')">Logout</button>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     NAVBAR
+     ═══════════════════════════════════════════════════ -->
+<nav class="navbar hidden" id="navbar">
+  <div class="nav-indicator" id="nav-indicator"></div>
+
+  <div class="nav-item active" onclick="showScreen('screen-dashboard')" data-idx="0">
+    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    <span>Home</span>
+  </div>
+  <div class="nav-item" onclick="showScreen('screen-calendario')" data-idx="1">
+    <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+    <span>Mese</span>
+  </div>
+  <div class="nav-item" onclick="showScreen('screen-profilo')" data-idx="2">
+    <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    <span>Profilo</span>
+  </div>
+</nav>
+
+
+<!-- ═══════════════════════════════════════════════════
      JAVASCRIPT
-══════════════════════════════════════════ -->
+     ═══════════════════════════════════════════════════ -->
 <script>
-/* -- STATE -- */
-let currentUser = null;
-let pinBuffer = '';
-const MOCK_PIN = '1234'; // PIN demo
 
-/* All screen IDs */
-const ALL_SCREENS = [
-  'screen-login','screen-dashboard','screen-cantiere','screen-notte',
-  'screen-risultati','screen-calendario','screen-form','screen-profilo'
-];
+// ── STATE ──
+let currentScreen = 'screen-login';
+let pinCode = '';
+let selectedUser = '';
 
-/* -- SCREEN SWITCHER -- */
-function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => {
-    s.classList.remove('active');
-    s.style.display = 'none';
-  });
-  const el = document.getElementById(id);
-  if (el) {
-    if (id === 'screen-login') {
-      el.style.display = 'flex';
+// ── SCREEN NAVIGATION ──
+function showScreen(name) {
+  const current = document.getElementById(currentScreen);
+  const target = document.getElementById(name);
+  if (!target || name === currentScreen) return;
+
+  // Exit animation
+  current.classList.add('screen-exit');
+
+  setTimeout(() => {
+    current.classList.remove('active', 'screen-exit', 'screen-enter');
+    current.style.display = 'none';
+
+    target.style.display = 'block';
+    target.classList.add('active', 'screen-enter');
+    currentScreen = name;
+
+    // Scroll to top
+    window.scrollTo(0, 0);
+
+    // Navbar visibility
+    const navbar = document.getElementById('navbar');
+    if (name === 'screen-login') {
+      navbar.classList.add('hidden');
     } else {
-      el.style.display = 'block';
+      navbar.classList.remove('hidden');
     }
-    // Trigger reflow per animazioni
-    el.querySelectorAll('.anim').forEach((a, i) => {
-      a.style.animation = 'none';
-      a.offsetHeight;
-      a.style.animation = '';
-    });
-    el.classList.add('active');
-  }
 
-  // Navbar: visibile solo fuori dal login
-  const navbar = document.getElementById('navbar');
-  if (navbar) navbar.style.display = (id === 'screen-login') ? 'none' : 'flex';
+    // Update navbar active
+    updateNavbar(name);
 
-  // Aggiorna navbar active state
-  if (id === 'screen-dashboard') setNavActive('nav-home');
-  else if (id === 'screen-calendario' || id === 'screen-form') setNavActive('nav-mese');
-  else if (id === 'screen-profilo') setNavActive('nav-profilo');
+    // Animate progress bars
+    animateProgressBars();
 
-  window.scrollTo(0, 0);
+    // Animate count-ups
+    animateCountUps();
+
+    // Animate stagger items
+    animateStagger();
+
+  }, 200);
 }
 
-/* -- NAV ACTIVE -- */
-function setNavActive(activeId) {
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  const btn = document.getElementById(activeId);
-  if (btn) btn.classList.add('active');
-}
+// ── NAVBAR UPDATE ──
+function updateNavbar(name) {
+  const items = document.querySelectorAll('.nav-item');
+  const indicator = document.getElementById('nav-indicator');
+  let idx = -1;
 
-/* -- NAVBAR -- */
-function navTo(tab) {
-  if (tab === 'home') {
-    showScreen('screen-dashboard');
-  } else if (tab === 'mese') {
-    showScreen('screen-calendario');
-  } else if (tab === 'profilo') {
-    showScreen('screen-profilo');
+  if (name === 'screen-dashboard' || name === 'screen-cantiere' || name === 'screen-notte' || name === 'screen-risultati' || name === 'screen-form') idx = 0;
+  else if (name === 'screen-calendario') idx = 1;
+  else if (name === 'screen-profilo') idx = 2;
+
+  items.forEach((item, i) => {
+    if (i === idx) item.classList.add('active');
+    else item.classList.remove('active');
+  });
+
+  if (idx >= 0) {
+    indicator.style.left = (idx * 33.33) + '%';
   }
 }
 
-/* -- LOGIN: SELEZIONA UTENTE -- */
-function selectUser(name) {
-  currentUser = name;
-  pinBuffer = '';
+// ── PIN SYSTEM ──
+function showPinFor(name, initial, color) {
+  selectedUser = name;
+  pinCode = '';
   updatePinDots();
 
-  const overlay = document.getElementById('pin-overlay');
-  const pinName = document.getElementById('pin-name');
-  const pinAvatar = document.getElementById('pin-avatar');
+  document.getElementById('pin-user-name').textContent = name;
+  const avatar = document.getElementById('pin-avatar');
+  avatar.textContent = initial;
+  avatar.className = 'user-avatar user-avatar-' + color;
+  avatar.style.width = '60px';
+  avatar.style.height = '60px';
+  avatar.style.fontSize = '1.4rem';
+  avatar.style.marginBottom = '8px';
 
-  pinName.textContent = name;
-
-  if (name === 'Ludovico') {
-    pinAvatar.className = 'avatar avatar-cyan';
-    pinAvatar.style.cssText = 'width:38px;height:38px;font-size:1rem;';
-    pinAvatar.textContent = 'L';
-  } else {
-    pinAvatar.className = 'avatar avatar-green';
-    pinAvatar.style.cssText = 'width:38px;height:38px;font-size:1rem;';
-    pinAvatar.textContent = 'C';
-  }
-
-  overlay.classList.add('visible');
+  document.getElementById('pin-overlay').classList.add('visible');
 }
 
-/* -- PIN: INPUT -- */
-function pinInput(digit) {
-  if (pinBuffer.length >= 4) return;
-  pinBuffer += digit;
+function hidePin() {
+  document.getElementById('pin-overlay').classList.remove('visible');
+  pinCode = '';
+  updatePinDots();
+}
+
+function pinInput(num) {
+  if (pinCode.length >= 4) return;
+  pinCode += num;
   updatePinDots();
 
-  if (pinBuffer.length === 4) {
-    setTimeout(validatePin, 300);
+  if (pinCode.length === 4) {
+    // Check PIN
+    setTimeout(() => {
+      if (pinCode === '1234') {
+        hidePin();
+        showScreen('screen-dashboard');
+      } else {
+        // Wrong PIN - shake
+        const dots = document.querySelector('.pin-dots');
+        dots.style.animation = 'shake 400ms ease';
+        setTimeout(() => {
+          dots.style.animation = '';
+          pinCode = '';
+          updatePinDots();
+        }, 400);
+      }
+    }, 200);
   }
 }
 
-function pinDelete() {
-  if (pinBuffer.length > 0) {
-    pinBuffer = pinBuffer.slice(0, -1);
+function pinBackspace() {
+  if (pinCode.length > 0) {
+    pinCode = pinCode.slice(0, -1);
     updatePinDots();
   }
 }
 
 function updatePinDots() {
   for (let i = 0; i < 4; i++) {
-    const dot = document.getElementById('pd' + i);
-    if (dot) {
-      dot.classList.toggle('filled', i < pinBuffer.length);
-    }
-  }
-}
-
-function validatePin() {
-  if (pinBuffer === MOCK_PIN) {
-    closePinOverlay();
-    loginSuccess();
-  } else {
-    const dots = document.querySelector('.pin-dots');
-    dots.style.animation = 'none';
-    dots.offsetHeight;
-
-    document.querySelectorAll('.pin-dot.filled').forEach(d => {
-      d.style.background = 'var(--red)';
-      d.style.borderColor = 'var(--red)';
-    });
-
-    setTimeout(() => {
-      pinBuffer = '';
-      updatePinDots();
-      document.querySelectorAll('.pin-dot').forEach(d => {
-        d.style.background = '';
-        d.style.borderColor = '';
-      });
-    }, 600);
-  }
-}
-
-function closePinOverlay() {
-  document.getElementById('pin-overlay').classList.remove('visible');
-  pinBuffer = '';
-  updatePinDots();
-}
-
-/* -- LOGIN SUCCESS -- */
-function loginSuccess() {
-  const usernameEl = document.getElementById('dash-username');
-  const avatarEl = document.getElementById('dash-avatar');
-
-  if (usernameEl) usernameEl.textContent = currentUser;
-
-  if (avatarEl) {
-    if (currentUser === 'Ludovico') {
-      avatarEl.className = 'avatar avatar-cyan dash-avatar';
-      avatarEl.style.cssText = 'width:40px;height:40px;font-size:1rem;';
-      avatarEl.textContent = 'L';
+    const dot = document.getElementById('dot-' + i);
+    if (i < pinCode.length) {
+      dot.classList.add('filled');
     } else {
-      avatarEl.className = 'avatar avatar-green dash-avatar';
-      avatarEl.style.cssText = 'width:40px;height:40px;font-size:1rem;';
-      avatarEl.textContent = 'C';
+      dot.classList.remove('filled');
     }
   }
-
-  const greetingEl = document.querySelector('.dash-greeting');
-  if (greetingEl) {
-    const h = new Date().getHours();
-    if (h < 12) greetingEl.textContent = 'Buongiorno,';
-    else if (h < 18) greetingEl.textContent = 'Buon pomeriggio,';
-    else greetingEl.textContent = 'Buonasera,';
-  }
-
-  showScreen('screen-dashboard');
 }
 
-/* -- PAUSA SECTION -- */
-function togglePausa() {
-  const content = document.getElementById('pausa-content');
-  const arrow = document.getElementById('pausa-arrow');
-  const isOpen = content.style.display !== 'none';
-  content.style.display = isOpen ? 'none' : 'block';
-  arrow.classList.toggle('open', !isOpen);
-}
+// ── RIPPLE EFFECT ──
+document.addEventListener('click', function(e) {
+  const container = e.target.closest('.ripple-container');
+  if (!container) return;
 
-/* -- WA TAB SWITCH -- */
-function switchWaTab(btn, panelId) {
-  const card = btn.closest('.card');
-  card.querySelectorAll('.wa-tab').forEach(t => t.classList.remove('active'));
-  card.querySelectorAll('.wa-panel').forEach(p => p.classList.remove('active'));
-  btn.classList.add('active');
-  card.querySelector('#' + panelId).classList.add('active');
-}
+  const rect = container.getBoundingClientRect();
+  const size = Math.max(rect.width, rect.height) * 2;
+  const x = e.clientX - rect.left - size / 2;
+  const y = e.clientY - rect.top - size / 2;
 
-/* -- TIPO TOGGLE -- */
-function toggleTipo(btn) {
-  btn.closest('.pill-toggle-group').querySelectorAll('.pill-toggle').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-}
+  const ripple = document.createElement('div');
+  ripple.className = 'ripple';
+  ripple.style.width = size + 'px';
+  ripple.style.height = size + 'px';
+  ripple.style.left = x + 'px';
+  ripple.style.top = y + 'px';
 
-/* -- COPY TEXT -- */
-function copyText(panelId) {
-  const text = document.querySelector('#' + panelId + ' .wa-content').innerText;
-  if (navigator.clipboard) {
-    navigator.clipboard.writeText(text).then(() => {
-      showToast('Copiato!');
-    }).catch(() => fallbackCopy(text));
-  } else {
-    fallbackCopy(text);
-  }
-}
+  container.appendChild(ripple);
+  setTimeout(() => ripple.remove(), 600);
+});
 
-function fallbackCopy(text) {
-  const ta = document.createElement('textarea');
-  ta.value = text;
-  document.body.appendChild(ta);
-  ta.select();
-  document.execCommand('copy');
-  document.body.removeChild(ta);
-  showToast('Copiato!');
-}
-
-function showToast(msg) {
-  const t = document.createElement('div');
-  t.textContent = msg;
-  Object.assign(t.style, {
-    position: 'fixed', bottom: '96px', left: '50%', transform: 'translateX(-50%)',
-    background: 'var(--bg-surface)', border: '1px solid var(--border-light)',
-    color: 'var(--green)', padding: '8px 20px', borderRadius: '999px',
-    fontSize: '0.78rem', fontFamily: 'var(--font-body)', fontWeight: '600',
-    zIndex: '9999', boxShadow: '0 4px 16px rgba(0,0,0,0.4)',
-    opacity: '0', transition: 'opacity 0.2s'
+// ── PROGRESS BAR ANIMATION ──
+function animateProgressBars() {
+  const fills = document.querySelectorAll('.screen.active .progress-fill');
+  fills.forEach(fill => {
+    const target = fill.getAttribute('data-target');
+    if (target) {
+      fill.style.width = '0%';
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          fill.style.width = target + '%';
+        });
+      });
+    }
   });
-  document.body.appendChild(t);
-  requestAnimationFrame(() => { t.style.opacity = '1'; });
-  setTimeout(() => {
-    t.style.opacity = '0';
-    setTimeout(() => t.remove(), 250);
-  }, 1800);
 }
 
-/* -- INIT: mostra login -- */
-showScreen('screen-login');
-</script>
+// ── COUNT-UP ANIMATION ──
+function animateCountUps() {
+  const els = document.querySelectorAll('.screen.active .count-up');
+  els.forEach(el => {
+    const target = parseInt(el.getAttribute('data-target'));
+    if (isNaN(target)) return;
+    el.textContent = '0';
+    const duration = 800;
+    const start = performance.now();
 
+    function step(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      // Ease out cubic
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.round(eased * target);
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  });
+}
+
+// ── STAGGER ANIMATION ──
+function animateStagger() {
+  const items = document.querySelectorAll('.screen.active .stagger-item');
+  items.forEach(item => {
+    // Reset and replay
+    item.style.animation = 'none';
+    item.offsetHeight; // trigger reflow
+    item.style.animation = '';
+  });
+}
+
+// ── PILL TOGGLE ──
+function togglePill(el) {
+  const group = el.parentElement;
+  group.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// ── DAY TOGGLE ──
+document.querySelectorAll('.day-toggle').forEach(d => {
+  d.addEventListener('click', () => d.classList.toggle('active'));
+});
+
+// ── WHATSAPP TAB SWITCH ──
+function switchWaTab(btn, format) {
+  btn.parentElement.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('wa-m2').style.display = format === 'm2' ? 'block' : 'none';
+  document.getElementById('wa-gfc').style.display = format === 'gfc' ? 'block' : 'none';
+}
+
+// ── INITIAL STATE ──
+document.addEventListener('DOMContentLoaded', () => {
+  // Login is active by default
+  document.getElementById('navbar').classList.add('hidden');
+});
+
+</script>
 </body>
 </html>
