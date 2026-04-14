@@ -2200,6 +2200,8 @@ let selectedUser = '';
 
 // ── SCREEN NAVIGATION ──
 function showScreen(name) {
+  // Accept both 'dashboard' and 'screen-dashboard'
+  if (!name.startsWith('screen-')) name = 'screen-' + name;
   const current = document.getElementById(currentScreen);
   const target = document.getElementById(name);
   if (!target || name === currentScreen) return;
