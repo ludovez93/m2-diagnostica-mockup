@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mockup v2 — Slot + Barre km</title>
+<style>
+  :root {
+    --bg-dark: #0a0e1a;
+    --bg-card: #111827;
+    --bg-surface: #1a2236;
+    --accent: #00d4ff;
+    --green: #00e676;
+    --red: #ff3b5c;
+    --yellow: #ffd600;
+    --text-primary: #e8eaf0;
+    --text-secondary: #8890a6;
+    --text-muted: #5a6278;
+    --border-light: rgba(255,255,255,0.06);
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --font-title: 'Space Grotesk', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: var(--font-title);
+    background: var(--bg-dark);
+    color: var(--text-primary);
+    max-width: 420px;
+    margin: 0 auto;
+    min-height: 100vh;
+    padding-bottom: 40px;
+  }
+  .header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 20px; position: sticky; top: 0; z-index: 10;
+    background: var(--bg-dark);
+  }
+  .header h1 { font-size: 1.15rem; font-weight: 700; }
+  .back { color: var(--text-secondary); font-size: 1.2rem; text-decoration: none; }
+  .btn-edit { font-size: 0.78rem; color: var(--text-secondary); border: 1px solid var(--border-light); padding: 4px 12px; border-radius: var(--radius-sm); }
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    margin: 0 16px 16px;
+    padding: 16px;
+  }
+  .card-glow { border-left: 3px solid var(--accent); }
+  .stat-line { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 4px; }
+  .stat-line strong { color: var(--text-primary); }
+  .stat-line .num { color: var(--accent); font-weight: 700; }
+  .stat-line .red { color: var(--red); font-weight: 700; }
+
+  /* Progresso totale */
+  .progress-total {
+    margin-top: 14px; padding-top: 14px;
+    border-top: 1px solid var(--border-light);
+  }
+  .progress-header {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 8px;
+  }
+  .progress-pct { font-size: 1.4rem; font-weight: 700; color: var(--accent); }
+  .progress-detail { font-size: 0.78rem; color: var(--text-secondary); }
+  .progress-bar-bg {
+    height: 12px; background: var(--bg-surface); border-radius: 6px; overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%; border-radius: 6px;
+    box-shadow: 0 0 10px rgba(0,212,255,0.3);
+    transition: width 0.4s ease;
+  }
+  /* Legenda sotto barra totale */
+  .legend {
+    display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;
+  }
+  .legend-item {
+    display: flex; align-items: center; gap: 5px;
+    font-size: 0.68rem; color: var(--text-muted);
+  }
+  .legend-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+  }
+
+  .section-title {
+    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--text-muted);
+    margin: 24px 20px 10px;
+  }
+
+  /* === BARRA KM (stile app attuale per Linea) === */
+  .avanz-row { margin: 0 16px 14px; }
+  .avanz-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 6px;
+  }
+  .avanz-label { display: flex; align-items: center; gap: 8px; }
+  .avanz-name { font-weight: 700; font-size: 0.9rem; }
+  .avanz-pct { font-size: 0.85rem; font-weight: 700; }
+  .avanz-mancano { font-size: 0.78rem; color: var(--text-secondary); }
+  .avanz-mancano strong { color: var(--text-primary); }
+  .avanz-bar-wrap { position: relative; }
+  .avanz-bar-bg {
+    display: flex; align-items: center; height: 10px; border-radius: 5px;
+  }
+  .avanz-bar-seg {
+    height: 100%; background: var(--bg-surface); border-radius: 5px; overflow: hidden;
+  }
+  .avanz-bar-fill {
+    height: 100%; border-radius: 5px; transition: width 0.4s ease;
+  }
+  .avanz-marker {
+    position: absolute; top: 0; width: 2px; height: 10px;
+    background: var(--text-primary); border-radius: 1px;
+  }
+  /* Milestone row - flex */
+  .avanz-ms {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 3px;
+  }
+  .avanz-ms span {
+    font-size: 0.6rem; font-family: var(--font-mono);
+    color: var(--text-muted); white-space: nowrap;
+  }
+  .avanz-ms .ms-mid { flex: 1; text-align: center; }
+  /* Marcatore posizione */
+  .avanz-pos {
+    position: relative; height: 20px;
+  }
+  .avanz-pos-line {
+    position: absolute; top: 0; width: 1px; height: 6px; opacity: 0.5;
+  }
+  .avanz-pos-label {
+    position: absolute; top: 6px; transform: translateX(-50%);
+    font-size: 0.7rem; font-family: var(--font-mono);
+    font-weight: 700; white-space: nowrap;
+  }
+  /* Slot count sotto la barra */
+  .avanz-slot-count {
+    font-size: 0.72rem; color: var(--text-muted); margin-top: 4px;
+    font-family: var(--font-mono);
+  }
+  .avanz-slot-count strong { color: var(--text-secondary); }
+
+  /* === CARD LAVORAZIONE MANUALE (Dev/Reg/Ric) === */
+  .lav-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    margin: 0 16px 10px;
+    padding: 14px 16px;
+  }
+  .lav-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 8px;
+  }
+  .lav-title { display: flex; align-items: center; gap: 8px; }
+  .lav-name { font-weight: 600; font-size: 0.88rem; }
+  .lav-badge {
+    font-size: 0.6rem; font-weight: 700; letter-spacing: 0.05em;
+    padding: 2px 8px; border-radius: 10px; text-transform: uppercase;
+  }
+  .badge-dev { background: rgba(255,214,0,0.15); color: var(--yellow); }
+  .badge-coppia { background: rgba(0,230,118,0.15); color: var(--green); }
+  .badge-difetto { background: rgba(255,59,92,0.15); color: var(--red); }
+  .lav-count { font-size: 0.78rem; color: var(--text-secondary); font-family: var(--font-mono); }
+  .lav-count strong { color: var(--text-primary); }
+  .lav-bar-bg {
+    height: 6px; background: var(--bg-surface); border-radius: 3px; overflow: hidden;
+  }
+  .lav-bar-fill { height: 100%; border-radius: 3px; transition: width 0.4s ease; }
+
+  /* Slot grid */
+  .slot-grid { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .slot {
+    width: 40px; height: 40px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.6rem; font-family: var(--font-mono); font-weight: 700;
+    cursor: pointer; transition: all 0.15s;
+    border: 1px solid var(--border-light);
+  }
+  .slot-empty { background: var(--bg-surface); color: var(--text-muted); }
+  .slot-done { border-color: transparent; }
+  .slot-done.yellow { background: rgba(255,214,0,0.25); color: var(--yellow); }
+  .slot-done.green { background: rgba(0,230,118,0.25); color: var(--green); }
+  .slot-done.red { background: rgba(255,59,92,0.25); color: var(--red); }
+
+  /* Bottoni */
+  .btn-cta {
+    display: block; width: calc(100% - 32px); margin: 20px 16px;
+    padding: 14px; border-radius: var(--radius-md);
+    background: var(--accent); color: var(--bg-dark);
+    font-weight: 700; font-size: 0.9rem; text-align: center;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    border: none; cursor: pointer;
+  }
+  .btn-outline {
+    display: block; width: calc(100% - 32px); margin: 0 16px 12px;
+    padding: 12px; border-radius: var(--radius-md);
+    background: transparent; color: var(--text-secondary);
+    font-weight: 600; font-size: 0.82rem; text-align: center;
+    border: 1px solid var(--border-light); cursor: pointer;
+  }
+
+  /* Notti */
+  .notte-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 12px 16px;
+    background: var(--bg-card); border: 1px solid var(--border-light);
+    border-radius: var(--radius-md); margin: 0 16px 8px;
+  }
+  .notte-info { font-size: 0.85rem; }
+  .notte-meta { font-size: 0.75rem; color: var(--text-secondary); display: flex; gap: 8px; align-items: center; }
+  .btn-salta { font-size: 0.7rem; padding: 3px 10px; border-radius: 12px; background: transparent; border: 1px solid var(--red); color: var(--red); cursor: pointer; }
+  .btn-x { font-size: 0.85rem; color: var(--text-muted); cursor: pointer; background: none; border: none; }
+
+  .mockup-note {
+    margin: 20px 16px; padding: 12px 16px;
+    background: rgba(0,212,255,0.05); border: 1px dashed rgba(0,212,255,0.2);
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem; color: var(--accent); line-height: 1.5;
+  }
+  .mockup-note strong { display: block; margin-bottom: 4px; font-size: 0.8rem; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <a class="back">&lt;</a>
+  <h1>33/26 La Spezia - Arcola</h1>
+  <span class="btn-edit">Edit</span>
+</div>
+
+<!-- CARD STATUS -->
+<div class="card card-glow">
+  <div class="stat-line"><span class="num">6</span> di 11 notti completate</div>
+  <div class="stat-line"><strong>239</strong> saldature &middot; <span class="red">6</span> difetti aperti</div>
+  <div class="stat-line">Deadline tra 16g</div>
+
+  <div class="progress-total">
+    <div class="progress-header">
+      <div>
+        <span class="progress-pct">43%</span>
+        <span class="progress-detail" style="margin-left:8px">22 / 51 slot</span>
+      </div>
+    </div>
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fill" style="width:43%;background:var(--accent)"></div>
+    </div>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div> Linea</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--yellow)"></div> Deviatoi</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div> Regolazioni</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--red)"></div> Ricontrollo</div>
+    </div>
+  </div>
+</div>
+
+<!-- NOTA MOCKUP -->
+<div class="mockup-note">
+  <strong>MOCKUP v2 — Ibrido barre km + slot manuali</strong>
+  Linea: barra km con milestone (come app attuale) + conteggio slot sotto.
+  Deviatoi/Regolazioni/Ricontrollo: griglia slot tappabile.
+</div>
+
+<!-- ========== LINEA (barre km come app attuale) ========== -->
+<div class="section-title">Linea</div>
+
+<!-- DISPARI -->
+<div class="avanz-row">
+  <div class="avanz-header">
+    <div class="avanz-label">
+      <span class="avanz-name">Dispari</span>
+      <span class="avanz-pct" style="color:var(--accent)">27%</span>
+    </div>
+    <span class="avanz-mancano">mancano <strong>2.9</strong> km</span>
+  </div>
+  <div class="avanz-bar-wrap">
+    <div class="avanz-bar-bg">
+      <div class="avanz-bar-seg" style="width:100%">
+        <div class="avanz-bar-fill" style="width:27%;background:var(--accent);box-shadow:0 0 8px rgba(0,212,255,0.3)"></div>
+      </div>
+    </div>
+    <div class="avanz-marker" style="left:27%"></div>
+  </div>
+  <div class="avanz-ms">
+    <span>171+663</span>
+    <span class="ms-mid">168</span>
+    <span class="ms-mid">166</span>
+    <span>163+600</span>
+  </div>
+  <div class="avanz-pos">
+    <div class="avanz-pos-line" style="left:27%;background:var(--accent)"></div>
+    <div class="avanz-pos-label" style="left:27%;color:var(--accent)">170+627</div>
+  </div>
+  <div class="avanz-slot-count"><strong>5</strong> / 17 slot</div>
+</div>
+
+<!-- PARI -->
+<div class="avanz-row">
+  <div class="avanz-header">
+    <div class="avanz-label">
+      <span class="avanz-name">Pari</span>
+      <span class="avanz-pct" style="color:var(--green)">67%</span>
+    </div>
+    <span class="avanz-mancano">mancano <strong>3.3</strong> km</span>
+  </div>
+  <div class="avanz-bar-wrap">
+    <div class="avanz-bar-bg">
+      <div class="avanz-bar-seg" style="width:100%">
+        <div class="avanz-bar-fill" style="width:67%;background:var(--green);box-shadow:0 0 8px rgba(0,230,118,0.3)"></div>
+      </div>
+    </div>
+    <div class="avanz-marker" style="left:67%"></div>
+  </div>
+  <div class="avanz-ms">
+    <span>171+660</span>
+    <span class="ms-mid">168</span>
+    <span class="ms-mid">166</span>
+    <span>161+555</span>
+  </div>
+  <div class="avanz-pos">
+    <div class="avanz-pos-line" style="left:67%;background:var(--green)"></div>
+    <div class="avanz-pos-label" style="left:67%;color:var(--green)">164+847</div>
+  </div>
+  <div class="avanz-slot-count"><strong>14</strong> / 20 slot</div>
+</div>
+
+<!-- ========== LAVORAZIONI MANUALI ========== -->
+<div class="section-title">Altre lavorazioni</div>
+
+<!-- DEVIATOI -->
+<div class="lav-card">
+  <div class="lav-header">
+    <div class="lav-title">
+      <span class="lav-name">Deviatoi Pari</span>
+      <span class="lav-badge badge-dev">DEV</span>
+    </div>
+    <div class="lav-count"><strong>1</strong> / 3</div>
+  </div>
+  <div class="lav-bar-bg">
+    <div class="lav-bar-fill" style="width:33%;background:var(--yellow);box-shadow:0 0 6px rgba(255,214,0,0.2)"></div>
+  </div>
+  <div class="slot-grid">
+    <div class="slot slot-done yellow">Dev 1</div>
+    <div class="slot slot-empty">Dev 2</div>
+    <div class="slot slot-empty">Dev 3</div>
+  </div>
+</div>
+
+<!-- REGOLAZIONI -->
+<div class="lav-card">
+  <div class="lav-header">
+    <div class="lav-title">
+      <span class="lav-name">Regolazioni Dispari</span>
+      <span class="lav-badge badge-coppia">COPPIA</span>
+    </div>
+    <div class="lav-count"><strong>2</strong> / 5</div>
+  </div>
+  <div class="lav-bar-bg">
+    <div class="lav-bar-fill" style="width:40%;background:var(--green);box-shadow:0 0 6px rgba(0,230,118,0.2)"></div>
+  </div>
+  <div class="slot-grid">
+    <div class="slot slot-done green">Reg 1</div>
+    <div class="slot slot-done green">Reg 2</div>
+    <div class="slot slot-empty">Reg 3</div>
+    <div class="slot slot-empty">Reg 4</div>
+    <div class="slot slot-empty">Reg 5</div>
+  </div>
+</div>
+
+<!-- RICONTROLLO DIFETTI -->
+<div class="lav-card">
+  <div class="lav-header">
+    <div class="lav-title">
+      <span class="lav-name">Ricontrollo difetti</span>
+      <span class="lav-badge badge-difetto">DIFETTO</span>
+    </div>
+    <div class="lav-count"><strong>0</strong> / 6</div>
+  </div>
+  <div class="lav-bar-bg">
+    <div class="lav-bar-fill" style="width:0%;background:var(--red)"></div>
+  </div>
+  <div class="slot-grid">
+    <div class="slot slot-empty">Dif 1</div>
+    <div class="slot slot-empty">Dif 2</div>
+    <div class="slot slot-empty">Dif 3</div>
+    <div class="slot slot-empty">Dif 4</div>
+    <div class="slot slot-empty">Dif 5</div>
+    <div class="slot slot-empty">Dif 6</div>
+  </div>
+</div>
+
+<!-- AGGIUNGI -->
+<button class="btn-outline">+ Aggiungi lavorazione</button>
+
+<!-- APRI NOTTE -->
+<button class="btn-cta">APRI NOTTE</button>
+
+<!-- NOTTI PROGRAMMATE -->
+<div class="section-title">Notti programmate</div>
+<div class="notte-row">
+  <div><div class="notte-info">Stasera 14&rarr;15/04</div></div>
+  <div class="notte-meta">
+    18&deg; 0.9mm
+    <button class="btn-salta">Salta</button>
+    <button class="btn-x">&times;</button>
+  </div>
+</div>
+
+<!-- COMPLETATE -->
+<div class="section-title">Completate</div>
+<div class="notte-row">
+  <div>
+    <div class="notte-info">Dom 13&rarr;14/04</div>
+    <div class="notte-meta">Dispari &middot; 18 sald &middot; LP</div>
+  </div>
+  <div style="color:var(--accent);font-size:0.85rem;font-weight:700">18</div>
+</div>
+<div class="notte-row">
+  <div>
+    <div class="notte-info">Sab 12&rarr;13/04</div>
+    <div class="notte-meta">Pari &middot; 31 sald &middot; LP CA</div>
+  </div>
+  <div style="color:var(--accent);font-size:0.85rem;font-weight:700">31</div>
+</div>
+
+<div style="height:40px"></div>
+</body>
+</html>
