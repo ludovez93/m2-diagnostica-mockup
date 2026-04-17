@@ -1,0 +1,3505 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>M2 Diagnostica — Design System 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..900&family=Space+Grotesk:wght@300..700&family=JetBrains+Mono:wght@400..800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   M2 DIAGNOSTICA — DESIGN SYSTEM 2026
+   Variable fonts · Layered glass · Scroll-driven · View transitions
+   ============================================================ */
+
+:root {
+  /* Spaziature (8 step) */
+  --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px;
+  --s-5: 20px; --s-6: 24px; --s-7: 32px; --s-8: 48px;
+
+  /* Radius */
+  --r-xs: 6px; --r-sm: 12px; --r-md: 16px; --r-lg: 20px; --r-pill: 9999px;
+
+  /* Touch */
+  --touch: 44px;
+
+  /* Colori — palette deep space + neon */
+  --bg-void: #050810;
+  --bg-deep: #0a0e1a;
+  --bg-surface: rgba(255, 255, 255, 0.04);
+  --bg-elevated: rgba(255, 255, 255, 0.07);
+  --bg-card: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%);
+
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.16);
+
+  /* Accent semantici */
+  --cyan: #00DCFF;
+  --cyan-glow: rgba(0, 220, 255, 0.4);
+  --magenta: #FF3D9A;
+  --magenta-glow: rgba(255, 61, 154, 0.35);
+  --green: #00E676;
+  --green-glow: rgba(0, 230, 118, 0.35);
+  --yellow: #FFD600;
+  --yellow-glow: rgba(255, 214, 0, 0.3);
+  --red: #FF3B5C;
+  --red-glow: rgba(255, 59, 92, 0.4);
+
+  /* Text */
+  --text: rgba(255, 255, 255, 0.95);
+  --text-2: rgba(255, 255, 255, 0.65);
+  --text-3: rgba(255, 255, 255, 0.4);
+  --text-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* Typography */
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* Shadows layered */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.3), 0 2px 8px rgba(0,0,0,0.2);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.4), 0 8px 32px rgba(0,0,0,0.25);
+  --shadow-glow-cyan: 0 0 32px var(--cyan-glow), 0 0 64px rgba(0, 220, 255, 0.15);
+  --shadow-glow-green: 0 0 32px var(--green-glow);
+  --shadow-glow-red: 0 0 32px var(--red-glow);
+
+  /* Glass blur */
+  --glass-blur: blur(24px) saturate(1.4);
+
+  /* Animation curves */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { background: var(--bg-void); color-scheme: dark; }
+
+body {
+  font-family: var(--font-body);
+  font-feature-settings: "ss01", "cv01", "cv11";
+  background: var(--bg-void);
+  color: var(--text);
+  min-height: 100dvh;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Background mesh — layered radial gradients animati */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background:
+    radial-gradient(ellipse 800px 600px at 15% 15%, rgba(0,220,255,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 600px 500px at 85% 70%, rgba(255,61,154,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 500px 400px at 50% 100%, rgba(0,220,255,0.04) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+  animation: meshDrift 30s ease-in-out infinite;
+}
+@keyframes meshDrift {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 1; }
+  33% { transform: translate(2%, -1%) scale(1.05); opacity: 0.85; }
+  66% { transform: translate(-1%, 2%) scale(0.98); opacity: 0.95; }
+}
+
+/* SVG noise overlay sottile per grain texture */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.04 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.5;
+  mix-blend-mode: overlay;
+}
+
+/* ============================================================
+   TYPOGRAPHY
+   ============================================================ */
+.t-hero {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2rem, 7vw, 3.5rem);
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  font-variation-settings: "wght" 700;
+}
+.t-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.4rem;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+.t-h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: -0.01em;
+}
+.t-body { font-size: 0.92rem; line-height: 1.5; color: var(--text); }
+.t-2 { font-size: 0.86rem; line-height: 1.5; color: var(--text-2); }
+.t-micro {
+  font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-3);
+}
+.t-mono { font-family: var(--font-mono); font-feature-settings: "tnum"; }
+.t-num {
+  font-family: var(--font-display);
+  font-feature-settings: "tnum", "ss01";
+  font-weight: 700;
+  font-variation-settings: "wght" 700;
+}
+
+/* ============================================================
+   SCREEN — frame iPhone per mockup
+   ============================================================ */
+.frame {
+  position: relative;
+  width: 390px;
+  min-height: 844px;
+  margin: 0 auto;
+  background: var(--bg-void);
+  border-radius: 48px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.08),
+    0 0 0 12px #1a1d28,
+    0 20px 60px rgba(0,0,0,0.6),
+    var(--shadow-glow-cyan);
+  isolation: isolate;
+}
+.frame .notch {
+  position: absolute; top: 12px; left: 50%;
+  width: 110px; height: 28px;
+  background: #000;
+  border-radius: 16px;
+  transform: translateX(-50%);
+  z-index: 100;
+}
+.screen {
+  position: relative;
+  height: 100%; min-height: 844px;
+  padding-top: 56px;
+  padding-bottom: 80px;
+  overflow-y: auto;
+  z-index: 2;
+}
+.screen-pad { padding-left: var(--s-4); padding-right: var(--s-4); }
+
+/* ============================================================
+   COMPONENTI BASE
+   ============================================================ */
+
+/* CARD glass con grain */
+.card {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: var(--s-4);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  overflow: hidden;
+  isolation: isolate;
+}
+.card::before {
+  content: '';
+  position: absolute; inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.16), rgba(255,255,255,0) 40%, rgba(255,255,255,0.04));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  pointer-events: none;
+}
+.card-compact { padding: var(--s-3); border-radius: var(--r-sm); }
+.card-accent::after {
+  content: ''; position: absolute; left: 0; top: 16px; bottom: 16px;
+  width: 3px; border-radius: 0 3px 3px 0;
+  background: var(--cyan); box-shadow: 0 0 12px var(--cyan-glow);
+}
+.card-accent-red::after { background: var(--red); box-shadow: 0 0 12px var(--red-glow); }
+.card-accent-green::after { background: var(--green); box-shadow: 0 0 12px var(--green-glow); }
+
+/* BOTTONI — 2 misure × 4 varianti */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: var(--s-2);
+  min-height: var(--touch);
+  padding: 0 var(--s-5);
+  border: 1px solid transparent;
+  border-radius: var(--r-pill);
+  background: var(--bg-elevated);
+  color: var(--text);
+  font-family: var(--font-display);
+  font-weight: 600; font-size: 0.95rem;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none; user-select: none;
+  touch-action: manipulation;
+  transition: transform 120ms var(--ease-out), background 200ms, box-shadow 200ms, border-color 200ms;
+}
+.btn:active { transform: scale(0.97); }
+.btn-sm { min-height: 36px; padding: 0 var(--s-4); font-size: 0.86rem; }
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--cyan) 0%, #00B8FF 100%);
+  color: #051018; font-weight: 700;
+  box-shadow: var(--shadow-glow-cyan), inset 0 1px 0 rgba(255,255,255,0.3);
+}
+.btn-primary:active {
+  box-shadow: 0 0 16px var(--cyan-glow), inset 0 1px 0 rgba(255,255,255,0.3);
+}
+.btn-secondary { background: var(--bg-elevated); border-color: var(--border-strong); }
+.btn-danger {
+  background: transparent; border-color: var(--red);
+  color: var(--red); box-shadow: inset 0 0 0 0 var(--red-glow);
+}
+.btn-danger:active { box-shadow: inset 0 0 24px var(--red-glow); background: rgba(255,59,92,0.1); }
+.btn-ghost { background: transparent; }
+.btn-ghost:active { background: var(--bg-surface); }
+
+/* Icona button */
+.btn-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: var(--touch); height: var(--touch);
+  border-radius: var(--r-pill);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  color: var(--text);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  transition: background 200ms, transform 120ms;
+}
+.btn-icon:active { transform: scale(0.95); background: var(--bg-surface); }
+
+/* PILL/Badge */
+.pill {
+  display: inline-flex; align-items: center; gap: 4px;
+  height: 24px;
+  padding: 0 10px;
+  border-radius: var(--r-pill);
+  font-family: var(--font-mono);
+  font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.04em;
+  background: var(--bg-elevated);
+  color: var(--text-2);
+  border: 1px solid var(--border);
+}
+.pill-cyan { background: rgba(0,220,255,0.12); color: var(--cyan); border-color: rgba(0,220,255,0.3); }
+.pill-green { background: rgba(0,230,118,0.12); color: var(--green); border-color: rgba(0,230,118,0.3); }
+.pill-red { background: rgba(255,59,92,0.12); color: var(--red); border-color: rgba(255,59,92,0.3); }
+.pill-yellow { background: rgba(255,214,0,0.12); color: var(--yellow); border-color: rgba(255,214,0,0.3); }
+.pill-magenta { background: rgba(255,61,154,0.12); color: var(--magenta); border-color: rgba(255,61,154,0.3); }
+.pill-lg { height: 32px; padding: 0 14px; font-size: 0.78rem; }
+
+/* INPUT */
+.input {
+  display: block; width: 100%;
+  min-height: var(--touch); padding: 0 var(--s-4);
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px; /* no auto-zoom iOS */
+  transition: border-color 200ms, background 200ms;
+}
+.input:focus {
+  outline: none;
+  border-color: var(--cyan);
+  background: var(--bg-elevated);
+  box-shadow: 0 0 0 3px rgba(0,220,255,0.15);
+}
+
+/* HEADER pagina */
+.page-header {
+  display: flex; align-items: center; gap: var(--s-3);
+  padding: var(--s-3) var(--s-4);
+}
+.page-header-title {
+  flex: 1; min-width: 0;
+  font-family: var(--font-display);
+  font-weight: 700; font-size: 1.15rem;
+  letter-spacing: -0.02em;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.page-subhead {
+  display: flex; align-items: center; gap: var(--s-3);
+  padding: var(--s-2) var(--s-4);
+  font-size: 0.78rem;
+  color: var(--text-3);
+  border-bottom: 1px solid var(--border);
+}
+
+/* STICKY bar fondo */
+.sticky-bar {
+  position: sticky; bottom: 0;
+  display: flex; align-items: center; gap: var(--s-3);
+  padding: var(--s-3) var(--s-4);
+  padding-bottom: calc(var(--s-3) + env(safe-area-inset-bottom, 0px));
+  background: rgba(5, 8, 16, 0.85);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-top: 1px solid var(--border);
+  z-index: 50;
+}
+.sticky-bar .btn { flex: 1; }
+
+/* ============================================================
+   STAT — numeri grandi con sparkline
+   ============================================================ */
+.stat-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  gap: var(--s-3);
+  padding: var(--s-3) 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.stat-row:last-child { border-bottom: none; }
+.stat-key { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); }
+.stat-val { display: inline-flex; align-items: baseline; gap: var(--s-2); }
+.stat-val .t-num { font-size: 1.6rem; line-height: 1; }
+.stat-val .t-sub { font-size: 0.78rem; color: var(--text-3); }
+
+/* SPARKLINE inline */
+.sparkline { display: inline-block; vertical-align: middle; height: 20px; opacity: 0.7; }
+.sparkline path { fill: none; stroke-width: 1.5; }
+.sparkline.spark-cyan path { stroke: var(--cyan); }
+.sparkline.spark-green path { stroke: var(--green); }
+.sparkline.spark-red path { stroke: var(--red); }
+
+/* ============================================================
+   PROGRESS BAR
+   ============================================================ */
+.progress {
+  position: relative;
+  height: 8px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--cyan), #00B8FF);
+  box-shadow: 0 0 12px var(--cyan-glow);
+  border-radius: 4px;
+  transition: width 600ms var(--ease-out);
+}
+.progress-fill.green { background: linear-gradient(90deg, var(--green), #00C66E); box-shadow: 0 0 12px var(--green-glow); }
+
+/* Multi-segment progress (saldature con buchi) */
+.progress-multi { position: relative; height: 10px; background: rgba(255,255,255,0.05); border-radius: 5px; overflow: hidden; }
+.progress-seg { position: absolute; top: 0; height: 100%; background: var(--cyan); box-shadow: 0 0 8px var(--cyan-glow); }
+.progress-seg.green { background: var(--green); box-shadow: 0 0 8px var(--green-glow); }
+
+/* ============================================================
+   ICONOGRAFIA SVG inline (pattern utility)
+   ============================================================ */
+.icon { display: inline-block; vertical-align: middle; width: 1em; height: 1em; }
+.icon-lg { width: 24px; height: 24px; }
+
+/* ============================================================
+   ANIMAZIONI
+   ============================================================ */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes scaleIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+@keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+@keyframes glow { 0%, 100% { box-shadow: 0 0 16px var(--cyan-glow); } 50% { box-shadow: 0 0 32px var(--cyan-glow); } }
+
+.fade-up { animation: fadeUp 500ms var(--ease-out) backwards; }
+.fade-up-1 { animation-delay: 60ms; }
+.fade-up-2 { animation-delay: 120ms; }
+.fade-up-3 { animation-delay: 180ms; }
+.fade-up-4 { animation-delay: 240ms; }
+.fade-up-5 { animation-delay: 300ms; }
+
+/* Live dot pulsante */
+.live-dot {
+  display: inline-block; width: 8px; height: 8px;
+  border-radius: 50%; background: var(--green);
+  box-shadow: 0 0 8px var(--green-glow);
+  animation: pulse 2s ease-in-out infinite;
+}
+.live-dot.warn { background: var(--yellow); box-shadow: 0 0 8px var(--yellow-glow); }
+.live-dot.alert { background: var(--red); box-shadow: 0 0 8px var(--red-glow); }
+
+/* Number count-up effect (pattern: applica via JS animazione opacity+slide) */
+.t-num { will-change: transform; }
+
+/* Hover lift */
+@media (hover: hover) {
+  .clickable:hover { transform: translateY(-1px); transition: transform 200ms var(--ease-out); }
+}
+
+/* ============================================================
+   UTILITY layout
+   ============================================================ */
+.flex { display: flex; }
+.flex-col { display: flex; flex-direction: column; }
+.items-center { align-items: center; }
+.items-baseline { align-items: baseline; }
+.justify-between { justify-content: space-between; }
+.gap-1 { gap: var(--s-1); }
+.gap-2 { gap: var(--s-2); }
+.gap-3 { gap: var(--s-3); }
+.gap-4 { gap: var(--s-4); }
+.flex-1 { flex: 1; min-width: 0; }
+.w-full { width: 100%; }
+.text-center { text-align: center; }
+.mt-1 { margin-top: var(--s-1); } .mt-2 { margin-top: var(--s-2); }
+.mt-3 { margin-top: var(--s-3); } .mt-4 { margin-top: var(--s-4); }
+.mt-5 { margin-top: var(--s-5); } .mt-6 { margin-top: var(--s-6); }
+.mb-2 { margin-bottom: var(--s-2); } .mb-3 { margin-bottom: var(--s-3); }
+.mb-4 { margin-bottom: var(--s-4); } .mb-5 { margin-bottom: var(--s-5); }
+
+/* ============================================================
+   GALLERY (mockup container)
+   ============================================================ */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+  gap: var(--s-7);
+  padding: var(--s-7);
+  max-width: 1600px;
+  margin: 0 auto;
+}
+.gallery-section {
+  display: flex; flex-direction: column; align-items: center; gap: var(--s-4);
+}
+.gallery-section-label {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.88rem;
+  letter-spacing: -0.01em;
+  color: var(--text-2);
+}
+
+.intro {
+  max-width: 820px;
+  margin: var(--s-8) auto var(--s-7);
+  padding: 0 var(--s-5);
+  text-align: center;
+}
+.intro h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 6vw, 3.6rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, #fff 0%, var(--cyan) 50%, var(--magenta) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: var(--s-4);
+}
+.intro p { color: var(--text-2); font-size: 1.1rem; line-height: 1.5; }
+</style>
+</head>
+<body>
+
+<div class="intro">
+  <h1>M2 Diagnostica · 2026</h1>
+  <p>Design system stretto. Variable fonts. Layered glass. Iconografia ferroviaria custom.</p>
+</div>
+
+<div class="gallery">
+  <!-- I 3 agenti popolano qui le loro pagine -->
+  <!-- AGENT_A_PAGES -->
+<!-- ==========================================================
+     PAGES-A — Login · Dashboard · Cantiere
+     Autore: Agent A — M2 Diagnostica 2026
+     ========================================================== -->
+
+<!-- ============================================================
+     PAGINA 1 — LOGIN
+     ============================================================ -->
+<section class="gallery-section">
+  <div class="gallery-section-label">1 · Login</div>
+  <div class="frame">
+    <div class="notch"></div>
+    <div class="screen">
+
+      <!-- SCOPED CSS: gradient avatar, numpad, dots indicator -->
+      <style scoped>
+        /* scoped: login-specific */
+        .login-wrap { padding: 0 var(--s-5); display: flex; flex-direction: column; min-height: 788px; }
+        .login-brand { display: flex; align-items: center; gap: var(--s-2); margin-top: var(--s-4); margin-bottom: var(--s-7); }
+        .login-brand-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 12px var(--cyan-glow); }
+        .login-brand-name { font-family: var(--font-display); font-weight: 700; font-size: 0.92rem; letter-spacing: 0.04em; text-transform: uppercase; }
+        .login-brand-sub { font-family: var(--font-mono); font-size: 0.66rem; color: var(--text-3); letter-spacing: 0.12em; margin-left: auto; }
+
+        .login-hero { margin-bottom: var(--s-7); }
+        .login-hero h1 { font-family: var(--font-display); font-weight: 700; font-size: 2.2rem; line-height: 1; letter-spacing: -0.03em; background: linear-gradient(135deg, #fff 0%, var(--cyan) 80%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .login-hero p { color: var(--text-2); margin-top: var(--s-2); font-size: 0.92rem; }
+
+        .user-cards { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-3); margin-bottom: var(--s-6); }
+        .user-card { position: relative; padding: var(--s-5) var(--s-3) var(--s-4); border-radius: var(--r-lg); background: var(--bg-card); border: 1px solid var(--border); text-align: center; cursor: pointer; overflow: hidden; transition: transform 200ms var(--ease-out), border-color 200ms; }
+        .user-card.is-active { border-color: rgba(0,220,255,0.5); box-shadow: 0 0 0 1px rgba(0,220,255,0.25), 0 0 32px rgba(0,220,255,0.15); }
+        .user-card:active { transform: scale(0.97); }
+        .user-card::before { content:''; position: absolute; inset: 0; border-radius: inherit; padding: 1px; background: linear-gradient(135deg, rgba(255,255,255,0.16), rgba(255,255,255,0) 50%); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; }
+        .user-avatar { width: 72px; height: 72px; margin: 0 auto var(--s-3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-weight: 700; font-size: 1.6rem; letter-spacing: -0.02em; color: #051018; position: relative; }
+        .user-avatar.lp { background: conic-gradient(from 220deg, #00DCFF, #00B8FF 40%, #7B61FF 70%, #00DCFF); box-shadow: 0 0 24px rgba(0,220,255,0.4), inset 0 1px 0 rgba(255,255,255,0.3); }
+        .user-avatar.ca { background: conic-gradient(from 140deg, #FF3D9A, #FFD600 50%, #FF3D9A); box-shadow: 0 0 24px rgba(255,61,154,0.35), inset 0 1px 0 rgba(255,255,255,0.3); }
+        .user-avatar::after { content:''; position: absolute; inset: 3px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.18); pointer-events: none; }
+        .user-name { font-family: var(--font-display); font-weight: 600; font-size: 1rem; }
+        .user-meta { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 6px; font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-3); letter-spacing: 0.08em; }
+
+        /* PIN overlay */
+        .pin-block { margin-top: auto; }
+        .pin-label { text-align: center; font-family: var(--font-display); font-weight: 600; font-size: 0.95rem; color: var(--text); }
+        .pin-hint { text-align: center; margin-top: 4px; }
+        .pin-dots { display: flex; justify-content: center; gap: 14px; margin: var(--s-4) 0 var(--s-5); }
+        .pin-dot { width: 14px; height: 14px; border-radius: 50%; border: 1.5px solid var(--border-strong); transition: all 200ms var(--ease-spring); }
+        .pin-dot.filled { background: var(--cyan); border-color: var(--cyan); box-shadow: 0 0 12px var(--cyan-glow); }
+
+        .numpad { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-3); }
+        .key { height: 58px; border-radius: var(--r-md); background: var(--bg-elevated); border: 1px solid var(--border); font-family: var(--font-display); font-weight: 600; font-size: 1.4rem; color: var(--text); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 120ms var(--ease-out), background 200ms; -webkit-tap-highlight-color: transparent; }
+        .key:active { transform: scale(0.94); background: rgba(0,220,255,0.12); border-color: rgba(0,220,255,0.3); }
+        .key-ghost { background: transparent; border-color: transparent; }
+        .key-ghost:active { background: var(--bg-surface); }
+        .key svg { width: 22px; height: 22px; opacity: 0.7; }
+      </style>
+
+      <div class="login-wrap">
+
+        <!-- BRAND -->
+        <div class="login-brand fade-up">
+          <span class="login-brand-dot"></span>
+          <span class="login-brand-name">M2 · Diagnostica</span>
+          <span class="login-brand-sub">v2026.01</span>
+        </div>
+
+        <!-- HERO -->
+        <div class="login-hero fade-up fade-up-1">
+          <h1>Chi sei<br>stasera?</h1>
+          <p class="t-2">Seleziona operatore e inserisci PIN</p>
+        </div>
+
+        <!-- USER CARDS -->
+        <div class="user-cards">
+
+          <div class="user-card is-active fade-up fade-up-2">
+            <div class="user-avatar lp">LP</div>
+            <div class="user-name">Ludovico</div>
+            <div class="user-meta">
+              <!-- icona strumento (saldatura) -->
+              <svg width="10" height="10" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2 8 h12 M4 5 l-2 3 2 3 M12 5 l2 3 -2 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span>STRUMENTO · G</span>
+            </div>
+          </div>
+
+          <div class="user-card fade-up fade-up-3">
+            <div class="user-avatar ca">CA</div>
+            <div class="user-name">Carlo</div>
+            <div class="user-meta">
+              <svg width="10" height="10" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2 8 h12 M4 5 l-2 3 2 3 M12 5 l2 3 -2 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span>STRUMENTO · F</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- PIN BLOCK -->
+        <div class="pin-block fade-up fade-up-4">
+
+          <div class="pin-label">Inserisci PIN · Ludovico</div>
+          <div class="pin-hint t-micro">4 CIFRE</div>
+
+          <div class="pin-dots">
+            <span class="pin-dot filled"></span>
+            <span class="pin-dot filled"></span>
+            <span class="pin-dot filled"></span>
+            <span class="pin-dot"></span>
+          </div>
+
+          <div class="numpad">
+            <button class="key">1</button>
+            <button class="key">2</button>
+            <button class="key">3</button>
+            <button class="key">4</button>
+            <button class="key">5</button>
+            <button class="key">6</button>
+            <button class="key">7</button>
+            <button class="key">8</button>
+            <button class="key">9</button>
+            <button class="key key-ghost"></button>
+            <button class="key">0</button>
+            <button class="key key-ghost" aria-label="backspace">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 5 H20 a2 2 0 0 1 2 2 v10 a2 2 0 0 1 -2 2 H9 l-7 -7 z M12 9 l6 6 M18 9 l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     PAGINA 2 — DASHBOARD
+     ============================================================ -->
+<section class="gallery-section">
+  <div class="gallery-section-label">2 · Dashboard</div>
+  <div class="frame">
+    <div class="notch"></div>
+    <div class="screen">
+
+      <style scoped>
+        /* scoped: dashboard-specific */
+        .dash-header { display: flex; align-items: center; gap: var(--s-3); padding: var(--s-3) var(--s-4) var(--s-2); }
+        .dash-greeting .t-micro { color: var(--cyan); letter-spacing: 0.18em; }
+        .dash-greeting h2 { font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; letter-spacing: -0.02em; line-height: 1.1; margin-top: 2px; }
+        .dash-avatar { width: 40px; height: 40px; border-radius: 50%; background: conic-gradient(from 220deg, #00DCFF, #00B8FF 40%, #7B61FF 70%, #00DCFF); display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-weight: 700; font-size: 0.82rem; color: #051018; box-shadow: 0 0 16px rgba(0,220,255,0.3), inset 0 1px 0 rgba(255,255,255,0.3); position: relative; }
+        .dash-avatar::after { content:''; position: absolute; inset: 2px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.18); }
+
+        /* Hero card "Stasera" */
+        .tonight { position: relative; margin: var(--s-4) var(--s-4) var(--s-5); padding: var(--s-5); border-radius: var(--r-lg); background: linear-gradient(135deg, rgba(0,220,255,0.14) 0%, rgba(0,220,255,0.04) 50%, rgba(255,255,255,0.02) 100%); border: 1px solid rgba(0,220,255,0.25); overflow: hidden; box-shadow: 0 0 32px rgba(0,220,255,0.12); }
+        .tonight::before { content:''; position: absolute; top: -40px; right: -40px; width: 180px; height: 180px; border-radius: 50%; background: radial-gradient(circle, rgba(0,220,255,0.2), transparent 60%); pointer-events: none; }
+        .tonight-head { display: flex; align-items: center; justify-content: space-between; }
+        .tonight-label { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cyan); }
+        .tonight-time { font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-2); letter-spacing: 0.08em; }
+        .tonight-title { font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; letter-spacing: -0.02em; margin-top: var(--s-3); line-height: 1.1; }
+        .tonight-sub { font-family: var(--font-mono); font-size: 0.76rem; color: var(--text-2); margin-top: 4px; letter-spacing: 0.04em; }
+
+        .tonight-meta { display: flex; align-items: center; gap: var(--s-4); margin-top: var(--s-4); padding-top: var(--s-4); border-top: 1px solid rgba(255,255,255,0.08); }
+        .meteo-chip { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 0.78rem; color: var(--text); }
+        .meteo-chip .t-sub { color: var(--text-3); margin-left: 2px; }
+
+        .slot-mini { display: flex; gap: var(--s-2); flex: 1; }
+        .slot-chip { flex: 1; position: relative; padding: 6px 10px; border-radius: var(--r-sm); background: var(--bg-surface); border: 1px solid var(--border); overflow: hidden; }
+        .slot-chip .t-micro { font-size: 0.58rem; letter-spacing: 0.1em; }
+        .slot-chip .v { font-family: var(--font-display); font-weight: 700; font-size: 0.9rem; letter-spacing: -0.01em; }
+        .slot-chip.pari { border-color: rgba(0,230,118,0.3); }
+        .slot-chip.pari .v { color: var(--green); }
+        .slot-chip.disp { border-color: rgba(0,220,255,0.3); }
+        .slot-chip.disp .v { color: var(--cyan); }
+        .slot-chip-bar { position: absolute; left: 0; bottom: 0; height: 2px; }
+        .slot-chip.pari .slot-chip-bar { width: 53%; background: var(--green); box-shadow: 0 0 8px var(--green-glow); }
+        .slot-chip.disp .slot-chip-bar { width: 13%; background: var(--cyan); box-shadow: 0 0 8px var(--cyan-glow); }
+
+        .tonight-cta { display: flex; align-items: center; gap: var(--s-3); margin-top: var(--s-5); }
+        .tonight-cta .btn { flex: 1; height: 52px; font-size: 1rem; }
+        .tonight-cta .def-badge { display: inline-flex; align-items: center; gap: 4px; height: 32px; padding: 0 12px; border-radius: var(--r-pill); background: rgba(255,59,92,0.12); border: 1px solid rgba(255,59,92,0.3); color: var(--red); font-family: var(--font-mono); font-weight: 700; font-size: 0.78rem; }
+
+        /* Section header */
+        .sec-head { display: flex; align-items: baseline; justify-content: space-between; padding: 0 var(--s-4); margin-bottom: var(--s-3); }
+        .sec-head .count { font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-3); letter-spacing: 0.12em; }
+
+        /* Cantiere compact card */
+        .cant-list { display: flex; flex-direction: column; gap: var(--s-3); padding: 0 var(--s-4); }
+        .cant-compact { display: grid; grid-template-columns: auto 1fr auto; gap: var(--s-3); align-items: center; padding: var(--s-3); border-radius: var(--r-md); background: var(--bg-card); border: 1px solid var(--border); position: relative; overflow: hidden; }
+        .cant-compact::before { content:''; position: absolute; left: 0; top: 14px; bottom: 14px; width: 3px; border-radius: 0 2px 2px 0; background: var(--green); box-shadow: 0 0 10px var(--green-glow); }
+        .cant-compact.paused::before { background: var(--yellow); box-shadow: 0 0 10px var(--yellow-glow); }
+        .cant-compact.done::before { background: var(--text-3); box-shadow: none; }
+        .cant-code { width: 48px; height: 48px; border-radius: var(--r-sm); background: var(--bg-elevated); border: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: var(--font-mono); }
+        .cant-code .l1 { font-size: 0.72rem; font-weight: 700; color: var(--text); letter-spacing: 0.04em; line-height: 1; }
+        .cant-code .l2 { font-size: 0.62rem; color: var(--text-3); letter-spacing: 0.06em; line-height: 1; margin-top: 3px; }
+        .cant-body .title { font-family: var(--font-display); font-weight: 600; font-size: 0.95rem; letter-spacing: -0.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .cant-body .kpis { display: flex; gap: var(--s-3); margin-top: 4px; font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-2); letter-spacing: 0.04em; }
+        .cant-body .kpis .k { display: inline-flex; align-items: center; gap: 4px; }
+        .cant-body .kpis .v-green { color: var(--green); }
+        .cant-body .kpis .v-red { color: var(--red); }
+        .cant-spark { width: 64px; opacity: 0.8; }
+
+        /* Collapsible */
+        .collapsible { margin: 0 var(--s-4); border-top: 1px solid var(--border); }
+        .collapsible summary { list-style: none; display: flex; align-items: center; justify-content: space-between; padding: var(--s-3) 0; cursor: pointer; }
+        .collapsible summary::-webkit-details-marker { display: none; }
+        .collapsible summary .chev { transition: transform 200ms var(--ease-out); color: var(--text-3); }
+        .collapsible[open] summary .chev { transform: rotate(90deg); }
+        .collapsible .t-micro { color: var(--text-2); }
+        .collapsible .inner { padding-bottom: var(--s-3); display: flex; flex-direction: column; gap: var(--s-2); }
+
+        /* Add cantiere bottom */
+        .add-cant { margin: var(--s-5) var(--s-4) var(--s-6); }
+        .add-cant .btn { width: 100%; border-style: dashed; border-color: var(--border-strong); color: var(--text-2); }
+
+        /* Bottom navbar */
+        .navbar { position: absolute; left: 0; right: 0; bottom: 0; display: grid; grid-template-columns: repeat(3,1fr); padding: 10px 0 calc(10px + env(safe-area-inset-bottom, 0px)); background: rgba(5,8,16,0.85); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); border-top: 1px solid var(--border); z-index: 50; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 3px; font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.12em; color: var(--text-3); text-transform: uppercase; cursor: pointer; padding: 6px 0; }
+        .nav-item svg { width: 22px; height: 22px; }
+        .nav-item.active { color: var(--cyan); }
+        .nav-item.active svg { filter: drop-shadow(0 0 6px var(--cyan-glow)); }
+      </style>
+
+      <!-- HEADER -->
+      <div class="dash-header fade-up">
+        <div class="dash-greeting flex-1">
+          <div class="t-micro">MERCOLEDI · 15 APR</div>
+          <h2>Buongiorno, Ludovico</h2>
+        </div>
+        <div class="dash-avatar">LP</div>
+      </div>
+
+      <!-- STASERA 22:00 -->
+      <div class="tonight fade-up fade-up-1">
+        <div class="tonight-head">
+          <span class="tonight-label">
+            <span class="live-dot"></span>
+            STASERA · 22:00
+          </span>
+          <span class="tonight-time">T-09h 22m</span>
+        </div>
+
+        <div class="tonight-title">33/26 La Spezia</div>
+        <div class="tonight-sub">ARCOLA · notte 9 di 13</div>
+
+        <div class="tonight-meta">
+          <!-- meteo: nuvoloso -->
+          <span class="meteo-chip">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7 18 a4 4 0 0 1 0.4 -7.96 A6 6 0 0 1 19 10.5 a3.5 3.5 0 0 1 -1 6.95 Z" fill="rgba(255,255,255,0.18)" stroke="rgba(255,255,255,0.5)" stroke-width="1.2"/>
+            </svg>
+            23°<span class="t-sub"> · 0mm</span>
+          </span>
+
+          <div class="slot-mini">
+            <div class="slot-chip pari">
+              <div class="t-micro">PARI</div>
+              <div class="v">53<span style="font-size:0.7rem;color:var(--text-3)">%</span></div>
+              <div class="slot-chip-bar"></div>
+            </div>
+            <div class="slot-chip disp">
+              <div class="t-micro">DISP</div>
+              <div class="v">13<span style="font-size:0.7rem;color:var(--text-3)">%</span></div>
+              <div class="slot-chip-bar"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tonight-cta">
+          <span class="def-badge">
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.4"/><path d="M8 5 v3.5 M8 10.5 v0.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            13 DIF
+          </span>
+          <button class="btn btn-primary">
+            APRI NOTTE
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8 h10 M9 4 l4 4 -4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- CANTIERI ATTIVI -->
+      <div class="sec-head fade-up fade-up-2">
+        <span class="t-micro">Cantieri attivi</span>
+        <span class="count">1 ATTIVO</span>
+      </div>
+
+      <div class="cant-list fade-up fade-up-2">
+        <div class="cant-compact">
+          <div class="cant-code">
+            <span class="l1">33/26</span>
+            <span class="l2">SP</span>
+          </div>
+          <div class="cant-body">
+            <div class="title">La Spezia · Arcola</div>
+            <div class="kpis">
+              <span class="k v-green">8/13 notti</span>
+              <span class="k">313 sald</span>
+              <span class="k v-red">13 dif</span>
+            </div>
+          </div>
+          <svg class="cant-spark sparkline spark-cyan" viewBox="0 0 64 24" preserveAspectRatio="none">
+            <polyline points="0,18 9,14 18,16 27,10 36,12 45,6 54,8 64,4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="64" cy="4" r="2" fill="var(--cyan)"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- IN PAUSA -->
+      <details class="collapsible fade-up fade-up-3">
+        <summary>
+          <span class="t-micro">In pausa · 1</span>
+          <svg class="chev" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 4 l4 4 -4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="inner">
+          <div class="cant-compact paused">
+            <div class="cant-code">
+              <span class="l1">—</span>
+              <span class="l2">BS</span>
+            </div>
+            <div class="cant-body">
+              <div class="title">Brescia</div>
+              <div class="kpis">
+                <span class="k">0/12 notti</span>
+                <span class="k">0 sald</span>
+                <span class="k">0 dif</span>
+              </div>
+            </div>
+            <span class="pill pill-yellow" style="height:22px;">PAUSA</span>
+          </div>
+        </div>
+      </details>
+
+      <!-- COMPLETATI -->
+      <details class="collapsible fade-up fade-up-4">
+        <summary>
+          <span class="t-micro">Completati · 1</span>
+          <svg class="chev" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 4 l4 4 -4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="inner">
+          <div class="cant-compact done">
+            <div class="cant-code">
+              <span class="l1">—</span>
+              <span class="l2">EM</span>
+            </div>
+            <div class="cant-body">
+              <div class="title">Empoli</div>
+              <div class="kpis">
+                <span class="k v-green">21/21</span>
+                <span class="k">412 sald</span>
+                <span class="k">0 dif · 18 ris</span>
+              </div>
+            </div>
+            <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="var(--green)" stroke-width="1.4"/><path d="M4.5 8 l2.5 2.5 4.5 -5" stroke="var(--green)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
+      </details>
+
+      <!-- ARCHIVIATI -->
+      <details class="collapsible fade-up fade-up-5">
+        <summary>
+          <span class="t-micro">Archiviati · 0</span>
+          <svg class="chev" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 4 l4 4 -4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="inner">
+          <span class="t-2" style="padding: var(--s-3) 0;">Nessun cantiere archiviato</span>
+        </div>
+      </details>
+
+      <!-- ADD CANTIERE -->
+      <div class="add-cant fade-up fade-up-5">
+        <button class="btn btn-secondary">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3 v10 M3 8 h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          Nuovo cantiere
+        </button>
+      </div>
+
+      <!-- BOTTOM NAVBAR -->
+      <div class="navbar">
+        <div class="nav-item active">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 11 l8 -7 8 7 v9 a1 1 0 0 1 -1 1 h-4 v-6 h-6 v6 H5 a1 1 0 0 1 -1 -1 z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          HOME
+        </div>
+        <div class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5" width="17" height="15" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M3.5 10 h17 M8 3 v4 M16 3 v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          CALENDARIO
+        </div>
+        <div class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M4 20 c1.5 -4 5 -6 8 -6 s6.5 2 8 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          PROFILO
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     PAGINA 3 — CANTIERE (La Spezia)
+     ============================================================ -->
+<section class="gallery-section">
+  <div class="gallery-section-label">3 · Cantiere · La Spezia</div>
+  <div class="frame">
+    <div class="notch"></div>
+    <div class="screen">
+
+      <style scoped>
+        /* scoped: cantiere-specific */
+        .c-header { display: flex; align-items: center; gap: var(--s-2); padding: var(--s-3) var(--s-4); position: sticky; top: 0; z-index: 40; background: linear-gradient(180deg, rgba(5,8,16,0.95) 0%, rgba(5,8,16,0.75) 100%); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); border-bottom: 1px solid var(--border); }
+        .c-header-title { flex: 1; min-width: 0; font-family: var(--font-display); font-weight: 700; font-size: 1rem; letter-spacing: -0.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .c-header-title .code { color: var(--cyan); font-family: var(--font-mono); font-size: 0.86rem; margin-right: 6px; }
+
+        .sticky-cta { position: sticky; top: 64px; z-index: 39; padding: var(--s-3) var(--s-4); background: linear-gradient(180deg, rgba(5,8,16,0.9), rgba(5,8,16,0.6) 80%, transparent); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); }
+        .sticky-cta .btn { width: 100%; height: 50px; font-size: 1rem; }
+
+        /* Status KPI card */
+        .status-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--r-md); overflow: hidden; margin: 0 var(--s-4); }
+        .status-cell { background: var(--bg-deep); padding: var(--s-4); position: relative; }
+        .status-cell::before { content:''; position: absolute; left: 0; top: 0; right: 0; height: 2px; opacity: 0.8; }
+        .status-cell.green::before { background: var(--green); box-shadow: 0 0 10px var(--green-glow); }
+        .status-cell.cyan::before { background: var(--cyan); box-shadow: 0 0 10px var(--cyan-glow); }
+        .status-cell.red::before { background: var(--red); box-shadow: 0 0 10px var(--red-glow); }
+        .status-cell.yellow::before { background: var(--yellow); box-shadow: 0 0 10px var(--yellow-glow); }
+        .status-cell .t-micro { font-size: 0.62rem; letter-spacing: 0.12em; }
+        .status-cell .v { font-family: var(--font-display); font-weight: 700; font-size: 1.8rem; line-height: 1; letter-spacing: -0.02em; margin-top: 6px; display: flex; align-items: baseline; gap: 4px; }
+        .status-cell .v .sub { font-size: 0.72rem; color: var(--text-3); font-weight: 500; letter-spacing: 0; }
+        .status-cell.green .v { color: var(--green); }
+        .status-cell.cyan .v { color: var(--cyan); }
+        .status-cell.red .v { color: var(--red); }
+        .status-cell.yellow .v { color: var(--yellow); }
+        .status-cell .foot { font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-3); margin-top: 6px; letter-spacing: 0.04em; }
+
+        /* Sec title */
+        .ct-sec { padding: 0 var(--s-4); margin-top: var(--s-5); margin-bottom: var(--s-3); display: flex; align-items: baseline; justify-content: space-between; }
+        .ct-sec .t-micro { color: var(--text-2); }
+
+        /* Track progress */
+        .track { padding: var(--s-3) var(--s-4); margin: 0 var(--s-4); border-radius: var(--r-md); background: var(--bg-card); border: 1px solid var(--border); }
+        .track + .track { margin-top: var(--s-3); }
+        .track-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+        .track-label { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-display); font-weight: 600; font-size: 0.9rem; }
+        .track-icon { width: 24px; height: 22px; display: inline-flex; align-items: center; justify-content: center; border-radius: 6px; background: var(--bg-elevated); border: 1px solid var(--border); }
+        .track-icon svg { width: 14px; height: 14px; }
+        .track-pct { font-family: var(--font-display); font-weight: 700; font-size: 1rem; letter-spacing: -0.01em; }
+        .track.pari .track-pct { color: var(--green); }
+        .track.disp .track-pct { color: var(--cyan); }
+
+        .track-bar { position: relative; height: 14px; background: rgba(255,255,255,0.04); border-radius: 4px; overflow: visible; }
+        .track-bar::before { content:''; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: rgba(255,255,255,0.08); transform: translateY(-0.5px); }
+        .seg { position: absolute; top: 2px; bottom: 2px; border-radius: 2px; }
+        .track.pari .seg { background: var(--green); box-shadow: 0 0 6px var(--green-glow); }
+        .track.disp .seg { background: var(--cyan); box-shadow: 0 0 6px var(--cyan-glow); }
+        .track-marker { position: absolute; top: -4px; bottom: -4px; width: 2px; background: #fff; box-shadow: 0 0 8px rgba(255,255,255,0.7); border-radius: 1px; z-index: 2; }
+        .track-marker::before { content:''; position: absolute; top: -3px; left: -3px; width: 8px; height: 8px; border-radius: 50%; background: #fff; box-shadow: 0 0 10px rgba(255,255,255,0.9); }
+        .track-milestone { position: absolute; top: 100%; transform: translateX(-50%); margin-top: 4px; font-family: var(--font-mono); font-size: 0.58rem; color: var(--text-3); letter-spacing: 0.04em; white-space: nowrap; }
+        .track-milestone::before { content:''; position: absolute; left: 50%; top: -6px; width: 1px; height: 4px; background: var(--text-3); opacity: 0.6; }
+        .track-ends { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-2); margin-top: 22px; letter-spacing: 0.04em; }
+
+        /* Slot grid */
+        .slot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-3); padding: 0 var(--s-4); }
+        .slot-card { padding: var(--s-3); border-radius: var(--r-md); background: var(--bg-card); border: 1px solid var(--border); position: relative; overflow: hidden; }
+        .slot-card .t-micro { font-size: 0.6rem; letter-spacing: 0.12em; }
+        .slot-card .slot-title { font-family: var(--font-display); font-weight: 600; font-size: 0.82rem; margin-top: 2px; letter-spacing: -0.01em; }
+        .slot-card .slot-count { font-family: var(--font-display); font-weight: 700; font-size: 1.6rem; letter-spacing: -0.02em; line-height: 1; margin-top: 8px; display: flex; align-items: baseline; gap: 4px; }
+        .slot-card .slot-count .of { font-size: 0.82rem; color: var(--text-3); font-weight: 500; }
+        .slot-card.cyan .slot-count { color: var(--cyan); }
+        .slot-card.green .slot-count { color: var(--green); }
+        .slot-card.red .slot-count { color: var(--red); }
+        .slot-card.magenta .slot-count { color: var(--magenta); }
+        .slot-card .mini-bar { height: 3px; background: rgba(255,255,255,0.06); border-radius: 2px; margin-top: 8px; overflow: hidden; }
+        .slot-card .mini-bar > span { display: block; height: 100%; border-radius: 2px; }
+        .slot-card.cyan .mini-bar > span { background: var(--cyan); box-shadow: 0 0 6px var(--cyan-glow); }
+        .slot-card.green .mini-bar > span { background: var(--green); box-shadow: 0 0 6px var(--green-glow); }
+        .slot-card.red .mini-bar > span { background: var(--red); box-shadow: 0 0 6px var(--red-glow); }
+        .slot-card.magenta .mini-bar > span { background: var(--magenta); box-shadow: 0 0 6px var(--magenta-glow); }
+        .slot-card .km-list { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
+        .slot-card .km-list .pill { height: 20px; padding: 0 7px; font-size: 0.62rem; }
+
+        /* Difetti */
+        .def-card { margin: 0 var(--s-4); padding: var(--s-4); border-radius: var(--r-md); background: linear-gradient(135deg, rgba(255,59,92,0.08), rgba(255,59,92,0.02)); border: 1px solid rgba(255,59,92,0.2); position: relative; overflow: hidden; }
+        .def-card::after { content:''; position: absolute; left:0; top:16px; bottom:16px; width:3px; background: var(--red); box-shadow: 0 0 12px var(--red-glow); border-radius: 0 2px 2px 0; }
+        .def-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--s-3); }
+        .def-head-l { display: flex; align-items: center; gap: 8px; }
+        .def-head-l .t-h2 { color: var(--red); }
+        .def-list { display: flex; flex-direction: column; gap: var(--s-2); }
+        .def-item { display: grid; grid-template-columns: auto 1fr auto; gap: var(--s-2); align-items: center; padding: var(--s-2) 0; border-top: 1px solid rgba(255,255,255,0.06); }
+        .def-item:first-child { border-top: none; padding-top: 0; }
+        .def-item .sev { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-weight: 700; font-size: 0.68rem; }
+        .def-item .sev.s3 { background: rgba(255,59,92,0.18); color: var(--red); border: 1px solid rgba(255,59,92,0.4); }
+        .def-item .sev.s2 { background: rgba(255,214,0,0.16); color: var(--yellow); border: 1px solid rgba(255,214,0,0.3); }
+        .def-item .km { font-family: var(--font-mono); font-size: 0.78rem; color: var(--text); letter-spacing: 0.02em; }
+        .def-item .km .kind { color: var(--text-3); font-size: 0.7rem; margin-left: 6px; }
+        .def-item .arrow { color: var(--text-3); }
+
+        /* Notti programmate */
+        .night-sched { margin: 0 var(--s-4); padding: var(--s-3); border-radius: var(--r-md); background: var(--bg-card); border: 1px solid var(--border); display: grid; grid-template-columns: auto 1fr auto auto; gap: var(--s-3); align-items: center; }
+        .night-sched-date { font-family: var(--font-display); font-weight: 700; font-size: 1.2rem; line-height: 1; letter-spacing: -0.02em; color: var(--text); text-align: center; min-width: 42px; }
+        .night-sched-date .d-mo { display:block; font-family: var(--font-mono); font-size: 0.6rem; color: var(--text-3); font-weight: 500; letter-spacing: 0.1em; margin-top: 2px; }
+        .night-sched-body .t-2 { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.04em; }
+        .night-sched-body .tt { font-family: var(--font-display); font-weight: 600; font-size: 0.92rem; }
+        .night-sched .m-chip { display: inline-flex; align-items: center; gap: 4px; font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-2); }
+
+        /* Notti completate (mese accordion) */
+        .month-group { margin: 0 var(--s-4); }
+        .month-group summary { list-style: none; display: flex; align-items: center; justify-content: space-between; padding: var(--s-2) 0; cursor: pointer; }
+        .month-group summary::-webkit-details-marker { display: none; }
+        .month-group summary .t-micro { letter-spacing: 0.14em; }
+        .month-group .chev { transition: transform 200ms var(--ease-out); color: var(--text-3); }
+        .month-group[open] .chev { transform: rotate(90deg); }
+
+        .night-row { display: grid; grid-template-columns: auto 1fr auto; gap: var(--s-3); align-items: center; padding: var(--s-3) 0; border-top: 1px solid rgba(255,255,255,0.05); }
+        .night-row:first-of-type { border-top: 1px solid rgba(255,255,255,0.08); }
+        .night-day { width: 40px; text-align: center; font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; line-height: 1; letter-spacing: -0.02em; }
+        .night-day .dow { display: block; font-family: var(--font-mono); font-size: 0.58rem; color: var(--text-3); font-weight: 500; letter-spacing: 0.1em; margin-top: 3px; text-transform: uppercase; }
+        .night-info .nums { font-family: var(--font-mono); font-size: 0.76rem; color: var(--text); letter-spacing: 0.02em; }
+        .night-info .nums .sep { color: var(--text-3); margin: 0 6px; }
+        .night-info .meta { display: flex; gap: var(--s-3); margin-top: 3px; font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-2); }
+        .night-info .meta .v-green { color: var(--green); }
+        .night-info .meta .v-red { color: var(--red); }
+        .night-arrow { color: var(--text-3); }
+
+        .show-all { margin: var(--s-4) var(--s-4) var(--s-6); }
+        .show-all .btn { width: 100%; }
+
+        /* stato header pill */
+        .c-header-pill { background: rgba(0,230,118,0.12); color: var(--green); border: 1px solid rgba(0,230,118,0.3); height: 26px; padding: 0 10px; border-radius: 999px; font-family: var(--font-mono); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; display: inline-flex; align-items: center; gap: 5px; }
+      </style>
+
+      <!-- HEADER sticky -->
+      <div class="c-header">
+        <button class="btn-icon" style="width:36px;height:36px;min-height:36px;">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 4 l-4 4 4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="c-header-title">
+          <span class="code">33/26</span>La Spezia · Arcola
+        </div>
+        <span class="c-header-pill"><span class="live-dot"></span>ATTIVO</span>
+      </div>
+
+      <!-- STICKY CTA -->
+      <div class="sticky-cta fade-up">
+        <button class="btn btn-primary">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.5"/><path d="M7 5 v3 h3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          APRI NOTTE · STASERA 22:00
+        </button>
+      </div>
+
+      <!-- STATUS KPI GRID -->
+      <div class="status-grid fade-up fade-up-1">
+        <div class="status-cell green">
+          <div class="t-micro">NOTTI</div>
+          <div class="v">8<span class="sub">/ 13</span></div>
+          <div class="foot">61% avanzamento</div>
+        </div>
+        <div class="status-cell cyan">
+          <div class="t-micro">CONTROLLATE</div>
+          <div class="v">313</div>
+          <div class="foot">saldature ispezionate</div>
+        </div>
+        <div class="status-cell red">
+          <div class="t-micro">DIFETTI APERTI</div>
+          <div class="v">13</div>
+          <div class="foot">da ricontrollare</div>
+        </div>
+        <div class="status-cell yellow">
+          <div class="t-micro">CONSEGNA</div>
+          <div class="v">14<span class="sub">g</span></div>
+          <div class="foot">30 Apr 2026</div>
+        </div>
+      </div>
+
+      <!-- AVANZAMENTO BINARI -->
+      <div class="ct-sec fade-up fade-up-2">
+        <span class="t-micro">Avanzamento binari</span>
+        <span class="t-micro" style="color: var(--text-3);">KM</span>
+      </div>
+
+      <!-- Dispari 13% -->
+      <div class="track disp fade-up fade-up-2" style="margin-bottom: var(--s-3);">
+        <div class="track-head">
+          <span class="track-label">
+            <span class="track-icon">
+              <!-- icona binario dispari -->
+              <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 2 v12 M12 2 v12 M2 5 h12 M2 11 h12" stroke="var(--cyan)" stroke-width="1.3" stroke-linecap="round"/>
+              </svg>
+            </span>
+            Dispari
+          </span>
+          <span class="track-pct">13%</span>
+        </div>
+        <div class="track-bar">
+          <!-- segmenti contigui dove ci sono saldature -->
+          <div class="seg" style="left: 4%; width: 9%;"></div>
+          <div class="seg" style="left: 18%; width: 4%;"></div>
+          <!-- marcatore corrente -->
+          <div class="track-marker" style="left: 22%;"></div>
+          <!-- milestones -->
+          <div class="track-milestone" style="left: 0%;">171+663</div>
+          <div class="track-milestone" style="left: 50%;">167+500</div>
+          <div class="track-milestone" style="left: 100%;">163+600</div>
+        </div>
+        <div class="track-ends">
+          <span>171+663</span>
+          <span>→ 163+600</span>
+        </div>
+      </div>
+
+      <!-- Pari 53% -->
+      <div class="track pari fade-up fade-up-3">
+        <div class="track-head">
+          <span class="track-label">
+            <span class="track-icon">
+              <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 2 v12 M12 2 v12 M2 5 h12 M2 11 h12" stroke="var(--green)" stroke-width="1.3" stroke-linecap="round"/>
+              </svg>
+            </span>
+            Pari
+          </span>
+          <span class="track-pct">53%</span>
+        </div>
+        <div class="track-bar">
+          <div class="seg" style="left: 2%; width: 22%;"></div>
+          <div class="seg" style="left: 26%; width: 14%;"></div>
+          <div class="seg" style="left: 42%; width: 8%;"></div>
+          <div class="seg" style="left: 52%; width: 9%;"></div>
+          <div class="track-marker" style="left: 61%;"></div>
+          <div class="track-milestone" style="left: 0%;">171+660</div>
+          <div class="track-milestone" style="left: 50%;">167+500</div>
+          <div class="track-milestone" style="left: 100%;">163+600</div>
+        </div>
+        <div class="track-ends">
+          <span>171+660</span>
+          <span>→ 163+600</span>
+        </div>
+      </div>
+
+      <!-- SLOT GRID -->
+      <div class="ct-sec fade-up fade-up-3">
+        <span class="t-micro">Lavorazioni</span>
+        <span class="t-micro" style="color: var(--text-3);">4 SLOT</span>
+      </div>
+
+      <div class="slot-grid fade-up fade-up-4">
+
+        <div class="slot-card green">
+          <div class="t-micro" style="color:var(--green);">LINEA PARI</div>
+          <div class="slot-title">Controllo sald.</div>
+          <div class="slot-count">14<span class="of">/ 21</span></div>
+          <div class="mini-bar"><span style="width:67%"></span></div>
+        </div>
+
+        <div class="slot-card cyan">
+          <div class="t-micro" style="color:var(--cyan);">LINEA DISPARI</div>
+          <div class="slot-title">Controllo sald.</div>
+          <div class="slot-count">3<span class="of">/ 17</span></div>
+          <div class="mini-bar"><span style="width:18%"></span></div>
+        </div>
+
+        <div class="slot-card red" style="grid-column: span 2;">
+          <div class="t-micro" style="color:var(--red);">RICONTROLLO DIFETTI</div>
+          <div class="slot-title">Saldature da rivedere</div>
+          <div class="slot-count">0<span class="of">/ 15</span></div>
+          <div class="km-list">
+            <span class="pill pill-red">175+681</span>
+            <span class="pill pill-red">172+220</span>
+            <span class="pill pill-red">170+045</span>
+            <span class="pill pill-red">168+912</span>
+            <span class="pill pill-red">167+503</span>
+            <span class="pill pill-red">+10</span>
+          </div>
+        </div>
+
+        <div class="slot-card magenta" style="grid-column: span 2;">
+          <div class="t-micro" style="color:var(--magenta);">REGOLAZIONI DISPARI</div>
+          <div class="slot-title">Interventi programmati</div>
+          <div class="slot-count">0<span class="of">/ 5</span></div>
+          <div class="mini-bar"><span style="width:0%"></span></div>
+        </div>
+
+      </div>
+
+      <!-- DIFETTI APERTI -->
+      <div class="ct-sec fade-up fade-up-4">
+        <span class="t-micro">Difetti aperti</span>
+        <span class="pill pill-red">13 ATTIVI</span>
+      </div>
+
+      <div class="def-card fade-up fade-up-4">
+        <div class="def-head">
+          <div class="def-head-l">
+            <!-- icona scintillio/difetto -->
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 3 l2 6 6 2 -6 2 -2 6 -2 -6 -6 -2 6 -2 z" stroke="var(--red)" stroke-width="1.3" stroke-linejoin="round"/>
+            </svg>
+            <span class="t-h2">Priorità alta</span>
+          </div>
+          <span class="pill pill-red" style="height:22px;">3 URGENTI</span>
+        </div>
+
+        <div class="def-list">
+          <div class="def-item">
+            <span class="sev s3">3</span>
+            <span class="km">175+681 PARI<span class="kind">· Scintillio</span></span>
+            <svg class="arrow" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 4 l4 4 -4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="def-item">
+            <span class="sev s3">3</span>
+            <span class="km">172+220 DISP<span class="kind">· ALL</span></span>
+            <svg class="arrow" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 4 l4 4 -4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="def-item">
+            <span class="sev s3">3</span>
+            <span class="km">170+045 PARI<span class="kind">· Inclusione</span></span>
+            <svg class="arrow" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 4 l4 4 -4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="def-item">
+            <span class="sev s2">2</span>
+            <span class="km">168+912 DISP<span class="kind">· Scintillio</span></span>
+            <svg class="arrow" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 4 l4 4 -4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="def-item">
+            <span class="sev s2">2</span>
+            <span class="km">167+503 PARI<span class="kind">· ALL</span></span>
+            <svg class="arrow" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 4 l4 4 -4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
+
+        <button class="btn btn-ghost btn-sm" style="margin-top: var(--s-3); width:100%; color: var(--red); border: 1px solid rgba(255,59,92,0.25);">Vedi tutti i 13 difetti</button>
+      </div>
+
+      <!-- NOTTI PROGRAMMATE -->
+      <div class="ct-sec fade-up fade-up-5">
+        <span class="t-micro">Programmate</span>
+        <span class="t-micro" style="color: var(--text-3);">PROSSIME 3</span>
+      </div>
+
+      <div class="night-sched fade-up fade-up-5" style="margin-bottom: var(--s-2);">
+        <div class="night-sched-date">17<span class="d-mo">APR</span></div>
+        <div class="night-sched-body">
+          <div class="tt">Domani · 22:00</div>
+          <div class="t-2">
+            <span class="m-chip">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M12 3 v2 M12 19 v2 M3 12 h2 M19 12 h2 M5.6 5.6 l1.4 1.4 M17 17 l1.4 1.4 M5.6 18.4 l1.4 -1.4 M17 7 l1.4 -1.4" stroke="var(--yellow)" stroke-width="1.3" stroke-linecap="round"/><circle cx="12" cy="12" r="4" stroke="var(--yellow)" stroke-width="1.3"/></svg>
+              21° · 0mm
+            </span>
+          </div>
+        </div>
+        <button class="btn btn-ghost btn-sm" style="padding: 0 10px; color: var(--text-2);">Salta</button>
+        <button class="btn-icon" style="width:32px; height:32px;">
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 4 l8 8 M12 4 l-8 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+
+      <div class="night-sched" style="margin-bottom: var(--s-2);">
+        <div class="night-sched-date">19<span class="d-mo">APR</span></div>
+        <div class="night-sched-body">
+          <div class="tt">Domenica · 22:00</div>
+          <div class="t-2">
+            <span class="m-chip">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M7 18 a4 4 0 0 1 0.4 -7.96 A6 6 0 0 1 19 10.5 a3.5 3.5 0 0 1 -1 6.95 Z M9 19 l-1 2 M13 19 l-1 2 M17 19 l-1 2" fill="rgba(0,220,255,0.15)" stroke="var(--cyan)" stroke-width="1.2" stroke-linecap="round"/></svg>
+              18° · 4mm
+            </span>
+          </div>
+        </div>
+        <button class="btn btn-ghost btn-sm" style="padding: 0 10px; color: var(--text-2);">Salta</button>
+        <button class="btn-icon" style="width:32px; height:32px;">
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 4 l8 8 M12 4 l-8 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+
+      <!-- NOTTI COMPLETATE -->
+      <div class="ct-sec">
+        <span class="t-micro">Completate</span>
+        <span class="t-micro" style="color: var(--text-3);">8 NOTTI</span>
+      </div>
+
+      <details class="month-group" open>
+        <summary>
+          <span class="t-micro">Aprile 2026 · 6 notti</span>
+          <svg class="chev" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 4 l4 4 -4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+
+        <div class="night-row">
+          <div class="night-day">16<span class="dow">GIO</span></div>
+          <div class="night-info">
+            <div class="nums"><span style="color:var(--green);">PARI</span> 161+555<span class="sep">→</span>171+660</div>
+            <div class="meta">
+              <span class="v-green">38 sald</span>
+              <span class="v-red">2 dif</span>
+              <span>15→16/04</span>
+            </div>
+          </div>
+          <svg class="night-arrow" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 4 l4 4 -4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+
+        <div class="night-row">
+          <div class="night-day">14<span class="dow">MAR</span></div>
+          <div class="night-info">
+            <div class="nums"><span style="color:var(--green);">PARI</span> 163+706<span class="sep">→</span>164+738</div>
+            <div class="meta">
+              <span class="v-green">36 sald</span>
+              <span class="v-red">5 dif</span>
+            </div>
+          </div>
+          <svg class="night-arrow" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 4 l4 4 -4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+
+        <div class="night-row">
+          <div class="night-day">09<span class="dow">MER</span></div>
+          <div class="night-info">
+            <div class="nums"><span style="color:var(--green);">PARI</span> 164+847<span class="sep">→</span>165+390</div>
+            <div class="meta">
+              <span class="v-green">18 sald</span>
+              <span class="v-red">2 dif</span>
+            </div>
+          </div>
+          <svg class="night-arrow" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 4 l4 4 -4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </details>
+
+      <div class="show-all">
+        <button class="btn btn-secondary">
+          Mostra tutte le 8 notti
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 6 l4 4 4 -4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</section>
+  <!-- AGENT_B_PAGES -->
+<!-- ============================================================
+     PAGES B — NOTTE · RISULTATI · SCHEDA I.1
+     Scoped styles only where strictly necessary per le specifiche
+     di queste 3 pagine (editor righe, mini-calc, overlay).
+     ============================================================ -->
+<style>
+/* SCOPED — solo per pages-B (Notte / Risultati / Scheda I.1) */
+
+/* Header compatto unica riga con back + titolo troncato + pills */
+.pgB-header {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto auto auto auto;
+  align-items: center;
+  gap: var(--s-2);
+  padding: var(--s-3) var(--s-3) var(--s-2);
+}
+.pgB-header .btn-back {
+  width: 36px; height: 36px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 10px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  color: var(--text);
+  flex: 0 0 36px;
+}
+.pgB-header-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: -0.015em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--text);
+}
+.pgB-date {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-2);
+  padding: 4px 8px;
+  border-radius: 8px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  white-space: nowrap;
+}
+.pgB-sigla {
+  width: 30px; height: 30px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(0,220,255,0.25), rgba(255,61,154,0.15));
+  border: 1px solid rgba(0,220,255,0.4);
+  color: var(--cyan);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+}
+.pgB-live {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--green);
+}
+
+/* Sub-header una riga */
+.pgB-sub {
+  display: flex; align-items: center; gap: var(--s-3);
+  padding: 6px var(--s-4) var(--s-3);
+  border-bottom: 1px solid var(--border);
+}
+.pgB-sub-item {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 0.74rem;
+  color: var(--text-3);
+  letter-spacing: 0.02em;
+}
+.pgB-sub-item b {
+  font-family: var(--font-mono);
+  color: var(--cyan);
+  font-weight: 700;
+  font-size: 0.82rem;
+}
+.pgB-menu-btn {
+  margin-left: auto;
+  width: 32px; height: 32px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 8px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-2);
+}
+
+/* Mini calc traverse — sticky sopra editor */
+.pgB-calc {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  margin: var(--s-3) var(--s-3) var(--s-2);
+  padding: 10px;
+  background: rgba(10, 14, 26, 0.78);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  display: grid;
+  grid-template-columns: 58px 32px 36px 1fr auto auto;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+.pgB-calc::before {
+  content: '';
+  position: absolute; inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(0,220,255,0.25), rgba(255,255,255,0) 40%, rgba(255,61,154,0.08));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  pointer-events: none;
+}
+.pgB-calc-input {
+  width: 100%;
+  min-height: 34px;
+  padding: 0 8px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 14px;
+  text-align: center;
+}
+.pgB-calc-unit {
+  height: 34px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 8px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-2);
+  font-weight: 700;
+}
+.pgB-calc-dir {
+  height: 34px; width: 36px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 8px;
+  background: rgba(0,220,255,0.10);
+  border: 1px solid rgba(0,220,255,0.3);
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 700;
+}
+.pgB-calc-result {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--cyan);
+  text-shadow: 0 0 12px var(--cyan-glow);
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+  padding: 0 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.pgB-calc-side {
+  height: 34px; min-width: 36px; padding: 0 8px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 8px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-strong);
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text);
+}
+.pgB-calc-side.active {
+  background: rgba(0,220,255,0.15);
+  border-color: var(--cyan);
+  color: var(--cyan);
+  box-shadow: 0 0 10px var(--cyan-glow);
+}
+.pgB-calc-gear {
+  grid-column: 1 / -1;
+  display: none;
+}
+
+/* Riga ferroviaria decorativa (traverse/binario) */
+.pgB-rail {
+  margin: 0 var(--s-4) var(--s-2);
+  height: 14px;
+  display: block;
+  opacity: 0.5;
+}
+
+/* Editor contenteditable con righe colorate */
+.pgB-editor {
+  margin: 0 var(--s-3) var(--s-3);
+  padding: 10px 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.025) 0%, rgba(255,255,255,0.015) 100%);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.editor-line {
+  position: relative;
+  padding: 10px 14px 10px 22px;
+  font-family: var(--font-mono);
+  font-size: 16px;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
+  color: var(--text);
+  border-left: 3px solid transparent;
+  margin-left: 2px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 200ms var(--ease-out);
+}
+.editor-line .ln-num {
+  position: absolute;
+  left: -0px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 22px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-3);
+  letter-spacing: 0;
+  font-weight: 500;
+  opacity: 0.5;
+}
+.editor-line .ln-text { flex: 1; min-width: 0; }
+.editor-line .ln-meta {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-3);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 700;
+  opacity: 0.7;
+}
+.editor-line.ok {
+  border-left-color: var(--green);
+  box-shadow: inset 2px 0 0 0 transparent;
+}
+.editor-line.ok .ln-text { color: var(--text); }
+.editor-line.diff {
+  border-left-color: var(--red);
+  background: linear-gradient(90deg, rgba(255,59,92,0.08) 0%, rgba(255,59,92,0.02) 60%, transparent 100%);
+}
+.editor-line.diff .ln-text { color: #FFD8DF; }
+.editor-line.diff .ln-text .diff-tag {
+  color: var(--red);
+  font-weight: 700;
+  text-shadow: 0 0 8px var(--red-glow);
+}
+.editor-line.ndc {
+  border-left-color: var(--yellow);
+  background: linear-gradient(90deg, rgba(255,214,0,0.06) 0%, rgba(255,214,0,0.01) 50%, transparent 100%);
+}
+.editor-line.ndc .ln-text { color: #FFF2B0; }
+.editor-line.alu {
+  border-left-color: var(--cyan);
+}
+.editor-line.alu .ln-meta {
+  color: var(--cyan);
+  opacity: 1;
+}
+.editor-line + .editor-line { margin-top: 2px; }
+.editor-caret {
+  display: inline-block;
+  width: 2px;
+  height: 16px;
+  background: var(--cyan);
+  box-shadow: 0 0 6px var(--cyan-glow);
+  vertical-align: middle;
+  margin-left: 2px;
+  animation: pgBCaret 1s steps(2, end) infinite;
+}
+@keyframes pgBCaret { 50% { opacity: 0; } }
+
+/* Counter sticky bar per pagina 4 */
+.pgB-sticky-count {
+  position: sticky;
+  bottom: 0;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-3) var(--s-4);
+  padding-bottom: calc(var(--s-3) + env(safe-area-inset-bottom, 0px));
+  background: rgba(5, 8, 16, 0.88);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-top: 1px solid var(--border);
+  z-index: 40;
+}
+.pgB-count-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-strong);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.pgB-count-pill span { display: inline-flex; align-items: center; gap: 5px; }
+.pgB-count-pill .dot { width: 7px; height: 7px; border-radius: 50%; }
+.pgB-count-pill .dot.g { background: var(--green); box-shadow: 0 0 6px var(--green-glow); }
+.pgB-count-pill .dot.r { background: var(--red); box-shadow: 0 0 6px var(--red-glow); }
+.pgB-count-pill .dot.y { background: var(--yellow); box-shadow: 0 0 6px var(--yellow-glow); }
+.pgB-count-pill .sep { color: var(--text-3); padding: 0 2px; }
+.pgB-elabora {
+  min-height: 44px;
+  padding: 0 18px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--cyan) 0%, #00B8FF 100%);
+  color: #051018;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.92rem;
+  letter-spacing: 0.01em;
+  border: none;
+  box-shadow: var(--shadow-glow-cyan), inset 0 1px 0 rgba(255,255,255,0.35);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ===== PAGINA 5 — RISULTATI ===== */
+.pgB-banner-diff {
+  position: relative;
+  margin: var(--s-3) var(--s-3) 0;
+  padding: 18px 18px 16px 22px;
+  background:
+    radial-gradient(ellipse 240px 160px at 100% 0%, rgba(255,59,92,0.15) 0%, transparent 70%),
+    linear-gradient(135deg, rgba(255,59,92,0.10) 0%, rgba(255,59,92,0.02) 100%);
+  border: 1px solid rgba(255,59,92,0.35);
+  border-radius: 18px;
+  overflow: hidden;
+  isolation: isolate;
+}
+.pgB-banner-diff::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 20px; bottom: 20px;
+  width: 4px;
+  border-radius: 0 4px 4px 0;
+  background: var(--red);
+  box-shadow: 0 0 16px var(--red-glow);
+}
+.pgB-banner-diff::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(45deg, rgba(255,59,92,0.04) 0 1px, transparent 1px 12px);
+  pointer-events: none;
+  opacity: 0.5;
+  z-index: -1;
+}
+.pgB-banner-diff .bd-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.pgB-banner-diff .bd-num {
+  font-family: var(--font-display);
+  font-size: 2.6rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: #fff;
+  text-shadow: 0 0 24px rgba(255,59,92,0.4);
+}
+.pgB-banner-diff .bd-caption {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--red);
+  margin-top: 2px;
+  margin-bottom: 12px;
+}
+.pgB-banner-diff .bd-list {
+  display: flex; flex-direction: column; gap: 6px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px dashed rgba(255,59,92,0.25);
+}
+.pgB-banner-diff .bd-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+.pgB-banner-diff .bd-item .km { color: #fff; font-weight: 700; }
+.pgB-banner-diff .bd-item .cd { color: var(--red); font-weight: 700; }
+.pgB-banner-diff .bd-item .tip { color: var(--text-2); text-align: right; }
+
+/* WhatsApp cards */
+.pgB-wa {
+  margin: var(--s-4) var(--s-3) 0;
+  padding: 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  position: relative;
+}
+.pgB-wa-head {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 10px;
+}
+.pgB-wa-head .lbl {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+.pgB-wa-head .lbl b {
+  color: var(--cyan);
+  font-weight: 700;
+}
+.pgB-wa-copy {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 5px 10px;
+  border-radius: 8px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+.pgB-wa-body {
+  background: rgba(0,0,0,0.35);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  line-height: 1.6;
+  color: var(--text);
+  white-space: pre;
+  overflow-x: auto;
+}
+.pgB-wa-body .m { color: var(--text-3); }
+
+/* Schede I.1 status list */
+.pgB-schede {
+  margin: var(--s-4) var(--s-3) 0;
+}
+.pgB-schede-head {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 8px;
+  padding: 0 4px;
+}
+.pgB-scheda-mini {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 8px;
+  position: relative;
+  overflow: hidden;
+}
+.pgB-scheda-mini.missing {
+  border-color: rgba(255,214,0,0.35);
+}
+.pgB-scheda-mini.missing::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 12px; bottom: 12px;
+  width: 3px;
+  background: var(--yellow);
+  box-shadow: 0 0 10px var(--yellow-glow);
+  border-radius: 0 3px 3px 0;
+}
+.pgB-scheda-mini.done::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 12px; bottom: 12px;
+  width: 3px;
+  background: var(--green);
+  box-shadow: 0 0 10px var(--green-glow);
+  border-radius: 0 3px 3px 0;
+}
+.pgB-scheda-mini .sm-line {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px;
+}
+.pgB-scheda-mini .sm-km {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 14px;
+  color: #fff;
+  letter-spacing: 0.02em;
+}
+.pgB-scheda-mini .sm-meta {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  margin-top: 4px;
+}
+.pgB-scheda-mini .sm-pill {
+  display: inline-flex; align-items: center;
+  height: 20px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--text-2);
+}
+.pgB-scheda-status {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+.pgB-scheda-status.done { color: var(--green); }
+.pgB-scheda-status.todo {
+  color: var(--yellow);
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: rgba(255,214,0,0.08);
+  border: 1px solid rgba(255,214,0,0.35);
+}
+
+/* Tabella saldature dettaglio */
+.pgB-details {
+  margin: var(--s-4) var(--s-3) 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.pgB-details summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 12px 14px;
+  display: flex; align-items: center; justify-content: space-between;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+.pgB-details summary::-webkit-details-marker { display: none; }
+.pgB-details summary .chev {
+  display: inline-block;
+  transition: transform 200ms var(--ease-out);
+  color: var(--text-3);
+}
+.pgB-details[open] summary .chev { transform: rotate(180deg); }
+.pgB-details summary .cnt {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-3);
+  letter-spacing: 0.04em;
+}
+.pgB-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+.pgB-table th {
+  text-align: left;
+  padding: 8px 14px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: rgba(255,255,255,0.02);
+}
+.pgB-table td {
+  padding: 9px 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  color: var(--text);
+}
+.pgB-table tr:last-child td { border-bottom: none; }
+.pgB-table td.st-ok { color: var(--green); }
+.pgB-table td.st-diff { color: var(--red); }
+.pgB-table td.st-ndc { color: var(--yellow); }
+
+/* Chiudi notte sticky */
+.pgB-close-night {
+  background: linear-gradient(135deg, var(--green) 0%, #00C66E 100%);
+  color: #061a0e;
+  font-weight: 700;
+  box-shadow: 0 0 24px var(--green-glow), inset 0 1px 0 rgba(255,255,255,0.35);
+}
+
+/* ===== PAGINA 6 — SCHEDA I.1 OVERLAY ===== */
+.pgB-overlay {
+  position: relative;
+  background:
+    radial-gradient(ellipse 600px 400px at 50% 0%, rgba(0,220,255,0.08), transparent 65%),
+    var(--bg-void);
+}
+.pgB-overlay-head {
+  display: grid;
+  grid-template-columns: 36px 1fr auto;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-3) var(--s-3) var(--s-3);
+  border-bottom: 1px solid var(--border);
+  background: rgba(5, 8, 16, 0.8);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+}
+.pgB-overlay-head .close {
+  width: 36px; height: 36px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 10px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+.pgB-overlay-title {
+  display: flex; flex-direction: column; gap: 2px;
+  min-width: 0;
+}
+.pgB-overlay-title .t1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.98rem;
+  letter-spacing: -0.015em;
+  color: var(--text);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.pgB-overlay-title .t2 {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  font-weight: 700;
+}
+.pgB-steps {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(0,220,255,0.10);
+  border: 1px solid rgba(0,220,255,0.3);
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+/* Step dots */
+.pgB-step-dots {
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  padding: var(--s-3) var(--s-4) 0;
+}
+.pgB-step-dots .d {
+  width: 26px; height: 4px; border-radius: 2px;
+  background: rgba(255,255,255,0.08);
+  transition: background 300ms var(--ease-out);
+}
+.pgB-step-dots .d.on { background: var(--cyan); box-shadow: 0 0 8px var(--cyan-glow); }
+.pgB-step-dots .d.cur { background: var(--cyan); box-shadow: 0 0 12px var(--cyan-glow); }
+
+.pgB-sect {
+  margin: var(--s-3) var(--s-3) 0;
+  padding: 14px 14px 16px;
+}
+.pgB-sect-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 10px;
+  display: flex; align-items: center; gap: 8px;
+}
+.pgB-sect-label .n {
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: rgba(0,220,255,0.15);
+  border: 1px solid rgba(0,220,255,0.35);
+  color: var(--cyan);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+.pgB-field-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.pgB-field {
+  display: flex; flex-direction: column; gap: 5px;
+}
+.pgB-field-full { grid-column: 1 / -1; }
+.pgB-field-label {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+.pgB-field-val {
+  min-height: 40px;
+  padding: 0 12px;
+  display: flex; align-items: center;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--text);
+  letter-spacing: 0.01em;
+}
+.pgB-field-val.locked {
+  background: rgba(0,220,255,0.06);
+  border-color: rgba(0,220,255,0.3);
+  color: var(--cyan);
+}
+.pgB-field-val.select {
+  justify-content: space-between;
+}
+.pgB-field-val .chev-down { color: var(--text-3); }
+.pgB-field-val .u {
+  color: var(--text-3);
+  font-size: 11px;
+  margin-left: auto;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+}
+.pgB-toggle {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 3px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  min-height: 40px;
+  gap: 3px;
+}
+.pgB-toggle button {
+  border: none;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--text-2);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+}
+.pgB-toggle button.on {
+  background: linear-gradient(135deg, rgba(0,220,255,0.2), rgba(0,220,255,0.08));
+  color: var(--cyan);
+  box-shadow: 0 0 0 1px rgba(0,220,255,0.35), 0 0 12px rgba(0,220,255,0.2);
+}
+.pgB-seg3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 3px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  min-height: 40px;
+  gap: 3px;
+}
+.pgB-seg3 button {
+  border: none;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--text-2);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 12.5px;
+  letter-spacing: -0.005em;
+  cursor: pointer;
+  padding: 0 4px;
+}
+.pgB-seg3 button.on {
+  background: linear-gradient(135deg, rgba(0,220,255,0.2), rgba(0,220,255,0.08));
+  color: var(--cyan);
+  box-shadow: 0 0 0 1px rgba(0,220,255,0.35);
+}
+
+/* Firma */
+.pgB-sign {
+  margin-top: 10px;
+  padding: 14px;
+  background: rgba(0,0,0,0.25);
+  border: 1px dashed var(--border-strong);
+  border-radius: 12px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 12px;
+}
+.pgB-sign-preview {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  color: var(--cyan);
+  filter: drop-shadow(0 0 6px var(--cyan-glow));
+}
+
+/* Generic helpers scoped */
+.pgB-mb { margin-bottom: 0; }
+</style>
+
+<!-- ============================================================
+     PAGINA 4 — NOTTE (editor attivo)
+     ============================================================ -->
+<section class="gallery-section">
+  <div class="gallery-section-label">Notte · Editor</div>
+  <div class="frame">
+    <div class="notch"></div>
+    <div class="screen">
+
+      <!-- HEADER una riga -->
+      <header class="pgB-header fade-up">
+        <button class="btn-back" aria-label="Indietro">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <div class="pgB-header-title">33/26 La Spezia &mdash; Arcola</div>
+        <span class="pill pill-cyan" style="height:22px; padding:0 8px; font-size:0.65rem;">PARI</span>
+        <button class="pgB-date" aria-label="Cambia data">Gio 16 Apr</button>
+        <div class="pgB-sigla">LP</div>
+        <span class="pgB-live"><span class="live-dot"></span>Salvato</span>
+      </header>
+
+      <!-- SUB-HEADER -->
+      <div class="pgB-sub fade-up fade-up-1">
+        <span class="pgB-sub-item">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg>
+          Ultima <b>171+555</b>
+        </span>
+        <span class="pgB-sub-item">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+          <b style="color:var(--text);font-family:var(--font-mono);font-size:0.78rem">9</b> righe
+        </span>
+        <button class="pgB-menu-btn" aria-label="Menu">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="12" cy="19" r="1.6"/></svg>
+        </button>
+      </div>
+
+      <!-- MINI CALC TRAVERSE sticky -->
+      <div class="pgB-calc fade-up fade-up-2">
+        <input class="pgB-calc-input" value="180" inputmode="numeric" aria-label="Numero traverse">
+        <span class="pgB-calc-unit">t</span>
+        <span class="pgB-calc-dir" title="Direzione" aria-label="Direzione crescente">&uarr;</span>
+        <span class="pgB-calc-result">&rarr; 171+447</span>
+        <button class="pgB-calc-side active" aria-label="Lato DX">DX</button>
+        <button class="pgB-calc-side" aria-label="Lato SX">SX</button>
+      </div>
+
+      <!-- Decorative rail svg (binari + traverse) -->
+      <svg class="pgB-rail" viewBox="0 0 360 14" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="railGr" x1="0" x2="1">
+            <stop offset="0" stop-color="rgba(0,220,255,0)"/>
+            <stop offset="0.3" stop-color="rgba(0,220,255,0.5)"/>
+            <stop offset="0.7" stop-color="rgba(0,220,255,0.5)"/>
+            <stop offset="1" stop-color="rgba(0,220,255,0)"/>
+          </linearGradient>
+        </defs>
+        <line x1="0" y1="4" x2="360" y2="4" stroke="url(#railGr)" stroke-width="1"/>
+        <line x1="0" y1="10" x2="360" y2="10" stroke="url(#railGr)" stroke-width="1"/>
+        <g stroke="rgba(0,220,255,0.25)" stroke-width="1">
+          <line x1="10" y1="2" x2="10" y2="12"/><line x1="30" y1="2" x2="30" y2="12"/>
+          <line x1="50" y1="2" x2="50" y2="12"/><line x1="70" y1="2" x2="70" y2="12"/>
+          <line x1="90" y1="2" x2="90" y2="12"/><line x1="110" y1="2" x2="110" y2="12"/>
+          <line x1="130" y1="2" x2="130" y2="12"/><line x1="150" y1="2" x2="150" y2="12"/>
+          <line x1="170" y1="2" x2="170" y2="12"/><line x1="190" y1="2" x2="190" y2="12"/>
+          <line x1="210" y1="2" x2="210" y2="12"/><line x1="230" y1="2" x2="230" y2="12"/>
+          <line x1="250" y1="2" x2="250" y2="12"/><line x1="270" y1="2" x2="270" y2="12"/>
+          <line x1="290" y1="2" x2="290" y2="12"/><line x1="310" y1="2" x2="310" y2="12"/>
+          <line x1="330" y1="2" x2="330" y2="12"/><line x1="350" y1="2" x2="350" y2="12"/>
+        </g>
+      </svg>
+
+      <!-- EDITOR contenteditable mock -->
+      <div class="pgB-editor fade-up fade-up-3" contenteditable="false" role="textbox" aria-label="Editor saldature notte">
+
+        <div class="editor-line ok">
+          <span class="ln-num">01</span>
+          <span class="ln-text">171+555 DX</span>
+          <span class="ln-meta">OK</span>
+        </div>
+
+        <div class="editor-line ok">
+          <span class="ln-num">02</span>
+          <span class="ln-text">171+555 SX</span>
+          <span class="ln-meta">OK</span>
+        </div>
+
+        <div class="editor-line diff">
+          <span class="ln-num">03</span>
+          <span class="ln-text">171+450 DX <span class="diff-tag">4212 s2</span></span>
+          <span class="ln-meta" style="color:var(--red);opacity:1">DIFETTO</span>
+        </div>
+
+        <div class="editor-line ok">
+          <span class="ln-num">04</span>
+          <span class="ln-text">171+400 SX</span>
+          <span class="ln-meta">OK</span>
+        </div>
+
+        <div class="editor-line ndc">
+          <span class="ln-num">05</span>
+          <span class="ln-text">171+340 DX <span style="color:var(--yellow);font-weight:700">NO DAC</span></span>
+          <span class="ln-meta" style="color:var(--yellow);opacity:1">NDC</span>
+        </div>
+
+        <div class="editor-line alu">
+          <span class="ln-num">06</span>
+          <span class="ln-text">171+280 SX ALL GR LAF 1026 12/2025</span>
+          <span class="ln-meta">ALU</span>
+        </div>
+
+        <div class="editor-line ok">
+          <span class="ln-num">07</span>
+          <span class="ln-text">171+220 DX</span>
+          <span class="ln-meta">OK</span>
+        </div>
+
+        <div class="editor-line ok">
+          <span class="ln-num">08</span>
+          <span class="ln-text">171+160 SX<span class="editor-caret"></span></span>
+          <span class="ln-meta">OK</span>
+        </div>
+
+      </div>
+
+      <!-- STICKY COUNTER + ELABORA -->
+      <div class="pgB-sticky-count">
+        <div class="pgB-count-pill" role="status" aria-label="Riepilogo notte">
+          <span><span class="dot g"></span>6 Conformi</span>
+          <span class="sep">&middot;</span>
+          <span><span class="dot r"></span>2 Difetti</span>
+          <span class="sep">&middot;</span>
+          <span><span class="dot y"></span>1 No DAC</span>
+        </div>
+        <button class="pgB-elabora" aria-label="Elabora notte">
+          ELABORA
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     PAGINA 5 — RISULTATI
+     ============================================================ -->
+<section class="gallery-section">
+  <div class="gallery-section-label">Risultati · Notte elaborata</div>
+  <div class="frame">
+    <div class="notch"></div>
+    <div class="screen">
+
+      <!-- HEADER -->
+      <header class="pgB-header fade-up">
+        <button class="btn-back" aria-label="Indietro">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <div class="pgB-header-title" style="grid-column: span 3;">Risultati &middot; 16 Aprile</div>
+        <button class="btn btn-sm btn-secondary" style="min-height:32px;height:32px;padding:0 12px;font-size:0.78rem;grid-column: span 2;">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16.5 3.5a2.12 2.12 0 1 1 3 3L7 19l-4 1 1-4z"/></svg>
+          Modifica lista
+        </button>
+      </header>
+
+      <!-- BANNER DIFETTI TROVATI -->
+      <div class="pgB-banner-diff fade-up fade-up-1">
+        <div class="bd-label">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          Esito notte
+        </div>
+        <div style="display:flex; align-items:baseline; gap:10px;">
+          <span class="bd-num">2</span>
+          <span class="bd-caption">DIFETTI TROVATI</span>
+        </div>
+        <div class="bd-list">
+          <div class="bd-item">
+            <span class="km">171+450 DX</span>
+            <span class="cd">4212 &middot; s2</span>
+            <span class="tip">Trasversale</span>
+          </div>
+          <div class="bd-item">
+            <span class="km">167+820 SX</span>
+            <span class="cd">211</span>
+            <span class="tip">Longitudinale</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIEPILOGO WA — formato M2 -->
+      <div class="pgB-wa fade-up fade-up-2">
+        <div class="pgB-wa-head">
+          <span class="lbl">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.5A12 12 0 002.1 18.3L1 23l4.9-1.1A12 12 0 1020.5 3.5zM12 20a8 8 0 01-4.1-1.1l-.3-.2-2.9.6.6-2.8-.2-.3A8 8 0 1112 20z"/></svg>
+            Riepilogo <b>M2</b>
+          </span>
+          <button class="pgB-wa-copy">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            Copia
+          </button>
+        </div>
+<pre class="pgB-wa-body">*M2 &middot; La Spezia-Arcola 33/26*
+<span class="m">Notte 16/04/2026 &middot; PARI &middot; LP (G)</span>
+
+Controllate: 9
+Conformi: 6
+Difetti: 2
+No DAC: 1
+
+*Difetti:*
+&bull; 171+450 DX &mdash; 4212 s2 (trasv.)
+&bull; 167+820 SX &mdash; 211 (long.)
+</pre>
+      </div>
+
+      <!-- RIEPILOGO WA — formato GFC -->
+      <div class="pgB-wa fade-up fade-up-3">
+        <div class="pgB-wa-head">
+          <span class="lbl">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.5A12 12 0 002.1 18.3L1 23l4.9-1.1A12 12 0 1020.5 3.5zM12 20a8 8 0 01-4.1-1.1l-.3-.2-2.9.6.6-2.8-.2-.3A8 8 0 1112 20z"/></svg>
+            Riepilogo <b>GFC</b>
+          </span>
+          <button class="pgB-wa-copy">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            Copia
+          </button>
+        </div>
+<pre class="pgB-wa-body">GFC 16-04-2026
+<span class="m">Tratta 33/26 Sp-Arc bin. PARI</span>
+Op: LP   Str: G
+
+[DIFETTI]
+171+450 DX cod.4212 cl.s2
+167+820 SX cod.211
+
+[TOT] 9 contr. | 6 ok | 2 dif | 1 ndc
+</pre>
+      </div>
+
+      <!-- SCHEDE I.1 STATUS -->
+      <div class="pgB-schede fade-up fade-up-4">
+        <div class="pgB-schede-head">Schede I.1</div>
+
+        <div class="pgB-scheda-mini done">
+          <div>
+            <div class="sm-line">
+              <span class="sm-km">171+450 DX</span>
+              <span class="pill pill-red" style="height:20px;padding:0 8px;font-size:10px">4212</span>
+            </div>
+            <div class="sm-meta">
+              <span class="sm-pill">s2</span>
+              <span class="sm-pill">Trasversale</span>
+            </div>
+          </div>
+          <div class="pgB-scheda-status done">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+            Compilata
+          </div>
+        </div>
+
+        <div class="pgB-scheda-mini missing">
+          <div>
+            <div class="sm-line">
+              <span class="sm-km">167+820 SX</span>
+              <span class="pill pill-red" style="height:20px;padding:0 8px;font-size:10px">211</span>
+            </div>
+            <div class="sm-meta">
+              <span class="sm-pill">Longitudinale</span>
+              <span class="sm-pill" style="color:var(--yellow);border-color:rgba(255,214,0,0.35)">Scheda mancante</span>
+            </div>
+          </div>
+          <button class="pgB-scheda-status todo">
+            Compila
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- TABELLA DETTAGLIO -->
+      <details class="pgB-details fade-up fade-up-5">
+        <summary>
+          <span>9 saldature controllate</span>
+          <span style="display:flex;align-items:center;gap:10px">
+            <span class="cnt">9/9</span>
+            <span class="chev">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </span>
+          </span>
+        </summary>
+        <table class="pgB-table">
+          <thead>
+            <tr><th>PK</th><th>Lato</th><th>Esito</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>171+555</td><td>DX</td><td class="st-ok">&#9679; OK</td></tr>
+            <tr><td>171+555</td><td>SX</td><td class="st-ok">&#9679; OK</td></tr>
+            <tr><td>171+450</td><td>DX</td><td class="st-diff">&#9679; DIF 4212</td></tr>
+            <tr><td>171+400</td><td>SX</td><td class="st-ok">&#9679; OK</td></tr>
+            <tr><td>171+340</td><td>DX</td><td class="st-ndc">&#9679; NO DAC</td></tr>
+            <tr><td>171+280</td><td>SX</td><td class="st-ok">&#9679; ALU</td></tr>
+            <tr><td>171+220</td><td>DX</td><td class="st-ok">&#9679; OK</td></tr>
+            <tr><td>171+160</td><td>SX</td><td class="st-ok">&#9679; OK</td></tr>
+            <tr><td>167+820</td><td>SX</td><td class="st-diff">&#9679; DIF 211</td></tr>
+          </tbody>
+        </table>
+      </details>
+
+      <div style="height: 12px;"></div>
+
+      <!-- STICKY CHIUDI NOTTE -->
+      <div class="sticky-bar">
+        <button class="btn btn-primary pgB-close-night">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>
+          CHIUDI NOTTE
+        </button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     PAGINA 6 — SCHEDA I.1 (overlay full-screen)
+     ============================================================ -->
+<section class="gallery-section">
+  <div class="gallery-section-label">Scheda I.1 &middot; Overlay</div>
+  <div class="frame">
+    <div class="notch"></div>
+    <div class="screen pgB-overlay">
+
+      <!-- HEADER OVERLAY -->
+      <header class="pgB-overlay-head fade-up">
+        <button class="close" aria-label="Chiudi">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+        <div class="pgB-overlay-title">
+          <span class="t1">Scheda I.1 &middot; Difetto 1/2</span>
+          <span class="t2">171+450 DX &middot; 4212 s2</span>
+        </div>
+        <span class="pgB-steps">1&nbsp;/&nbsp;4</span>
+      </header>
+
+      <!-- STEP DOTS -->
+      <div class="pgB-step-dots fade-up fade-up-1">
+        <span class="d cur"></span>
+        <span class="d"></span>
+        <span class="d"></span>
+        <span class="d"></span>
+      </div>
+
+      <!-- SEZIONE 1 — DATI DIFETTO -->
+      <div class="card pgB-sect fade-up fade-up-2">
+        <div class="pgB-sect-label"><span class="n">1</span>Dati difetto</div>
+        <div class="pgB-field-grid">
+          <div class="pgB-field">
+            <span class="pgB-field-label">KM</span>
+            <div class="pgB-field-val locked">171+450</div>
+          </div>
+          <div class="pgB-field">
+            <span class="pgB-field-label">Lato</span>
+            <div class="pgB-field-val locked">DX</div>
+          </div>
+          <div class="pgB-field">
+            <span class="pgB-field-label">Codice</span>
+            <div class="pgB-field-val">
+              <span class="pill pill-red" style="height:22px">4212</span>
+            </div>
+          </div>
+          <div class="pgB-field">
+            <span class="pgB-field-label">Classificazione</span>
+            <div class="pgB-field-val">
+              <span class="pill pill-yellow" style="height:22px">S2</span>
+            </div>
+          </div>
+          <div class="pgB-field pgB-field-full">
+            <span class="pgB-field-label">Tipologia</span>
+            <div class="pgB-field-val select">
+              <span>Trasversale</span>
+              <svg class="chev-down" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEZIONE 2 — DATI BINARIO -->
+      <div class="card pgB-sect fade-up fade-up-3">
+        <div class="pgB-sect-label"><span class="n">2</span>Dati binario</div>
+        <div class="pgB-field-grid">
+          <div class="pgB-field">
+            <span class="pgB-field-label">Linea</span>
+            <div class="pgB-field-val">33</div>
+          </div>
+          <div class="pgB-field">
+            <span class="pgB-field-label">Tratta</span>
+            <div class="pgB-field-val">26</div>
+          </div>
+          <div class="pgB-field">
+            <span class="pgB-field-label">Tronco</span>
+            <div class="pgB-field-val">La Spezia-Arcola</div>
+          </div>
+          <div class="pgB-field">
+            <span class="pgB-field-label">Binario</span>
+            <div class="pgB-field-val" style="padding:4px 6px">
+              <span class="pill pill-cyan" style="height:26px;font-size:0.72rem">PARI</span>
+            </div>
+          </div>
+          <div class="pgB-field">
+            <span class="pgB-field-label">Traversa</span>
+            <div class="pgB-field-val">1847</div>
+          </div>
+          <div class="pgB-field">
+            <span class="pgB-field-label">Sede difetto</span>
+            <div class="pgB-seg3" role="group" aria-label="Sede difetto">
+              <button class="on">Piano</button>
+              <button>Bordo</button>
+              <button>Lembo</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEZIONE 3 — DATI SALDATURA -->
+      <div class="card pgB-sect fade-up fade-up-4">
+        <div class="pgB-sect-label"><span class="n">3</span>Dati saldatura</div>
+        <div class="pgB-field-grid">
+          <div class="pgB-field pgB-field-full">
+            <span class="pgB-field-label">Tipo saldatura</span>
+            <div class="pgB-toggle" role="group" aria-label="Tipo saldatura">
+              <button class="on">Alluminotermica</button>
+              <button>Scintillio</button>
+            </div>
+          </div>
+          <div class="pgB-field">
+            <span class="pgB-field-label">Data esecuzione</span>
+            <div class="pgB-field-val">12/2025</div>
+          </div>
+          <div class="pgB-field">
+            <span class="pgB-field-label">Punzone</span>
+            <div class="pgB-field-val">1026</div>
+          </div>
+          <div class="pgB-field">
+            <span class="pgB-field-label">Ditta</span>
+            <div class="pgB-field-val">ALL GR LAF</div>
+          </div>
+          <div class="pgB-field">
+            <span class="pgB-field-label">&nbsp;</span>
+            <div class="pgB-field-val" style="background:transparent;border:none;padding:0">&nbsp;</div>
+          </div>
+          <div class="pgB-field">
+            <span class="pgB-field-label">Profondit&agrave;</span>
+            <div class="pgB-field-val">
+              <span>3.2</span>
+              <span class="u">mm</span>
+            </div>
+          </div>
+          <div class="pgB-field">
+            <span class="pgB-field-label">Ampiezza</span>
+            <div class="pgB-field-val">
+              <span>18</span>
+              <span class="u">mm</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEZIONE 4 — FIRMA -->
+      <div class="card pgB-sect fade-up fade-up-5">
+        <div class="pgB-sect-label"><span class="n">4</span>Firma operatore</div>
+        <div class="pgB-sign">
+          <div class="pgB-sign-preview" aria-label="Anteprima firma">
+            <svg width="100%" height="56" viewBox="0 0 260 56" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 38 C 18 10, 34 52, 48 30 S 78 8, 96 34 C 108 52, 122 14, 144 30 S 184 52, 210 22 L 238 36"/>
+              <path d="M18 44 L 220 44" stroke-opacity="0.2" stroke-dasharray="2 4"/>
+            </svg>
+          </div>
+          <button class="btn btn-secondary btn-sm">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
+            Aggiorna firma
+          </button>
+        </div>
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-top:10px; font-family:var(--font-mono); font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-3)">
+          <span>Operatore &middot; LP</span>
+          <span style="color:var(--green); display:inline-flex; align-items:center; gap:4px">
+            <span class="live-dot"></span>Firma valida
+          </span>
+        </div>
+      </div>
+
+      <div style="height: 16px;"></div>
+
+      <!-- STICKY GENERA PDF -->
+      <div class="sticky-bar">
+        <button class="btn btn-primary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+          GENERA PDF
+        </button>
+      </div>
+
+    </div>
+  </div>
+</section>
+  <!-- AGENT_C_PAGES -->
+<!-- ============================================================
+     PAGES C — Agent C (pagine 7, 8, 9)
+     Calendario mese · Form cantiere · Profilo
+     Solo classi dal design system. Scoped styles commentati dove servono.
+     ============================================================ -->
+
+<style>
+/* C-scoped: griglia calendario, pallini cantiere, avatar profilo.
+   Tutto il resto usa classi del design system globale. */
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+.cal-head {
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  padding: 6px 0;
+}
+.cal-cell {
+  position: relative;
+  height: 48px;
+  border-radius: var(--r-sm);
+  background: rgba(255,255,255,0.025);
+  border: 1px solid transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text);
+  transition: background 200ms, border-color 200ms;
+}
+.cal-cell.muted { color: var(--text-3); opacity: 0.35; }
+.cal-cell.today {
+  border-color: var(--cyan);
+  background: rgba(0,220,255,0.08);
+  box-shadow: 0 0 18px var(--cyan-glow), inset 0 0 0 1px rgba(0,220,255,0.25);
+  animation: glow 2.8s ease-in-out infinite;
+}
+.cal-cell.has-dot { color: var(--text); }
+.cal-dots {
+  display: flex; gap: 2px; align-items: center;
+  height: 6px;
+}
+.cal-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  display: inline-block;
+}
+.cal-dot.cyan { background: var(--cyan); box-shadow: 0 0 6px var(--cyan-glow); }
+.cal-dot.magenta { background: var(--magenta); box-shadow: 0 0 6px var(--magenta-glow); }
+.cal-dot.green { background: var(--green); box-shadow: 0 0 6px var(--green-glow); }
+.cal-dot.yellow { background: var(--yellow); box-shadow: 0 0 6px var(--yellow-glow); }
+.cal-dot.red { background: var(--red); box-shadow: 0 0 6px var(--red-glow); }
+
+.legend-row {
+  display: flex; flex-wrap: wrap; gap: 6px;
+}
+
+/* Pill-toggle segmentato (tipo notturno/diurno) */
+.seg {
+  display: inline-flex;
+  padding: 3px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+  gap: 2px;
+}
+.seg > button {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--text-2);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.82rem;
+  padding: 6px 14px;
+  border-radius: var(--r-pill);
+  cursor: pointer;
+  transition: background 200ms, color 200ms, box-shadow 200ms;
+}
+.seg > button.on {
+  background: linear-gradient(135deg, var(--cyan) 0%, #00B8FF 100%);
+  color: #051018;
+  box-shadow: 0 0 14px var(--cyan-glow), inset 0 1px 0 rgba(255,255,255,0.3);
+}
+
+/* Switch toggle */
+.switch {
+  position: relative;
+  width: 44px; height: 26px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+  cursor: pointer;
+  transition: background 200ms, border-color 200ms;
+}
+.switch::after {
+  content: '';
+  position: absolute;
+  top: 2px; left: 2px;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: var(--text);
+  transition: transform 240ms var(--ease-spring), background 200ms;
+}
+.switch.on {
+  background: rgba(0,220,255,0.18);
+  border-color: rgba(0,220,255,0.5);
+  box-shadow: 0 0 12px var(--cyan-glow);
+}
+.switch.on::after { transform: translateX(18px); background: var(--cyan); }
+
+/* Giorni settimana cerchi */
+.days-row { display: flex; gap: 6px; }
+.day-circle {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--bg-surface);
+  color: var(--text-3);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.78rem;
+  transition: all 200ms;
+}
+.day-circle.on {
+  background: rgba(0,220,255,0.15);
+  border-color: var(--cyan);
+  color: var(--cyan);
+  box-shadow: 0 0 10px var(--cyan-glow);
+}
+
+/* Mini card lavorazione / tratta */
+.inner-row {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--s-2);
+  padding: 10px 12px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+}
+.inner-row + .inner-row { margin-top: 6px; }
+.inner-row .k {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--text);
+  letter-spacing: 0.02em;
+}
+.inner-row .sub { color: var(--text-3); font-size: 0.72rem; }
+.icon-x {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: transparent; border: 1px solid var(--border);
+  color: var(--text-3);
+  display: inline-flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: all 200ms;
+}
+.icon-x:hover { color: var(--red); border-color: var(--red); background: rgba(255,59,92,0.08); }
+
+.binario-label {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  margin-bottom: 6px;
+}
+.binario-label::before {
+  content: ''; width: 18px; height: 2px; background: var(--cyan);
+  box-shadow: 0 0 6px var(--cyan-glow);
+  border-radius: 2px;
+}
+.binario-label.dispari::before { background: var(--magenta); box-shadow: 0 0 6px var(--magenta-glow); }
+
+.dashed-btn {
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  width: 100%;
+  min-height: 40px;
+  padding: 0 var(--s-3);
+  border-radius: var(--r-sm);
+  border: 1px dashed var(--border-strong);
+  background: transparent;
+  color: var(--text-2);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.84rem;
+  cursor: pointer;
+  transition: all 200ms;
+}
+.dashed-btn:hover { border-color: var(--cyan); color: var(--cyan); background: rgba(0,220,255,0.04); }
+
+/* Avatar profilo */
+.avatar {
+  width: 120px; height: 120px;
+  border-radius: 50%;
+  background: conic-gradient(from 210deg, var(--cyan), var(--magenta), var(--cyan));
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: #fff;
+  position: relative;
+  box-shadow: 0 0 40px var(--cyan-glow), 0 0 80px var(--magenta-glow);
+  animation: glow 3.2s ease-in-out infinite;
+}
+.avatar::before {
+  content: '';
+  position: absolute; inset: 5px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 25%, #1b2438 0%, #0a0e1a 70%);
+  z-index: 0;
+}
+.avatar > span { position: relative; z-index: 1;
+  background: linear-gradient(135deg, #fff 0%, var(--cyan) 60%, var(--magenta) 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+
+.kv-row {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--s-3);
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.kv-row:last-child { border: 0; }
+.kv-row .k { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-3); }
+.kv-row .v { font-family: var(--font-display); font-weight: 600; color: var(--text); }
+
+/* Firma preview */
+.sign-box {
+  height: 110px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--border);
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)),
+    repeating-linear-gradient(0deg, transparent 0, transparent 27px, rgba(255,255,255,0.04) 27px, rgba(255,255,255,0.04) 28px);
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+.sign-box svg { width: 70%; height: 70%; }
+
+/* Select pill full-width */
+.select-pill {
+  display: flex; align-items: center; justify-content: space-between;
+  width: 100%;
+  min-height: var(--touch);
+  padding: 0 var(--s-4);
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+  color: var(--text);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.92rem;
+  cursor: pointer;
+  transition: all 200ms;
+}
+.select-pill:hover { border-color: var(--border-strong); background: var(--bg-elevated); }
+.select-pill .chev { color: var(--text-3); transition: transform 200ms; }
+
+.month-pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 14px;
+  border-radius: var(--r-pill);
+  background: rgba(0,220,255,0.1);
+  border: 1px solid rgba(0,220,255,0.3);
+  color: var(--cyan);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.86rem;
+  letter-spacing: -0.01em;
+  box-shadow: 0 0 14px rgba(0,220,255,0.2);
+}
+.month-nav {
+  display: inline-flex;
+  width: 32px; height: 32px;
+  align-items: center; justify-content: center;
+  border-radius: 50%;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  color: var(--text-2);
+  cursor: pointer;
+  transition: all 200ms;
+}
+.month-nav:hover { color: var(--cyan); border-color: var(--cyan); box-shadow: 0 0 10px var(--cyan-glow); }
+</style>
+
+
+<!-- ============================================================
+     PAGINA 7 — CALENDARIO (mese)
+     ============================================================ -->
+<section class="gallery-section">
+  <div class="gallery-section-label">7 · Calendario mese</div>
+  <div class="frame">
+    <div class="notch"></div>
+    <div class="screen">
+
+      <!-- Header -->
+      <div class="page-header fade-up">
+        <button class="btn-icon" aria-label="Indietro">
+          <svg class="icon icon-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div class="page-header-title">Calendario</div>
+      </div>
+
+      <!-- Mese + nav -->
+      <div class="screen-pad fade-up fade-up-1">
+        <div class="flex items-center justify-between gap-2" style="margin-bottom: var(--s-4);">
+          <button class="month-nav" aria-label="Mese precedente">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <div class="month-pill">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Aprile 2026
+          </div>
+          <button class="month-nav" aria-label="Mese successivo">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+
+        <!-- Filtro cantieri -->
+        <button class="select-pill fade-up fade-up-2">
+          <span>Tutti i cantieri</span>
+          <span class="chev">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </span>
+        </button>
+      </div>
+
+      <!-- Calendar grid -->
+      <div class="screen-pad mt-4 fade-up fade-up-3">
+        <div class="card card-compact">
+          <div class="cal-grid" style="margin-bottom: 6px;">
+            <div class="cal-head">Dom</div>
+            <div class="cal-head">Lun</div>
+            <div class="cal-head">Mar</div>
+            <div class="cal-head">Mer</div>
+            <div class="cal-head">Gio</div>
+            <div class="cal-head">Ven</div>
+            <div class="cal-head">Sab</div>
+          </div>
+
+          <div class="cal-grid">
+            <!-- Aprile 2026: 1 Apr = mercoledì. Riempi dom 29 marzo. -->
+            <!-- Settimana 1 -->
+            <div class="cal-cell muted">29</div>
+            <div class="cal-cell muted">30</div>
+            <div class="cal-cell muted">31</div>
+            <div class="cal-cell has-dot">1
+              <div class="cal-dots"><span class="cal-dot cyan"></span></div>
+            </div>
+            <div class="cal-cell">2</div>
+            <div class="cal-cell has-dot">3
+              <div class="cal-dots"><span class="cal-dot magenta"></span></div>
+            </div>
+            <div class="cal-cell has-dot">4
+              <div class="cal-dots"><span class="cal-dot magenta"></span></div>
+            </div>
+
+            <!-- Settimana 2 -->
+            <div class="cal-cell has-dot">5
+              <div class="cal-dots"><span class="cal-dot magenta"></span></div>
+            </div>
+            <div class="cal-cell">6</div>
+            <div class="cal-cell has-dot">7
+              <div class="cal-dots"><span class="cal-dot cyan"></span></div>
+            </div>
+            <div class="cal-cell has-dot">8
+              <div class="cal-dots"><span class="cal-dot cyan"></span></div>
+            </div>
+            <div class="cal-cell has-dot">9
+              <div class="cal-dots"><span class="cal-dot cyan"></span></div>
+            </div>
+            <div class="cal-cell has-dot">10
+              <div class="cal-dots"><span class="cal-dot green"></span></div>
+            </div>
+            <div class="cal-cell has-dot">11
+              <div class="cal-dots">
+                <span class="cal-dot green"></span>
+                <span class="cal-dot yellow"></span>
+              </div>
+            </div>
+
+            <!-- Settimana 3 -->
+            <div class="cal-cell has-dot">12
+              <div class="cal-dots">
+                <span class="cal-dot green"></span>
+                <span class="cal-dot yellow"></span>
+              </div>
+            </div>
+            <div class="cal-cell has-dot">13
+              <div class="cal-dots"><span class="cal-dot yellow"></span></div>
+            </div>
+            <div class="cal-cell has-dot">14
+              <div class="cal-dots"><span class="cal-dot cyan"></span></div>
+            </div>
+            <div class="cal-cell has-dot">15
+              <div class="cal-dots"><span class="cal-dot cyan"></span></div>
+            </div>
+            <div class="cal-cell today has-dot">16
+              <div class="cal-dots"><span class="cal-dot cyan"></span></div>
+            </div>
+            <div class="cal-cell">17</div>
+            <div class="cal-cell">18</div>
+
+            <!-- Settimana 4 -->
+            <div class="cal-cell">19</div>
+            <div class="cal-cell has-dot">20
+              <div class="cal-dots"><span class="cal-dot red"></span></div>
+            </div>
+            <div class="cal-cell has-dot">21
+              <div class="cal-dots"><span class="cal-dot red"></span></div>
+            </div>
+            <div class="cal-cell">22</div>
+            <div class="cal-cell has-dot">23
+              <div class="cal-dots"><span class="cal-dot cyan"></span></div>
+            </div>
+            <div class="cal-cell has-dot">24
+              <div class="cal-dots"><span class="cal-dot cyan"></span></div>
+            </div>
+            <div class="cal-cell">25</div>
+
+            <!-- Settimana 5 -->
+            <div class="cal-cell">26</div>
+            <div class="cal-cell has-dot">27
+              <div class="cal-dots"><span class="cal-dot green"></span></div>
+            </div>
+            <div class="cal-cell has-dot">28
+              <div class="cal-dots"><span class="cal-dot green"></span></div>
+            </div>
+            <div class="cal-cell">29</div>
+            <div class="cal-cell has-dot">30
+              <div class="cal-dots"><span class="cal-dot magenta"></span></div>
+            </div>
+            <div class="cal-cell muted">1</div>
+            <div class="cal-cell muted">2</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Legenda -->
+      <div class="screen-pad mt-4 fade-up fade-up-4">
+        <div class="t-micro mb-2">Legenda cantieri</div>
+        <div class="legend-row">
+          <span class="pill pill-cyan"><span class="cal-dot cyan" style="margin-right:4px"></span>La Spezia</span>
+          <span class="pill pill-magenta"><span class="cal-dot magenta" style="margin-right:4px"></span>Brescia</span>
+          <span class="pill pill-green"><span class="cal-dot green" style="margin-right:4px"></span>Empoli</span>
+          <span class="pill pill-yellow"><span class="cal-dot yellow" style="margin-right:4px"></span>Chiusi-M.</span>
+          <span class="pill pill-red"><span class="cal-dot red" style="margin-right:4px"></span>Genova</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     PAGINA 8 — FORM CANTIERE (Modifica La Spezia)
+     ============================================================ -->
+<section class="gallery-section">
+  <div class="gallery-section-label">8 · Modifica cantiere</div>
+  <div class="frame">
+    <div class="notch"></div>
+    <div class="screen">
+
+      <!-- Header -->
+      <div class="page-header fade-up">
+        <button class="btn-icon" aria-label="Indietro">
+          <svg class="icon icon-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div class="page-header-title">Modifica cantiere</div>
+        <button class="btn btn-danger btn-sm">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14H7L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+          Elimina
+        </button>
+      </div>
+
+      <div class="screen-pad flex-col gap-3" style="padding-bottom: 20px;">
+
+        <!-- Card 1 — Identità -->
+        <div class="card fade-up fade-up-1">
+          <div class="t-micro mb-3">Identità</div>
+          <input class="input mb-3" type="text" value="La Spezia" placeholder="Nome cantiere">
+
+          <div class="flex items-center justify-between gap-3 mb-3">
+            <span class="t-2">Tipo</span>
+            <div class="seg">
+              <button class="on">Notturno</button>
+              <button>Diurno</button>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between gap-3 mb-3">
+            <span class="t-2">Urgente</span>
+            <div class="switch on" role="switch" aria-checked="true"></div>
+          </div>
+
+          <div class="flex-col gap-2">
+            <span class="t-micro">Giorni attivi</span>
+            <div class="days-row">
+              <div class="day-circle">D</div>
+              <div class="day-circle on">L</div>
+              <div class="day-circle on">M</div>
+              <div class="day-circle on">M</div>
+              <div class="day-circle on">G</div>
+              <div class="day-circle">V</div>
+              <div class="day-circle">S</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 — Linea/Tratta -->
+        <div class="card fade-up fade-up-2">
+          <div class="t-micro mb-3">Linea e consegna</div>
+          <input class="input mb-3" type="text" value="33/26 La Spezia · Arcola" placeholder="Linea">
+          <div class="flex items-center gap-2">
+            <svg class="icon icon-lg" viewBox="0 0 24 24" fill="none" stroke="var(--text-3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <input class="input" type="text" value="30/06/2026" placeholder="Data fine consegna">
+          </div>
+        </div>
+
+        <!-- Card 3 — Binari -->
+        <div class="card fade-up fade-up-3">
+          <div class="flex items-center justify-between mb-3">
+            <div class="t-micro">Binari</div>
+            <span class="pill pill-cyan">2 binari</span>
+          </div>
+
+          <!-- Binario Pari -->
+          <div class="binario-label">Pari</div>
+          <div class="inner-row">
+            <div>
+              <div class="k">171+660 → 161+555</div>
+              <div class="sub">10.105 m</div>
+            </div>
+            <button class="icon-x" aria-label="Rimuovi tratta">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+          <div class="inner-row">
+            <div>
+              <div class="k">161+555 → 155+200</div>
+              <div class="sub">6.355 m</div>
+            </div>
+            <button class="icon-x" aria-label="Rimuovi tratta">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+          <button class="dashed-btn mt-2">+ Tratta</button>
+
+          <div class="binario-label dispari mt-4">Dispari</div>
+          <div class="inner-row">
+            <div>
+              <div class="k">170+420 → 160+800</div>
+              <div class="sub">9.620 m</div>
+            </div>
+            <button class="icon-x" aria-label="Rimuovi tratta">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+          <button class="dashed-btn mt-2">+ Tratta</button>
+
+          <button class="dashed-btn mt-4">+ Aggiungi binario</button>
+        </div>
+
+        <!-- Card 4 — Lavorazioni -->
+        <div class="card fade-up fade-up-4">
+          <div class="flex items-center justify-between mb-3">
+            <div class="t-micro">Lavorazioni</div>
+            <span class="pill">58 slot</span>
+          </div>
+
+          <div class="inner-row">
+            <div>
+              <div class="k">Linea Pari</div>
+              <div class="sub">21 slot</div>
+            </div>
+            <div class="flex gap-1">
+              <button class="icon-x" aria-label="Modifica">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>
+              </button>
+              <button class="icon-x" aria-label="Rimuovi">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="inner-row">
+            <div>
+              <div class="k">Linea Dispari</div>
+              <div class="sub">17 slot</div>
+            </div>
+            <div class="flex gap-1">
+              <button class="icon-x" aria-label="Modifica">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>
+              </button>
+              <button class="icon-x" aria-label="Rimuovi">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="inner-row">
+            <div>
+              <div class="k">Ricontrollo</div>
+              <div class="sub">15 slot</div>
+            </div>
+            <div class="flex gap-1">
+              <button class="icon-x" aria-label="Modifica">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>
+              </button>
+              <button class="icon-x" aria-label="Rimuovi">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="inner-row">
+            <div>
+              <div class="k">Regolazioni Dispari</div>
+              <div class="sub">5 slot</div>
+            </div>
+            <div class="flex gap-1">
+              <button class="icon-x" aria-label="Modifica">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>
+              </button>
+              <button class="icon-x" aria-label="Rimuovi">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <button class="dashed-btn mt-3">+ Aggiungi lavorazione</button>
+        </div>
+      </div>
+
+      <!-- Sticky bar fondo -->
+      <div class="sticky-bar">
+        <button class="btn btn-primary">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Salva cantiere
+        </button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     PAGINA 9 — PROFILO
+     ============================================================ -->
+<section class="gallery-section">
+  <div class="gallery-section-label">9 · Profilo</div>
+  <div class="frame">
+    <div class="notch"></div>
+    <div class="screen">
+
+      <!-- Header -->
+      <div class="page-header fade-up">
+        <button class="btn-icon" aria-label="Indietro">
+          <svg class="icon icon-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div class="page-header-title">Profilo</div>
+      </div>
+
+      <!-- Avatar hero -->
+      <div class="screen-pad text-center fade-up fade-up-1" style="padding-top: var(--s-4); padding-bottom: var(--s-5);">
+        <div class="avatar clickable"><span>LP</span></div>
+        <div class="t-title mt-4" style="letter-spacing:-0.02em;">Ludovico</div>
+        <div class="t-2 mt-1">Operatore · Strumento G</div>
+      </div>
+
+      <div class="screen-pad flex-col gap-3" style="padding-bottom: 24px;">
+
+        <!-- Card 1 — Profilo -->
+        <div class="card fade-up fade-up-2">
+          <div class="t-micro mb-3">Profilo</div>
+          <div class="flex-col gap-3">
+            <div>
+              <span class="t-micro">Nome</span>
+              <input class="input mt-1" type="text" value="Ludovico">
+            </div>
+            <div class="flex gap-3">
+              <div class="flex-1">
+                <span class="t-micro">Sigla</span>
+                <input class="input mt-1" type="text" value="LP" style="text-transform: uppercase; letter-spacing: 0.1em;">
+              </div>
+              <div class="flex-1">
+                <span class="t-micro">Strumento</span>
+                <div class="seg mt-1" style="width:100%;">
+                  <button class="on" style="flex:1">G</button>
+                  <button style="flex:1">B</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 — Sicurezza -->
+        <div class="card fade-up fade-up-3">
+          <div class="t-micro mb-3">Sicurezza</div>
+          <div class="flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <div style="width:36px; height:36px; border-radius:10px; background: rgba(0,220,255,0.08); border: 1px solid rgba(0,220,255,0.25); display:inline-flex; align-items:center; justify-content:center; color: var(--cyan);">
+                <svg class="icon icon-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              </div>
+              <div>
+                <div class="t-body" style="font-weight:600">PIN personale</div>
+                <div class="t-2" style="font-size:0.78rem;">Ultima modifica: 12 marzo</div>
+              </div>
+            </div>
+            <button class="btn btn-secondary btn-sm">Cambia PIN</button>
+          </div>
+        </div>
+
+        <!-- Card 3 — Firma -->
+        <div class="card fade-up fade-up-4">
+          <div class="flex items-center justify-between mb-3">
+            <div class="t-micro">Firma personale</div>
+            <span class="pill pill-green"><span class="live-dot" style="width:6px;height:6px;margin-right:4px"></span>Attiva</span>
+          </div>
+          <div class="sign-box">
+            <!-- SVG firma decorativa -->
+            <svg viewBox="0 0 300 80" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 55 Q 30 20, 50 45 T 90 50 Q 110 35, 130 55 Q 150 70, 170 40 Q 190 15, 210 50 T 260 55 Q 275 48, 290 30"
+                stroke="url(#gradSign)" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+              <path d="M60 60 l 180 0" stroke="rgba(255,255,255,0.08)" stroke-width="1" stroke-dasharray="2 4"/>
+              <defs>
+                <linearGradient id="gradSign" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#00DCFF"/>
+                  <stop offset="60%" stop-color="#FF3D9A"/>
+                  <stop offset="100%" stop-color="#00DCFF"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <button class="btn btn-secondary w-full mt-3">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><line x1="2" y1="2" x2="22" y2="22"/></svg>
+            Aggiorna firma
+          </button>
+        </div>
+
+        <!-- Card 4 — Dati e backup -->
+        <div class="card fade-up fade-up-5">
+          <div class="t-micro mb-3">Dati e backup</div>
+          <div class="kv-row">
+            <span class="k">Sessione attiva</span>
+            <span class="v t-mono" style="color: var(--green);">23h 14m</span>
+          </div>
+          <div class="kv-row">
+            <span class="k">Spazio occupato</span>
+            <span class="v t-mono">2.4 MB</span>
+          </div>
+          <div class="kv-row">
+            <span class="k">Ultimo sync</span>
+            <span class="v t-mono" style="color: var(--text-2);">oggi 14:02</span>
+          </div>
+          <button class="btn btn-secondary w-full mt-3">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Esporta tutto
+          </button>
+        </div>
+
+        <!-- Esci -->
+        <button class="btn btn-danger w-full fade-up fade-up-5" style="margin-top: var(--s-3);">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          Esci
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+</div>
+
+</body>
+</html>
