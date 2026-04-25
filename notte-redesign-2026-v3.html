@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5, viewport-fit=cover">
+<meta name="theme-color" content="#04060c">
+<title>Notte — Redesign 2026 v3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=JetBrains+Mono:wght@400..800&family=Inter:wght@300..900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-base: #04060c;
+  --bg-grad-2: #050810;
+  --bg-card: rgba(12,16,25,0.65);
+  --bg-card-solid: #0c1019;
+  --bg-elevated: rgba(18,26,40,0.85);
+  --bg-glass: rgba(15,20,30,0.55);
+  --border: rgba(255,255,255,0.06);
+  --border-light: rgba(255,255,255,0.10);
+  --text-primary: #f2f4f8;
+  --text-secondary: #c4c9d4;
+  --text-muted: #8890a6;
+  --text-faint: #5a6378;
+  --accent: #00d4ff;
+  --accent-2: #4d8aff;
+  --accent-glow: rgba(0,212,255,0.28);
+  --accent-dim: rgba(0,212,255,0.10);
+  --green: #00e676;
+  --green-dim: rgba(0,230,118,0.12);
+  --red: #ff3b5c;
+  --red-dim: rgba(255,59,92,0.12);
+  --yellow: #ffd600;
+  --yellow-dim: rgba(255,214,0,0.12);
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-pill: 999px;
+  /* Altezza console fissa: 2 righe + padding + safe-area */
+  --console-h: 116px;
+  --console-h-with-safe: calc(116px + env(safe-area-inset-bottom, 0px));
+}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--bg-base);
+  background-image:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,212,255,0.05), transparent 60%),
+    radial-gradient(ellipse 70% 50% at 100% 100%, rgba(77,138,255,0.03), transparent 60%),
+    linear-gradient(180deg, var(--bg-grad-2) 0%, var(--bg-base) 100%);
+  background-attachment: fixed;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+.notte-wrap {
+  display: flex; flex-direction: column;
+  min-height: 100vh;
+  padding-bottom: var(--console-h-with-safe);
+}
+
+/* ═══ DEMO LINK BAR ═══ */
+.demo-link-bar {
+  display: flex; justify-content: center; align-items: center; gap: 14px;
+  padding: 4px 12px;
+  background: rgba(0,212,255,0.04);
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-mono); font-size: 0.58rem;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-faint);
+}
+.demo-link-bar a {
+  color: var(--text-muted); text-decoration: none;
+  padding: 2px 6px; border-radius: 6px;
+}
+.demo-link-bar a.active { color: var(--accent); background: var(--accent-dim); }
+
+/* ═══ HEADER ═══ */
+.notte-header {
+  position: sticky; top: 0; z-index: 30;
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px 8px;
+  padding-top: calc(10px + env(safe-area-inset-top, 0px));
+  background: linear-gradient(180deg, rgba(4,6,12,0.96), rgba(4,6,12,0.85));
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.back-btn {
+  width: 34px; height: 34px; min-width: 34px;
+  border-radius: 10px;
+  background: var(--bg-card); border: 1px solid var(--border-light);
+  display: grid; place-items: center; color: var(--text-primary);
+  cursor: pointer; transition: all 180ms;
+}
+.back-btn:active { transform: scale(0.94); background: var(--accent-dim); border-color: var(--accent); color: var(--accent); }
+.h-title-wrap { flex: 1; min-width: 0; }
+.h-title-eyebrow {
+  font-family: var(--font-mono); font-size: 0.58rem;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--text-faint); display: block; margin-bottom: 1px; line-height: 1;
+}
+.h-title {
+  font-family: var(--font-display); font-size: 1.06rem; font-weight: 600;
+  letter-spacing: -0.005em; line-height: 1.15;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.h-bin-pill {
+  padding: 6px 10px 6px 8px;
+  border-radius: var(--radius-pill);
+  background: var(--bg-card); border: 1px solid var(--border-light);
+  font-family: var(--font-mono); font-size: 0.66rem; font-weight: 700;
+  letter-spacing: 0.06em; color: var(--text-muted);
+  display: inline-flex; align-items: center; gap: 6px;
+  cursor: pointer; flex-shrink: 0; min-height: 30px;
+}
+.h-bin-pill .bin-icon { width: 12px; height: 12px; opacity: 0.7; }
+.h-bin-pill.set {
+  background: var(--accent-dim); border-color: rgba(0,212,255,0.4);
+  color: var(--accent); box-shadow: 0 0 10px var(--accent-glow);
+}
+.h-bin-pill.set .bin-icon { opacity: 1; }
+
+/* ═══ SUB-HEADER ═══ */
+.notte-subhead {
+  display: flex; align-items: center; gap: 6px; flex-wrap: nowrap;
+  padding: 6px 14px 8px;
+  background: linear-gradient(180deg, rgba(4,6,12,0.85), rgba(4,6,12,0.55));
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+}
+.sub-data {
+  font-family: var(--font-mono); font-size: 0.7rem; font-weight: 600;
+  color: var(--text-primary);
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--bg-card); border: 1px solid var(--border-light);
+  border-bottom: 1px dotted var(--accent);
+  cursor: pointer; white-space: nowrap;
+}
+.sub-saved {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 10px 4px 8px;
+  border-radius: var(--radius-pill);
+  background: var(--bg-card); border: 1px solid var(--border-light);
+  font-family: var(--font-mono); font-size: 0.66rem;
+  color: var(--green); letter-spacing: 0.04em; white-space: nowrap;
+}
+.sub-saved .pulse-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--green); box-shadow: 0 0 6px var(--green);
+  animation: pulseDot 2.4s ease-in-out infinite;
+}
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.85); }
+}
+.sub-avatar {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  display: grid; place-items: center;
+  font-family: var(--font-display); font-size: 0.66rem; font-weight: 700;
+  color: #04060c; letter-spacing: 0.04em; flex-shrink: 0;
+}
+.sub-spacer { flex: 1; }
+.sub-menu {
+  width: 30px; height: 30px;
+  border-radius: 9px;
+  background: var(--bg-card); border: 1px solid var(--border-light);
+  display: grid; place-items: center;
+  color: var(--text-muted); cursor: pointer; flex-shrink: 0;
+}
+
+/* ═══ LIVE COUNTER ═══ */
+.live-counter {
+  position: sticky; top: 52px; z-index: 25;
+  padding: 12px 14px 10px;
+  background: linear-gradient(180deg, rgba(4,6,12,0.92), rgba(4,6,12,0.78));
+  backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--border);
+  display: flex; flex-direction: column; gap: 6px;
+}
+.lc-row { display: flex; align-items: center; gap: 12px; }
+.lc-num-block { display: inline-flex; align-items: baseline; gap: 8px; }
+.lc-num {
+  font-family: var(--font-display);
+  font-size: 1.85rem; font-weight: 600;
+  letter-spacing: -0.02em; line-height: 1;
+  background: linear-gradient(180deg, #ffffff, #c4c9d4);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.lc-num-lbl { font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.04em; }
+.lc-spacer { flex: 1; }
+.lc-cta {
+  padding: 0 14px; height: 38px;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+  border: none; color: #04060c;
+  font-family: var(--font-display); font-weight: 700; font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  display: inline-flex; align-items: center; gap: 6px;
+  cursor: pointer; flex-shrink: 0; white-space: nowrap;
+  box-shadow: 0 0 0 1px rgba(0,212,255,0.4), 0 4px 14px rgba(0,212,255,0.28), inset 0 1px 0 rgba(255,255,255,0.4);
+  transition: all 180ms;
+}
+.lc-cta:active { transform: scale(0.96); }
+.lc-cta.disabled { background: var(--bg-card); color: var(--text-faint); box-shadow: 0 0 0 1px var(--border); cursor: not-allowed; pointer-events: none; opacity: 0.5; }
+.lc-counts {
+  display: flex; gap: 8px; align-items: center;
+  font-family: var(--font-mono); font-size: 0.68rem; font-weight: 600; flex-wrap: nowrap;
+}
+.lc-counts .cnt { display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; }
+.lc-counts .dot { width: 5px; height: 5px; border-radius: 50%; }
+.lc-counts .dot-ok { background: var(--green); box-shadow: 0 0 4px var(--green); }
+.lc-counts .dot-dif { background: var(--red); box-shadow: 0 0 4px var(--red); }
+.lc-counts .dot-ndc { background: var(--yellow); box-shadow: 0 0 4px var(--yellow); }
+.lc-counts .cnt-num { font-weight: 700; }
+.lc-counts .cnt-ok .cnt-num { color: var(--green); }
+.lc-counts .cnt-dif .cnt-num { color: var(--red); }
+.lc-counts .cnt-ndc .cnt-num { color: var(--yellow); }
+.lc-counts .cnt-lbl { color: var(--text-muted); font-weight: 500; }
+.lc-counts .sep { color: var(--text-faint); opacity: 0.6; }
+
+/* ═══ EDITOR ═══ */
+.editor-section { flex: 1; padding: 10px 0 4px; }
+.editor-meta {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 6px 14px 8px;
+}
+.editor-meta-ultimo {
+  font-family: var(--font-mono); font-size: 0.7rem;
+  color: var(--text-muted);
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.editor-meta-ultimo .eml-lbl { font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-faint); }
+.editor-meta-ultimo .eml-val { color: var(--text-primary); font-weight: 700; font-size: 0.82rem; }
+.editor-meta-count { font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); }
+.editor-meta-count .em-num { color: var(--text-primary); font-weight: 700; }
+
+.el {
+  display: grid;
+  grid-template-columns: 24px 3px 1fr auto;
+  gap: 11px;
+  align-items: center;
+  padding: 9px 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.025);
+  font-family: var(--font-mono); font-size: 0.92rem; font-weight: 500;
+  letter-spacing: 0.01em; position: relative;
+}
+.el-num { font-family: var(--font-mono); font-size: 0.62rem; font-weight: 600; color: var(--text-faint); text-align: right; letter-spacing: 0.06em; user-select: none; }
+.el-bar { width: 3px; height: 20px; border-radius: 2px; background: var(--text-faint); }
+.el-bar.bar-ok { background: var(--green); box-shadow: 0 0 5px rgba(0,230,118,0.45); }
+.el-bar.bar-dif { background: var(--red); box-shadow: 0 0 5px rgba(255,59,92,0.45); }
+.el-bar.bar-ndc { background: var(--yellow); box-shadow: 0 0 5px rgba(255,214,0,0.45); }
+.el-text { color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.el-tag {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 2px 8px 2px 6px; border-radius: var(--radius-pill);
+  font-family: var(--font-mono); font-size: 0.6rem; font-weight: 700;
+  letter-spacing: 0.06em; user-select: none;
+}
+.el-tag svg { width: 10px; height: 10px; }
+.el-tag.tag-ok { background: var(--green-dim); color: var(--green); border: 1px solid rgba(0,230,118,0.25); }
+.el-tag.tag-dif { background: var(--red-dim); color: var(--red); border: 1px solid rgba(255,59,92,0.3); }
+.el-tag.tag-ndc { background: var(--yellow-dim); color: var(--yellow); border: 1px solid rgba(255,214,0,0.28); }
+
+.el-placeholder {
+  padding: 60px 24px; text-align: center;
+  color: var(--text-faint); font-family: var(--font-mono); font-size: 0.84rem;
+}
+.el-placeholder .ph-eg { display: block; margin-top: 12px; font-size: 0.74rem; opacity: 0.65; }
+
+.el { opacity: 0; transform: translateY(6px); animation: rowIn 280ms ease-out forwards; }
+.el:nth-child(2) { animation-delay: 24ms; }
+.el:nth-child(3) { animation-delay: 48ms; }
+.el:nth-child(4) { animation-delay: 72ms; }
+.el:nth-child(5) { animation-delay: 96ms; }
+.el:nth-child(6) { animation-delay: 120ms; }
+.el:nth-child(7) { animation-delay: 144ms; }
+.el:nth-child(8) { animation-delay: 168ms; }
+.el:nth-child(9) { animation-delay: 192ms; }
+.el:nth-child(10) { animation-delay: 216ms; }
+.el:nth-child(n+11) { animation-delay: 240ms; }
+@keyframes rowIn { to { opacity: 1; transform: translateY(0); } }
+
+/* ═══ CONSOLE — 2 RIGHE FISSE ═══ */
+.console {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  z-index: 50;
+  padding: 8px 10px;
+  padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+  padding-left: calc(10px + env(safe-area-inset-left, 0px));
+  padding-right: calc(10px + env(safe-area-inset-right, 0px));
+  background: linear-gradient(180deg, rgba(4,6,12,0.85) 0%, rgba(4,6,12,0.98) 60%);
+  backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px);
+  border-top: 1px solid var(--border);
+  display: flex; flex-direction: column; gap: 8px;
+}
+
+/* RIGA 1: calcolatore */
+.console-calc-row {
+  display: flex; align-items: center; gap: 6px;
+  height: 44px;
+}
+.cc-input-chip {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 0 14px; height: 40px;
+  border-radius: var(--radius-pill);
+  background: var(--accent-dim);
+  border: 1px solid rgba(0,212,255,0.32);
+  cursor: pointer;
+  flex-shrink: 0; min-width: 64px;
+  transition: all 160ms;
+}
+.cc-input-chip:active { transform: scale(0.96); }
+.cc-input-chip.editing { background: var(--accent); border-color: var(--accent); }
+.cc-input-chip.editing .cc-input-num { color: #04060c; }
+.cc-input-chip.editing .cc-input-unit { color: rgba(4,6,12,0.7); }
+.cc-input-num { font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; color: var(--accent); letter-spacing: -0.01em; line-height: 1; }
+.cc-input-unit { font-family: var(--font-mono); font-size: 0.66rem; font-weight: 700; color: var(--accent); opacity: 0.7; }
+.cc-dir {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--bg-card); border: 1px solid var(--border-light);
+  color: var(--accent); font-size: 1.05rem; font-weight: 800;
+  cursor: pointer; flex-shrink: 0;
+  display: grid; place-items: center;
+  transition: all 160ms;
+}
+.cc-dir:active { transform: scale(0.94); background: var(--accent-dim); }
+.cc-result {
+  flex: 1; min-width: 0;
+  display: inline-flex; flex-direction: column; justify-content: center; align-items: flex-start;
+  padding: 0 8px;
+  user-select: none;
+}
+.cc-result-line {
+  display: inline-flex; align-items: baseline; gap: 5px;
+  font-family: var(--font-mono);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  max-width: 100%;
+}
+.cc-result-arrow { color: var(--text-faint); font-size: 0.78rem; }
+.cc-result-km { color: var(--accent); font-weight: 700; font-size: 0.86rem; letter-spacing: 0.02em; }
+.cc-result-trav { color: var(--text-muted); font-weight: 600; font-size: 0.7rem; }
+.cc-result-sep { color: var(--text-faint); opacity: 0.5; font-size: 0.72rem; }
+.cc-mods { display: inline-flex; gap: 5px; flex-shrink: 0; }
+.cc-mod {
+  height: 32px; padding: 0 10px;
+  border-radius: var(--radius-pill);
+  background: transparent; border: 1px solid var(--border-light);
+  color: var(--text-muted);
+  font-family: var(--font-mono); font-size: 0.66rem; font-weight: 700; letter-spacing: 0.08em;
+  cursor: pointer; display: inline-flex; align-items: center;
+  transition: all 160ms;
+}
+.cc-mod:active { transform: scale(0.94); }
+.cc-mod.active {
+  background: var(--accent-dim); border-color: var(--accent); color: var(--accent);
+  box-shadow: 0 0 8px var(--accent-glow);
+}
+
+/* RIGA 2: azioni */
+.console-actions-row {
+  display: flex; align-items: center; gap: 8px;
+  height: 48px;
+}
+.act-side {
+  height: 48px; min-width: 64px;
+  padding: 0 12px;
+  border-radius: var(--radius-pill);
+  background: var(--bg-card); border: 1px solid var(--border-light);
+  color: var(--text-primary);
+  font-family: var(--font-display); font-weight: 700; font-size: 0.92rem;
+  letter-spacing: 0.06em;
+  cursor: pointer; flex: 0 0 auto;
+  display: inline-flex; align-items: center; justify-content: center; gap: 4px;
+  position: relative;
+  transition: all 160ms;
+}
+.act-side:active {
+  background: var(--accent-dim); border-color: var(--accent); color: var(--accent);
+  transform: scale(0.97);
+}
+.act-side.flash { background: var(--accent); border-color: var(--accent); color: #04060c; }
+.act-side.flash::after {
+  content: '\2713';
+  position: absolute; top: -8px; right: -4px;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--green); color: #04060c;
+  font-size: 0.7rem; font-weight: 900;
+  display: grid; place-items: center;
+  box-shadow: 0 0 10px var(--green);
+  animation: checkPop 280ms ease-out;
+}
+@keyframes checkPop {
+  from { opacity: 0; transform: scale(0.4); }
+  to { opacity: 1; transform: scale(1); }
+}
+.act-side.locked {
+  opacity: 0.32; pointer-events: none;
+  background: var(--bg-card); color: var(--text-faint);
+  border-color: var(--border);
+}
+
+.act-gap { width: 8px; flex-shrink: 0; } /* spazio extra DX/SX */
+.act-primary {
+  flex: 1; height: 48px;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+  border: none; color: #04060c;
+  font-family: var(--font-display); font-weight: 700; font-size: 0.92rem;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center; gap: 5px;
+  box-shadow: 0 0 0 1px rgba(0,212,255,0.4), 0 4px 16px rgba(0,212,255,0.32), inset 0 1px 0 rgba(255,255,255,0.4);
+  transition: all 160ms;
+  position: relative; min-width: 0;
+}
+.act-primary:active { transform: scale(0.97); }
+.act-primary .plus { font-size: 1rem; opacity: 0.85; }
+.act-primary.flash::after {
+  content: '\2713';
+  position: absolute; top: -8px; right: -4px;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--green); color: #04060c; font-size: 0.7rem; font-weight: 900;
+  display: grid; place-items: center;
+  box-shadow: 0 0 10px var(--green);
+  animation: checkPop 280ms ease-out;
+}
+
+/* ═══ NUMPAD INLINE — sostituisce calc-row temporaneamente ═══ */
+.console-numpad {
+  display: none;
+  flex-direction: column; gap: 4px;
+}
+.console.numpad-open .console-calc-row { display: none; }
+.console.numpad-open .console-numpad { display: flex; }
+
+.np-display {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0 10px; height: 32px;
+}
+.np-lbl { font-family: var(--font-mono); font-size: 0.58rem; color: var(--text-faint); letter-spacing: 0.14em; text-transform: uppercase; }
+.np-val {
+  font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; color: var(--accent);
+  letter-spacing: -0.01em;
+}
+.np-keys { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; }
+.np-key {
+  height: 36px;
+  border-radius: 8px;
+  background: var(--bg-card); border: 1px solid var(--border-light);
+  color: var(--text-primary);
+  font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700;
+  cursor: pointer; transition: all 120ms;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.np-key:active { transform: scale(0.92); background: var(--accent-dim); border-color: var(--accent); color: var(--accent); }
+.np-key.np-back { color: var(--text-muted); }
+.np-key.np-ok { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #04060c; border: none; box-shadow: 0 0 10px var(--accent-glow); }
+.np-key.np-ok:active { transform: scale(0.94); }
+
+@media (max-width: 360px) {
+  .cc-result-trav { display: none; }
+  .cc-mod { padding: 0 8px; font-size: 0.62rem; }
+  .act-side { min-width: 54px; font-size: 0.84rem; }
+  .act-primary { font-size: 0.84rem; }
+}
+
+/* ═══ Stati ═══ */
+body.state-empty .el-list { display: none; }
+body:not(.state-empty) .el-placeholder { display: none; }
+body.state-empty .lc-num { color: var(--text-faint); -webkit-text-fill-color: currentColor; background: none; }
+body.state-empty .lc-counts { display: none; }
+body.state-empty .lc-cta { opacity: 0.4; box-shadow: 0 0 0 1px var(--border); background: var(--bg-card); color: var(--text-faint); pointer-events: none; }
+body.state-empty .editor-meta-ultimo { opacity: 0.4; }
+body.state-empty .cc-result-line { opacity: 0.4; }
+</style>
+</head>
+<body class="state-data">
+
+<div class="demo-link-bar">
+  <span>Mockup demo v3</span>
+  <a href="?state=data" id="link-data" class="active">Con dati</a>
+  <a href="?state=empty" id="link-empty">Vuoto</a>
+</div>
+
+<div class="notte-wrap">
+
+  <header class="notte-header">
+    <button class="back-btn" aria-label="Indietro">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <div class="h-title-wrap">
+      <span class="h-title-eyebrow">Cantiere</span>
+      <div class="h-title">La Spezia-Arcola</div>
+    </div>
+    <span class="h-bin-pill set">
+      <svg class="bin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="6" y1="3" x2="6" y2="21"/><line x1="18" y1="3" x2="18" y2="21"/><line x1="3" y1="8" x2="21" y2="8"/><line x1="3" y1="16" x2="21" y2="16"/></svg>
+      DISPARI
+    </span>
+  </header>
+
+  <div class="notte-subhead">
+    <span class="sub-data">25 apr 2026</span>
+    <span class="sub-saved"><span class="pulse-dot"></span>Salvato</span>
+    <div class="sub-spacer"></div>
+    <span class="sub-avatar">LP</span>
+    <button class="sub-menu" aria-label="Menu">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>
+    </button>
+  </div>
+
+  <div class="live-counter">
+    <div class="lc-row">
+      <div class="lc-num-block">
+        <span class="lc-num">42</span>
+        <span class="lc-num-lbl">totali</span>
+      </div>
+      <div class="lc-spacer"></div>
+      <button class="lc-cta">
+        ELABORA
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+    </div>
+    <div class="lc-counts">
+      <span class="cnt cnt-ok"><span class="dot dot-ok"></span><span class="cnt-num">38</span><span class="cnt-lbl">Conformi</span></span>
+      <span class="sep">·</span>
+      <span class="cnt cnt-dif"><span class="dot dot-dif"></span><span class="cnt-num">3</span><span class="cnt-lbl">Difetti</span></span>
+      <span class="sep">·</span>
+      <span class="cnt cnt-ndc"><span class="dot dot-ndc"></span><span class="cnt-num">1</span><span class="cnt-lbl">No DAC</span></span>
+    </div>
+  </div>
+
+  <section class="editor-section">
+    <div class="editor-meta">
+      <span class="editor-meta-ultimo">
+        <span class="eml-lbl">Ultima</span>
+        <span class="eml-val" id="ultimaKm">169+850</span>
+      </span>
+      <span class="editor-meta-count"><span class="em-num">42</span> righe</span>
+    </div>
+
+    <div class="el-list">
+      <div class="el"><span class="el-num">01</span><span class="el-bar bar-ok"></span><span class="el-text">168+450 DX</span><span class="el-tag tag-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Conforme</span></div>
+      <div class="el"><span class="el-num">02</span><span class="el-bar bar-ok"></span><span class="el-text">168+450 SX</span><span class="el-tag tag-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Conforme</span></div>
+      <div class="el"><span class="el-num">03</span><span class="el-bar bar-dif"></span><span class="el-text">168+620 SX 211</span><span class="el-tag tag-dif"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Difetto</span></div>
+      <div class="el"><span class="el-num">04</span><span class="el-bar bar-ok"></span><span class="el-text">168+620 DX</span><span class="el-tag tag-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Conforme</span></div>
+      <div class="el"><span class="el-num">05</span><span class="el-bar bar-ndc"></span><span class="el-text">168+800 DX No DAC</span><span class="el-tag tag-ndc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><circle cx="12" cy="12" r="9"/></svg>No DAC</span></div>
+      <div class="el"><span class="el-num">06</span><span class="el-bar bar-ok"></span><span class="el-text">168+800 SX ALL</span><span class="el-tag tag-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Conforme</span></div>
+      <div class="el"><span class="el-num">07</span><span class="el-bar bar-ok"></span><span class="el-text">169+020 DX</span><span class="el-tag tag-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Conforme</span></div>
+      <div class="el"><span class="el-num">08</span><span class="el-bar bar-ok"></span><span class="el-text">169+020 SX</span><span class="el-tag tag-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Conforme</span></div>
+      <div class="el"><span class="el-num">09</span><span class="el-bar bar-dif"></span><span class="el-text">169+200 DX 113</span><span class="el-tag tag-dif"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Difetto</span></div>
+      <div class="el"><span class="el-num">10</span><span class="el-bar bar-ok"></span><span class="el-text">169+380 SX GR</span><span class="el-tag tag-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Conforme</span></div>
+      <div class="el"><span class="el-num">11</span><span class="el-bar bar-ok"></span><span class="el-text">169+850 DX</span><span class="el-tag tag-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Conforme</span></div>
+    </div>
+
+    <div class="el-placeholder">
+      Tocca per scrivere o incollare le saldature
+      <span class="ph-eg">es. 168+450 DX&nbsp;&nbsp;·&nbsp;&nbsp;168+620 SX 211</span>
+    </div>
+  </section>
+
+</div>
+
+<!-- CONSOLE 2-righe -->
+<div class="console" id="console">
+
+  <!-- RIGA 1: calcolatore -->
+  <div class="console-calc-row">
+    <button class="cc-input-chip" id="ccChip" aria-label="Cambia distanza traverse">
+      <span class="cc-input-num" id="ccNum">180</span>
+      <span class="cc-input-unit">t</span>
+    </button>
+    <button class="cc-dir" id="ccDir" aria-label="Direzione">+</button>
+    <div class="cc-result" aria-hidden="false">
+      <span class="cc-result-line">
+        <span class="cc-result-arrow">→</span>
+        <span class="cc-result-km" id="ccResultKm">169+685</span>
+        <span class="cc-result-sep">·</span>
+        <span class="cc-result-trav" id="ccResultTrav">165 t</span>
+      </span>
+    </div>
+    <div class="cc-mods">
+      <button class="cc-mod active" data-mod="ALL">ALL</button>
+      <button class="cc-mod" data-mod="GII">GII</button>
+    </div>
+  </div>
+
+  <!-- RIGA 1 alt: numpad inline (visibile solo quando .numpad-open) -->
+  <div class="console-numpad">
+    <div class="np-display">
+      <span class="np-lbl">Distanza traverse</span>
+      <span class="np-val" id="npVal">180</span>
+    </div>
+    <div class="np-keys">
+      <button class="np-key" data-k="1">1</button>
+      <button class="np-key" data-k="2">2</button>
+      <button class="np-key" data-k="3">3</button>
+      <button class="np-key np-back" data-k="back" aria-label="Cancella">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/><line x1="18" y1="9" x2="12" y2="15"/><line x1="12" y1="9" x2="18" y2="15"/></svg>
+      </button>
+      <button class="np-key np-ok" data-k="ok" aria-label="Conferma">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </button>
+      <button class="np-key" data-k="4">4</button>
+      <button class="np-key" data-k="5">5</button>
+      <button class="np-key" data-k="6">6</button>
+      <button class="np-key" data-k="7">7</button>
+      <button class="np-key" data-k="8">8</button>
+      <button class="np-key" data-k="9">9</button>
+      <button class="np-key" data-k="0" style="grid-column: span 1">0</button>
+      <button class="np-key np-back" data-k="clear">C</button>
+    </div>
+  </div>
+
+  <!-- RIGA 2: azioni -->
+  <div class="console-actions-row">
+    <button class="act-side" data-act="DX" id="actDX">DX</button>
+    <span class="act-gap"></span>
+    <button class="act-side" data-act="SX" id="actSX">SX</button>
+    <button class="act-primary" data-act="DXSX" id="actDXSX"><span class="plus">+</span>DX&nbsp;&amp;&nbsp;SX</button>
+  </div>
+
+</div>
+
+<script>
+  // stato URL
+  const params = new URLSearchParams(location.search);
+  const state = params.get('state') || 'data';
+  if (state === 'empty') {
+    document.body.classList.add('state-empty');
+    document.body.classList.remove('state-data');
+    document.getElementById('link-empty').classList.add('active');
+    document.getElementById('link-data').classList.remove('active');
+  }
+
+  // ═══ stato console
+  const cc = {
+    val: 180,
+    dir: '+', // '+' o '-'
+    mod: 'ALL',
+    ultimaKm: 169.850, // base km dell'ultima saldatura
+  };
+
+  function calcResult() {
+    const trav = cc.val;
+    // 1 traversa nominale ≈ 60cm circa, ma senza dato reale prendiamo: m = trav * 0.6
+    // Per il mockup: distanza in metri = trav * 0.6 / 1000 in km, e applichiamo direzione
+    // Semplificazione visiva: usa i valori già "fittizi" del mockup
+    // 165 traverse → ~99m (≈ 0.099 km)
+    const meters = trav * 0.6;
+    const delta = meters / 1000;
+    const km = cc.dir === '+' ? cc.ultimaKm + delta : cc.ultimaKm - delta;
+    const kmInt = Math.floor(km);
+    const kmDec = Math.round((km - kmInt) * 1000);
+    const kmStr = kmInt + '+' + String(kmDec).padStart(3, '0');
+    return { trav, kmStr };
+  }
+  function updateCalc() {
+    const r = calcResult();
+    document.getElementById('ccNum').textContent = cc.val;
+    document.getElementById('ccResultKm').textContent = r.kmStr;
+    document.getElementById('ccResultTrav').textContent = r.trav + ' t';
+    document.getElementById('ccDir').textContent = cc.dir;
+    document.getElementById('npVal').textContent = cc.val;
+    // mods
+    document.querySelectorAll('.cc-mod').forEach(b => {
+      b.classList.toggle('active', b.dataset.mod === cc.mod);
+    });
+  }
+  updateCalc();
+
+  // ═══ chip 180 → apre numpad inline (sostituisce calc-row)
+  const consoleEl = document.getElementById('console');
+  const ccChip = document.getElementById('ccChip');
+  let npDraft = '';
+  ccChip.addEventListener('click', () => {
+    npDraft = '';
+    document.getElementById('npVal').textContent = cc.val;
+    consoleEl.classList.add('numpad-open');
+    ccChip.classList.add('editing');
+  });
+  function closeNumpad(commit) {
+    consoleEl.classList.remove('numpad-open');
+    ccChip.classList.remove('editing');
+    if (commit && npDraft && parseInt(npDraft) > 0) {
+      cc.val = parseInt(npDraft);
+      updateCalc();
+    }
+    npDraft = '';
+  }
+  document.querySelectorAll('.np-key').forEach(k => {
+    k.addEventListener('click', () => {
+      const v = k.dataset.k;
+      if (v === 'ok') return closeNumpad(true);
+      if (v === 'back') {
+        npDraft = npDraft.slice(0, -1);
+      } else if (v === 'clear') {
+        npDraft = '';
+      } else {
+        if (npDraft.length < 4) npDraft += v;
+      }
+      document.getElementById('npVal').textContent = npDraft || '0';
+    });
+  });
+
+  // ═══ direzione +/- toggle
+  document.getElementById('ccDir').addEventListener('click', () => {
+    cc.dir = cc.dir === '+' ? '-' : '+';
+    updateCalc();
+  });
+
+  // ═══ modificatori (uno alla volta, tap stesso = disattiva)
+  document.querySelectorAll('.cc-mod').forEach(b => {
+    b.addEventListener('click', () => {
+      cc.mod = (cc.mod === b.dataset.mod) ? null : b.dataset.mod;
+      updateCalc();
+    });
+  });
+
+  // ═══ azioni con CROSS-LOCK + flash + haptic
+  function haptic() {
+    if (navigator.vibrate) navigator.vibrate(20);
+  }
+  function flashAndLock(btn, partner, ms = 600) {
+    btn.classList.add('flash');
+    if (partner) partner.classList.add('locked');
+    setTimeout(() => btn.classList.remove('flash'), 280);
+    setTimeout(() => { if (partner) partner.classList.remove('locked'); }, ms);
+    haptic();
+  }
+  const actDX = document.getElementById('actDX');
+  const actSX = document.getElementById('actSX');
+  const actDXSX = document.getElementById('actDXSX');
+  actDX.addEventListener('click', () => {
+    if (actDX.classList.contains('locked')) return;
+    flashAndLock(actDX, actSX);
+    // simulazione: aggiunge una riga con il km calcolato (solo demo)
+  });
+  actSX.addEventListener('click', () => {
+    if (actSX.classList.contains('locked')) return;
+    flashAndLock(actSX, actDX);
+  });
+  actDXSX.addEventListener('click', () => {
+    actDXSX.classList.add('flash');
+    setTimeout(() => actDXSX.classList.remove('flash'), 280);
+    haptic();
+  });
+</script>
+
+</body>
+</html>
