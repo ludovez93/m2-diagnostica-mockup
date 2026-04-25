@@ -97,17 +97,32 @@ body {
   cursor: pointer; transition: all 180ms;
 }
 .back-btn:active { transform: scale(0.94); background: var(--accent-dim); border-color: var(--accent); color: var(--accent); }
-.h-title-wrap { flex: 1; min-width: 0; }
-.h-title-eyebrow {
-  font-family: var(--font-mono); font-size: 0.58rem;
-  letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--text-faint); display: block; margin-bottom: 1px; line-height: 1;
-}
+.h-title-wrap { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
 .h-title {
-  font-family: var(--font-display); font-size: 1.18rem; font-weight: 600;
+  font-family: var(--font-display); font-size: 1.12rem; font-weight: 600;
   letter-spacing: -0.01em; line-height: 1.1;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
+.h-subtitle {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-family: var(--font-mono); font-size: 0.66rem;
+  color: var(--text-muted); letter-spacing: 0.04em;
+  line-height: 1;
+}
+.h-sub-data { color: var(--text-muted); }
+.h-sub-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--green); box-shadow: 0 0 6px var(--green);
+}
+.h-gear {
+  width: 34px; height: 34px;
+  border-radius: 10px;
+  background: var(--bg-card); border: 1px solid var(--border-light);
+  display: grid; place-items: center;
+  color: var(--text-muted); cursor: pointer; flex-shrink: 0;
+  transition: all 180ms;
+}
+.h-gear:active { transform: scale(0.94) rotate(45deg); background: var(--accent-dim); border-color: var(--accent); color: var(--accent); }
 .h-bin-pill {
   padding: 6px 10px 6px 8px;
   border-radius: var(--radius-pill);
@@ -124,57 +139,16 @@ body {
 }
 .h-bin-pill.set .bin-icon { opacity: 1; }
 
-/* ═══ SUB-HEADER ═══ */
-.notte-subhead {
-  display: flex; align-items: center; gap: 6px; flex-wrap: nowrap;
-  padding: 6px 14px 8px;
-  background: linear-gradient(180deg, rgba(4,6,12,0.85), rgba(4,6,12,0.55));
-  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-}
-.sub-data {
-  font-family: var(--font-mono); font-size: 0.7rem; font-weight: 600;
-  color: var(--text-primary);
-  padding: 4px 10px;
-  border-radius: var(--radius-pill);
-  background: var(--bg-card); border: 1px solid var(--border-light);
-  border-bottom: 1px dotted var(--accent);
-  cursor: pointer; white-space: nowrap;
-}
-.sub-saved {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 7px;
-  border-radius: 50%;
-  background: var(--bg-card); border: 1px solid var(--border-light);
-  flex-shrink: 0;
-}
-.sub-saved .pulse-dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: var(--green); box-shadow: 0 0 6px var(--green);
-  animation: pulseDot 2.4s ease-in-out infinite;
-}
+/* pulse dot animation (used in subtitle) */
 @keyframes pulseDot {
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: 0.5; transform: scale(0.85); }
 }
-.sub-avatar {
-  width: 26px; height: 26px; border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  display: grid; place-items: center;
-  font-family: var(--font-display); font-size: 0.66rem; font-weight: 700;
-  color: #04060c; letter-spacing: 0.04em; flex-shrink: 0;
-}
-.sub-spacer { flex: 1; }
-.sub-menu {
-  width: 30px; height: 30px;
-  border-radius: 9px;
-  background: var(--bg-card); border: 1px solid var(--border-light);
-  display: grid; place-items: center;
-  color: var(--text-muted); cursor: pointer; flex-shrink: 0;
-}
+.pulse-dot { animation: pulseDot 2.4s ease-in-out infinite; }
 
 /* ═══ LIVE COUNTER ═══ */
 .live-counter {
-  position: sticky; top: 48px; z-index: 25;
+  position: sticky; top: 56px; z-index: 25;
   padding: 8px 14px 8px;
   background: linear-gradient(180deg, rgba(4,6,12,0.92), rgba(4,6,12,0.78));
   backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
@@ -529,22 +503,19 @@ body.state-empty .cc-result-line { opacity: 0.4; }
     </button>
     <div class="h-title-wrap">
       <div class="h-title">La Spezia-Arcola</div>
+      <div class="h-subtitle">
+        <span class="h-sub-data">25 apr 2026</span>
+        <span class="h-sub-dot pulse-dot" title="Salvato"></span>
+      </div>
     </div>
     <span class="h-bin-pill set">
       <svg class="bin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="6" y1="3" x2="6" y2="21"/><line x1="18" y1="3" x2="18" y2="21"/><line x1="3" y1="8" x2="21" y2="8"/><line x1="3" y1="16" x2="21" y2="16"/></svg>
       DISPARI
     </span>
-  </header>
-
-  <div class="notte-subhead">
-    <span class="sub-data">25 apr 2026</span>
-    <span class="sub-saved" title="Salvato"><span class="pulse-dot"></span></span>
-    <div class="sub-spacer"></div>
-    <span class="sub-avatar">LP</span>
-    <button class="sub-menu" aria-label="Menu">
-      <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>
+    <button class="h-gear" aria-label="Impostazioni">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
     </button>
-  </div>
+  </header>
 
   <div class="live-counter">
     <div class="lc-row">
