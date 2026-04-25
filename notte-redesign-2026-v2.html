@@ -848,6 +848,15 @@ body.state-empty .cc-mod { display: none; }
   document.addEventListener('click', (e) => {
     if (!ccBtn.contains(e.target) && !calcPop.contains(e.target) && calcPop.classList.contains('open')) closePop();
   });
+  // alza il popover sopra la tastiera quando l'input riceve focus
+  if (window.visualViewport) {
+    const updatePopBottom = () => {
+      if (!calcPop.classList.contains('open')) return;
+      const kbd = window.innerHeight - window.visualViewport.height - window.visualViewport.offsetTop;
+      calcPop.style.bottom = (kbd > 80 ? (kbd + 12) + 'px' : '');
+    };
+    window.visualViewport.addEventListener('resize', updatePopBottom);
+  }
 </script>
 
 </body>
