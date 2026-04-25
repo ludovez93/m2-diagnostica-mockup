@@ -273,6 +273,9 @@ body {
 .el-details .det-lbl { color: var(--text-faint); font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; }
 .el-details .det-val { color: var(--text-secondary); font-weight: 700; }
 .el-details .det-val.det-empty { color: var(--text-faint); opacity: 0.7; }
+.el-details .det-icon { display: inline-flex; align-items: center; color: var(--text-faint); margin-right: 1px; }
+.el-details .det-icon svg { width: 10px; height: 10px; }
+.el-details .det-icon-txt { font-family: var(--font-mono); font-size: 0.62rem; font-weight: 700; color: var(--text-faint); }
 
 /* Stato GREZZO (espanso) — simula come scriveresti tu in editor */
 .el.has-details .el-raw { display: none; }
@@ -610,9 +613,9 @@ body.state-empty .cc-result-line { opacity: 0.4; }
         <span class="el-text">168+620 SX 211</span>
         <span class="el-tag tag-dif"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Difetto</span>
         <div class="el-details">
-          <span class="det-item"><span class="det-lbl">Prof</span><span class="det-val">8</span></span>
-          <span class="det-item"><span class="det-lbl">Perc</span><span class="det-val">12</span></span>
-          <span class="det-item"><span class="det-lbl">Alt</span><span class="det-val">4</span></span>
+          <span class="det-item"><span class="det-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="5 12 12 19 19 12"/></svg></span><span class="det-lbl">Prof</span><span class="det-val">8</span></span>
+          <span class="det-item"><span class="det-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="6" x2="18" y2="18"/><polyline points="11 18 18 18 18 11"/></svg></span><span class="det-lbl">Perc</span><span class="det-val">12</span></span>
+          <span class="det-item"><span class="det-icon-txt">%</span><span class="det-lbl">Alt</span><span class="det-val">4</span></span>
           <span class="det-item"><span class="det-lbl">Db</span><span class="det-val">28</span></span>
           <span class="det-item"><span class="det-lbl">Palo</span><span class="det-val">14</span></span>
           <span class="det-item"><span class="det-lbl">Sonda</span><span class="det-val">0</span></span>
@@ -634,9 +637,9 @@ body.state-empty .cc-result-line { opacity: 0.4; }
         <span class="el-text">168+800 DX No DAC</span>
         <span class="el-tag tag-ndc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><circle cx="12" cy="12" r="9"/></svg>No DAC</span>
         <div class="el-details">
-          <span class="det-item"><span class="det-lbl">Prof</span><span class="det-val det-empty">/</span></span>
-          <span class="det-item"><span class="det-lbl">Perc</span><span class="det-val">8</span></span>
-          <span class="det-item"><span class="det-lbl">Alt</span><span class="det-val">3</span></span>
+          <span class="det-item"><span class="det-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="5 12 12 19 19 12"/></svg></span><span class="det-lbl">Prof</span><span class="det-val det-empty">/</span></span>
+          <span class="det-item"><span class="det-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="6" x2="18" y2="18"/><polyline points="11 18 18 18 18 11"/></svg></span><span class="det-lbl">Perc</span><span class="det-val">8</span></span>
+          <span class="det-item"><span class="det-icon-txt">%</span><span class="det-lbl">Alt</span><span class="det-val">3</span></span>
           <span class="det-item"><span class="det-lbl">Db</span><span class="det-val">22</span></span>
           <span class="det-item"><span class="det-lbl">Palo</span><span class="det-val">10</span></span>
           <span class="det-item"><span class="det-lbl">Sonda</span><span class="det-val">0</span></span>
