@@ -535,6 +535,7 @@ body {
   animation: popIn 180ms ease-out;
 }
 .calc-popover.open { display: flex; }
+body.popover-open .notte-wrap { padding-bottom: 360px; transition: padding-bottom 200ms ease; }
 @keyframes popIn {
   from { opacity: 0; transform: translateY(8px) scale(0.96); }
   to { opacity: 1; transform: translateY(0) scale(1); }
@@ -830,12 +831,22 @@ body.state-empty .cc-mod { display: none; }
     document.getElementById('link-empty').classList.add('active');
     document.getElementById('link-data').classList.remove('active');
   }
-  // popover toggle
+  // popover toggle: quando apre, fa scrollare l'editor in fondo cosi' l'ultima riga
+  // resta visibile sopra il popover invece di essere coperta
   const ccBtn = document.getElementById('ccBtn');
   const calcPop = document.getElementById('calcPop');
-  ccBtn.addEventListener('click', () => calcPop.classList.toggle('open'));
+  function openPop() {
+    calcPop.classList.add('open');
+    document.body.classList.add('popover-open');
+    setTimeout(() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }), 60);
+  }
+  function closePop() {
+    calcPop.classList.remove('open');
+    document.body.classList.remove('popover-open');
+  }
+  ccBtn.addEventListener('click', () => calcPop.classList.contains('open') ? closePop() : openPop());
   document.addEventListener('click', (e) => {
-    if (!ccBtn.contains(e.target) && !calcPop.contains(e.target)) calcPop.classList.remove('open');
+    if (!ccBtn.contains(e.target) && !calcPop.contains(e.target) && calcPop.classList.contains('open')) closePop();
   });
 </script>
 
