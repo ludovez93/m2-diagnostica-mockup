@@ -522,9 +522,10 @@ body {
   bottom: 70px;
   bottom: calc(70px + env(safe-area-inset-bottom, 0px));
   left: 10px;
+  right: 10px;
   z-index: 60;
-  padding: 14px;
-  width: 250px;
+  padding: 14px 16px;
+  max-width: 360px;
   border-radius: var(--radius-md);
   background: linear-gradient(180deg, rgba(18,26,40,0.98), rgba(12,16,25,0.98));
   border: 1px solid var(--border-light);
@@ -603,35 +604,25 @@ body {
   color: var(--accent);
 }
 
-/* ═══ DEMO TOGGLE BAR (più piccolo + in basso a sinistra) ═══ */
-.demo-toggle {
-  position: fixed;
-  bottom: calc(64px + env(safe-area-inset-bottom, 0px));
-  right: 8px;
-  z-index: 200;
-  display: flex; gap: 3px;
-  padding: 3px;
-  border-radius: var(--radius-pill);
-  background: rgba(0,0,0,0.7);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--border-light);
-}
-.demo-toggle button {
-  padding: 4px 8px;
-  border-radius: var(--radius-pill);
-  border: none;
-  background: transparent;
+/* ═══ DEMO LINK (in alto, tra address bar e header) — solo per il mockup ═══ */
+.demo-link-bar {
+  display: flex; justify-content: center; align-items: center; gap: 14px;
+  padding: 4px 12px;
+  background: rgba(0,212,255,0.04);
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-mono); font-size: 0.58rem;
+  letter-spacing: 0.12em; text-transform: uppercase;
   color: var(--text-faint);
-  font-family: var(--font-mono);
-  font-size: 0.55rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  cursor: pointer;
 }
-.demo-toggle button.active {
-  background: var(--accent-dim);
+.demo-link-bar a {
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+.demo-link-bar a.active {
   color: var(--accent);
+  background: var(--accent-dim);
 }
 
 /* ═══ Stati ═══ */
@@ -647,6 +638,12 @@ body.state-empty .cc-mod { display: none; }
 </style>
 </head>
 <body class="state-data">
+
+<div class="demo-link-bar">
+  <span>Mockup demo</span>
+  <a href="?state=data" id="link-data" class="active">Con dati</a>
+  <a href="?state=empty" id="link-empty">Vuoto</a>
+</div>
 
 <div class="notte-wrap">
 
@@ -823,24 +820,16 @@ body.state-empty .cc-mod { display: none; }
   <button class="console-primary"><span class="plus">+</span>DX&nbsp;&amp;&nbsp;SX</button>
 </div>
 
-<!-- demo toggle -->
-<div class="demo-toggle">
-  <button id="btn-empty">VUOTO</button>
-  <button id="btn-data" class="active">DATI</button>
-</div>
-
 <script>
-  // toggle stato vuoto/dati
-  const btnE = document.getElementById('btn-empty');
-  const btnD = document.getElementById('btn-data');
-  btnE.addEventListener('click', () => {
+  // stato letto da query string ?state=empty | ?state=data
+  const params = new URLSearchParams(location.search);
+  const state = params.get('state') || 'data';
+  if (state === 'empty') {
     document.body.classList.add('state-empty');
-    btnE.classList.add('active'); btnD.classList.remove('active');
-  });
-  btnD.addEventListener('click', () => {
-    document.body.classList.remove('state-empty');
-    btnD.classList.add('active'); btnE.classList.remove('active');
-  });
+    document.body.classList.remove('state-data');
+    document.getElementById('link-empty').classList.add('active');
+    document.getElementById('link-data').classList.remove('active');
+  }
   // popover toggle
   const ccBtn = document.getElementById('ccBtn');
   const calcPop = document.getElementById('calcPop');
