@@ -230,6 +230,31 @@ body {
 .lc-counts .cnt-ndc .cnt-lbl { color: var(--yellow); opacity: 0.85; font-weight: 500; }
 .lc-counts .sep { color: var(--text-faint); opacity: 0.6; }
 
+.lc-info-row {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--font-mono); font-size: 0.66rem;
+  color: var(--text-muted);
+  padding-top: 6px;
+  border-top: 1px solid var(--border);
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.lc-info-tratto { display: inline-flex; align-items: center; gap: 6px; min-width: 0; flex: 1; }
+.lc-info-tratto .lbl { font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-faint); flex-shrink: 0; }
+.lc-info-tratto .val { color: var(--text-primary); font-weight: 700; letter-spacing: 0.02em; overflow: hidden; text-overflow: ellipsis; }
+.lc-info-tratto .km { color: var(--accent); font-weight: 700; flex-shrink: 0; }
+.lc-info-meteo {
+  display: inline-flex; align-items: center; gap: 5px;
+  flex-shrink: 0;
+  padding: 3px 9px;
+  border-radius: var(--radius-pill);
+  background: var(--bg-card); border: 1px solid var(--border-light);
+}
+.lc-info-meteo .icon { font-size: 0.86rem; }
+.lc-info-meteo .temp { color: var(--text-primary); font-weight: 700; }
+.lc-info-meteo .city { color: var(--text-muted); font-weight: 500; }
+
 /* ═══ EDITOR ═══ */
 .editor-section { flex: 1; padding: 10px 0 4px; }
 .editor-meta {
@@ -540,17 +565,21 @@ body.state-empty .cc-result-line { opacity: 0.4; }
       <span class="sep">·</span>
       <span class="cnt cnt-ndc"><span class="dot dot-ndc"></span><span class="cnt-num">1</span><span class="cnt-lbl">No DAC</span></span>
     </div>
+    <div class="lc-info-row">
+      <span class="lc-info-tratto">
+        <span class="lbl">Tratto</span>
+        <span class="val">168+450 → 169+850</span>
+        <span class="km">· 1.400 km</span>
+      </span>
+      <span class="lc-info-meteo" title="Meteo aggiornato">
+        <span class="icon">🌧</span>
+        <span class="temp">8°</span>
+        <span class="city">La Spezia</span>
+      </span>
+    </div>
   </div>
 
   <section class="editor-section">
-    <div class="editor-meta">
-      <span class="editor-meta-ultimo">
-        <span class="eml-lbl">Ultima</span>
-        <span class="eml-val" id="ultimaKm">169+850</span>
-      </span>
-      <span class="editor-meta-count"><span class="em-num">42</span> righe</span>
-    </div>
-
     <div class="el-list">
       <div class="el"><span class="el-num">01</span><span class="el-bar bar-ok"></span><span class="el-text">168+450 DX</span><span class="el-tag tag-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Conforme</span></div>
       <div class="el"><span class="el-num">02</span><span class="el-bar bar-ok"></span><span class="el-text">168+450 SX</span><span class="el-tag tag-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Conforme</span></div>
