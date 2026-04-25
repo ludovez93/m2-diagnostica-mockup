@@ -272,12 +272,13 @@ body {
 .el-details .det-item { display: inline-flex; align-items: baseline; gap: 3px; white-space: nowrap; }
 .el-details .det-lbl { color: var(--text-faint); font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; }
 .el-details .det-val { color: var(--text-secondary); font-weight: 700; }
+.el-details .det-val.det-empty { color: var(--text-faint); opacity: 0.7; }
 
 /* Stato GREZZO (espanso) — simula come scriveresti tu in editor */
 .el.has-details .el-raw { display: none; }
 .el.has-details[data-state="expanded"] .el-details { display: none; }
 .el.has-details[data-state="expanded"] .el-tag { opacity: 0.5; }
-.el.has-details[data-state="expanded"] .el-bar { background: var(--accent); box-shadow: 0 0 8px var(--accent-glow); }
+.el.has-details[data-state="expanded"] .el-bar { box-shadow: 0 0 8px var(--accent-glow); }
 .el.has-details[data-state="expanded"] .el-raw {
   grid-column: 3 / 5;
   display: flex; flex-direction: column; gap: 2px;
@@ -627,7 +628,29 @@ body.state-empty .cc-result-line { opacity: 0.4; }
         </div>
       </div>
       <div class="el"><span class="el-num">04</span><span class="el-bar bar-ok"></span><span class="el-text">168+620 DX</span><span class="el-tag tag-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Conforme</span></div>
-      <div class="el"><span class="el-num">05</span><span class="el-bar bar-ndc"></span><span class="el-text">168+800 DX No DAC</span><span class="el-tag tag-ndc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><circle cx="12" cy="12" r="9"/></svg>No DAC</span></div>
+      <div class="el has-details" data-state="collapsed" id="ndc-05">
+        <span class="el-num">05</span>
+        <span class="el-bar bar-ndc"></span>
+        <span class="el-text">168+800 DX No DAC</span>
+        <span class="el-tag tag-ndc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><circle cx="12" cy="12" r="9"/></svg>No DAC</span>
+        <div class="el-details">
+          <span class="det-item"><span class="det-lbl">Prof</span><span class="det-val det-empty">/</span></span>
+          <span class="det-item"><span class="det-lbl">Perc</span><span class="det-val">8</span></span>
+          <span class="det-item"><span class="det-lbl">Alt</span><span class="det-val">3</span></span>
+          <span class="det-item"><span class="det-lbl">Db</span><span class="det-val">22</span></span>
+          <span class="det-item"><span class="det-lbl">Palo</span><span class="det-val">10</span></span>
+          <span class="det-item"><span class="det-lbl">Sonda</span><span class="det-val">0</span></span>
+        </div>
+        <div class="el-raw">
+          <span class="el-raw-line">168+800 DX No DAC</span>
+          <span class="el-raw-line raw-child">Profondità: /</span>
+          <span class="el-raw-line raw-child">Percorso: 8</span>
+          <span class="el-raw-line raw-child">Altezza: 3</span>
+          <span class="el-raw-line raw-child">Db: 22</span>
+          <span class="el-raw-line raw-child">Palo: 10</span>
+          <span class="el-raw-line raw-child">Sonda: 0</span>
+        </div>
+      </div>
       <div class="el"><span class="el-num">06</span><span class="el-bar bar-ok"></span><span class="el-text">168+800 SX ALL</span><span class="el-tag tag-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Conforme</span></div>
       <div class="el"><span class="el-num">07</span><span class="el-bar bar-ok"></span><span class="el-text">169+020 DX</span><span class="el-tag tag-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Conforme</span></div>
       <div class="el"><span class="el-num">08</span><span class="el-bar bar-ok"></span><span class="el-text">169+020 SX</span><span class="el-tag tag-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Conforme</span></div>
@@ -799,20 +822,23 @@ body.state-empty .cc-result-line { opacity: 0.4; }
     });
   });
 
-  // ═══ toggle difetto: collassato <-> grezzo (simulazione "scrivendo / blur")
-  const dif03 = document.getElementById('difetto-03');
-  if (dif03) {
-    dif03.addEventListener('click', (e) => {
-      const cur = dif03.getAttribute('data-state');
-      dif03.setAttribute('data-state', cur === 'collapsed' ? 'expanded' : 'collapsed');
+  // ═══ toggle difetto/no-dac: collassato <-> grezzo (simulazione "scrivendo / blur")
+  document.querySelectorAll('.el.has-details').forEach(elDet => {
+    elDet.addEventListener('click', (e) => {
+      const cur = elDet.getAttribute('data-state');
+      // chiudi tutti gli altri
+      document.querySelectorAll('.el.has-details').forEach(other => {
+        if (other !== elDet) other.setAttribute('data-state', 'collapsed');
+      });
+      elDet.setAttribute('data-state', cur === 'collapsed' ? 'expanded' : 'collapsed');
       e.stopPropagation();
     });
-    document.addEventListener('click', () => {
-      if (dif03.getAttribute('data-state') === 'expanded') {
-        dif03.setAttribute('data-state', 'collapsed');
-      }
+  });
+  document.addEventListener('click', () => {
+    document.querySelectorAll('.el.has-details[data-state="expanded"]').forEach(el => {
+      el.setAttribute('data-state', 'collapsed');
     });
-  }
+  });
 
   // ═══ azioni con CROSS-LOCK + flash + haptic
   function haptic() {
