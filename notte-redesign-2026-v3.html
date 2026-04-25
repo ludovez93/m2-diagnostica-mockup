@@ -272,6 +272,32 @@ body {
 .el-details .det-item { display: inline-flex; align-items: baseline; gap: 3px; white-space: nowrap; }
 .el-details .det-lbl { color: var(--text-faint); font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; }
 .el-details .det-val { color: var(--text-secondary); font-weight: 700; }
+
+/* Stato GREZZO (espanso) — simula come scriveresti tu in editor */
+.el.has-details .el-raw { display: none; }
+.el.has-details[data-state="expanded"] .el-details { display: none; }
+.el.has-details[data-state="expanded"] .el-tag { opacity: 0.5; }
+.el.has-details[data-state="expanded"] .el-bar { background: var(--accent); box-shadow: 0 0 8px var(--accent-glow); }
+.el.has-details[data-state="expanded"] .el-raw {
+  grid-column: 3 / 5;
+  display: flex; flex-direction: column; gap: 2px;
+  padding: 4px 0 2px;
+  font-family: var(--font-mono); font-size: 0.84rem;
+  color: var(--text-secondary);
+  border-left: 2px solid var(--accent);
+  padding-left: 10px;
+  margin-left: -2px;
+}
+.el.has-details[data-state="expanded"] .el-raw-line { line-height: 1.4; }
+.el.has-details[data-state="expanded"] .el-raw-line.raw-child { color: var(--text-muted); font-size: 0.78rem; padding-left: 12px; }
+.el.has-details[data-state="expanded"] .el-text { display: none; }
+.el.has-details[data-state="expanded"] .el-bar { height: auto; align-self: stretch; }
+.el.has-details[data-state="expanded"] {
+  background: rgba(0,212,255,0.04);
+  cursor: text;
+}
+.el.has-details { cursor: pointer; transition: background 200ms; }
+.el.has-details:hover { background: rgba(0,212,255,0.02); }
 .el-bar.bar-ok { background: var(--green); box-shadow: 0 0 5px rgba(0,230,118,0.45); }
 .el-bar.bar-dif { background: var(--red); box-shadow: 0 0 5px rgba(255,59,92,0.45); }
 .el-bar.bar-ndc { background: var(--yellow); box-shadow: 0 0 5px rgba(255,214,0,0.45); }
@@ -576,7 +602,8 @@ body.state-empty .cc-result-line { opacity: 0.4; }
     <div class="el-list">
       <div class="el"><span class="el-num">01</span><span class="el-bar bar-ok"></span><span class="el-text">168+450 DX</span><span class="el-tag tag-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Conforme</span></div>
       <div class="el"><span class="el-num">02</span><span class="el-bar bar-ok"></span><span class="el-text">168+450 SX</span><span class="el-tag tag-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Conforme</span></div>
-      <div class="el has-details">
+      <!-- Difetto in stato COLLASSATO (default). Tap per "espandere" = stato grezzo come scrivi tu -->
+      <div class="el has-details" data-state="collapsed" id="difetto-03">
         <span class="el-num">03</span>
         <span class="el-bar bar-dif"></span>
         <span class="el-text">168+620 SX 211</span>
@@ -587,6 +614,16 @@ body.state-empty .cc-result-line { opacity: 0.4; }
           <span class="det-item"><span class="det-lbl">Alt</span><span class="det-val">4</span></span>
           <span class="det-item"><span class="det-lbl">Db</span><span class="det-val">28</span></span>
           <span class="det-item"><span class="det-lbl">Palo</span><span class="det-val">14</span></span>
+          <span class="det-item"><span class="det-lbl">Sonda</span><span class="det-val">0</span></span>
+        </div>
+        <div class="el-raw">
+          <span class="el-raw-line">168+620 SX 211</span>
+          <span class="el-raw-line raw-child">Profondità: 8</span>
+          <span class="el-raw-line raw-child">Percorso: 12</span>
+          <span class="el-raw-line raw-child">Altezza: 4</span>
+          <span class="el-raw-line raw-child">Db: 28</span>
+          <span class="el-raw-line raw-child">Palo: 14</span>
+          <span class="el-raw-line raw-child">Sonda: 0</span>
         </div>
       </div>
       <div class="el"><span class="el-num">04</span><span class="el-bar bar-ok"></span><span class="el-text">168+620 DX</span><span class="el-tag tag-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Conforme</span></div>
@@ -761,6 +798,21 @@ body.state-empty .cc-result-line { opacity: 0.4; }
       updateCalc();
     });
   });
+
+  // ═══ toggle difetto: collassato <-> grezzo (simulazione "scrivendo / blur")
+  const dif03 = document.getElementById('difetto-03');
+  if (dif03) {
+    dif03.addEventListener('click', (e) => {
+      const cur = dif03.getAttribute('data-state');
+      dif03.setAttribute('data-state', cur === 'collapsed' ? 'expanded' : 'collapsed');
+      e.stopPropagation();
+    });
+    document.addEventListener('click', () => {
+      if (dif03.getAttribute('data-state') === 'expanded') {
+        dif03.setAttribute('data-state', 'collapsed');
+      }
+    });
+  }
 
   // ═══ azioni con CROSS-LOCK + flash + haptic
   function haptic() {
