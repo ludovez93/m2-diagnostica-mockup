@@ -115,6 +115,81 @@
     }
   });
 
+  /* ---------- GLOBAL DATA-ACTION ROUTER ---------- */
+  // Mappa data-action → screen target. Click su qualsiasi elemento con data-action
+  // naviga alla vista corrispondente o esegue l'azione.
+  var ACTION_TO_SCREEN = {
+    'open-cantiere': 'cantiere',
+    'open-notte': 'notte',
+    'open-risultati': 'risultati',
+    'open-scheda': 'scheda',
+    'open-form-cantiere': 'form-cantiere',
+    'open-panoramica': 'panoramica',
+    'open-profilo': 'profilo',
+    'open-dashboard': 'dashboard',
+    'select-user': 'dashboard',
+    'screen': null // legge data-screen
+  };
+  var BACK_MAP = {
+    cantiere: 'dashboard', 'form-cantiere': 'dashboard', notte: 'cantiere',
+    risultati: 'notte', scheda: 'risultati', panoramica: 'dashboard',
+    profilo: 'dashboard'
+  };
+
+  document.addEventListener('click', function (ev) {
+    var el = ev.target.closest('[data-action]');
+    if (!el) return;
+    var action = el.getAttribute('data-action');
+    if (action === 'back') {
+      var current = document.querySelector('.screen:not([hidden])');
+      var name = current && current.dataset.screen;
+      var back = BACK_MAP[name] || 'dashboard';
+      showScreen(back);
+      return;
+    }
+    if (action === 'screen') {
+      var s = el.getAttribute('data-screen');
+      if (s) showScreen(s);
+      return;
+    }
+    if (action in ACTION_TO_SCREEN) {
+      var target = ACTION_TO_SCREEN[action];
+      if (target) showScreen(target);
+      return;
+    }
+    // open-sheet/close-sheet handled elsewhere
+    if (action === 'close-sheet') {
+      var id = el.getAttribute('data-target');
+      var dlg = id ? document.getElementById(id) : el.closest('dialog');
+      if (dlg) closeSheet(dlg);
+      return;
+    }
+    // step navigation (form-cantiere / scheda)
+    if (action === 'step-prev' || action === 'step-next') {
+      // mockup-only: feedback visivo, no logica reale
+      return;
+    }
+    if (action === 'step-tab') {
+      var step = el.getAttribute('data-step');
+      var tabs = el.parentElement.querySelectorAll('[data-action="step-tab"]');
+      tabs.forEach(function (t) { t.classList.toggle('active', t === el); });
+      return;
+    }
+    // double-tap conferma (mockup-only)
+    if (el.dataset.confirm === 'double-tap' && el.dataset.confirmState !== '2') {
+      el.dataset.confirmState = '2';
+      var orig = el.textContent;
+      el.textContent = '▸ CONFERMA';
+      setTimeout(function () {
+        if (el.dataset.confirmState === '2') {
+          el.dataset.confirmState = '';
+          el.textContent = orig;
+        }
+      }, 3000);
+      return;
+    }
+  });
+
   // Backdrop click (clicking the dialog itself, not its inner card)
   document.addEventListener('click', function (ev) {
     var t = ev.target;
