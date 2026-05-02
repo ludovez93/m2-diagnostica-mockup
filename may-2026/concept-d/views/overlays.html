@@ -1,0 +1,308 @@
+<!--
+  M2 DIAGNOSTICA · CONCEPT D — OVERLAYS / SHEETS
+  4 modali secondarie. In produzione: ognuna avvolta in <dialog> oppure
+  in un wrapper .sheet-overlay con [hidden]. Qui sono tutte VISIBILI per testing.
+
+  NEED_CLASS dichiarate in fondo al file.
+
+  Pattern:
+    <div class="sheet-overlay" role="dialog" aria-modal="true" aria-labelledby="...">
+      <div class="sheet-backdrop" data-action="close-sheet" data-target="<id>"></div>
+      <div class="sheet" role="document">
+        <header class="sheet-head"> ... </header>
+        <div class="sheet-body"> ... </div>
+        <footer class="sheet-foot"> ... </footer>
+      </div>
+    </div>
+-->
+
+<!-- =========================================================================
+     MODALE 1 — EDIT NOTTE (bottom-sheet)
+     ========================================================================= -->
+<div class="sheet-overlay" id="sheet-edit-notte-mockup" role="dialog" aria-modal="true" aria-labelledby="sheet-edit-notte-mockup-title">
+  <div class="sheet-backdrop" data-action="close-sheet" data-target="sheet-edit-notte-mockup"></div>
+
+  <div class="sheet" role="document">
+    <header class="sheet-head">
+      <span id="sheet-edit-notte-mockup-title">▸ MODIFICA NOTTE</span>
+      <button class="close" type="button" data-action="close-sheet" data-target="sheet-edit-notte-mockup" aria-label="Chiudi">×</button>
+    </header>
+
+    <div class="sheet-body">
+
+      <div class="form-group">
+        <label class="label" for="en-data">DATA NOTTE</label>
+        <input id="en-data" class="input text-mono" type="date" value="2026-05-05">
+      </div>
+
+      <div class="form-group">
+        <span class="label">STATO</span>
+        <div class="segmented" role="tablist" aria-label="Stato notte">
+          <button type="button" class="active" data-value="programmata">PROGRAMMATA</button>
+          <button type="button" data-value="saltata">SALTATA</button>
+          <button type="button" data-value="completata">COMPLETATA</button>
+        </div>
+      </div>
+
+      <div class="form-group" data-cond="stato=saltata">
+        <label class="label" for="en-motivo">MOTIVO SALTO</label>
+        <select id="en-motivo" class="input">
+          <option value="" disabled selected>— Seleziona motivo —</option>
+          <option value="pioggia">Pioggia</option>
+          <option value="allerta">Allerta meteo</option>
+          <option value="problemi">Problemi</option>
+          <option value="altro">Altro</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="label" for="en-note">NOTE</label>
+        <textarea id="en-note" class="input" placeholder="Note operative, contatti, decisioni…" rows="4"></textarea>
+      </div>
+
+    </div>
+
+    <footer class="sheet-foot sheet-foot-3">
+      <button class="btn-danger" type="button" data-action="confirm-delete" data-step="1">ELIMINA</button>
+      <button class="btn-ghost" type="button" data-action="close-sheet" data-target="sheet-edit-notte-mockup">ANNULLA</button>
+      <button class="btn-primary" type="button">▸ SALVA</button>
+    </footer>
+  </div>
+</div>
+
+
+<!-- =========================================================================
+     MODALE 2 — AGGIUNGI ELEMENTO CONTROLLATO (bottom-sheet)
+     ========================================================================= -->
+<div class="sheet-overlay" id="sheet-add-elemento" role="dialog" aria-modal="true" aria-labelledby="sheet-add-elemento-title">
+  <div class="sheet-backdrop" data-action="close-sheet" data-target="sheet-add-elemento"></div>
+
+  <div class="sheet" role="document">
+    <header class="sheet-head">
+      <span id="sheet-add-elemento-title">▸ AGGIUNGI ELEMENTO</span>
+      <button class="close" type="button" data-action="close-sheet" data-target="sheet-add-elemento" aria-label="Chiudi">×</button>
+    </header>
+
+    <div class="sheet-body">
+
+      <div class="form-group">
+        <span class="label">TIPO</span>
+        <div class="segmented" role="tablist" aria-label="Tipo elemento">
+          <button type="button" class="active seg-success" data-value="regolazione">REGOLAZIONE</button>
+          <button type="button" class="seg-warn" data-value="deviatoio">DEVIATOIO</button>
+          <button type="button" class="seg-danger" data-value="ricontrollo">RICONTROLLO</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="label" for="ae-km">KM</label>
+        <input id="ae-km" class="input text-mono" type="text"
+               inputmode="numeric"
+               pattern="\d+\+\d{3}"
+               placeholder="168+200"
+               autocomplete="off"
+               spellcheck="false">
+      </div>
+
+      <div class="form-group">
+        <span class="label">LATO</span>
+        <div class="segmented" role="tablist" aria-label="Lato">
+          <button type="button" class="active" data-value="dx">DX</button>
+          <button type="button" data-value="sx">SX</button>
+          <button type="button" data-value="entrambi">ENTRAMBI</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="label" for="ae-note">NOTE <span class="hint">(opzionale)</span></label>
+        <textarea id="ae-note" class="input" placeholder="Dettagli aggiuntivi…" rows="3"></textarea>
+      </div>
+
+    </div>
+
+    <footer class="sheet-foot">
+      <button class="btn-ghost" type="button" data-action="close-sheet" data-target="sheet-add-elemento">ANNULLA</button>
+      <button class="btn-primary" type="button">▸ AGGIUNGI</button>
+    </footer>
+  </div>
+</div>
+
+
+<!-- =========================================================================
+     MODALE 3 — EDIT SALDATURA (bottom-sheet)
+     ========================================================================= -->
+<div class="sheet-overlay" id="sheet-edit-saldatura" role="dialog" aria-modal="true" aria-labelledby="sheet-edit-saldatura-title">
+  <div class="sheet-backdrop" data-action="close-sheet" data-target="sheet-edit-saldatura"></div>
+
+  <div class="sheet" role="document">
+    <header class="sheet-head">
+      <span id="sheet-edit-saldatura-title">▸ MODIFICA SALDATURA</span>
+      <button class="close" type="button" data-action="close-sheet" data-target="sheet-edit-saldatura" aria-label="Chiudi">×</button>
+    </header>
+
+    <div class="sheet-body">
+
+      <div class="form-group">
+        <label class="label" for="es-km">KM</label>
+        <input id="es-km" class="input text-mono" type="text"
+               inputmode="numeric"
+               pattern="\d+\+\d{3}"
+               placeholder="167+850"
+               autocomplete="off"
+               spellcheck="false">
+      </div>
+
+      <div class="form-group">
+        <span class="label">LATO</span>
+        <div class="segmented" role="tablist" aria-label="Lato">
+          <button type="button" class="active" data-value="dx">DX</button>
+          <button type="button" data-value="sx">SX</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <span class="label">TIPO</span>
+        <div class="segmented" role="tablist" aria-label="Tipo saldatura">
+          <button type="button" class="active" data-value="tr">TR</button>
+          <button type="button" data-value="all">ALL</button>
+          <button type="button" data-value="scin">SCIN</button>
+          <button type="button" data-value="altro">ALTRO</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <span class="label">STATO</span>
+        <div class="segmented" role="tablist" aria-label="Stato saldatura">
+          <button type="button" class="active seg-success" data-value="ok">OK</button>
+          <button type="button" class="seg-danger" data-value="difetto">DIFETTO</button>
+          <button type="button" class="seg-mute" data-value="nodac">NO DAC</button>
+        </div>
+      </div>
+
+      <div class="form-group" data-cond="stato=difetto">
+        <label class="label" for="es-codice">CODICE DIFETTO <span class="hint">(autocomplete)</span></label>
+        <input id="es-codice" class="input text-mono" type="text"
+               inputmode="numeric"
+               list="es-codici-difetto"
+               placeholder="es. 211"
+               autocomplete="off"
+               spellcheck="false">
+        <datalist id="es-codici-difetto">
+          <option value="211">211</option>
+          <option value="113">113</option>
+          <option value="121">121</option>
+          <option value="221">221</option>
+          <option value="411">411</option>
+          <option value="421">421</option>
+        </datalist>
+      </div>
+
+    </div>
+
+    <footer class="sheet-foot sheet-foot-3">
+      <button class="btn-danger" type="button" data-action="confirm-delete" data-step="1">ELIMINA</button>
+      <button class="btn-ghost" type="button" data-action="close-sheet" data-target="sheet-edit-saldatura">ANNULLA</button>
+      <button class="btn-primary" type="button">▸ SALVA</button>
+    </footer>
+  </div>
+</div>
+
+
+<!-- =========================================================================
+     MODALE 4 — CALENDAR TAP DAY (bottom-sheet)
+     ========================================================================= -->
+<div class="sheet-overlay" id="sheet-calendar-day" role="dialog" aria-modal="true" aria-labelledby="sheet-calendar-day-title">
+  <div class="sheet-backdrop" data-action="close-sheet" data-target="sheet-calendar-day"></div>
+
+  <div class="sheet" role="document">
+    <header class="sheet-head">
+      <span id="sheet-calendar-day-title">▸ LUN 5 MAGGIO 2026</span>
+      <button class="close" type="button" data-action="close-sheet" data-target="sheet-calendar-day" aria-label="Chiudi">×</button>
+    </header>
+
+    <div class="sheet-body sheet-body-flush">
+
+      <div class="sect sect-q">
+        <span>▸ NOTTI / 2</span>
+        <span class="text-muted text-xs">TAP per aprire</span>
+      </div>
+
+      <div class="table table-simple">
+        <button class="row" type="button" data-action="open-cantiere" data-cantiere="laspezia-arcola">
+          <div class="row-dot"></div>
+          <div>
+            <div class="row-name">La Spezia – Arcola</div>
+            <div class="row-codice">LASPEZIA-ARCOLA · 22:00 · DISP 171→163</div>
+          </div>
+          <div class="col-num text-amber">›</div>
+        </button>
+
+        <button class="row" type="button" data-action="open-cantiere" data-cantiere="empoli">
+          <div class="row-dot warn"></div>
+          <div>
+            <div class="row-name">Empoli – San Miniato</div>
+            <div class="row-codice">EMPOLI · 21:30 · DISP 39→26</div>
+          </div>
+          <div class="col-num text-amber">›</div>
+        </button>
+      </div>
+
+      <button class="btn-ghost btn-block mt-3" type="button" data-action="new-notte" data-date="2026-05-05">
+        + PROGRAMMA NUOVA NOTTE
+      </button>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- =========================================================================
+     NEED_CLASS — classi mancanti nello scaffold style.css
+     =========================================================================
+     1. .sheet-overlay
+        Wrapper full-screen che contiene backdrop + .sheet, ancorato in basso.
+        Necessario perché lo scaffold prevede solo <dialog> nativo (con ::backdrop)
+        ma qui usiamo <div role="dialog"> per portabilità.
+        Comportamento atteso:
+          position: fixed; inset: 0; z-index: 200;
+          display: flex; flex-direction: column; justify-content: flex-end;
+          (in produzione: aggiungere [hidden] { display: none; })
+
+     2. .sheet-backdrop
+        Backdrop opaco PIATTO (NO backdrop-filter, LEARNED #182).
+        Comportamento atteso:
+          position: absolute; inset: 0;
+          background: var(--bg-overlay);  /* rgba(0,0,0,0.85) */
+
+     3. .sheet-foot-3
+        Variante a 3 colonne del footer sticky (ELIMINA · ANNULLA · SALVA).
+        Modifier di .sheet-foot:
+          grid-template-columns: 1fr 1fr 1fr;
+        Usata in modale 1 (Edit notte) e modale 3 (Edit saldatura).
+
+     4. .sheet-body-flush
+        Variante body senza padding orizzontale, per quando il contenuto è
+        una .table edge-to-edge (modale 4 calendar day).
+        Modifier di .sheet-body:
+          padding-left: 0; padding-right: 0;
+        (sezioni interne come .sect e .table compensano da sole.)
+
+     5. .seg-success / .seg-warn / .seg-danger / .seg-mute
+        Modifier di colore per i pulsanti dentro .segmented quando .active.
+        Servono per i pill group con semantica colorata
+        (TIPO regolazione/deviatoio/ricontrollo · STATO ok/difetto/nodac).
+        Comportamento atteso (solo su .active):
+          .segmented button.active.seg-success { background: var(--color-success-alt); color: #000; }
+          .segmented button.active.seg-warn    { background: var(--color-warn-alt);    color: #000; }
+          .segmented button.active.seg-danger  { background: var(--color-danger);      color: #FFF; }
+          .segmented button.active.seg-mute    { background: var(--bg-surface); color: var(--text-muted); border: 1px solid var(--border-default); }
+
+     6. .label .hint
+        Sub-span dentro .label già definito in style.css (riga 538) —
+        OK, NON è una classe nuova, riportata solo per nota.
+
+     7. [data-cond="..."]
+        Selettore non-CSS, gestito da mockup.js per mostrare/nascondere
+        gruppi condizionali (es. MOTIVO SALTO solo se stato=saltata,
+        CODICE DIFETTO solo se stato=difetto). Default: visibile in mockup.
+========================================================================= -->

@@ -1,0 +1,3296 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0F0F0F">
+  <meta name="description" content="M2 Diagnostica · Concept D — Operations Terminal">
+  <title>M2 Diagnostica · Concept D</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- DEV NAV (jump screen) -->
+  <label class="visually-hidden" for="dev-nav-select" hidden>Vai a vista</label>
+  <select id="dev-nav-select" class="dev-nav" aria-label="DEV: vai a vista">
+    <option value="login">DEV ▸ LOGIN</option>
+    <option value="dashboard">DEV ▸ DASHBOARD</option>
+    <option value="cantiere">DEV ▸ CANTIERE</option>
+    <option value="form-cantiere">DEV ▸ FORM CANTIERE</option>
+    <option value="notte">DEV ▸ NOTTE</option>
+    <option value="risultati">DEV ▸ RISULTATI</option>
+    <option value="scheda">DEV ▸ SCHEDA</option>
+    <option value="panoramica">DEV ▸ PANORAMICA</option>
+    <option value="profilo">DEV ▸ PROFILO</option>
+  </select>
+
+  <main id="app">
+
+    <!-- =====================================================================
+         SCREEN 1 · LOGIN
+         ===================================================================== -->
+    <section class="screen" data-screen="login" aria-label="Login" hidden>
+      <!-- ====================================================================
+           LOGIN · Operations Terminal
+           Stato di default: nessun utente selezionato → mostrare lista utenti.
+           Stato selezionato: aggiungere classe "is-selected" su .login-wrap
+             (oppure data-state="pin") per nascondere user list e mostrare numpad.
+           Markup statico: entrambi i blocchi presenti, JS si occuperà del toggle.
+           ==================================================================== -->
+      
+      <div class="login-wrap login-crt" data-state="select">
+      
+        <!-- Bloomberg-style ticker (header monospace) -->
+        <div class="ticker" role="status" aria-live="polite">
+          <span>READY <span class="ok blink">●</span> LOGIN REQUIRED</span>
+          <span data-clock>22:14:08</span>
+        </div>
+      
+        <!-- BRAND HEADER (titolo monospace amber + sigla muted) -->
+        <header class="login-brand">
+          <div class="logo-mark">M2</div>
+          <h1 class="text-mono uc text-amber">M2 DIAGNOSTICA</h1>
+          <div class="sub">v2.0 · TERMINAL</div>
+        </header>
+      
+        <!-- ================================================================
+             STATE A · USER SELECT
+             Visibile quando data-state="select"
+             ================================================================ -->
+        <div class="login-card login-step login-step-user" data-step="user">
+      
+          <div class="divider-label">▸ SELECT OPERATOR</div>
+      
+          <div class="user-list">
+      
+            <button type="button"
+                    class="user-card"
+                    data-action="select-user"
+                    data-user="LP"
+                    aria-label="Seleziona operatore Ludovico, gruppo G">
+              <span class="user-sigla">LP</span>
+              <span class="user-body">
+                <span class="user-name">Ludovico</span>
+                <span class="user-meta">OPERATORE · GRUPPO G</span>
+              </span>
+              <span class="user-arrow" aria-hidden="true">›</span>
+            </button>
+      
+            <button type="button"
+                    class="user-card"
+                    data-action="select-user"
+                    data-user="CA"
+                    aria-label="Seleziona operatore Cristopher, gruppo B">
+              <span class="user-sigla">CA</span>
+              <span class="user-body">
+                <span class="user-name">Cristopher</span>
+                <span class="user-meta">OPERATORE · GRUPPO B</span>
+              </span>
+              <span class="user-arrow" aria-hidden="true">›</span>
+            </button>
+      
+          </div>
+      
+        </div>
+      
+        <!-- ================================================================
+             STATE B · PIN ENTRY
+             Visibile quando data-state="pin"
+             Statico in markup, JS toggla via data-state sul wrapper.
+             ================================================================ -->
+        <div class="login-card login-step login-step-pin" data-step="pin" hidden>
+      
+          <div class="divider-label">
+            ▸ PIN
+            <button type="button"
+                    class="pin-back"
+                    data-action="back-to-user"
+                    aria-label="Cambia operatore">‹ CAMBIA</button>
+          </div>
+      
+          <!-- PIN DOTS (4 cifre, status live) -->
+          <div class="pin-dots"
+               role="status"
+               aria-live="polite"
+               aria-label="Cifre inserite: 0 di 4"
+               data-pin-length="0">
+            <span class="pin-dot" data-filled="false">●</span>
+            <span class="pin-dot" data-filled="false">●</span>
+            <span class="pin-dot" data-filled="false">●</span>
+            <span class="pin-dot" data-filled="false">●</span>
+          </div>
+      
+          <!-- NUMPAD 3x4 monospace -->
+          <div class="numpad" role="group" aria-label="Tastiera numerica PIN">
+      
+            <button type="button" class="numkey" data-action="digit" data-digit="1" aria-label="Cifra 1">1</button>
+            <button type="button" class="numkey" data-action="digit" data-digit="2" aria-label="Cifra 2">2</button>
+            <button type="button" class="numkey" data-action="digit" data-digit="3" aria-label="Cifra 3">3</button>
+      
+            <button type="button" class="numkey" data-action="digit" data-digit="4" aria-label="Cifra 4">4</button>
+            <button type="button" class="numkey" data-action="digit" data-digit="5" aria-label="Cifra 5">5</button>
+            <button type="button" class="numkey" data-action="digit" data-digit="6" aria-label="Cifra 6">6</button>
+      
+            <button type="button" class="numkey" data-action="digit" data-digit="7" aria-label="Cifra 7">7</button>
+            <button type="button" class="numkey" data-action="digit" data-digit="8" aria-label="Cifra 8">8</button>
+            <button type="button" class="numkey" data-action="digit" data-digit="9" aria-label="Cifra 9">9</button>
+      
+            <button type="button" class="numkey numkey-aux" data-action="erase" aria-label="Cancella">←</button>
+            <button type="button" class="numkey" data-action="digit" data-digit="0" aria-label="Cifra 0">0</button>
+            <button type="button" class="numkey numkey-ok" data-action="confirm" aria-label="Conferma PIN">✓</button>
+      
+          </div>
+      
+        </div>
+      
+        <!-- FOOTER -->
+        <div class="login-foot">M2 RAIL GROUP · TERMINAL ID 001</div>
+      
+      </div>
+      
+      <!-- ====================================================================
+           NEED_CLASS LIST
+           Le seguenti classi NON esistono in style.css scaffold e vanno aggiunte:
+           ==================================================================== -->
+      
+      <!-- NEED_CLASS: login-crt — variante .login-wrap con scanline orizzontale
+           CRT (1px ogni 3px) via background-image linear-gradient + pointer-events:none
+           pseudo-element. Esempio:
+             .login-crt::after {
+               content:''; position:fixed; inset:0; pointer-events:none; z-index:1;
+               background: repeating-linear-gradient(0deg,
+                 rgba(255,255,255,0.025) 0px,
+                 rgba(255,255,255,0.025) 1px,
+                 transparent 1px,
+                 transparent 3px);
+             }
+      -->
+      
+      <!-- NEED_CLASS: user-list — wrapper flex column gap 8px per le card utente -->
+      
+      <!-- NEED_CLASS: user-card — <button> orizzontale full-width, terminal style:
+           display:grid; grid-template-columns: 56px 1fr auto;
+           align-items:center; gap:12px;
+           background: var(--bg-secondary); border: 1px solid var(--border-default);
+           padding: 12px var(--sp-2); min-height: var(--tt);
+           text-align:left; color:inherit; font-family:inherit;
+           :active { background: var(--accent-amber-soft); border-color: var(--accent-amber); }
+      -->
+      
+      <!-- NEED_CLASS: user-sigla — sigla mono amber 18-20px font-weight 700,
+           bordata 1px amber, padding 8px 0, text-align center, font-family mono,
+           letter-spacing 0.08em; box-style "tag" tipo .login-brand .logo-mark scaled -->
+      
+      <!-- NEED_CLASS: user-body — flex column, contiene nome + meta -->
+      
+      <!-- NEED_CLASS: user-name — font-family Inter, font-size 15px, font-weight 600,
+           color var(--text-primary), line-height 1.2 -->
+      
+      <!-- NEED_CLASS: user-meta — font-family mono, font-size 10px,
+           color var(--text-muted), letter-spacing 0.08em, text-transform uppercase,
+           margin-top 2px -->
+      
+      <!-- NEED_CLASS: user-arrow — char ›, color var(--text-muted), font-size 18px,
+           font-family mono, padding-right 4px -->
+      
+      <!-- NEED_CLASS: login-step — display:block (default), no extra style.
+           Usato come hook semantico per gli step. Funziona anche solo con [hidden]. -->
+      
+      <!-- NEED_CLASS: login-step-user — variante step user (no style aggiuntivo) -->
+      
+      <!-- NEED_CLASS: login-step-pin — variante step pin (no style aggiuntivo) -->
+      
+      <!-- NEED_CLASS: pin-back — <button> compatto in coda al divider-label:
+           background:transparent; border:0; color:var(--accent-amber);
+           font-family:mono; font-size:10px; font-weight:700; letter-spacing:0.12em;
+           text-transform:uppercase; cursor:pointer; padding:2px 4px;
+           margin-left:auto; -->
+      
+      <!-- NEED_CLASS: pin-dots — display:flex; justify-content:center; gap:18px;
+           padding: var(--sp-4) 0; border-bottom: 1px solid var(--border-subtle);
+           margin-bottom: var(--sp-3); -->
+      
+      <!-- NEED_CLASS: pin-dot — span 14px, color var(--text-faint) (vuoto)
+           transitions a color amber quando data-filled="true".
+           Esempio:
+             .pin-dot { font-size:18px; color: var(--text-faint); line-height:1; }
+             .pin-dot[data-filled="true"] { color: var(--accent-amber); }
+      -->
+      
+      <!-- NEED_CLASS: numpad — display:grid; grid-template-columns: repeat(3,1fr);
+           gap: 1px; background: var(--border-default);
+           border: 1px solid var(--border-default);
+           /* tutti i .numkey diventano celle dentro grid 1px gap → effetto linee terminal */
+      -->
+      
+      <!-- NEED_CLASS: numkey — <button> tasto numpad:
+           min-height: 56px; (touch target richiesto)
+           background: var(--bg-secondary); border: 0; color: var(--text-primary);
+           font-family: var(--ff-mono); font-size: 22px; font-weight: 700;
+           letter-spacing: 0; cursor: pointer;
+           :active { background: var(--accent-amber-soft); color: var(--accent-amber); }
+      -->
+      
+      <!-- NEED_CLASS: numkey-aux — variante per ← (erase):
+           color: var(--text-secondary); font-size: 20px; -->
+      
+      <!-- NEED_CLASS: numkey-ok — variante per ✓ (confirm):
+           background: var(--accent-amber-soft); color: var(--accent-amber);
+           :active { background: var(--accent-amber); color: #000; } -->
+    </section>
+
+    <!-- =====================================================================
+         SCREEN 2 · DASHBOARD
+         ===================================================================== -->
+    <section class="screen" data-screen="dashboard" aria-label="Dashboard" hidden>
+      <!-- =====================================================================
+           SCREEN 2 · DASHBOARD
+           Concept D — Operations Terminal
+           Coerente con _reference.html, classi da style.css
+           ===================================================================== -->
+      
+      <!-- Bloomberg-style ticker -->
+      <div class="ticker">
+        <span>M2.DIAG <span class="ok blink">●</span> SYNCED 22:14:08</span>
+        <span>LP/G · 04 cant. · 11 diff</span>
+      </div>
+      
+      <!-- Function bar 4-cell -->
+      <div class="fbar">
+        <button class="fbar-cell amber" type="button" data-action="filter-da-aprire">
+          <strong>1</strong>
+          DA APRIRE
+        </button>
+        <button class="fbar-cell green" type="button" data-action="filter-attivi">
+          <strong>3</strong>
+          ATTIVI
+        </button>
+        <button class="fbar-cell" type="button" data-action="filter-difetti">
+          <strong>11</strong>
+          DIFETTI
+        </button>
+        <button class="fbar-cell" type="button" data-action="filter-schede">
+          <strong>5</strong>
+          SCHEDE
+        </button>
+      </div>
+      
+      <!-- ─────────────────────────────────────────────────────────────────────
+           STASERA · LIVE — command hero
+           ───────────────────────────────────────────────────────────────────── -->
+      <div class="sect">
+        <span>▸ STASERA · LIVE</span>
+      </div>
+      <div class="cmd-stasera">
+        <div class="cmd-line">OPEN 22:30 · LASPEZIA-ARCOLA</div>
+        <div class="cmd-name">La Spezia – Arcola</div>
+        <div class="cmd-tratta">33/26 · DISPARI 171→163 · PARI 171→161 · TRATTA SARZ-LASP</div>
+      
+        <div class="cmd-grid">
+          <div class="cmd-cell">
+            <div class="cmd-cell-lab">AVANZ</div>
+            <div class="cmd-cell-val amber">58%</div>
+          </div>
+          <div class="cmd-cell">
+            <div class="cmd-cell-lab">SALD</div>
+            <div class="cmd-cell-val">418</div>
+          </div>
+          <div class="cmd-cell">
+            <div class="cmd-cell-lab">DIFF</div>
+            <div class="cmd-cell-val danger">11</div>
+          </div>
+          <div class="cmd-cell">
+            <div class="cmd-cell-lab">METEO</div>
+            <div class="cmd-cell-val green">3°</div>
+          </div>
+        </div>
+      
+        <button class="cmd-cta" type="button" data-action="open-notte" data-id="2">APRI NOTTE →</button>
+      </div>
+      
+      <!-- ─────────────────────────────────────────────────────────────────────
+           ATTIVI / 3
+           ───────────────────────────────────────────────────────────────────── -->
+      <div class="sect sect-q">
+        <span>▸ ATTIVI / 3</span>
+      </div>
+      <div class="table">
+        <div class="table-head">
+          <div></div>
+          <div>CANTIERE</div>
+          <div class="right">SALD</div>
+          <div class="right">DIFF</div>
+          <div class="right">%</div>
+        </div>
+      
+        <button class="row" type="button" data-action="open-cantiere" data-id="empoli">
+          <div class="row-dot"></div>
+          <div>
+            <div class="row-name">Empoli – San Miniato</div>
+            <div class="row-codice">26/26 · DISP 39→26</div>
+          </div>
+          <div class="col-num">237</div>
+          <div class="col-num">3</div>
+          <div class="col-num amber">30%</div>
+        </button>
+      
+        <button class="row" type="button" data-action="open-cantiere" data-id="genova">
+          <div class="row-dot warn"></div>
+          <div>
+            <div class="row-name">Genova</div>
+            <div class="row-codice">SCAD. · PARI 10→11</div>
+          </div>
+          <div class="col-num">0</div>
+          <div class="col-num">0</div>
+          <div class="col-num warn">0%</div>
+        </button>
+      
+        <button class="row" type="button" data-action="open-cantiere" data-id="test">
+          <div class="row-dot zero"></div>
+          <div>
+            <div class="row-name">Test</div>
+            <div class="row-codice">DISP 100→120</div>
+          </div>
+          <div class="col-num">0</div>
+          <div class="col-num">0</div>
+          <div class="col-num zero">2%</div>
+        </button>
+      </div>
+      
+      <!-- ─────────────────────────────────────────────────────────────────────
+           PAUSA / 3
+           ───────────────────────────────────────────────────────────────────── -->
+      <div class="sect sect-q">
+        <span>▸ PAUSA / 3</span>
+      </div>
+      <div class="table">
+        <button class="row" type="button" data-action="open-cantiere" data-id="brescia">
+          <div class="row-dot zero"></div>
+          <div>
+            <div class="row-name">Brescia – Verona AV</div>
+            <div class="row-codice">39/25</div>
+          </div>
+          <div class="col-num">525</div>
+          <div class="col-num">1</div>
+          <div class="col-num zero">28%</div>
+        </button>
+      
+        <button class="row" type="button" data-action="open-cantiere" data-id="chiusi">
+          <div class="row-dot zero"></div>
+          <div>
+            <div class="row-name">Chiusi – Montallese</div>
+            <div class="row-codice">—</div>
+          </div>
+          <div class="col-num">404</div>
+          <div class="col-num">9</div>
+          <div class="col-num zero">25%</div>
+        </button>
+      
+        <button class="row" type="button" data-action="open-cantiere" data-id="merano">
+          <div class="row-dot zero"></div>
+          <div>
+            <div class="row-name">Merano – Malles</div>
+            <div class="row-codice">—</div>
+          </div>
+          <div class="col-num">0</div>
+          <div class="col-num">0</div>
+          <div class="col-num zero">0%</div>
+        </button>
+      </div>
+      
+      <!-- ─────────────────────────────────────────────────────────────────────
+           COMPLETATI / 1
+           ───────────────────────────────────────────────────────────────────── -->
+      <div class="sect sect-q">
+        <span>▸ COMPLETATI / 1</span>
+      </div>
+      <div class="table">
+        <button class="row" type="button" data-action="open-cantiere" data-id="laquila">
+          <div class="row-dot"></div>
+          <div>
+            <div class="row-name">L'Aquila – Sulmona</div>
+            <div class="row-codice">32/25</div>
+          </div>
+          <div class="col-num">612</div>
+          <div class="col-num">4</div>
+          <div class="col-num">100%</div>
+        </button>
+      </div>
+      
+      <!-- ─────────────────────────────────────────────────────────────────────
+           ARCHIVIATI / 1
+           ───────────────────────────────────────────────────────────────────── -->
+      <div class="sect sect-q">
+        <span>▸ ARCHIVIATI / 1</span>
+      </div>
+      <div class="table">
+        <button class="row" type="button" data-action="open-cantiere" data-id="ravenna">
+          <div class="row-dot zero"></div>
+          <div>
+            <div class="row-name">Ravenna</div>
+            <div class="row-codice">28/25</div>
+          </div>
+          <div class="col-num">298</div>
+          <div class="col-num">2</div>
+          <div class="col-num zero">100%</div>
+        </button>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         SCREEN 3 · CANTIERE (dettaglio)
+         ===================================================================== -->
+    <section class="screen" data-screen="cantiere" aria-label="Dettaglio cantiere" hidden>
+      <!-- ====================================================================
+           CANTIERE · DETTAGLIO (Operations Terminal)
+           Vista più complessa dell'app. Scroll lineare con sezioni <details>
+           (NO TAB). Gestita con densità Bloomberg ma navigabile con guanti.
+           Touch target 48px+ ovunque.
+      
+           Cantiere demo: La Spezia – Arcola · 33/26
+             DISPARI 171→163 · PARI 171→161 · Tratta SARZ-LASP
+             Avanzamento 58% (Disp 60% / Pari 56%)
+             418 saldature · 11 difetti totali · 3 difetti aperti
+             12 notti completate
+      
+           STATO BLOCCHI:
+             1. page-head sticky (back + nome + codice + pill ATTIVO + ··· menu)
+             2. Hero "Stasera" sticky-top (LEARNED #98)
+             3. AVANZAMENTO (display 58% + barre per binario)
+             4. <details open> LAVORAZIONI · 5 ATTIVE (chip orizzontali)
+             5. <details>      NOTTI / 12 (tabella ultime 5)
+             6. <details open> DIFETTI APERTI / 3
+             7. <details>      LAVORAZIONI CONFIG / 4 (slot configurati)
+             8. <details>      ELEMENTI / 2 (lista mini + add)
+             9. <details>      INFO CANTIERE (kv list)
+           ==================================================================== -->
+      
+      <!-- ============================================================
+           1. PAGE HEADER (sticky)
+           back · nome · codice · pill stato · menu ···
+           ============================================================ -->
+      <header class="page-head cant-head">
+        <button type="button" class="back" data-action="back" aria-label="Indietro">‹</button>
+      
+        <div class="cant-head-body">
+          <h1 class="cant-head-name">La Spezia – Arcola</h1>
+          <div class="cant-head-meta">
+            <span class="text-mono cant-head-code">33/26</span>
+            <span class="pill pill-amber cant-head-status">● ATTIVO</span>
+          </div>
+        </div>
+      
+        <div class="actions cant-head-actions">
+          <button type="button"
+                  class="btn-icon cant-menu-trigger"
+                  data-action="open-menu"
+                  aria-haspopup="menu"
+                  aria-expanded="false"
+                  aria-controls="cant-menu"
+                  aria-label="Menu cantiere">···</button>
+        </div>
+      </header>
+      
+      <!-- ============================================================
+           1b. DROPDOWN MENU CANTIERE (overlay con backdrop)
+           Statico in markup, JS lo apre/chiude via [hidden] sul wrapper.
+           ============================================================ -->
+      <div class="cant-menu-wrap" id="cant-menu" role="menu" aria-label="Azioni cantiere" hidden>
+        <div class="cant-menu-backdrop" data-action="close-menu" aria-hidden="true"></div>
+        <div class="cant-menu-panel">
+          <button type="button" class="cant-menu-item" data-action="edit-cantiere" role="menuitem">
+            <span class="cant-menu-ic">✎</span>
+            <span class="cant-menu-lab">MODIFICA</span>
+          </button>
+          <button type="button" class="cant-menu-item" data-action="pause-cantiere" role="menuitem">
+            <span class="cant-menu-ic">‖</span>
+            <span class="cant-menu-lab">PAUSA</span>
+          </button>
+          <button type="button" class="cant-menu-item" data-action="complete-cantiere" role="menuitem">
+            <span class="cant-menu-ic">✓</span>
+            <span class="cant-menu-lab">COMPLETA</span>
+          </button>
+          <button type="button" class="cant-menu-item" data-action="archive-cantiere" role="menuitem">
+            <span class="cant-menu-ic">▣</span>
+            <span class="cant-menu-lab">ARCHIVIA</span>
+          </button>
+          <button type="button"
+                  class="cant-menu-item cant-menu-item-danger"
+                  data-action="delete-cantiere"
+                  data-confirm="double-tap"
+                  role="menuitem">
+            <span class="cant-menu-ic">✕</span>
+            <span class="cant-menu-lab">ELIMINA</span>
+            <span class="cant-menu-hint">DOPPIO TAP</span>
+          </button>
+        </div>
+      </div>
+      
+      <!-- ============================================================
+           2. HERO STASERA (LEARNED #98 — sempre primo dopo page-head)
+           command-style card · grid 4 cell · CTA amber fullwidth
+           ============================================================ -->
+      <div class="sect">▸ STASERA · 22:30 LIVE</div>
+      <div class="cmd-stasera cant-hero">
+        <div class="cmd-line">APRI NOTTE 22:30 · LASPEZIA-ARCOLA</div>
+        <div class="cmd-name">La Spezia – Arcola</div>
+        <div class="cmd-tratta">DISPARI 171→163 · PARI 171→161 · TRATTA SARZ-LASP</div>
+      
+        <div class="cmd-grid">
+          <div class="cmd-cell">
+            <div class="cmd-cell-lab">AVANZ</div>
+            <div class="cmd-cell-val amber">58%</div>
+          </div>
+          <div class="cmd-cell">
+            <div class="cmd-cell-lab">SALD</div>
+            <div class="cmd-cell-val">418</div>
+          </div>
+          <div class="cmd-cell">
+            <div class="cmd-cell-lab">DIFF</div>
+            <div class="cmd-cell-val danger">3</div>
+          </div>
+          <div class="cmd-cell">
+            <div class="cmd-cell-lab">METEO</div>
+            <div class="cmd-cell-val green">3°</div>
+          </div>
+        </div>
+      
+        <button type="button" class="cmd-cta" data-action="open-notte">› APRI NOTTE</button>
+      </div>
+      
+      <!-- ============================================================
+           3. AVANZAMENTO
+           display 58% mono enorme + barre per binario
+           ============================================================ -->
+      <div class="sect sect-q">▸ AVANZAMENTO</div>
+      <div class="cant-progress">
+      
+        <div class="cant-progress-hero">
+          <div class="cant-progress-num">58<span class="cant-progress-pct">%</span></div>
+          <div class="cant-progress-sub">COMPLETATO · 244 / 418 SALD</div>
+        </div>
+      
+        <div class="cant-bin">
+          <div class="cant-bin-head">
+            <span class="cant-bin-name">DISPARI</span>
+            <span class="cant-bin-range text-mono">171 → 163</span>
+            <span class="cant-bin-pct text-amber">60%</span>
+          </div>
+          <div class="cant-bar">
+            <div class="cant-bar-fill" style="width:60%;"></div>
+          </div>
+        </div>
+      
+        <div class="cant-bin">
+          <div class="cant-bin-head">
+            <span class="cant-bin-name">PARI</span>
+            <span class="cant-bin-range text-mono">171 → 161</span>
+            <span class="cant-bin-pct text-amber">56%</span>
+          </div>
+          <div class="cant-bar">
+            <div class="cant-bar-fill" style="width:56%;"></div>
+          </div>
+        </div>
+      
+      </div>
+      
+      <!-- ============================================================
+           4. LAVORAZIONI · 5 ATTIVE (chip orizzontali)
+           Nota: 5 ATTIVE = 5 totali (linea+linea+dev+reg+ricontr).
+           ============================================================ -->
+      <details class="cant-det" open>
+        <summary class="sect sect-q">
+          <span>▸ LAVORAZIONI · 5 ATTIVE</span>
+          <span class="cant-det-caret" aria-hidden="true">▾</span>
+        </summary>
+        <div class="cant-chips">
+          <div class="cant-chip cant-chip-cyan">
+            <div class="cant-chip-lab">LINEA DISP</div>
+            <div class="cant-chip-val text-mono">30/52</div>
+          </div>
+          <div class="cant-chip cant-chip-cyan">
+            <div class="cant-chip-lab">LINEA PARI</div>
+            <div class="cant-chip-val text-mono">30/52</div>
+          </div>
+          <div class="cant-chip cant-chip-amber">
+            <div class="cant-chip-lab">DEVIATOI</div>
+            <div class="cant-chip-val text-mono">4/8</div>
+          </div>
+          <div class="cant-chip cant-chip-green">
+            <div class="cant-chip-lab">REGOLAZIONI</div>
+            <div class="cant-chip-val text-mono">6/12</div>
+          </div>
+          <div class="cant-chip cant-chip-danger">
+            <div class="cant-chip-lab">RICONTROLLO</div>
+            <div class="cant-chip-val text-mono">1/3</div>
+          </div>
+        </div>
+      </details>
+      
+      <!-- ============================================================
+           5. NOTTI / 12 (tabella ultime 5 + bottone "mostra tutte")
+           ============================================================ -->
+      <details class="cant-det">
+        <summary class="sect sect-q">
+          <span>▸ NOTTI / 12</span>
+          <span class="cant-det-caret" aria-hidden="true">▾</span>
+        </summary>
+        <div class="table cant-notti-table">
+          <div class="table-head cant-notti-head">
+            <div>DATA</div>
+            <div>TRATTA</div>
+            <div style="text-align:right;">SALD</div>
+            <div style="text-align:right;">DIFF</div>
+            <div style="text-align:center;">ST</div>
+          </div>
+      
+          <button type="button" class="row cant-notti-row" data-action="open-notte-detail" data-night="2026-04-30">
+            <div class="text-mono cant-notti-date">30/04</div>
+            <div class="cant-notti-tratta">DISP 168→165</div>
+            <div class="col-num">42</div>
+            <div class="col-num danger">1</div>
+            <div class="cant-notti-st"><span class="pill pill-green">OK</span></div>
+          </button>
+      
+          <button type="button" class="row cant-notti-row" data-action="open-notte-detail" data-night="2026-04-29">
+            <div class="text-mono cant-notti-date">29/04</div>
+            <div class="cant-notti-tratta">PARI 169→167</div>
+            <div class="col-num">38</div>
+            <div class="col-num">0</div>
+            <div class="cant-notti-st"><span class="pill pill-green">OK</span></div>
+          </button>
+      
+          <button type="button" class="row cant-notti-row" data-action="open-notte-detail" data-night="2026-04-28">
+            <div class="text-mono cant-notti-date">28/04</div>
+            <div class="cant-notti-tratta">DISP 170→168</div>
+            <div class="col-num">36</div>
+            <div class="col-num danger">2</div>
+            <div class="cant-notti-st"><span class="pill pill-warn">DIFF</span></div>
+          </button>
+      
+          <button type="button" class="row cant-notti-row" data-action="open-notte-detail" data-night="2026-04-27">
+            <div class="text-mono cant-notti-date">27/04</div>
+            <div class="cant-notti-tratta">PARI 170→169</div>
+            <div class="col-num">29</div>
+            <div class="col-num">0</div>
+            <div class="cant-notti-st"><span class="pill pill-green">OK</span></div>
+          </button>
+      
+          <button type="button" class="row cant-notti-row" data-action="open-notte-detail" data-night="2026-04-26">
+            <div class="text-mono cant-notti-date">26/04</div>
+            <div class="cant-notti-tratta">DEV · POSA 5</div>
+            <div class="col-num">18</div>
+            <div class="col-num">0</div>
+            <div class="cant-notti-st"><span class="pill pill-green">OK</span></div>
+          </button>
+        </div>
+      
+        <button type="button" class="btn-ghost btn-block cant-notti-more" data-action="show-all-nights">
+          ▸ MOSTRA TUTTE (12)
+        </button>
+      </details>
+      
+      <!-- ============================================================
+           6. DIFETTI APERTI / 3
+           dot rosso · km mono · pill DISP/PARI · codice difetto pill
+           · indicator scheda ✓ verde / "—" muted
+           Tap riga = apri scheda I.1
+           ============================================================ -->
+      <details class="cant-det" open>
+        <summary class="sect sect-q">
+          <span>▸ DIFETTI APERTI / 3</span>
+          <span class="cant-det-caret" aria-hidden="true">▾</span>
+        </summary>
+        <div class="table cant-diff-table">
+          <div class="table-head cant-diff-head">
+            <div></div>
+            <div>KM</div>
+            <div>BIN</div>
+            <div>COD</div>
+            <div style="text-align:center;">SCHEDA</div>
+          </div>
+      
+          <button type="button" class="row cant-diff-row" data-action="open-scheda" data-diff="d-001">
+            <div class="row-dot danger"></div>
+            <div class="text-mono cant-diff-km">165+700</div>
+            <div><span class="pill pill-mute">DISP</span></div>
+            <div><span class="pill pill-danger">211</span></div>
+            <div class="cant-diff-scheda text-green">✓</div>
+          </button>
+      
+          <button type="button" class="row cant-diff-row" data-action="open-scheda" data-diff="d-002">
+            <div class="row-dot danger"></div>
+            <div class="text-mono cant-diff-km">167+340</div>
+            <div><span class="pill pill-mute">PARI</span></div>
+            <div><span class="pill pill-danger">113</span></div>
+            <div class="cant-diff-scheda text-green">✓</div>
+          </button>
+      
+          <button type="button" class="row cant-diff-row" data-action="open-scheda" data-diff="d-003">
+            <div class="row-dot danger"></div>
+            <div class="text-mono cant-diff-km">168+910</div>
+            <div><span class="pill pill-mute">DISP</span></div>
+            <div><span class="pill pill-danger">121</span></div>
+            <div class="cant-diff-scheda text-muted">—</div>
+          </button>
+        </div>
+      </details>
+      
+      <!-- ============================================================
+           7. LAVORAZIONI CONFIG / 4
+           4 righe slot configurati con bottone edit (matita) doppio-tap
+           ============================================================ -->
+      <details class="cant-det">
+        <summary class="sect sect-q">
+          <span>▸ LAVORAZIONI CONFIG / 4</span>
+          <span class="cant-det-caret" aria-hidden="true">▾</span>
+        </summary>
+        <div class="table cant-conf-table">
+      
+          <div class="row cant-conf-row">
+            <div class="row-dot"></div>
+            <div>
+              <div class="row-name">Linea Dispari</div>
+              <div class="row-codice">SLOT 50 · 30 USATI</div>
+            </div>
+            <div class="col-num text-mono">50</div>
+            <div class="cant-conf-actions">
+              <button type="button"
+                      class="btn-icon cant-conf-edit"
+                      data-action="edit-lavorazione"
+                      data-confirm="double-tap"
+                      data-lav="linea-disp"
+                      aria-label="Modifica Linea Dispari (doppio tap)">✎</button>
+            </div>
+          </div>
+      
+          <div class="row cant-conf-row">
+            <div class="row-dot"></div>
+            <div>
+              <div class="row-name">Linea Pari</div>
+              <div class="row-codice">SLOT 48 · 30 USATI</div>
+            </div>
+            <div class="col-num text-mono">48</div>
+            <div class="cant-conf-actions">
+              <button type="button"
+                      class="btn-icon cant-conf-edit"
+                      data-action="edit-lavorazione"
+                      data-confirm="double-tap"
+                      data-lav="linea-pari"
+                      aria-label="Modifica Linea Pari (doppio tap)">✎</button>
+            </div>
+          </div>
+      
+          <div class="row cant-conf-row">
+            <div class="row-dot warn"></div>
+            <div>
+              <div class="row-name">Deviatoi</div>
+              <div class="row-codice">SLOT 8 · 4 USATI</div>
+            </div>
+            <div class="col-num text-mono">8</div>
+            <div class="cant-conf-actions">
+              <button type="button"
+                      class="btn-icon cant-conf-edit"
+                      data-action="edit-lavorazione"
+                      data-confirm="double-tap"
+                      data-lav="deviatoi"
+                      aria-label="Modifica Deviatoi (doppio tap)">✎</button>
+            </div>
+          </div>
+      
+          <div class="row cant-conf-row">
+            <div class="row-dot danger"></div>
+            <div>
+              <div class="row-name">Ricontrollo</div>
+              <div class="row-codice">SLOT 3 · 1 USATO</div>
+            </div>
+            <div class="col-num text-mono">3</div>
+            <div class="cant-conf-actions">
+              <button type="button"
+                      class="btn-icon cant-conf-edit"
+                      data-action="edit-lavorazione"
+                      data-confirm="double-tap"
+                      data-lav="ricontrollo"
+                      aria-label="Modifica Ricontrollo (doppio tap)">✎</button>
+            </div>
+          </div>
+      
+        </div>
+      </details>
+      
+      <!-- ============================================================
+           8. ELEMENTI / 2 (lista mini + add)
+           ============================================================ -->
+      <details class="cant-det">
+        <summary class="sect sect-q">
+          <span>▸ ELEMENTI / 2</span>
+          <span class="cant-det-caret" aria-hidden="true">▾</span>
+        </summary>
+        <div class="table cant-elem-table">
+          <div class="table-head cant-elem-head">
+            <div></div>
+            <div>KM</div>
+            <div>LATO</div>
+            <div>TIPO</div>
+            <div style="text-align:center;">ST</div>
+          </div>
+      
+          <button type="button" class="row cant-elem-row" data-action="open-elemento" data-el="e-001">
+            <div class="row-dot"></div>
+            <div class="text-mono">168+200</div>
+            <div><span class="pill pill-mute">DX</span></div>
+            <div class="row-name cant-elem-tipo">Regolazione</div>
+            <div class="cant-elem-st text-green">✓</div>
+          </button>
+      
+          <button type="button" class="row cant-elem-row" data-action="open-elemento" data-el="e-002">
+            <div class="row-dot warn"></div>
+            <div class="text-mono">169+450</div>
+            <div><span class="pill pill-mute">SX</span></div>
+            <div class="row-name cant-elem-tipo">Deviatoio</div>
+            <div class="cant-elem-st text-danger">✗</div>
+          </button>
+        </div>
+      
+        <button type="button" class="btn-secondary btn-block cant-elem-add" data-action="add-elemento">
+          + AGGIUNGI ELEMENTO
+        </button>
+      </details>
+      
+      <!-- ============================================================
+           9. INFO CANTIERE (kv list mono + toggle Urgente)
+           ============================================================ -->
+      <details class="cant-det">
+        <summary class="sect sect-q">
+          <span>▸ INFO CANTIERE</span>
+          <span class="cant-det-caret" aria-hidden="true">▾</span>
+        </summary>
+        <div class="kv cant-info-kv">
+      
+          <div class="kv-row">
+            <div class="k">TRATTA</div>
+            <div class="v">SARZ – LASP</div>
+          </div>
+      
+          <div class="kv-row">
+            <div class="k">DEADLINE</div>
+            <div class="v text-warn">15/04/26 · SCADUTA 17g</div>
+          </div>
+      
+          <div class="kv-row">
+            <div class="k">ORARIO</div>
+            <div class="v text-mono">22:30 → 05:00</div>
+          </div>
+      
+          <div class="kv-row">
+            <div class="k">TIPO</div>
+            <div class="v">CONTROLLO ULTRASUONI</div>
+          </div>
+      
+          <div class="kv-row">
+            <div class="k">CODICE</div>
+            <div class="v text-mono">33/26</div>
+          </div>
+      
+          <div class="kv-row">
+            <div class="k">URGENTE</div>
+            <div class="v">
+              <label class="toggle cant-info-toggle">
+                <input type="checkbox" data-action="toggle-urgente" checked>
+                <span class="toggle-track" aria-hidden="true"></span>
+                <span class="toggle-label">SI</span>
+              </label>
+            </div>
+          </div>
+      
+        </div>
+      </details>
+      
+      
+      <!-- ====================================================================
+           NEED_CLASS LIST
+           Le seguenti classi NON esistono in style.css scaffold e vanno aggiunte.
+           Tutte le altre classi usate sono già definite nello scaffold:
+             page-head, back, btn-icon, sect, sect-q,
+             cmd-stasera, cmd-line, cmd-name, cmd-tratta, cmd-grid, cmd-cell,
+               cmd-cell-lab, cmd-cell-val (.amber/.green/.danger), cmd-cta,
+             table, table-head, row, row-dot (.warn/.danger/.zero),
+               row-name, row-codice, col-num (.amber/.warn/.danger),
+             pill (pill-amber/-green/-warn/-danger/-mute),
+             kv, kv-row (.k/.v),
+             toggle, toggle-track, toggle-label,
+             btn-ghost, btn-secondary, btn-block,
+             text-mono, text-amber, text-green, text-warn, text-danger, text-muted
+           ==================================================================== -->
+      
+      <!-- NEED_CLASS: cant-head — variante .page-head con grid a 3 colonne fisse:
+           grid-template-columns: 36px 1fr auto; gap: var(--sp-2);
+           align-items: center;
+           (override del flex base di .page-head per evitare overflow del nome lungo) -->
+      
+      <!-- NEED_CLASS: cant-head-body — wrapper flex column col nome + meta:
+           display: flex; flex-direction: column; min-width: 0;
+           .cant-head-body h1 { white-space: nowrap; overflow: hidden;
+             text-overflow: ellipsis; font-size: var(--fs-lg); } -->
+      
+      <!-- NEED_CLASS: cant-head-name — eredita da .page-head h1 ma più compatto:
+           font-family: var(--ff-display); font-size: 15px; font-weight: 700;
+           color: var(--text-primary); line-height: 1.15; -->
+      
+      <!-- NEED_CLASS: cant-head-meta — riga sotto il nome con codice + pill:
+           display: flex; align-items: center; gap: 6px; margin-top: 2px; -->
+      
+      <!-- NEED_CLASS: cant-head-code — codice mono 33/26:
+           font-family: var(--ff-mono); font-size: var(--fs-xxs);
+           color: var(--text-muted); letter-spacing: var(--ls-wide); -->
+      
+      <!-- NEED_CLASS: cant-head-status — pill stato compatta (override pill base):
+           padding: 1px 6px; font-size: 9px; -->
+      
+      <!-- NEED_CLASS: cant-head-actions — già flex via .actions; nessuno style extra.
+           Hook semantico per JS. -->
+      
+      <!-- NEED_CLASS: cant-menu-trigger — bottone "···":
+           font-size: var(--fs-lg); letter-spacing: 0.2em;
+           line-height: 0.5; padding-bottom: 8px; (allinea i punti)
+           [aria-expanded="true"] { background: var(--accent-amber-soft);
+             color: var(--accent-amber); border-color: var(--accent-amber); } -->
+      
+      <!-- NEED_CLASS: cant-menu-wrap — overlay container fixed:
+           position: fixed; inset: 0; z-index: 200;
+           display: flex; align-items: flex-start; justify-content: flex-end;
+           padding: 56px 8px 0 0; (allineato sotto page-head)
+           [hidden] { display: none !important; } -->
+      
+      <!-- NEED_CLASS: cant-menu-backdrop — backdrop opaco terminal:
+           position: absolute; inset: 0; background: var(--bg-overlay);
+           /* niente blur */ z-index: 0; -->
+      
+      <!-- NEED_CLASS: cant-menu-panel — pannello dropdown:
+           position: relative; z-index: 1;
+           min-width: 200px;
+           background: var(--bg-surface-elev);
+           border: 1px solid var(--accent-amber);
+           box-shadow: 0 0 0 1px var(--accent-amber-soft);
+           display: flex; flex-direction: column; -->
+      
+      <!-- NEED_CLASS: cant-menu-item — voce menu touch 48px:
+           display: grid; grid-template-columns: 24px 1fr auto; gap: 10px;
+           align-items: center;
+           min-height: var(--tt);
+           padding: 12px var(--sp-3);
+           border: 0; border-bottom: 1px solid var(--border-subtle);
+           background: transparent;
+           color: var(--text-primary);
+           font-family: var(--ff-mono); font-size: var(--fs-sm);
+           font-weight: 700; letter-spacing: var(--ls-wide);
+           text-transform: uppercase; text-align: left;
+           cursor: pointer;
+           :last-child { border-bottom: 0; }
+           :active { background: var(--accent-amber-soft); color: var(--accent-amber); } -->
+      
+      <!-- NEED_CLASS: cant-menu-item-danger — variante delete:
+           color: var(--color-danger);
+           :active { background: rgba(239,68,68,0.10); color: var(--color-danger); } -->
+      
+      <!-- NEED_CLASS: cant-menu-ic — ic mono 14px center:
+           font-family: var(--ff-mono); font-size: var(--fs-lg);
+           color: var(--accent-amber); text-align: center;
+           .cant-menu-item-danger & { color: var(--color-danger); } -->
+      
+      <!-- NEED_CLASS: cant-menu-lab — etichetta voce (default styling già su .item) -->
+      
+      <!-- NEED_CLASS: cant-menu-hint — hint "DOPPIO TAP":
+           font-family: var(--ff-mono); font-size: 9px;
+           color: var(--text-muted); letter-spacing: var(--ls-wide);
+           font-weight: 700; text-transform: uppercase; -->
+      
+      <!-- NEED_CLASS: cant-hero — variante .cmd-stasera per vista cantiere,
+           opzionale sticky-top sotto page-head (LEARNED #98):
+           position: sticky; top: 48px; z-index: 5;
+           /* In viewport stretto cantiere il top page-head è ~48px */
+           /* Se sticky risulta pesante a scroll, lasciare statico */ -->
+      
+      <!-- NEED_CLASS: cant-progress — wrapper sezione avanzamento:
+           background: var(--bg-secondary);
+           border: 1px solid var(--border-default); border-top: none;
+           padding: var(--sp-3) var(--sp-2); -->
+      
+      <!-- NEED_CLASS: cant-progress-hero — display 58% mono enorme:
+           display: flex; align-items: baseline; gap: var(--sp-2);
+           padding-bottom: var(--sp-3);
+           border-bottom: 1px solid var(--border-subtle);
+           margin-bottom: var(--sp-3); -->
+      
+      <!-- NEED_CLASS: cant-progress-num — numero gigante:
+           font-family: var(--ff-mono); font-size: 32px; font-weight: 700;
+           color: var(--accent-amber); line-height: 1;
+           font-feature-settings: 'tnum' 1; letter-spacing: -0.02em; -->
+      
+      <!-- NEED_CLASS: cant-progress-pct — simbolo % più piccolo:
+           font-size: 18px; color: var(--accent-amber);
+           margin-left: 2px; -->
+      
+      <!-- NEED_CLASS: cant-progress-sub — sotto-etichetta:
+           font-family: var(--ff-mono); font-size: var(--fs-xxs);
+           color: var(--text-muted); letter-spacing: var(--ls-wide);
+           text-transform: uppercase; font-weight: 700;
+           margin-left: auto; -->
+      
+      <!-- NEED_CLASS: cant-bin — gruppo binario (head + barra):
+           margin-bottom: var(--sp-2);
+           :last-child { margin-bottom: 0; } -->
+      
+      <!-- NEED_CLASS: cant-bin-head — riga etichetta binario:
+           display: grid;
+           grid-template-columns: auto 1fr auto;
+           gap: var(--sp-2);
+           align-items: baseline;
+           margin-bottom: 4px; -->
+      
+      <!-- NEED_CLASS: cant-bin-name — nome binario mono amber:
+           font-family: var(--ff-mono); font-size: var(--fs-sm);
+           color: var(--accent-amber); font-weight: 700;
+           letter-spacing: var(--ls-wide); text-transform: uppercase; -->
+      
+      <!-- NEED_CLASS: cant-bin-range — range km mono muted:
+           font-size: var(--fs-xxs); color: var(--text-muted);
+           letter-spacing: var(--ls-base); -->
+      
+      <!-- NEED_CLASS: cant-bin-pct — percentuale a destra mono:
+           font-family: var(--ff-mono); font-size: var(--fs-md);
+           font-weight: 700; font-feature-settings: 'tnum' 1; -->
+      
+      <!-- NEED_CLASS: cant-bar — track barra avanzamento:
+           height: 8px;
+           background: var(--bg-surface);
+           border: 1px solid var(--border-default);
+           position: relative; overflow: hidden; -->
+      
+      <!-- NEED_CLASS: cant-bar-fill — fill amber (default) o green se >=80%:
+           height: 100%;
+           background: var(--accent-amber);
+           transition: width 240ms ease-out;
+           /* JS può aggiungere .green se 100% completato */ -->
+      
+      <!-- NEED_CLASS: cant-det — wrapper <details> sezione, evita default browser:
+           border: 0;
+           background: transparent;
+           summary { cursor: pointer; list-style: none; }
+           summary::-webkit-details-marker { display: none; }
+           /* default summary uses .sect/.sect-q come background */
+           [open] > summary .cant-det-caret { transform: rotate(0deg); }
+           /* caret close: rotate(-90deg) */ -->
+      
+      <!-- NEED_CLASS: cant-det-caret — freccia ▾:
+           font-size: var(--fs-xs); color: inherit;
+           transition: transform 120ms ease-out;
+           transform: rotate(-90deg); /* default chiuso */
+           [open] & { transform: rotate(0deg); }
+           /* fallback: in summary di sect-q ereditare color amber */ -->
+      
+      <!-- NEED_CLASS: cant-chips — griglia chip lavorazioni:
+           display: grid;
+           grid-template-columns: repeat(2, 1fr);
+           gap: 1px;
+           background: var(--border-default);
+           border: 1px solid var(--border-default);
+           border-top: 0;
+           /* 5 chip su 2 col → ultima full-width */
+           > .cant-chip:last-child { grid-column: 1 / -1; } -->
+      
+      <!-- NEED_CLASS: cant-chip — singolo chip lavorazione:
+           background: var(--bg-secondary);
+           padding: 8px var(--sp-2);
+           min-height: 52px;
+           display: flex; flex-direction: column; justify-content: center;
+           border-left: 3px solid transparent; -->
+      
+      <!-- NEED_CLASS: cant-chip-cyan — chip linea (uso teal/success per coerenza):
+           border-left-color: var(--color-success);
+           .cant-chip-val { color: var(--color-success); } -->
+      
+      <!-- NEED_CLASS: cant-chip-amber — chip deviatoi:
+           border-left-color: var(--accent-amber);
+           .cant-chip-val { color: var(--accent-amber); } -->
+      
+      <!-- NEED_CLASS: cant-chip-green — chip regolazioni:
+           border-left-color: var(--color-success-alt);
+           .cant-chip-val { color: var(--color-success-alt); } -->
+      
+      <!-- NEED_CLASS: cant-chip-danger — chip ricontrollo:
+           border-left-color: var(--color-danger);
+           .cant-chip-val { color: var(--color-danger); } -->
+      
+      <!-- NEED_CLASS: cant-chip-lab — etichetta chip:
+           font-family: var(--ff-mono); font-size: var(--fs-xxs);
+           color: var(--text-secondary); letter-spacing: var(--ls-wide);
+           text-transform: uppercase; font-weight: 700; -->
+      
+      <!-- NEED_CLASS: cant-chip-val — valore chip mono grosso:
+           font-family: var(--ff-mono); font-size: var(--fs-lg);
+           font-weight: 700; margin-top: 2px;
+           font-feature-settings: 'tnum' 1; -->
+      
+      <!-- NEED_CLASS: cant-notti-table — variante .table per notti:
+           grid template per .table-head e .row:
+             grid-template-columns: 48px 1fr 50px 40px 56px;
+           applicare anche su .cant-notti-head e .cant-notti-row -->
+      
+      <!-- NEED_CLASS: cant-notti-head — eredita .table-head ma override grid -->
+      <!-- NEED_CLASS: cant-notti-row — eredita .row ma override grid -->
+      
+      <!-- NEED_CLASS: cant-notti-date — data mono 30/04:
+           font-family: var(--ff-mono); font-size: var(--fs-md);
+           color: var(--text-primary); font-weight: 700;
+           font-feature-settings: 'tnum' 1; -->
+      
+      <!-- NEED_CLASS: cant-notti-tratta — descrizione tratta inline:
+           font-family: var(--ff-mono); font-size: var(--fs-xs);
+           color: var(--text-secondary); letter-spacing: var(--ls-base); -->
+      
+      <!-- NEED_CLASS: cant-notti-st — wrapper centratura pill stato:
+           display: flex; justify-content: center; -->
+      
+      <!-- NEED_CLASS: cant-notti-more — bottone "MOSTRA TUTTE (12)":
+           border-top: 0; /* per attaccarsi sotto .table */
+           font-size: var(--fs-xs); -->
+      
+      <!-- NEED_CLASS: cant-diff-table — variante .table per difetti:
+           grid template per .table-head e .row:
+             grid-template-columns: 8px 80px 50px 50px 56px;
+           gap: 6px; -->
+      
+      <!-- NEED_CLASS: cant-diff-head — eredita .table-head, override grid -->
+      <!-- NEED_CLASS: cant-diff-row — eredita .row, override grid -->
+      
+      <!-- NEED_CLASS: cant-diff-km — km mono:
+           font-family: var(--ff-mono); font-size: var(--fs-md);
+           color: var(--text-primary); font-weight: 700;
+           font-feature-settings: 'tnum' 1; -->
+      
+      <!-- NEED_CLASS: cant-diff-scheda — indicator scheda center:
+           text-align: center; font-family: var(--ff-mono);
+           font-size: var(--fs-md); font-weight: 700; -->
+      
+      <!-- NEED_CLASS: cant-conf-table — variante .table per config:
+           grid template per .row:
+             grid-template-columns: 8px 1fr 48px 48px;
+           gap: 6px; -->
+      
+      <!-- NEED_CLASS: cant-conf-row — eredita .row, override grid;
+           non clickable globalmente, solo il bottone edit è interattivo;
+           :active no highlight (override .row:active) -->
+      
+      <!-- NEED_CLASS: cant-conf-actions — wrapper bottone edit:
+           display: flex; justify-content: flex-end;
+           /* il btn-icon dentro è 48x48 → soddisfa touch target */ -->
+      
+      <!-- NEED_CLASS: cant-conf-edit — variante .btn-icon per edit:
+           width: 40px; height: 40px;
+           /* ridotto leggermente, ma il padding wrapper 8px su .row mantiene 48px tap area effettiva */
+           [data-confirm="double-tap"]&[data-armed="true"] {
+             background: var(--color-danger); color: #FFF; border-color: var(--color-danger);
+           }
+           /* JS arma il bottone al primo tap, esegue al secondo entro 1.2s */ -->
+      
+      <!-- NEED_CLASS: cant-elem-table — variante .table per elementi:
+           grid template:
+             grid-template-columns: 8px 80px 48px 1fr 32px;
+           gap: 6px; -->
+      
+      <!-- NEED_CLASS: cant-elem-head — eredita .table-head, override grid -->
+      <!-- NEED_CLASS: cant-elem-row — eredita .row, override grid -->
+      
+      <!-- NEED_CLASS: cant-elem-tipo — nome tipo elemento (eredita .row-name) -->
+      
+      <!-- NEED_CLASS: cant-elem-st — status icon center:
+           text-align: center; font-family: var(--ff-mono);
+           font-size: var(--fs-md); font-weight: 700; -->
+      
+      <!-- NEED_CLASS: cant-elem-add — bottone aggiungi elemento:
+           border-top: 0; margin-top: -1px;
+           /* attaccato sotto .table */ -->
+      
+      <!-- NEED_CLASS: cant-info-kv — variante .kv per info cantiere,
+           no style override richiesto, hook semantico per overrides futuri -->
+      
+      <!-- NEED_CLASS: cant-info-toggle — variante .toggle inline:
+           min-height: 32px; /* ridotto dentro kv-row che è già 44px+ */
+           /* in alternativa lasciare default toggle 48px e accettare aumento riga */ -->
+    </section>
+
+    <!-- =====================================================================
+         SCREEN 4 · FORM CANTIERE (creazione/edit)
+         ===================================================================== -->
+    <section class="screen" data-screen="form-cantiere" aria-label="Nuovo cantiere" hidden>
+      <!-- =====================================================================
+           SCREEN 4 · FORM CANTIERE (creazione / edit)
+           Concept D — Operations Terminal
+           Stepwise 4 step (Info / Binari / Lavorazioni / Riepilogo)
+           ===================================================================== -->
+      
+      <!-- ─────────────────────────────────────────────────────────────────────
+           PAGE HEADER · back + titolo + step indicator
+           ───────────────────────────────────────────────────────────────────── -->
+      <header class="page-head">
+        <button class="back" type="button" data-action="back" aria-label="Indietro">‹</button>
+        <div style="flex:1;">
+          <h1 class="text-amber uc">▸ NUOVO CANTIERE</h1>
+          <div class="h-sub">STEP 2 / 4 · BINARI</div>
+        </div>
+        <!-- NEED_CLASS: .step-dots / .step-dot / .step-dot.active -->
+        <div class="step-dots" role="tablist" aria-label="Avanzamento step">
+          <span class="step-dot done" aria-current="false">●</span>
+          <span class="step-dot active" aria-current="step">●</span>
+          <span class="step-dot" aria-current="false">○</span>
+          <span class="step-dot" aria-current="false">○</span>
+        </div>
+      </header>
+      
+      <form id="form-cantiere" class="form-cantiere" autocomplete="off" novalidate>
+      
+        <!-- =====================================================================
+             STEP 1 · INFO BASE   (hidden)
+             ===================================================================== -->
+        <fieldset class="form-step" data-step="1" hidden>
+          <legend class="sect"><span>▸ STEP 1 · INFO BASE</span></legend>
+      
+          <div class="form-group">
+            <label class="label" for="f-nome">NOME CANTIERE <span class="req">*</span></label>
+            <input class="input" id="f-nome" name="nome" type="text"
+                   value="Bologna - Modena"
+                   placeholder="ES. LA SPEZIA – ARCOLA"
+                   style="font-size:16px;">
+          </div>
+      
+          <div class="input-row">
+            <div class="form-group">
+              <label class="label" for="f-codice">
+                CODICE M2
+                <span class="hint">es. 33/26</span>
+              </label>
+              <input class="input" id="f-codice" name="codice" type="text"
+                     value="47/26"
+                     inputmode="numeric"
+                     pattern="\d+/\d{2}"
+                     placeholder="00/00"
+                     style="font-size:16px;">
+            </div>
+            <div class="form-group">
+              <label class="label" for="f-tratta">TRATTA</label>
+              <input class="input" id="f-tratta" name="tratta" type="text"
+                     value="BO-MO"
+                     placeholder="ES. BO-MO"
+                     style="font-size:16px;">
+            </div>
+          </div>
+      
+          <div class="form-group">
+            <label class="label" for="f-data-fine">DATA FINE <span class="req">*</span></label>
+            <input class="input" id="f-data-fine" name="data_fine" type="date"
+                   value="2026-06-30"
+                   style="font-size:16px;">
+          </div>
+      
+          <div class="form-group">
+            <span class="label">TIPO</span>
+            <!-- pill group amber -->
+            <div class="segmented" role="radiogroup" aria-label="Tipo cantiere">
+              <button type="button" class="active" role="radio" aria-checked="true"  data-value="notturno">NOTTURNO</button>
+              <button type="button"                role="radio" aria-checked="false" data-value="diurno">DIURNO</button>
+            </div>
+          </div>
+      
+          <div class="form-group">
+            <label class="toggle" for="f-urgente">
+              <input type="checkbox" id="f-urgente" name="urgente">
+              <span class="toggle-track" aria-hidden="true"></span>
+              <span class="toggle-label">URGENTE</span>
+            </label>
+          </div>
+      
+          <div class="form-group">
+            <span class="label">GIORNI ATTIVI</span>
+            <!-- NEED_CLASS: .day-circles / .day-circle / .day-circle.active -->
+            <div class="day-circles" role="group" aria-label="Giorni della settimana attivi">
+              <button type="button" class="day-circle"        aria-pressed="false" data-day="0">D</button>
+              <button type="button" class="day-circle active" aria-pressed="true"  data-day="1">L</button>
+              <button type="button" class="day-circle active" aria-pressed="true"  data-day="2">M</button>
+              <button type="button" class="day-circle active" aria-pressed="true"  data-day="3">M</button>
+              <button type="button" class="day-circle active" aria-pressed="true"  data-day="4">G</button>
+              <button type="button" class="day-circle active" aria-pressed="true"  data-day="5">V</button>
+              <button type="button" class="day-circle"        aria-pressed="false" data-day="6">S</button>
+            </div>
+          </div>
+        </fieldset>
+      
+        <!-- =====================================================================
+             STEP 2 · BINARI   (visibile)
+             ===================================================================== -->
+        <fieldset class="form-step" data-step="2">
+          <legend class="sect"><span>▸ STEP 2 · BINARI</span></legend>
+      
+          <!-- Lista binari aggiunti -->
+          <div class="table">
+            <div class="table-head" style="grid-template-columns: 8px 80px 1fr 88px;">
+              <div></div>
+              <div>TIPO</div>
+              <div>RANGE KM</div>
+              <div class="right">AZIONE</div>
+            </div>
+      
+            <!-- NEED_CLASS: .binario-row (estende .row con grid 4 col) -->
+            <div class="row binario-row" style="grid-template-columns: 8px 80px 1fr 88px;">
+              <div class="row-dot"></div>
+              <div class="text-mono text-amber" style="font-weight:700; letter-spacing:0.08em;">DISPARI</div>
+              <div class="text-mono text-primary">171+000 → 163+000</div>
+              <div class="right" style="display:flex; gap:4px; justify-content:flex-end;">
+                <button type="button" class="btn-icon" data-action="binario-edit"   data-id="1" aria-label="Modifica binario">✎</button>
+                <button type="button" class="btn-icon" data-action="binario-remove" data-id="1" aria-label="Rimuovi binario">×</button>
+              </div>
+            </div>
+      
+            <div class="row binario-row" style="grid-template-columns: 8px 80px 1fr 88px;">
+              <div class="row-dot"></div>
+              <div class="text-mono text-amber" style="font-weight:700; letter-spacing:0.08em;">PARI</div>
+              <div class="text-mono text-primary">171+000 → 161+000</div>
+              <div class="right" style="display:flex; gap:4px; justify-content:flex-end;">
+                <button type="button" class="btn-icon" data-action="binario-edit"   data-id="2" aria-label="Modifica binario">✎</button>
+                <button type="button" class="btn-icon" data-action="binario-remove" data-id="2" aria-label="Rimuovi binario">×</button>
+              </div>
+            </div>
+          </div>
+      
+          <!-- Mini-form inline aggiungi binario -->
+          <!-- NEED_CLASS: .binario-form (card inline aperta sotto la lista) -->
+          <div class="binario-form" style="margin-top:8px; background:#0A0A0A; border:1px solid #2D2D2D; padding:8px;">
+            <div class="divider-label" style="margin-top:0;">▸ AGGIUNGI BINARIO</div>
+      
+            <div class="form-group">
+              <span class="label">TIPO</span>
+              <div class="segmented" role="radiogroup" aria-label="Tipo binario">
+                <button type="button" class="active" role="radio" aria-checked="true"  data-value="dispari">DISPARI</button>
+                <button type="button"                role="radio" aria-checked="false" data-value="pari">PARI</button>
+                <button type="button"                role="radio" aria-checked="false" data-value="unico">UNICO</button>
+                <button type="button"                role="radio" aria-checked="false" data-value="interconnessione">INTERC.</button>
+              </div>
+            </div>
+      
+            <div class="input-row">
+              <div class="form-group">
+                <label class="label" for="f-km-da">KM DA</label>
+                <input class="input text-mono" id="f-km-da" name="km_da" type="text"
+                       inputmode="numeric"
+                       pattern="\d+\+\d{3}"
+                       placeholder="000+000"
+                       style="font-size:16px;">
+              </div>
+              <div class="form-group">
+                <label class="label" for="f-km-a">KM A</label>
+                <input class="input text-mono" id="f-km-a" name="km_a" type="text"
+                       inputmode="numeric"
+                       pattern="\d+\+\d{3}"
+                       placeholder="000+000"
+                       style="font-size:16px;">
+              </div>
+            </div>
+      
+            <div class="text-muted text-xs uc" style="margin-top:-4px; margin-bottom:8px;">
+              ▸ KM IN ORDINE REALE DEL LAVORO
+            </div>
+      
+            <div class="btn-row" style="margin-top:0;">
+              <button type="button" class="btn-ghost"   data-action="binario-cancel">ANNULLA</button>
+              <button type="button" class="btn-primary" data-action="binario-add">AGGIUNGI</button>
+            </div>
+          </div>
+        </fieldset>
+      
+        <!-- =====================================================================
+             STEP 3 · LAVORAZIONI   (hidden)
+             ===================================================================== -->
+        <fieldset class="form-step" data-step="3" hidden>
+          <legend class="sect"><span>▸ STEP 3 · LAVORAZIONI</span></legend>
+          <!-- placeholder -->
+          <div class="text-muted text-xs uc" style="padding:16px 8px;">
+            ▸ DA DEFINIRE
+          </div>
+        </fieldset>
+      
+        <!-- =====================================================================
+             STEP 4 · RIEPILOGO   (hidden)
+             ===================================================================== -->
+        <fieldset class="form-step" data-step="4" hidden>
+          <legend class="sect"><span>▸ STEP 4 · RIEPILOGO</span></legend>
+          <!-- placeholder -->
+          <div class="text-muted text-xs uc" style="padding:16px 8px;">
+            ▸ DA DEFINIRE
+          </div>
+        </fieldset>
+      
+      </form>
+      
+      <!-- ─────────────────────────────────────────────────────────────────────
+           STICKY BOTTOM CTA · INDIETRO / AVANTI
+           NEED_CLASS: .form-foot (barra sticky bottom, sopra .nav)
+           ───────────────────────────────────────────────────────────────────── -->
+      <div class="form-foot" role="group" aria-label="Navigazione step"
+           style="position:fixed; left:0; right:0; bottom:56px; z-index:40;
+                  max-width:420px; margin:0 auto;
+                  background:#0F0F0F; border-top:1px solid #2D2D2D;
+                  padding:8px; display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+        <button type="button" class="btn-ghost"   data-action="step-prev">‹ INDIETRO</button>
+        <button type="button" class="btn-primary" data-action="step-next">AVANTI →</button>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         SCREEN 5 · NOTTE (sessione live)
+         ===================================================================== -->
+    <section class="screen" data-screen="notte" aria-label="Sessione notte" hidden>
+      <!-- =====================================================================
+           SCREEN 5 · NOTTE (sessione live)
+           Concept D — Operations Terminal
+           Editor centrale = PLACEHOLDER STATICO (LEARNED #221, #260)
+           ===================================================================== -->
+      
+      <!-- ─────────────────────────────────────────────────────────────────────
+           HEADER STICKY · 2 righe
+           ───────────────────────────────────────────────────────────────────── -->
+      <header class="page-head night-head">
+        <div class="night-head-row">
+          <button class="back" type="button" data-action="back" aria-label="Indietro">‹</button>
+          <div class="flex-1">
+            <h1>La Spezia – Arcola</h1>
+            <div class="h-sub text-mono">13→14 APR 2026</div>
+          </div>
+          <div class="actions">
+            <span class="night-save-dot text-green" aria-live="polite" title="Salvato">● SAVED</span>
+            <button class="btn-icon night-menu-btn" type="button" data-action="open-menu" aria-label="Menu">…</button>
+          </div>
+        </div>
+        <div class="night-head-row night-head-row-2">
+          <button class="pill pill-amber night-binario-pill" type="button" data-action="toggle-binario" aria-label="Cambia binario">
+            <span class="text-amber">DISPARI</span>
+            <span class="text-muted"> ⇄</span>
+          </button>
+          <span class="night-elapsed text-mono text-muted">▸ EDITING · 14:23 elapsed</span>
+        </div>
+      </header>
+      
+      <!-- ─────────────────────────────────────────────────────────────────────
+           COUNTER STRIP · sticky sotto header (mini fbar)
+           ───────────────────────────────────────────────────────────────────── -->
+      <div class="fbar night-counter-strip" role="group" aria-label="Contatori sessione">
+        <div class="fbar-cell green">
+          <strong>12</strong>
+          OK
+        </div>
+        <div class="fbar-cell danger">
+          <strong>3</strong>
+          DIFF
+        </div>
+        <div class="fbar-cell">
+          <strong>2</strong>
+          NDC
+        </div>
+        <div class="fbar-cell amber">
+          <strong>145<span class="text-xs">m</span></strong>
+          TOT
+        </div>
+      </div>
+      
+      <!-- ─────────────────────────────────────────────────────────────────────
+           EDITOR BODY · PLACEHOLDER STATICO (non funzionale)
+           ───────────────────────────────────────────────────────────────────── -->
+      <div class="night-editor" role="presentation" aria-hidden="false">
+      
+        <div class="night-editor-line night-editor-line--diff">
+          <span class="night-editor-tok night-editor-tok--km">165+700</span>
+          <span class="night-editor-tok night-editor-tok--lato">DX</span>
+          <span class="night-editor-tok night-editor-tok--codice">211</span>
+          <span class="night-editor-tok night-editor-tok--tipo">N</span>
+          <span class="night-editor-tok">17</span>
+          <span class="night-editor-tok night-editor-tok--data">13/04/2026</span>
+          <span class="night-editor-tok night-editor-tok--op">LP</span>
+        </div>
+        <div class="night-editor-line night-editor-line--sub">
+          <span class="night-editor-tok night-editor-tok--sub">Profondità 12 mm</span>
+        </div>
+        <div class="night-editor-line night-editor-line--sub">
+          <span class="night-editor-tok night-editor-tok--sub">Altezza 25 mm</span>
+        </div>
+        <div class="night-editor-line night-editor-line--sub">
+          <span class="night-editor-tok night-editor-tok--sub">Db 8</span>
+        </div>
+      
+        <div class="night-editor-line">
+          <span class="night-editor-tok night-editor-tok--km">166+450</span>
+          <span class="night-editor-tok night-editor-tok--lato">SX</span>
+          <span class="night-editor-tok night-editor-tok--tipo">TR</span>
+        </div>
+      
+        <div class="night-editor-line night-editor-line--sep">
+          <span class="text-amber">▸ BINARIO PARI</span>
+        </div>
+      
+        <div class="night-editor-line">
+          <span class="night-editor-tok night-editor-tok--km">162+800</span>
+          <span class="night-editor-tok night-editor-tok--lato">DX</span>
+          <span class="night-editor-tok night-editor-tok--tipo">ALL</span>
+        </div>
+        <div class="night-editor-line">
+          <span class="night-editor-tok night-editor-tok--km">163+200</span>
+          <span class="night-editor-tok night-editor-tok--lato">SX</span>
+          <span class="night-editor-tok night-editor-tok--tipo">TR</span>
+        </div>
+      
+        <div class="night-editor-line night-editor-line--caret">
+          <span class="night-caret" aria-hidden="true">▌</span>
+        </div>
+      
+        <p class="night-editor-foot text-muted text-xs">▸ EDITOR — non funzionale nel mockup</p>
+      </div>
+      
+      <!-- ─────────────────────────────────────────────────────────────────────
+           MINI-CALC TRAVERSE · sticky bottom-1 (sopra CTA)
+           ───────────────────────────────────────────────────────────────────── -->
+      <aside class="night-calc" aria-label="Calcolatrice traverse">
+      
+        <div class="night-calc-head">
+          <span class="text-mono text-xs text-muted">ULTIMO KM</span>
+          <span class="text-mono text-amber">162+800</span>
+          <span class="night-calc-result text-mono">+ 0,3m × 5 = <strong class="text-amber">164m</strong></span>
+        </div>
+      
+        <div class="night-calc-chips">
+          <button class="pill pill-amber" type="button" data-tipo="all">ALL</button>
+          <button class="pill pill-mute" type="button" data-tipo="scin">SCIN</button>
+          <button class="pill pill-mute" type="button" data-tipo="gr">GR</button>
+        </div>
+      
+        <div class="night-numpad" role="group" aria-label="Numpad">
+          <button class="night-numpad-key" type="button">1</button>
+          <button class="night-numpad-key" type="button">2</button>
+          <button class="night-numpad-key" type="button">3</button>
+          <button class="night-numpad-key" type="button">4</button>
+          <button class="night-numpad-key" type="button">5</button>
+          <button class="night-numpad-key" type="button">6</button>
+          <button class="night-numpad-key" type="button">7</button>
+          <button class="night-numpad-key" type="button">8</button>
+          <button class="night-numpad-key" type="button">9</button>
+          <button class="night-numpad-key night-numpad-key--mute" type="button">,</button>
+          <button class="night-numpad-key" type="button">0</button>
+          <button class="night-numpad-key night-numpad-key--mute" type="button">⌫</button>
+        </div>
+      
+        <div class="night-side-row">
+          <button class="btn-ghost" type="button" data-side="dx">DX</button>
+          <button class="btn-ghost" type="button" data-side="sx">SX</button>
+          <button class="btn-ghost" type="button" data-side="both">DX&amp;SX</button>
+        </div>
+      
+      </aside>
+      
+      <!-- ─────────────────────────────────────────────────────────────────────
+           STICKY BOTTOM CTA · elabora risultati
+           ───────────────────────────────────────────────────────────────────── -->
+      <div class="night-cta-bottom">
+        <button class="btn-primary btn-block" type="button" data-action="elabora-risultati">
+          ▸ ELABORA RISULTATI →
+        </button>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         SCREEN 6 · RISULTATI (lista saldature)
+         ===================================================================== -->
+    <section class="screen" data-screen="risultati" aria-label="Risultati saldature" hidden>
+      <!-- =====================================================================
+           SCREEN 6 · RISULTATI
+           Concept D — Operations Terminal
+           Vista post-elaborazione: hero difetti, lista saldature per binario,
+           riepilogo WhatsApp, export, sticky chiudi notte.
+           ===================================================================== -->
+      
+      <!-- ─────────────────────────────────────────────────────────────────────
+           STICKY HEADER
+           ───────────────────────────────────────────────────────────────────── -->
+      <header class="page-head">
+        <button class="back" type="button" data-action="back" aria-label="Indietro">‹</button>
+        <div class="flex-1">
+          <h1 class="text-amber uc">▸ RISULTATI NOTTE</h1>
+          <div class="h-sub">13→14 APR · LASPEZIA-ARCOLA</div>
+        </div>
+        <div class="actions">
+          <!-- NEED_CLASS: .save-dot (green dot indicator stato salvato) -->
+          <span class="save-dot" aria-label="Salvato" title="Tutto salvato"></span>
+        </div>
+      </header>
+      
+      <!-- ─────────────────────────────────────────────────────────────────────
+           HERO DIFETTI — banner danger pieno + card grande
+           ───────────────────────────────────────────────────────────────────── -->
+      <!-- NEED_CLASS: .sect-danger (variante .sect con background danger pieno) -->
+      <div class="sect sect-danger">
+        <span>▸ 3 DIFETTI TROVATI</span>
+      </div>
+      
+      <!-- NEED_CLASS: .hero-difetti (card stretta numero gigante) -->
+      <!-- NEED_CLASS: .hero-difetti-num (font-size >=44px, danger color, mono, tnum) -->
+      <!-- NEED_CLASS: .hero-difetti-sub (etichetta muted sotto numero) -->
+      <!-- NEED_CLASS: .hero-difetti-cta (riga amber call-to-action sotto card) -->
+      <div class="hero-difetti">
+        <div class="hero-difetti-num text-danger">3</div>
+        <div class="hero-difetti-sub text-muted uc">1/3 SCHEDE COMPILATE</div>
+      </div>
+      <div class="hero-difetti-cta text-amber uc">▸ COMPILA SCHEDA I.1 PER OGNUNO</div>
+      
+      <!-- ─────────────────────────────────────────────────────────────────────
+           STAT STRIP — 4 cell riepilogo
+           ───────────────────────────────────────────────────────────────────── -->
+      <div class="fbar mt-2">
+        <div class="fbar-cell green">
+          <strong>12</strong>
+          OK
+        </div>
+        <div class="fbar-cell danger">
+          <strong>3</strong>
+          DIFF
+        </div>
+        <div class="fbar-cell amber">
+          <strong>2</strong>
+          NDC
+        </div>
+        <div class="fbar-cell">
+          <strong>145m</strong>
+          TOT
+        </div>
+      </div>
+      
+      <!-- ─────────────────────────────────────────────────────────────────────
+           SALDATURE — DISPARI (open) / PARI (collapsed)
+           ───────────────────────────────────────────────────────────────────── -->
+      
+      <!-- NEED_CLASS: .group (wrapper <details> binario) -->
+      <!-- NEED_CLASS: .group-summary (riga summary cliccabile, stile sect-q) -->
+      <!-- NEED_CLASS: .table-sald (override grid 5 col: KM / LATO / TIPO / STATO / SCHEDA) -->
+      <!-- NEED_CLASS: .row-sald (row variante con border-left status) -->
+      <!-- NEED_CLASS: .row-sald.is-diff (border-left rossa per difetti) -->
+      <!-- NEED_CLASS: .row-sald.is-ndc (border-left amber per NDC) -->
+      <!-- NEED_CLASS: .col-km / .col-lato / .col-tipo / .col-stato / .col-scheda (allineamento) -->
+      <!-- NEED_CLASS: .scheda-mark (✓ verde compilata / "—" muted) -->
+      
+      <details class="group" open>
+        <summary class="sect sect-q group-summary">
+          <span>▸ DISPARI · 11 SALD</span>
+          <span class="text-muted">▾</span>
+        </summary>
+        <div class="table table-sald">
+          <div class="table-head">
+            <div class="col-km">KM</div>
+            <div class="col-lato">LATO</div>
+            <div class="col-tipo">TIPO</div>
+            <div class="col-stato">STATO</div>
+            <div class="col-scheda right">SCHEDA</div>
+          </div>
+      
+          <button class="row row-sald is-diff" type="button" data-action="open-scheda" data-id="d1">
+            <div class="col-km">165+700</div>
+            <div class="col-lato">DX</div>
+            <div class="col-tipo">211</div>
+            <div class="col-stato"><span class="pill pill-danger">DIFF</span></div>
+            <div class="col-scheda right scheda-mark text-green">✓</div>
+          </button>
+      
+          <button class="row row-sald" type="button" data-action="open-saldatura" data-id="s2">
+            <div class="col-km">166+450</div>
+            <div class="col-lato">SX</div>
+            <div class="col-tipo">TR</div>
+            <div class="col-stato"><span class="pill pill-green">OK</span></div>
+            <div class="col-scheda right scheda-mark text-muted">—</div>
+          </button>
+      
+          <button class="row row-sald is-diff" type="button" data-action="open-scheda" data-id="d2">
+            <div class="col-km">167+200</div>
+            <div class="col-lato">DX</div>
+            <div class="col-tipo">113</div>
+            <div class="col-stato"><span class="pill pill-danger">DIFF</span></div>
+            <div class="col-scheda right scheda-mark text-muted">—</div>
+          </button>
+      
+          <button class="row row-sald" type="button" data-action="open-saldatura" data-id="s4">
+            <div class="col-km">167+800</div>
+            <div class="col-lato">SX</div>
+            <div class="col-tipo">ALL</div>
+            <div class="col-stato"><span class="pill pill-green">OK</span></div>
+            <div class="col-scheda right scheda-mark text-muted">—</div>
+          </button>
+      
+          <button class="row row-sald is-ndc" type="button" data-action="open-saldatura" data-id="s5">
+            <div class="col-km">168+150</div>
+            <div class="col-lato">DX</div>
+            <div class="col-tipo">N TR</div>
+            <div class="col-stato"><span class="pill pill-warn">NDC</span></div>
+            <div class="col-scheda right scheda-mark text-muted">—</div>
+          </button>
+      
+          <button class="row row-sald" type="button" data-action="open-saldatura" data-id="s6">
+            <div class="col-km">169+300</div>
+            <div class="col-lato">SX</div>
+            <div class="col-tipo">TR</div>
+            <div class="col-stato"><span class="pill pill-green">OK</span></div>
+            <div class="col-scheda right scheda-mark text-muted">—</div>
+          </button>
+        </div>
+      </details>
+      
+      <details class="group">
+        <summary class="sect sect-q group-summary">
+          <span>▸ PARI · 5 SALD</span>
+          <span class="text-muted">▸</span>
+        </summary>
+        <div class="table table-sald">
+          <div class="table-head">
+            <div class="col-km">KM</div>
+            <div class="col-lato">LATO</div>
+            <div class="col-tipo">TIPO</div>
+            <div class="col-stato">STATO</div>
+            <div class="col-scheda right">SCHEDA</div>
+          </div>
+      
+          <button class="row row-sald is-diff" type="button" data-action="open-scheda" data-id="d3">
+            <div class="col-km">170+100</div>
+            <div class="col-lato">SX</div>
+            <div class="col-tipo">211</div>
+            <div class="col-stato"><span class="pill pill-danger">DIFF</span></div>
+            <div class="col-scheda right scheda-mark text-muted">—</div>
+          </button>
+      
+          <button class="row row-sald" type="button" data-action="open-saldatura" data-id="s8">
+            <div class="col-km">170+800</div>
+            <div class="col-lato">DX</div>
+            <div class="col-tipo">TR</div>
+            <div class="col-stato"><span class="pill pill-green">OK</span></div>
+            <div class="col-scheda right scheda-mark text-muted">—</div>
+          </button>
+        </div>
+      </details>
+      
+      <!-- ─────────────────────────────────────────────────────────────────────
+           RIEPILOGO WHATSAPP
+           ───────────────────────────────────────────────────────────────────── -->
+      
+      <!-- NEED_CLASS: .wa-card (wrapper card preview WhatsApp) -->
+      <!-- NEED_CLASS: .wa-pre (block <pre> mono, scrollable, bg secondary) -->
+      <!-- NEED_CLASS: .wa-copy (bottone COPIA in fondo a card) -->
+      
+      <details class="group mt-3">
+        <summary class="sect sect-q group-summary">
+          <span>▸ RIEPILOGO WHATSAPP</span>
+          <span class="text-muted">▸</span>
+        </summary>
+      
+        <div class="wa-card">
+          <div class="sect sect-q">
+            <span>▸ FORMATO M2</span>
+          </div>
+          <pre class="wa-pre">M2 · 13→14 APR · LASPEZIA-ARCOLA
+      ─────────────────────────────
+      SALD: 16 (DISP 11 / PARI 5)
+      OK:    12
+      DIFF:   3 → schede I.1 in corso
+      NDC:    2
+      TEMPO: 145m
+      
+      DIFETTI:
+      - 165+700 DX · 211
+      - 167+200 DX · 113
+      - 170+100 SX · 211</pre>
+          <button class="btn-secondary btn-block wa-copy" type="button" data-action="copy-wa" data-format="m2">COPIA</button>
+        </div>
+      
+        <div class="wa-card mt-2">
+          <div class="sect sect-q">
+            <span>▸ FORMATO GFC</span>
+          </div>
+          <pre class="wa-pre">GFC · 13/14-04
+      LASPEZIA-ARCOLA
+      Saldature: 16
+      - OK: 12
+      - Difetti: 3 (1 scheda)
+      - NDC: 2
+      Tempo lavoro: 2h 25m
+      Tratta SARZ-LASP</pre>
+          <button class="btn-secondary btn-block wa-copy" type="button" data-action="copy-wa" data-format="gfc">COPIA</button>
+        </div>
+      </details>
+      
+      <!-- ─────────────────────────────────────────────────────────────────────
+           EXPORT BAR
+           ───────────────────────────────────────────────────────────────────── -->
+      <div class="sect sect-q mt-3">
+        <span>▸ EXPORT</span>
+      </div>
+      <div class="btn-row">
+        <button class="btn-secondary" type="button" data-action="export-tsv">TSV</button>
+        <button class="btn-secondary" type="button" data-action="export-pdf">PDF</button>
+      </div>
+      
+      <!-- ─────────────────────────────────────────────────────────────────────
+           STICKY BOTTOM — CHIUDI NOTTE (double-tap conferma)
+           ───────────────────────────────────────────────────────────────────── -->
+      <!-- NEED_CLASS: .sticky-foot (barra fixed sopra .nav, fullwidth, bg primary, border-top) -->
+      <div class="sticky-foot">
+        <button
+          class="btn-danger btn-block"
+          type="button"
+          data-action="chiudi-notte"
+          data-confirm="double-tap"
+          aria-label="Chiudi notte (tap due volte per confermare)">
+          ▸ CHIUDI NOTTE
+        </button>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         SCREEN 7 · SCHEDA I.1 (dettaglio saldatura)
+         ===================================================================== -->
+    <section class="screen" data-screen="scheda" aria-label="Scheda I.1" hidden>
+      <!-- =====================================================================
+           SCREEN 7 · SCHEDA I.1   (modal-full di compilazione difetto)
+           Concept D — Operations Terminal
+           NB: la Scheda I.1 viene mostrata come <section data-screen="scheda">
+               per coerenza DEV nav, ma in produzione è renderizzata dentro
+               <dialog id="modal-scheda"><div class="modal-full">…</div></dialog>
+           Form denso terminal-style · 4 step in tab orizzontali
+           STEP 1 = DIFETTO (visibile)  ·  STEP 2-4 placeholder hidden
+           ===================================================================== -->
+      
+      <!-- ─────────────────────────────────────────────────────────────────────
+           HEADER STICKY · close X · titolo amber · step indicator destra
+           Riusa .sheet-head (sfondo amber) come da scaffold modal-full
+           ───────────────────────────────────────────────────────────────────── -->
+      <header class="sheet-head" id="scheda-head">
+        <button class="close" type="button" data-action="close-scheda" aria-label="Chiudi scheda">×</button>
+        <span id="scheda-title" style="flex:1; text-align:left; padding-left:8px;">▸ SCHEDA I.1</span>
+        <!-- NEED_CLASS: .step-indicator (mono "STEP N / 4") -->
+        <span class="step-indicator text-mono" aria-live="polite"
+              style="font-family: 'JetBrains Mono', monospace; font-size:10px; font-weight:700; letter-spacing:0.10em;">
+          STEP 1 / 4
+        </span>
+      </header>
+      
+      <!-- ─────────────────────────────────────────────────────────────────────
+           STEP TABS · 4 tab orizzontali · DIFETTO attivo (underline amber)
+           NEED_CLASS: .step-tabs / .step-tab / .step-tab.active
+           ───────────────────────────────────────────────────────────────────── -->
+      <nav class="step-tabs" role="tablist" aria-label="Step compilazione scheda"
+           style="display:grid; grid-template-columns:repeat(4, 1fr);
+                  background:#0A0A0A; border-bottom:1px solid #2D2D2D;
+                  margin:0 -8px;">
+        <button type="button"
+                class="step-tab active"
+                role="tab"
+                aria-selected="true"
+                aria-controls="step-1-panel"
+                data-action="step-tab"
+                data-step="1"
+                style="background:transparent; border:0; border-bottom:2px solid #F0A028;
+                       color:#F0A028; font-family:'JetBrains Mono', monospace;
+                       font-size:10px; font-weight:700; letter-spacing:0.12em;
+                       padding:14px 4px; min-height:48px; text-transform:uppercase;">
+          DIFETTO
+        </button>
+        <button type="button"
+                class="step-tab"
+                role="tab"
+                aria-selected="false"
+                aria-controls="step-2-panel"
+                data-action="step-tab"
+                data-step="2"
+                style="background:transparent; border:0; border-bottom:2px solid transparent;
+                       color:#777; font-family:'JetBrains Mono', monospace;
+                       font-size:10px; font-weight:700; letter-spacing:0.12em;
+                       padding:14px 4px; min-height:48px; text-transform:uppercase;">
+          BINARIO
+        </button>
+        <button type="button"
+                class="step-tab"
+                role="tab"
+                aria-selected="false"
+                aria-controls="step-3-panel"
+                data-action="step-tab"
+                data-step="3"
+                style="background:transparent; border:0; border-bottom:2px solid transparent;
+                       color:#777; font-family:'JetBrains Mono', monospace;
+                       font-size:10px; font-weight:700; letter-spacing:0.12em;
+                       padding:14px 4px; min-height:48px; text-transform:uppercase;">
+          SALDATURA
+        </button>
+        <button type="button"
+                class="step-tab"
+                role="tab"
+                aria-selected="false"
+                aria-controls="step-4-panel"
+                data-action="step-tab"
+                data-step="4"
+                style="background:transparent; border:0; border-bottom:2px solid transparent;
+                       color:#777; font-family:'JetBrains Mono', monospace;
+                       font-size:10px; font-weight:700; letter-spacing:0.12em;
+                       padding:14px 4px; min-height:48px; text-transform:uppercase;">
+          FIRMA
+        </button>
+      </nav>
+      
+      <!-- ─────────────────────────────────────────────────────────────────────
+           FORM
+           ───────────────────────────────────────────────────────────────────── -->
+      <form id="form-scheda" class="form-scheda" autocomplete="off" novalidate
+            style="padding-bottom:140px;">
+      
+        <!-- =====================================================================
+             STEP 1 · DIFETTO   (visibile)
+             ===================================================================== -->
+        <fieldset class="form-step" data-step="1" id="step-1-panel"
+                  role="tabpanel" aria-labelledby="tab-difetto">
+          <legend class="sect"><span>▸ STEP 1 · DIFETTO</span></legend>
+      
+          <!-- riga 1: PROF FESS · W (PERC) -->
+          <div class="input-row">
+            <div class="form-group">
+              <label class="label" for="f-prof">
+                PROF FESS <span class="req">*</span>
+              </label>
+              <!-- NEED_CLASS: .input-with-suffix (input + suffisso unità mono allineato) -->
+              <div class="input-with-suffix"
+                   style="display:grid; grid-template-columns:1fr auto; align-items:stretch;
+                          border:1px solid #2D2D2D; background:#0A0A0A;">
+                <input class="input text-mono" id="f-prof" name="prof_fess"
+                       type="number" inputmode="decimal" step="0.1" min="0"
+                       value="12"
+                       style="border:0; font-size:16px; text-align:right; padding-right:8px;">
+                <span class="text-mono text-muted uc"
+                      style="display:flex; align-items:center; padding:0 12px;
+                             border-left:1px solid #2D2D2D; font-size:12px;">mm</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="label" for="f-w">
+                W (PERC) <span class="req">*</span>
+              </label>
+              <div class="input-with-suffix"
+                   style="display:grid; grid-template-columns:1fr auto; align-items:stretch;
+                          border:1px solid #2D2D2D; background:#0A0A0A;">
+                <input class="input text-mono" id="f-w" name="w_perc"
+                       type="number" inputmode="decimal" step="0.1" min="0"
+                       value="25"
+                       style="border:0; font-size:16px; text-align:right; padding-right:8px;">
+                <span class="text-mono text-muted uc"
+                      style="display:flex; align-items:center; padding:0 12px;
+                             border-left:1px solid #2D2D2D; font-size:12px;">mm</span>
+              </div>
+            </div>
+          </div>
+      
+          <!-- riga 2: AMP (ALT) · GUAD -->
+          <div class="input-row">
+            <div class="form-group">
+              <label class="label" for="f-amp">
+                AMP (ALT) <span class="req">*</span>
+              </label>
+              <div class="input-with-suffix"
+                   style="display:grid; grid-template-columns:1fr auto; align-items:stretch;
+                          border:1px solid #2D2D2D; background:#0A0A0A;">
+                <input class="input text-mono" id="f-amp" name="amp_alt"
+                       type="number" inputmode="decimal" step="0.1" min="0"
+                       value="18"
+                       style="border:0; font-size:16px; text-align:right; padding-right:8px;">
+                <span class="text-mono text-muted uc"
+                      style="display:flex; align-items:center; padding:0 12px;
+                             border-left:1px solid #2D2D2D; font-size:12px;">mm</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="label" for="f-guad">
+                GUAD <span class="req">*</span>
+              </label>
+              <div class="input-with-suffix"
+                   style="display:grid; grid-template-columns:1fr auto; align-items:stretch;
+                          border:1px solid #2D2D2D; background:#0A0A0A;">
+                <input class="input text-mono" id="f-guad" name="guad"
+                       type="number" inputmode="decimal" step="0.1"
+                       value="8"
+                       style="border:0; font-size:16px; text-align:right; padding-right:8px;">
+                <span class="text-mono text-muted uc"
+                      style="display:flex; align-items:center; padding:0 12px;
+                             border-left:1px solid #2D2D2D; font-size:12px;">Db</span>
+              </div>
+            </div>
+          </div>
+      
+          <!-- riga 3: PALO TE (full) -->
+          <div class="form-group">
+            <label class="label" for="f-palo">
+              PALO TE <span class="req">*</span>
+            </label>
+            <input class="input text-mono" id="f-palo" name="palo_te"
+                   type="text" inputmode="text"
+                   value="12B"
+                   placeholder="ES. 12B"
+                   style="font-size:16px;">
+          </div>
+      
+          <!-- riga 4: SONDA pill group radio (3 voci) NON SELEZIONATO -->
+          <div class="form-group">
+            <span class="label" id="f-sonda-lab">
+              SONDA <span class="req">*</span>
+            </span>
+            <!-- NEED_CLASS: .pill-group / .pill-radio (radio hidden + label cliccabile, touch 48px+) -->
+            <div class="pill-group" role="radiogroup" aria-labelledby="f-sonda-lab"
+                 style="display:grid; grid-template-columns:repeat(3, 1fr); gap:6px;">
+      
+              <input type="radio" name="sonda" id="f-sonda-p20"   value="P20-2"
+                     class="pill-radio-input" hidden>
+              <label for="f-sonda-p20" class="pill-radio"
+                     style="display:flex; align-items:center; justify-content:center;
+                            min-height:48px; padding:10px 8px;
+                            background:#0A0A0A; border:1px solid #2D2D2D;
+                            color:#C8C8B8; font-family:'JetBrains Mono', monospace;
+                            font-size:12px; font-weight:700; letter-spacing:0.08em;
+                            text-transform:uppercase; cursor:pointer;">
+                P20-2
+              </label>
+      
+              <input type="radio" name="sonda" id="f-sonda-fta45" value="FTA45-2"
+                     class="pill-radio-input" hidden>
+              <label for="f-sonda-fta45" class="pill-radio"
+                     style="display:flex; align-items:center; justify-content:center;
+                            min-height:48px; padding:10px 8px;
+                            background:#0A0A0A; border:1px solid #2D2D2D;
+                            color:#C8C8B8; font-family:'JetBrains Mono', monospace;
+                            font-size:12px; font-weight:700; letter-spacing:0.08em;
+                            text-transform:uppercase; cursor:pointer;">
+                FTA45-2
+              </label>
+      
+              <input type="radio" name="sonda" id="f-sonda-fta70" value="FTA70-2"
+                     class="pill-radio-input" hidden>
+              <label for="f-sonda-fta70" class="pill-radio"
+                     style="display:flex; align-items:center; justify-content:center;
+                            min-height:48px; padding:10px 8px;
+                            background:#0A0A0A; border:1px solid #2D2D2D;
+                            color:#C8C8B8; font-family:'JetBrains Mono', monospace;
+                            font-size:12px; font-weight:700; letter-spacing:0.08em;
+                            text-transform:uppercase; cursor:pointer;">
+                FTA70-2
+              </label>
+            </div>
+          </div>
+      
+          <!-- riga 5: FONDO SCALA (full, vuoto) -->
+          <div class="form-group">
+            <label class="label" for="f-fondo">
+              FONDO SCALA <span class="req">*</span>
+            </label>
+            <div class="input-with-suffix"
+                 style="display:grid; grid-template-columns:1fr auto; align-items:stretch;
+                        border:1px solid #2D2D2D; background:#0A0A0A;">
+              <input class="input text-mono" id="f-fondo" name="fondo_scala"
+                     type="number" inputmode="decimal" step="0.1" min="0"
+                     value=""
+                     placeholder="—"
+                     style="border:0; font-size:16px; text-align:right; padding-right:8px;">
+              <span class="text-mono text-muted uc"
+                    style="display:flex; align-items:center; padding:0 12px;
+                           border-left:1px solid #2D2D2D; font-size:12px;">mm</span>
+            </div>
+          </div>
+      
+          <!-- riga 6: SEDE pill group radio (8 voci) NON SELEZIONATO -->
+          <div class="form-group">
+            <span class="label" id="f-sede-lab">
+              SEDE <span class="req">*</span>
+            </span>
+            <!-- 8 pill, 2 colonne x 4 righe (touch 48px+ anche in densità alta) -->
+            <div class="pill-group" role="radiogroup" aria-labelledby="f-sede-lab"
+                 style="display:grid; grid-template-columns:repeat(2, 1fr); gap:6px;">
+      
+              <input type="radio" name="sede" id="f-sede-suola"  value="SUOLA"
+                     class="pill-radio-input" hidden>
+              <label for="f-sede-suola" class="pill-radio"
+                     style="display:flex; align-items:center; justify-content:center;
+                            min-height:48px; padding:10px 8px;
+                            background:#0A0A0A; border:1px solid #2D2D2D;
+                            color:#C8C8B8; font-family:'JetBrains Mono', monospace;
+                            font-size:12px; font-weight:700; letter-spacing:0.08em;
+                            text-transform:uppercase; cursor:pointer;">
+                SUOLA
+              </label>
+      
+              <input type="radio" name="sede" id="f-sede-gambo"  value="GAMBO"
+                     class="pill-radio-input" hidden>
+              <label for="f-sede-gambo" class="pill-radio"
+                     style="display:flex; align-items:center; justify-content:center;
+                            min-height:48px; padding:10px 8px;
+                            background:#0A0A0A; border:1px solid #2D2D2D;
+                            color:#C8C8B8; font-family:'JetBrains Mono', monospace;
+                            font-size:12px; font-weight:700; letter-spacing:0.08em;
+                            text-transform:uppercase; cursor:pointer;">
+                GAMBO
+              </label>
+      
+              <input type="radio" name="sede" id="f-sede-fungo"  value="FUNGO"
+                     class="pill-radio-input" hidden>
+              <label for="f-sede-fungo" class="pill-radio"
+                     style="display:flex; align-items:center; justify-content:center;
+                            min-height:48px; padding:10px 8px;
+                            background:#0A0A0A; border:1px solid #2D2D2D;
+                            color:#C8C8B8; font-family:'JetBrains Mono', monospace;
+                            font-size:12px; font-weight:700; letter-spacing:0.08em;
+                            text-transform:uppercase; cursor:pointer;">
+                FUNGO
+              </label>
+      
+              <input type="radio" name="sede" id="f-sede-piano"  value="PIANO STECC."
+                     class="pill-radio-input" hidden>
+              <label for="f-sede-piano" class="pill-radio"
+                     style="display:flex; align-items:center; justify-content:center;
+                            min-height:48px; padding:10px 8px;
+                            background:#0A0A0A; border:1px solid #2D2D2D;
+                            color:#C8C8B8; font-family:'JetBrains Mono', monospace;
+                            font-size:12px; font-weight:700; letter-spacing:0.08em;
+                            text-transform:uppercase; cursor:pointer; text-align:center;">
+                PIANO STECC.
+              </label>
+      
+              <input type="radio" name="sede" id="f-sede-patino" value="PATINO"
+                     class="pill-radio-input" hidden>
+              <label for="f-sede-patino" class="pill-radio"
+                     style="display:flex; align-items:center; justify-content:center;
+                            min-height:48px; padding:10px 8px;
+                            background:#0A0A0A; border:1px solid #2D2D2D;
+                            color:#C8C8B8; font-family:'JetBrains Mono', monospace;
+                            font-size:12px; font-weight:700; letter-spacing:0.08em;
+                            text-transform:uppercase; cursor:pointer;">
+                PATINO
+              </label>
+      
+              <input type="radio" name="sede" id="f-sede-anima"  value="ANIMA"
+                     class="pill-radio-input" hidden>
+              <label for="f-sede-anima" class="pill-radio"
+                     style="display:flex; align-items:center; justify-content:center;
+                            min-height:48px; padding:10px 8px;
+                            background:#0A0A0A; border:1px solid #2D2D2D;
+                            color:#C8C8B8; font-family:'JetBrains Mono', monospace;
+                            font-size:12px; font-weight:700; letter-spacing:0.08em;
+                            text-transform:uppercase; cursor:pointer;">
+                ANIMA
+              </label>
+      
+              <input type="radio" name="sede" id="f-sede-eco"    value="ECO POST."
+                     class="pill-radio-input" hidden>
+              <label for="f-sede-eco" class="pill-radio"
+                     style="display:flex; align-items:center; justify-content:center;
+                            min-height:48px; padding:10px 8px;
+                            background:#0A0A0A; border:1px solid #2D2D2D;
+                            color:#C8C8B8; font-family:'JetBrains Mono', monospace;
+                            font-size:12px; font-weight:700; letter-spacing:0.08em;
+                            text-transform:uppercase; cursor:pointer;">
+                ECO POST.
+              </label>
+      
+              <input type="radio" name="sede" id="f-sede-altro"  value="ALTRO"
+                     class="pill-radio-input" hidden>
+              <label for="f-sede-altro" class="pill-radio"
+                     style="display:flex; align-items:center; justify-content:center;
+                            min-height:48px; padding:10px 8px;
+                            background:#0A0A0A; border:1px solid #2D2D2D;
+                            color:#C8C8B8; font-family:'JetBrains Mono', monospace;
+                            font-size:12px; font-weight:700; letter-spacing:0.08em;
+                            text-transform:uppercase; cursor:pointer;">
+                ALTRO
+              </label>
+            </div>
+          </div>
+        </fieldset>
+      
+        <!-- =====================================================================
+             STEP 2 · BINARIO   (hidden placeholder)
+             ===================================================================== -->
+        <fieldset class="form-step" data-step="2" id="step-2-panel"
+                  role="tabpanel" aria-labelledby="tab-binario" hidden>
+          <legend class="sect"><span>▸ STEP 2 · BINARIO</span></legend>
+          <div class="text-muted text-xs uc" style="padding:16px 8px;">
+            ▸ DA DEFINIRE
+          </div>
+        </fieldset>
+      
+        <!-- =====================================================================
+             STEP 3 · SALDATURA   (hidden placeholder)
+             ===================================================================== -->
+        <fieldset class="form-step" data-step="3" id="step-3-panel"
+                  role="tabpanel" aria-labelledby="tab-saldatura" hidden>
+          <legend class="sect"><span>▸ STEP 3 · SALDATURA</span></legend>
+          <div class="text-muted text-xs uc" style="padding:16px 8px;">
+            ▸ DA DEFINIRE
+          </div>
+        </fieldset>
+      
+        <!-- =====================================================================
+             STEP 4 · FIRMA   (hidden placeholder)
+             ===================================================================== -->
+        <fieldset class="form-step" data-step="4" id="step-4-panel"
+                  role="tabpanel" aria-labelledby="tab-firma" hidden>
+          <legend class="sect"><span>▸ STEP 4 · FIRMA</span></legend>
+          <div class="text-muted text-xs uc" style="padding:16px 8px;">
+            ▸ DA DEFINIRE
+          </div>
+        </fieldset>
+      
+      </form>
+      
+      <!-- ─────────────────────────────────────────────────────────────────────
+           POPOVER WARNING · sticky sopra footer · 3 campi mancanti
+           NEED_CLASS: .warning-popover (card amber outline non bloccante)
+           ───────────────────────────────────────────────────────────────────── -->
+      <aside class="warning-popover" role="status" aria-live="polite"
+             style="position:fixed; left:0; right:0; bottom:128px; z-index:39;
+                    max-width:420px; margin:0 auto; padding:0 8px;">
+        <div class="pill-amber"
+             style="display:flex; align-items:center; gap:8px;
+                    background:#0F0F0F; border:1px solid #F0A028;
+                    padding:10px 12px;
+                    font-family:'JetBrains Mono', monospace;
+                    font-size:11px; font-weight:700; letter-spacing:0.08em;
+                    text-transform:uppercase; color:#F0A028;">
+          <span aria-hidden="true">⚠</span>
+          <span style="flex:1; line-height:1.3;">
+            3 CAMPI MANCANTI · Sonda · Fondo scala · Sede
+          </span>
+          <button type="button" class="btn-ghost"
+                  data-action="warning-jump"
+                  style="background:transparent; border:1px solid #F0A028;
+                         color:#F0A028; font-family:'Inter', sans-serif;
+                         font-weight:700; font-size:11px; letter-spacing:0.08em;
+                         text-transform:uppercase; padding:6px 8px; min-height:32px;
+                         white-space:nowrap;">
+            ▸ COMPILA ORA →
+          </button>
+        </div>
+      </aside>
+      
+      <!-- ─────────────────────────────────────────────────────────────────────
+           STICKY FOOTER · ANTEPRIMA PDF (ghost) · ▸ SALVA (primary amber)
+           NEED_CLASS: .scheda-foot (barra sticky bottom modal-full)
+           ───────────────────────────────────────────────────────────────────── -->
+      <div class="scheda-foot" role="group" aria-label="Azioni scheda"
+           style="position:fixed; left:0; right:0; bottom:0; z-index:40;
+                  max-width:420px; margin:0 auto;
+                  background:#0F0F0F; border-top:1px solid #2D2D2D;
+                  padding:8px; display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+        <button type="button" class="btn-ghost text-mono" data-action="anteprima-pdf">
+          ANTEPRIMA PDF
+        </button>
+        <button type="button" class="btn-primary" data-action="salva-scheda">
+          ▸ SALVA
+        </button>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         SCREEN 8 · PANORAMICA (mese / calendario)
+         ===================================================================== -->
+    <section class="screen" data-screen="panoramica" aria-label="Panoramica mensile" hidden>
+      <!-- =====================================================================
+           SCREEN 8 · PANORAMICA · MESE
+           Concept D — Operations Terminal
+           Calendario denso + agenda prossime notti + cantieri attivi
+           Coerente con _reference.html, classi da style.css
+           NEED_CLASS marker = classi scaffold mancanti, da definire in style.css
+           ===================================================================== -->
+      
+      <!-- ─────────────────────────────────────────────────────────────────────
+           HEADER · titolo MESE + nav mese + OGGI
+           ───────────────────────────────────────────────────────────────────── -->
+      <header class="page-head mese-head"><!-- NEED_CLASS .mese-head -->
+        <div class="flex-1">
+          <h1 class="text-amber uc">▸ MESE</h1>
+          <div class="h-sub text-mono">MAGGIO 2026 · SETT 18-22</div>
+        </div>
+        <div class="actions mese-nav"><!-- NEED_CLASS .mese-nav -->
+          <button class="mese-nav-btn text-mono" type="button" data-action="mese-prev-next" aria-label="Cambia mese">
+            &lt; MAGGIO 2026 &gt;
+          </button><!-- NEED_CLASS .mese-nav-btn -->
+          <button class="mese-today-btn text-mono" type="button" data-action="mese-today" aria-label="Vai a oggi">
+            OGGI
+          </button><!-- NEED_CLASS .mese-today-btn -->
+        </div>
+      </header>
+      
+      <!-- ─────────────────────────────────────────────────────────────────────
+           FILTER CHIP · scrollabili orizzontali
+           ───────────────────────────────────────────────────────────────────── -->
+      <div class="chip-row" role="group" aria-label="Filtra per cantiere"><!-- NEED_CLASS .chip-row (overflow-x:auto) -->
+        <button class="chip chip-amber active" type="button" data-action="filter-cantiere" data-id="all">TUTTI</button>
+        <button class="chip chip-cyan" type="button" data-action="filter-cantiere" data-id="laspezia">LA SPEZIA</button>
+        <button class="chip chip-green" type="button" data-action="filter-cantiere" data-id="empoli">EMPOLI</button>
+        <button class="chip chip-warn" type="button" data-action="filter-cantiere" data-id="brescia">BRESCIA</button>
+        <button class="chip chip-danger" type="button" data-action="filter-cantiere" data-id="genova">GENOVA</button>
+      </div>
+      <!-- NEED_CLASS .chip, .chip.active, .chip-amber, .chip-cyan, .chip-green, .chip-warn, .chip-danger -->
+      
+      <!-- ─────────────────────────────────────────────────────────────────────
+           CALENDARIO · grid 7 col, celle 38×38
+           ───────────────────────────────────────────────────────────────────── -->
+      <div class="cal-head">
+        <div class="dow">L</div>
+        <div class="dow">M</div>
+        <div class="dow">M</div>
+        <div class="dow">G</div>
+        <div class="dow">V</div>
+        <div class="dow">S</div>
+        <div class="dow">D</div>
+      </div>
+      
+      <div class="cal-grid cal-grid-compact" role="grid" aria-label="Calendario maggio 2026">
+        <!-- NEED_CLASS .cal-grid-compact (override min-height celle 38px, bump 48px in headlamp) -->
+      
+        <!-- OUT-OF-MONTH · fine aprile (lun 27 → gio 30) -->
+        <div class="cal-day out" aria-hidden="true"><span class="d">27</span></div>
+        <div class="cal-day out" aria-hidden="true"><span class="d">28</span></div>
+        <div class="cal-day out" aria-hidden="true"><span class="d">29</span></div>
+        <div class="cal-day out" aria-hidden="true"><span class="d">30</span></div>
+      
+        <!-- MAGGIO 2026 -->
+        <!-- Settimana 1: ven 1 → dom 3 -->
+        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-01">
+          <span class="d">1</span>
+        </button>
+        <button class="cal-day today cal-day-today-soft" type="button" data-action="open-day" data-date="2026-05-02" aria-label="Sabato 2 maggio (oggi)">
+          <!-- NEED_CLASS .cal-day-today-soft (bg amber soft fill, oltre outline esistente) -->
+          <span class="d">2</span>
+          <div class="dots">
+            <span class="dot dot-cyan" title="La Spezia"></span><!-- NEED_CLASS .dot.dot-cyan -->
+          </div>
+        </button>
+        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-03">
+          <span class="d">3</span>
+        </button>
+      
+        <!-- Settimana 2: lun 4 → dom 10 -->
+        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-04">
+          <span class="d">4</span>
+        </button>
+        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-05">
+          <span class="d">5</span>
+          <div class="dots">
+            <span class="dot dot-cyan" title="La Spezia"></span>
+          </div>
+        </button>
+        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-06">
+          <span class="d">6</span>
+        </button>
+        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-07">
+          <span class="d">7</span>
+        </button>
+        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-08">
+          <span class="d">8</span>
+          <div class="dots">
+            <span class="dot" title="Empoli"></span>
+          </div>
+        </button>
+        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-09">
+          <span class="d">9</span>
+        </button>
+        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-10">
+          <span class="d">10</span>
+        </button>
+      
+        <!-- Settimana 3: lun 11 → dom 17 -->
+        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-11">
+          <span class="d">11</span>
+        </button>
+        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-12">
+          <span class="d">12</span>
+          <div class="dots">
+            <span class="dot dot-cyan" title="La Spezia"></span>
+            <span class="dot warn" title="Brescia"></span>
+          </div>
+        </button>
+        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-13">
+          <span class="d">13</span>
+        </button>
+        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-14">
+          <span class="d">14</span>
+        </button>
+        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-15">
+          <span class="d">15</span>
+          <div class="dots">
+            <span class="dot dot-cyan" title="La Spezia"></span>
+          </div>
+        </button>
+        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-16">
+          <span class="d">16</span>
+        </button>
+        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-17">
+          <span class="d">17</span>
+        </button>
+      
+        <!-- Settimana 4: lun 18 → dom 24 -->
+        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-18">
+          <span class="d">18</span>
+        </button>
+        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-19">
+          <span class="d">19</span>
+          <div class="dots">
+            <span class="dot" title="Empoli"></span>
+          </div>
+        </button>
+        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-20">
+          <span class="d">20</span>
+        </button>
+        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-21">
+          <span class="d">21</span>
+        </button>
+        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-22">
+          <span class="d">22</span>
+          <div class="dots">
+            <span class="dot dot-cyan" title="La Spezia"></span>
+            <span class="dot" title="Empoli"></span>
+            <span class="dot warn" title="Brescia"></span>
+            <span class="dot-more">+1</span><!-- NEED_CLASS .dot-more (mini text overflow) -->
+          </div>
+        </button>
+        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-23">
+          <span class="d">23</span>
+        </button>
+        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-24">
+          <span class="d">24</span>
+        </button>
+      
+        <!-- Settimana 5: lun 25 → dom 31 -->
+        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-25">
+          <span class="d">25</span>
+        </button>
+        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-26">
+          <span class="d">26</span>
+        </button>
+        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-27">
+          <span class="d">27</span>
+        </button>
+        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-28">
+          <span class="d">28</span>
+          <div class="dots">
+            <span class="dot warn" title="Brescia"></span>
+          </div>
+        </button>
+        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-29">
+          <span class="d">29</span>
+        </button>
+        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-30">
+          <span class="d">30</span>
+        </button>
+        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-31">
+          <span class="d">31</span>
+        </button>
+      
+        <!-- OUT-OF-MONTH · inizio giugno (lun 1 → dom 7) -->
+        <div class="cal-day out" aria-hidden="true"><span class="d">1</span></div>
+        <div class="cal-day out" aria-hidden="true"><span class="d">2</span></div>
+        <div class="cal-day out" aria-hidden="true"><span class="d">3</span></div>
+        <div class="cal-day out" aria-hidden="true"><span class="d">4</span></div>
+        <div class="cal-day out" aria-hidden="true"><span class="d">5</span></div>
+        <div class="cal-day out" aria-hidden="true"><span class="d">6</span></div>
+        <div class="cal-day out" aria-hidden="true"><span class="d">7</span></div>
+      </div>
+      
+      <!-- ─────────────────────────────────────────────────────────────────────
+           LEGENDA · inline mini mono
+           ───────────────────────────────────────────────────────────────────── -->
+      <div class="cal-legend text-mono"><!-- NEED_CLASS .cal-legend (flex wrap, mini muted) -->
+        <span class="legend-item"><span class="dot dot-cyan"></span>LASPEZIA</span>
+        <span class="legend-sep">·</span>
+        <span class="legend-item"><span class="dot"></span>EMPOLI</span>
+        <span class="legend-sep">·</span>
+        <span class="legend-item"><span class="dot warn"></span>BRESCIA</span>
+        <span class="legend-sep">·</span>
+        <span class="legend-item"><span class="dot danger"></span>GENOVA</span>
+      </div>
+      <!-- NEED_CLASS .legend-item, .legend-sep -->
+      
+      <!-- ─────────────────────────────────────────────────────────────────────
+           PROSSIME NOTTI / 4 · agenda mono
+           ───────────────────────────────────────────────────────────────────── -->
+      <div class="sect sect-q">
+        <span>▸ PROSSIME NOTTI / 4</span>
+      </div>
+      <div class="table table-agenda"><!-- NEED_CLASS .table-agenda (override grid 3-col data/ora/cantiere) -->
+        <div class="table-head">
+          <div>DATA</div>
+          <div>ORA</div>
+          <div>CANTIERE</div>
+        </div>
+      
+        <button class="row" type="button" data-action="open-day" data-date="2026-05-05">
+          <div class="row-data text-mono text-amber">LUN 5 MAG</div><!-- NEED_CLASS .row-data -->
+          <div class="row-ora text-mono">22:00</div><!-- NEED_CLASS .row-ora -->
+          <div class="row-cant text-mono">LASPEZIA-ARCOLA</div><!-- NEED_CLASS .row-cant -->
+        </button>
+      
+        <button class="row" type="button" data-action="open-day" data-date="2026-05-08">
+          <div class="row-data text-mono text-amber">GIO 8 MAG</div>
+          <div class="row-ora text-mono">21:30</div>
+          <div class="row-cant text-mono">EMPOLI</div>
+        </button>
+      
+        <button class="row" type="button" data-action="open-day" data-date="2026-05-12">
+          <div class="row-data text-mono text-amber">LUN 12 MAG</div>
+          <div class="row-ora text-mono">22:00</div>
+          <div class="row-cant text-mono">LASPEZIA</div>
+        </button>
+      
+        <button class="row row-multi" type="button" data-action="open-day" data-date="2026-05-12">
+          <!-- NEED_CLASS .row-multi (border-left amber, indica multi-cantiere stessa notte) -->
+          <div class="row-data text-mono text-amber">LUN 12 MAG</div>
+          <div class="row-ora text-mono">23:00</div>
+          <div class="row-cant text-mono">
+            BRESCIA
+            <span class="pill pill-amber">MULTI</span>
+          </div>
+        </button>
+      </div>
+      
+      <!-- ─────────────────────────────────────────────────────────────────────
+           CANTIERI ATTIVI / 4 · mini-card stile dashboard
+           ───────────────────────────────────────────────────────────────────── -->
+      <div class="sect sect-q">
+        <span>▸ CANTIERI ATTIVI / 4</span>
+      </div>
+      <div class="table">
+        <div class="table-head">
+          <div></div>
+          <div>CANTIERE</div>
+          <div class="right">NOTTI</div>
+          <div class="right">PROX</div>
+          <div class="right">STATO</div>
+        </div>
+      
+        <button class="row" type="button" data-action="open-cantiere" data-id="laspezia">
+          <div class="row-dot"></div>
+          <div>
+            <div class="row-name">La Spezia – Arcola</div>
+            <div class="row-codice">DISP 171→163 · PARI 171→161</div>
+          </div>
+          <div class="col-num amber">4</div>
+          <div class="col-num">5/5</div>
+          <div class="col-num"><span class="pill pill-green">ON</span></div>
+        </button>
+      
+        <button class="row" type="button" data-action="open-cantiere" data-id="empoli">
+          <div class="row-dot"></div>
+          <div>
+            <div class="row-name">Empoli – San Miniato</div>
+            <div class="row-codice">26/26 · DISP 39→26</div>
+          </div>
+          <div class="col-num amber">2</div>
+          <div class="col-num">8/5</div>
+          <div class="col-num"><span class="pill pill-green">ON</span></div>
+        </button>
+      
+        <button class="row" type="button" data-action="open-cantiere" data-id="brescia">
+          <div class="row-dot zero"></div>
+          <div>
+            <div class="row-name">Brescia – Verona AV</div>
+            <div class="row-codice">39/25 · IN PAUSA</div>
+          </div>
+          <div class="col-num zero">0</div>
+          <div class="col-num zero">—</div>
+          <div class="col-num"><span class="pill pill-mute">PAUSA</span></div>
+        </button>
+      
+        <button class="row" type="button" data-action="open-cantiere" data-id="genova">
+          <div class="row-dot warn"></div>
+          <div>
+            <div class="row-name">Genova</div>
+            <div class="row-codice">SCAD. · PARI 10→11</div>
+          </div>
+          <div class="col-num amber">1</div>
+          <div class="col-num">22/5</div>
+          <div class="col-num"><span class="pill pill-warn">WRN</span></div>
+        </button>
+      </div>
+      
+      <!-- =====================================================================
+           NEED_CLASS · riepilogo classi scaffold mancanti per questa vista
+           =====================================================================
+           LAYOUT/HEADER:
+             .mese-head            — variante page-head con titolo + actions
+             .mese-nav             — wrapper nav mese (button mese + OGGI)
+             .mese-nav-btn         — button mono "< MAGGIO 2026 >"
+             .mese-today-btn       — button piccolo "OGGI"
+      
+           FILTER CHIP:
+             .chip-row             — flex orizzontale, overflow-x:auto, gap, padding scroll
+             .chip                 — base chip pill, mono, uppercase, min-height ~28px
+             .chip.active          — variant attivo
+             .chip-amber           — accent amber (per "TUTTI")
+             .chip-cyan            — accent cyan (La Spezia) — colore da definire (es. #38BDF8)
+             .chip-green           — accent success
+             .chip-warn            — accent warn
+             .chip-danger          — accent danger
+      
+           CALENDARIO:
+             .cal-grid-compact     — override su .cal-day min-height 38px in default,
+                                     bump a 48px in html.headlamp-mode
+             .cal-day-today-soft   — bg amber soft (oltre outline amber già definito su .today)
+             .dot.dot-cyan         — colore cyan #38BDF8 per La Spezia
+             .dot-more             — mini text "+N" (font-size xxs, color muted)
+      
+           LEGENDA:
+             .cal-legend           — flex wrap, font mono xxs, color muted, padding 6px 8px
+             .legend-item          — inline-flex, gap 4px, allinea dot+label
+             .legend-sep           — text-faint, mx 4px
+      
+           TABELLA AGENDA:
+             .table-agenda         — override grid-template-columns: auto auto 1fr (3 col)
+                                     applicato sia su .table-head che su .row figli
+             .row-data, .row-ora, .row-cant — celle agenda
+             .row-multi            — border-left 2px amber per indicare multi-cantiere
+           =====================================================================
+      -->
+    </section>
+
+    <!-- =====================================================================
+         SCREEN 9 · PROFILO
+         ===================================================================== -->
+    <section class="screen" data-screen="profilo" aria-label="Profilo utente" hidden>
+      <!-- =====================================================================
+           SCREEN 9 · PROFILO
+           Concept D — Operations Terminal
+           Vista profilo: identità operatore, statistiche orgogliose, sicurezza,
+           firma, preferenze (headlamp/haptic/lingua), info app.
+           ===================================================================== -->
+      
+      <!-- ─────────────────────────────────────────────────────────────────────
+           STICKY HEADER
+           ───────────────────────────────────────────────────────────────────── -->
+      <header class="page-head">
+        <button class="back" type="button" data-action="back" aria-label="Indietro">‹</button>
+        <div class="flex-1">
+          <h1 class="text-amber uc">▸ PROFILO</h1>
+          <div class="h-sub">OPERATORE · SESSIONE LOCALE</div>
+        </div>
+      </header>
+      
+      <!-- ─────────────────────────────────────────────────────────────────────
+           IDENTITÀ — hero (no details)
+           ───────────────────────────────────────────────────────────────────── -->
+      
+      <!-- NEED_CLASS: .ident (hero card flex con avatar a sinistra, info al centro, action a destra) -->
+      <!-- NEED_CLASS: .ident-avatar (64x64, gradient amber, iniziali mono centrate, font 22px bold) -->
+      <!-- NEED_CLASS: .ident-body (colonna nome + sigla) -->
+      <!-- NEED_CLASS: .ident-name (Inter bold 18px, text-primary) -->
+      <!-- NEED_CLASS: .ident-code (mono muted, sigla operatore) -->
+      <div class="ident">
+        <div class="ident-avatar" aria-hidden="true">LP</div>
+        <div class="ident-body">
+          <div class="ident-name">Ludovico Paulon</div>
+          <div class="ident-code text-muted uc">OPER. LP · STRUMENTO G · M2RAILGROUP</div>
+        </div>
+        <button class="btn-ghost" type="button" data-action="edit-profilo">▸ MODIFICA</button>
+      </div>
+      
+      <!-- ─────────────────────────────────────────────────────────────────────
+           STATISTICHE — section bar + 4 cell mono numeri grandi
+           ───────────────────────────────────────────────────────────────────── -->
+      <div class="sect sect-q mt-2">
+        <span>▸ STATISTICHE</span>
+      </div>
+      
+      <div class="stat-grid">
+        <div class="stat">
+          <div class="stat-val amber">247</div>
+          <div class="stat-lab">NOTTI</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val">8.450</div>
+          <div class="stat-lab">SALD</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val danger">12</div>
+          <div class="stat-lab">DIFETTI</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val">67%</div>
+          <div class="stat-lab">AVANZ MEDIO</div>
+        </div>
+      </div>
+      
+      <!-- ─────────────────────────────────────────────────────────────────────
+           SICUREZZA — pin + esci (mostrato in stato CONFERMA)
+           ───────────────────────────────────────────────────────────────────── -->
+      
+      <!-- NEED_CLASS: .group (wrapper <details> stile terminal) -->
+      <!-- NEED_CLASS: .group-summary (riga summary cliccabile, stile sect-q) -->
+      <!-- NEED_CLASS: .group-body (padding + bg secondary contenuto details) -->
+      <!-- NEED_CLASS: .pin-row (riga PIN: label + dots + button mini a destra) -->
+      <!-- NEED_CLASS: .pin-dots (mono, font letter-spacing, text-primary) -->
+      <!-- NEED_CLASS: .btn-mini (button piccolo, padding ridotto, min-height 32, mono uppercase) -->
+      
+      <details class="group" open>
+        <summary class="sect sect-q group-summary">
+          <span>▸ SICUREZZA</span>
+          <span class="text-muted">▾</span>
+        </summary>
+        <div class="group-body">
+      
+          <div class="pin-row">
+            <span class="text-muted uc text-xs">PIN ATTUALE</span>
+            <span class="pin-dots text-primary text-mono">●●●●</span>
+            <button class="btn-mini" type="button" data-action="cambia-pin">CAMBIA</button>
+          </div>
+      
+          <button
+            class="btn-danger btn-block mt-2"
+            type="button"
+            data-action="logout"
+            data-confirm="double-tap"
+            data-confirm-state="2"
+            aria-label="Esci dall'app (tap due volte per confermare)">
+            ▸ CONFERMA USCITA
+          </button>
+      
+        </div>
+      </details>
+      
+      <!-- ─────────────────────────────────────────────────────────────────────
+           FIRMA OPERATORE — canvas vuoto + azioni
+           ───────────────────────────────────────────────────────────────────── -->
+      
+      <!-- NEED_CLASS: .sig-canvas-wrap (wrapper canvas con bordo amber dashed e placeholder centrato) -->
+      <!-- NEED_CLASS: .sig-canvas (canvas 280x100 display block bg secondary, mx auto) -->
+      <!-- NEED_CLASS: .sig-placeholder (overlay assoluto, mono uppercase muted, centrato, pointer-events none) -->
+      
+      <details class="group">
+        <summary class="sect sect-q group-summary">
+          <span>▸ FIRMA OPERATORE</span>
+          <span class="text-muted">▸</span>
+        </summary>
+        <div class="group-body">
+      
+          <div class="sig-canvas-wrap">
+            <canvas class="sig-canvas" width="280" height="100" aria-label="Area firma operatore"></canvas>
+            <span class="sig-placeholder text-muted uc">▸ DISEGNA LA FIRMA</span>
+          </div>
+      
+          <div class="btn-row">
+            <button class="btn-ghost" type="button" data-action="firma-cancella">CANCELLA</button>
+            <button class="btn-secondary" type="button" data-action="firma-carica">CARICA DA PROFILO</button>
+          </div>
+      
+        </div>
+      </details>
+      
+      <!-- ─────────────────────────────────────────────────────────────────────
+           PREFERENZE — headlamp / haptic / lingua (open di default)
+           ───────────────────────────────────────────────────────────────────── -->
+      
+      <!-- NEED_CLASS: .pref-row (riga setting: label flex-1 + control a destra, min-height 48, border-bottom subtle) -->
+      <!-- NEED_CLASS: .pref-row-label (mono, text-body, uppercase) -->
+      <!-- NEED_CLASS: .pref-row-value (mono muted a destra per valori statici tipo "ITALIANO") -->
+      
+      <details class="group" open>
+        <summary class="sect sect-q group-summary">
+          <span>▸ PREFERENZE</span>
+          <span class="text-muted">▾</span>
+        </summary>
+        <div class="group-body">
+      
+          <div class="pref-row">
+            <span class="pref-row-label uc">MODALITÀ FRONTALE (HEADLAMP)</span>
+            <button
+              class="toggle"
+              type="button"
+              role="switch"
+              aria-checked="false"
+              data-pref="headlamp">
+              <span class="toggle-track" aria-hidden="true"></span>
+            </button>
+          </div>
+      
+          <div class="pref-row">
+            <span class="pref-row-label uc">VIBRAZIONE (HAPTIC)</span>
+            <button
+              class="toggle"
+              type="button"
+              role="switch"
+              aria-checked="true"
+              data-pref="haptic">
+              <span class="toggle-track" aria-hidden="true"></span>
+            </button>
+          </div>
+      
+          <div class="pref-row">
+            <span class="pref-row-label uc">LINGUA</span>
+            <span class="pref-row-value text-muted">ITALIANO</span>
+          </div>
+      
+        </div>
+      </details>
+      
+      <!-- ─────────────────────────────────────────────────────────────────────
+           INFO APP — tabella mono key/value + debug
+           ───────────────────────────────────────────────────────────────────── -->
+      
+      <details class="group">
+        <summary class="sect sect-q group-summary">
+          <span>▸ INFO APP</span>
+          <span class="text-muted">▸</span>
+        </summary>
+      
+        <div class="kv">
+          <div class="kv-row">
+            <span class="k">VERSIONE</span>
+            <span class="v">2.0 (build 263)</span>
+          </div>
+          <div class="kv-row">
+            <span class="k">ULTIMA SYNC</span>
+            <span class="v">2 MAG 2026 · 19:30</span>
+          </div>
+          <div class="kv-row">
+            <span class="k">SERVER</span>
+            <span class="v">92.4.172.126</span>
+          </div>
+          <div class="kv-row">
+            <span class="k">DEBUG</span>
+            <span class="v">
+              <button class="btn-mini" type="button" data-action="debug">?debug=1</button>
+            </span>
+          </div>
+        </div>
+      
+      </details>
+    </section>
+
+  </main>
+
+  <!-- BOTTOM NAV -->
+  <nav class="nav" id="bottom-nav" aria-label="Navigazione principale">
+    <button class="nav-tab" data-nav="dashboard"  type="button">▸ HOME</button>
+    <button class="nav-tab" data-nav="panoramica" type="button">MESE</button>
+    <button class="nav-tab" data-nav="profilo"    type="button">PROF</button>
+    <button class="nav-tab" data-nav="headlamp"   type="button" aria-label="Tap-and-hold per attivare modalità frontale">FRONT</button>
+  </nav>
+
+  <!-- =======================================================================
+       MODALI (sheet bottom-up)
+       ======================================================================= -->
+
+  <!-- Modale: edit notte (apri/chiudi sessione, parametri, meteo) -->
+  <dialog id="sheet-edit-notte" aria-labelledby="sheet-edit-notte-title">
+    <div class="sheet" role="document">
+      <header class="sheet-head">
+        <span id="sheet-edit-notte-title">▸ EDIT NOTTE</span>
+        <button class="close" type="button" data-close-sheet aria-label="Chiudi">×</button>
+      </header>
+      <div class="sheet-body">
+        <!-- view content here -->
+      </div>
+      <footer class="sheet-foot">
+        <button class="btn-ghost btn-block" type="button" data-close-sheet>ANNULLA</button>
+        <button class="btn-primary btn-block" type="button">SALVA</button>
+      </footer>
+    </div>
+  </dialog>
+
+  <!-- Modale: aggiungi elemento (saldatura/giunto) -->
+  <dialog id="sheet-add-elemento" aria-labelledby="sheet-add-elemento-title">
+    <div class="sheet" role="document">
+      <header class="sheet-head">
+        <span id="sheet-add-elemento-title">▸ NUOVO ELEMENTO</span>
+        <button class="close" type="button" data-close-sheet aria-label="Chiudi">×</button>
+      </header>
+      <div class="sheet-body">
+        <!-- view content here -->
+      </div>
+      <footer class="sheet-foot">
+        <button class="btn-ghost btn-block" type="button" data-close-sheet>ANNULLA</button>
+        <button class="btn-primary btn-block" type="button">AGGIUNGI</button>
+      </footer>
+    </div>
+  </dialog>
+
+  <!-- Modale: edit saldatura (esito, difetto, note) -->
+  <dialog id="sheet-edit-saldatura" aria-labelledby="sheet-edit-saldatura-title">
+    <div class="sheet" role="document">
+      <header class="sheet-head">
+        <span id="sheet-edit-saldatura-title">▸ EDIT SALDATURA</span>
+        <button class="close" type="button" data-close-sheet aria-label="Chiudi">×</button>
+      </header>
+      <div class="sheet-body">
+        <!-- view content here -->
+      </div>
+      <footer class="sheet-foot">
+        <button class="btn-ghost btn-block" type="button" data-close-sheet>ANNULLA</button>
+        <button class="btn-primary btn-block" type="button">SALVA</button>
+      </footer>
+    </div>
+  </dialog>
+
+  <!-- Modale: dettaglio giorno calendario -->
+  <dialog id="sheet-calendar-day" aria-labelledby="sheet-calendar-day-title">
+    <div class="sheet" role="document">
+      <header class="sheet-head">
+        <span id="sheet-calendar-day-title">▸ GIORNO</span>
+        <button class="close" type="button" data-close-sheet aria-label="Chiudi">×</button>
+      </header>
+      <div class="sheet-body">
+        <!-- view content here -->
+      </div>
+      <footer class="sheet-foot">
+        <button class="btn-ghost btn-block" type="button" data-close-sheet>CHIUDI</button>
+        <button class="btn-primary btn-block" type="button">APRI CANTIERE</button>
+      </footer>
+    </div>
+  </dialog>
+
+  <!-- =======================================================================
+       MODAL FULL · SCHEDA I.1
+       ======================================================================= -->
+  <dialog id="modal-scheda" aria-labelledby="modal-scheda-title">
+    <div class="modal-full" role="document">
+      <header class="sheet-head">
+        <span id="modal-scheda-title">▸ SCHEDA I.1</span>
+        <button class="close" type="button" data-close-sheet aria-label="Chiudi">×</button>
+      </header>
+      <div class="sheet-body">
+        <!-- view content here -->
+      </div>
+    </div>
+  </dialog>
+
+  <!-- TOAST CONTAINER -->
+  <div id="toast-container" aria-live="polite" aria-atomic="false"></div>
+
+  <script src="mockup.js"></script>
+
+  <!-- Extra overlay modals -->
+  <!--
+  M2 DIAGNOSTICA · CONCEPT D — OVERLAYS / SHEETS
+  4 modali secondarie. In produzione: ognuna avvolta in <dialog> oppure
+  in un wrapper .sheet-overlay con [hidden]. Qui sono tutte VISIBILI per testing.
+
+  NEED_CLASS dichiarate in fondo al file.
+
+  Pattern:
+    <div class="sheet-overlay" role="dialog" aria-modal="true" aria-labelledby="...">
+      <div class="sheet-backdrop" data-action="close-sheet" data-target="<id>"></div>
+      <div class="sheet" role="document">
+        <header class="sheet-head"> ... </header>
+        <div class="sheet-body"> ... </div>
+        <footer class="sheet-foot"> ... </footer>
+      </div>
+    </div>
+-->
+
+<!-- =========================================================================
+     MODALE 1 — EDIT NOTTE (bottom-sheet)
+     ========================================================================= -->
+<div class="sheet-overlay" id="sheet-edit-notte-mockup" role="dialog" aria-modal="true" aria-labelledby="sheet-edit-notte-mockup-title">
+  <div class="sheet-backdrop" data-action="close-sheet" data-target="sheet-edit-notte-mockup"></div>
+
+  <div class="sheet" role="document">
+    <header class="sheet-head">
+      <span id="sheet-edit-notte-mockup-title">▸ MODIFICA NOTTE</span>
+      <button class="close" type="button" data-action="close-sheet" data-target="sheet-edit-notte-mockup" aria-label="Chiudi">×</button>
+    </header>
+
+    <div class="sheet-body">
+
+      <div class="form-group">
+        <label class="label" for="en-data">DATA NOTTE</label>
+        <input id="en-data" class="input text-mono" type="date" value="2026-05-05">
+      </div>
+
+      <div class="form-group">
+        <span class="label">STATO</span>
+        <div class="segmented" role="tablist" aria-label="Stato notte">
+          <button type="button" class="active" data-value="programmata">PROGRAMMATA</button>
+          <button type="button" data-value="saltata">SALTATA</button>
+          <button type="button" data-value="completata">COMPLETATA</button>
+        </div>
+      </div>
+
+      <div class="form-group" data-cond="stato=saltata">
+        <label class="label" for="en-motivo">MOTIVO SALTO</label>
+        <select id="en-motivo" class="input">
+          <option value="" disabled selected>— Seleziona motivo —</option>
+          <option value="pioggia">Pioggia</option>
+          <option value="allerta">Allerta meteo</option>
+          <option value="problemi">Problemi</option>
+          <option value="altro">Altro</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="label" for="en-note">NOTE</label>
+        <textarea id="en-note" class="input" placeholder="Note operative, contatti, decisioni…" rows="4"></textarea>
+      </div>
+
+    </div>
+
+    <footer class="sheet-foot sheet-foot-3">
+      <button class="btn-danger" type="button" data-action="confirm-delete" data-step="1">ELIMINA</button>
+      <button class="btn-ghost" type="button" data-action="close-sheet" data-target="sheet-edit-notte-mockup">ANNULLA</button>
+      <button class="btn-primary" type="button">▸ SALVA</button>
+    </footer>
+  </div>
+</div>
+
+
+<!-- =========================================================================
+     MODALE 2 — AGGIUNGI ELEMENTO CONTROLLATO (bottom-sheet)
+     ========================================================================= -->
+<div class="sheet-overlay" id="sheet-add-elemento" role="dialog" aria-modal="true" aria-labelledby="sheet-add-elemento-title">
+  <div class="sheet-backdrop" data-action="close-sheet" data-target="sheet-add-elemento"></div>
+
+  <div class="sheet" role="document">
+    <header class="sheet-head">
+      <span id="sheet-add-elemento-title">▸ AGGIUNGI ELEMENTO</span>
+      <button class="close" type="button" data-action="close-sheet" data-target="sheet-add-elemento" aria-label="Chiudi">×</button>
+    </header>
+
+    <div class="sheet-body">
+
+      <div class="form-group">
+        <span class="label">TIPO</span>
+        <div class="segmented" role="tablist" aria-label="Tipo elemento">
+          <button type="button" class="active seg-success" data-value="regolazione">REGOLAZIONE</button>
+          <button type="button" class="seg-warn" data-value="deviatoio">DEVIATOIO</button>
+          <button type="button" class="seg-danger" data-value="ricontrollo">RICONTROLLO</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="label" for="ae-km">KM</label>
+        <input id="ae-km" class="input text-mono" type="text"
+               inputmode="numeric"
+               pattern="\d+\+\d{3}"
+               placeholder="168+200"
+               autocomplete="off"
+               spellcheck="false">
+      </div>
+
+      <div class="form-group">
+        <span class="label">LATO</span>
+        <div class="segmented" role="tablist" aria-label="Lato">
+          <button type="button" class="active" data-value="dx">DX</button>
+          <button type="button" data-value="sx">SX</button>
+          <button type="button" data-value="entrambi">ENTRAMBI</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="label" for="ae-note">NOTE <span class="hint">(opzionale)</span></label>
+        <textarea id="ae-note" class="input" placeholder="Dettagli aggiuntivi…" rows="3"></textarea>
+      </div>
+
+    </div>
+
+    <footer class="sheet-foot">
+      <button class="btn-ghost" type="button" data-action="close-sheet" data-target="sheet-add-elemento">ANNULLA</button>
+      <button class="btn-primary" type="button">▸ AGGIUNGI</button>
+    </footer>
+  </div>
+</div>
+
+
+<!-- =========================================================================
+     MODALE 3 — EDIT SALDATURA (bottom-sheet)
+     ========================================================================= -->
+<div class="sheet-overlay" id="sheet-edit-saldatura" role="dialog" aria-modal="true" aria-labelledby="sheet-edit-saldatura-title">
+  <div class="sheet-backdrop" data-action="close-sheet" data-target="sheet-edit-saldatura"></div>
+
+  <div class="sheet" role="document">
+    <header class="sheet-head">
+      <span id="sheet-edit-saldatura-title">▸ MODIFICA SALDATURA</span>
+      <button class="close" type="button" data-action="close-sheet" data-target="sheet-edit-saldatura" aria-label="Chiudi">×</button>
+    </header>
+
+    <div class="sheet-body">
+
+      <div class="form-group">
+        <label class="label" for="es-km">KM</label>
+        <input id="es-km" class="input text-mono" type="text"
+               inputmode="numeric"
+               pattern="\d+\+\d{3}"
+               placeholder="167+850"
+               autocomplete="off"
+               spellcheck="false">
+      </div>
+
+      <div class="form-group">
+        <span class="label">LATO</span>
+        <div class="segmented" role="tablist" aria-label="Lato">
+          <button type="button" class="active" data-value="dx">DX</button>
+          <button type="button" data-value="sx">SX</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <span class="label">TIPO</span>
+        <div class="segmented" role="tablist" aria-label="Tipo saldatura">
+          <button type="button" class="active" data-value="tr">TR</button>
+          <button type="button" data-value="all">ALL</button>
+          <button type="button" data-value="scin">SCIN</button>
+          <button type="button" data-value="altro">ALTRO</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <span class="label">STATO</span>
+        <div class="segmented" role="tablist" aria-label="Stato saldatura">
+          <button type="button" class="active seg-success" data-value="ok">OK</button>
+          <button type="button" class="seg-danger" data-value="difetto">DIFETTO</button>
+          <button type="button" class="seg-mute" data-value="nodac">NO DAC</button>
+        </div>
+      </div>
+
+      <div class="form-group" data-cond="stato=difetto">
+        <label class="label" for="es-codice">CODICE DIFETTO <span class="hint">(autocomplete)</span></label>
+        <input id="es-codice" class="input text-mono" type="text"
+               inputmode="numeric"
+               list="es-codici-difetto"
+               placeholder="es. 211"
+               autocomplete="off"
+               spellcheck="false">
+        <datalist id="es-codici-difetto">
+          <option value="211">211</option>
+          <option value="113">113</option>
+          <option value="121">121</option>
+          <option value="221">221</option>
+          <option value="411">411</option>
+          <option value="421">421</option>
+        </datalist>
+      </div>
+
+    </div>
+
+    <footer class="sheet-foot sheet-foot-3">
+      <button class="btn-danger" type="button" data-action="confirm-delete" data-step="1">ELIMINA</button>
+      <button class="btn-ghost" type="button" data-action="close-sheet" data-target="sheet-edit-saldatura">ANNULLA</button>
+      <button class="btn-primary" type="button">▸ SALVA</button>
+    </footer>
+  </div>
+</div>
+
+
+<!-- =========================================================================
+     MODALE 4 — CALENDAR TAP DAY (bottom-sheet)
+     ========================================================================= -->
+<div class="sheet-overlay" id="sheet-calendar-day" role="dialog" aria-modal="true" aria-labelledby="sheet-calendar-day-title">
+  <div class="sheet-backdrop" data-action="close-sheet" data-target="sheet-calendar-day"></div>
+
+  <div class="sheet" role="document">
+    <header class="sheet-head">
+      <span id="sheet-calendar-day-title">▸ LUN 5 MAGGIO 2026</span>
+      <button class="close" type="button" data-action="close-sheet" data-target="sheet-calendar-day" aria-label="Chiudi">×</button>
+    </header>
+
+    <div class="sheet-body sheet-body-flush">
+
+      <div class="sect sect-q">
+        <span>▸ NOTTI / 2</span>
+        <span class="text-muted text-xs">TAP per aprire</span>
+      </div>
+
+      <div class="table table-simple">
+        <button class="row" type="button" data-action="open-cantiere" data-cantiere="laspezia-arcola">
+          <div class="row-dot"></div>
+          <div>
+            <div class="row-name">La Spezia – Arcola</div>
+            <div class="row-codice">LASPEZIA-ARCOLA · 22:00 · DISP 171→163</div>
+          </div>
+          <div class="col-num text-amber">›</div>
+        </button>
+
+        <button class="row" type="button" data-action="open-cantiere" data-cantiere="empoli">
+          <div class="row-dot warn"></div>
+          <div>
+            <div class="row-name">Empoli – San Miniato</div>
+            <div class="row-codice">EMPOLI · 21:30 · DISP 39→26</div>
+          </div>
+          <div class="col-num text-amber">›</div>
+        </button>
+      </div>
+
+      <button class="btn-ghost btn-block mt-3" type="button" data-action="new-notte" data-date="2026-05-05">
+        + PROGRAMMA NUOVA NOTTE
+      </button>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- =========================================================================
+     NEED_CLASS — classi mancanti nello scaffold style.css
+     =========================================================================
+     1. .sheet-overlay
+        Wrapper full-screen che contiene backdrop + .sheet, ancorato in basso.
+        Necessario perché lo scaffold prevede solo <dialog> nativo (con ::backdrop)
+        ma qui usiamo <div role="dialog"> per portabilità.
+        Comportamento atteso:
+          position: fixed; inset: 0; z-index: 200;
+          display: flex; flex-direction: column; justify-content: flex-end;
+          (in produzione: aggiungere [hidden] { display: none; })
+
+     2. .sheet-backdrop
+        Backdrop opaco PIATTO (NO backdrop-filter, LEARNED #182).
+        Comportamento atteso:
+          position: absolute; inset: 0;
+          background: var(--bg-overlay);  /* rgba(0,0,0,0.85) */
+
+     3. .sheet-foot-3
+        Variante a 3 colonne del footer sticky (ELIMINA · ANNULLA · SALVA).
+        Modifier di .sheet-foot:
+          grid-template-columns: 1fr 1fr 1fr;
+        Usata in modale 1 (Edit notte) e modale 3 (Edit saldatura).
+
+     4. .sheet-body-flush
+        Variante body senza padding orizzontale, per quando il contenuto è
+        una .table edge-to-edge (modale 4 calendar day).
+        Modifier di .sheet-body:
+          padding-left: 0; padding-right: 0;
+        (sezioni interne come .sect e .table compensano da sole.)
+
+     5. .seg-success / .seg-warn / .seg-danger / .seg-mute
+        Modifier di colore per i pulsanti dentro .segmented quando .active.
+        Servono per i pill group con semantica colorata
+        (TIPO regolazione/deviatoio/ricontrollo · STATO ok/difetto/nodac).
+        Comportamento atteso (solo su .active):
+          .segmented button.active.seg-success { background: var(--color-success-alt); color: #000; }
+          .segmented button.active.seg-warn    { background: var(--color-warn-alt);    color: #000; }
+          .segmented button.active.seg-danger  { background: var(--color-danger);      color: #FFF; }
+          .segmented button.active.seg-mute    { background: var(--bg-surface); color: var(--text-muted); border: 1px solid var(--border-default); }
+
+     6. .label .hint
+        Sub-span dentro .label già definito in style.css (riga 538) —
+        OK, NON è una classe nuova, riportata solo per nota.
+
+     7. [data-cond="..."]
+        Selettore non-CSS, gestito da mockup.js per mostrare/nascondere
+        gruppi condizionali (es. MOTIVO SALTO solo se stato=saltata,
+        CODICE DIFETTO solo se stato=difetto). Default: visibile in mockup.
+========================================================================= -->
+
+
+</body>
+</html>

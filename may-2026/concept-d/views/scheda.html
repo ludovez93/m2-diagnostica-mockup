@@ -1,0 +1,439 @@
+<!-- =====================================================================
+     SCREEN 7 · SCHEDA I.1   (modal-full di compilazione difetto)
+     Concept D — Operations Terminal
+     NB: la Scheda I.1 viene mostrata come <section data-screen="scheda">
+         per coerenza DEV nav, ma in produzione è renderizzata dentro
+         <dialog id="modal-scheda"><div class="modal-full">…</div></dialog>
+     Form denso terminal-style · 4 step in tab orizzontali
+     STEP 1 = DIFETTO (visibile)  ·  STEP 2-4 placeholder hidden
+     ===================================================================== -->
+
+<!-- ─────────────────────────────────────────────────────────────────────
+     HEADER STICKY · close X · titolo amber · step indicator destra
+     Riusa .sheet-head (sfondo amber) come da scaffold modal-full
+     ───────────────────────────────────────────────────────────────────── -->
+<header class="sheet-head" id="scheda-head">
+  <button class="close" type="button" data-action="close-scheda" aria-label="Chiudi scheda">×</button>
+  <span id="scheda-title" style="flex:1; text-align:left; padding-left:8px;">▸ SCHEDA I.1</span>
+  <!-- NEED_CLASS: .step-indicator (mono "STEP N / 4") -->
+  <span class="step-indicator text-mono" aria-live="polite"
+        style="font-family: 'JetBrains Mono', monospace; font-size:10px; font-weight:700; letter-spacing:0.10em;">
+    STEP 1 / 4
+  </span>
+</header>
+
+<!-- ─────────────────────────────────────────────────────────────────────
+     STEP TABS · 4 tab orizzontali · DIFETTO attivo (underline amber)
+     NEED_CLASS: .step-tabs / .step-tab / .step-tab.active
+     ───────────────────────────────────────────────────────────────────── -->
+<nav class="step-tabs" role="tablist" aria-label="Step compilazione scheda"
+     style="display:grid; grid-template-columns:repeat(4, 1fr);
+            background:#0A0A0A; border-bottom:1px solid #2D2D2D;
+            margin:0 -8px;">
+  <button type="button"
+          class="step-tab active"
+          role="tab"
+          aria-selected="true"
+          aria-controls="step-1-panel"
+          data-action="step-tab"
+          data-step="1"
+          style="background:transparent; border:0; border-bottom:2px solid #F0A028;
+                 color:#F0A028; font-family:'JetBrains Mono', monospace;
+                 font-size:10px; font-weight:700; letter-spacing:0.12em;
+                 padding:14px 4px; min-height:48px; text-transform:uppercase;">
+    DIFETTO
+  </button>
+  <button type="button"
+          class="step-tab"
+          role="tab"
+          aria-selected="false"
+          aria-controls="step-2-panel"
+          data-action="step-tab"
+          data-step="2"
+          style="background:transparent; border:0; border-bottom:2px solid transparent;
+                 color:#777; font-family:'JetBrains Mono', monospace;
+                 font-size:10px; font-weight:700; letter-spacing:0.12em;
+                 padding:14px 4px; min-height:48px; text-transform:uppercase;">
+    BINARIO
+  </button>
+  <button type="button"
+          class="step-tab"
+          role="tab"
+          aria-selected="false"
+          aria-controls="step-3-panel"
+          data-action="step-tab"
+          data-step="3"
+          style="background:transparent; border:0; border-bottom:2px solid transparent;
+                 color:#777; font-family:'JetBrains Mono', monospace;
+                 font-size:10px; font-weight:700; letter-spacing:0.12em;
+                 padding:14px 4px; min-height:48px; text-transform:uppercase;">
+    SALDATURA
+  </button>
+  <button type="button"
+          class="step-tab"
+          role="tab"
+          aria-selected="false"
+          aria-controls="step-4-panel"
+          data-action="step-tab"
+          data-step="4"
+          style="background:transparent; border:0; border-bottom:2px solid transparent;
+                 color:#777; font-family:'JetBrains Mono', monospace;
+                 font-size:10px; font-weight:700; letter-spacing:0.12em;
+                 padding:14px 4px; min-height:48px; text-transform:uppercase;">
+    FIRMA
+  </button>
+</nav>
+
+<!-- ─────────────────────────────────────────────────────────────────────
+     FORM
+     ───────────────────────────────────────────────────────────────────── -->
+<form id="form-scheda" class="form-scheda" autocomplete="off" novalidate
+      style="padding-bottom:140px;">
+
+  <!-- =====================================================================
+       STEP 1 · DIFETTO   (visibile)
+       ===================================================================== -->
+  <fieldset class="form-step" data-step="1" id="step-1-panel"
+            role="tabpanel" aria-labelledby="tab-difetto">
+    <legend class="sect"><span>▸ STEP 1 · DIFETTO</span></legend>
+
+    <!-- riga 1: PROF FESS · W (PERC) -->
+    <div class="input-row">
+      <div class="form-group">
+        <label class="label" for="f-prof">
+          PROF FESS <span class="req">*</span>
+        </label>
+        <!-- NEED_CLASS: .input-with-suffix (input + suffisso unità mono allineato) -->
+        <div class="input-with-suffix"
+             style="display:grid; grid-template-columns:1fr auto; align-items:stretch;
+                    border:1px solid #2D2D2D; background:#0A0A0A;">
+          <input class="input text-mono" id="f-prof" name="prof_fess"
+                 type="number" inputmode="decimal" step="0.1" min="0"
+                 value="12"
+                 style="border:0; font-size:16px; text-align:right; padding-right:8px;">
+          <span class="text-mono text-muted uc"
+                style="display:flex; align-items:center; padding:0 12px;
+                       border-left:1px solid #2D2D2D; font-size:12px;">mm</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="label" for="f-w">
+          W (PERC) <span class="req">*</span>
+        </label>
+        <div class="input-with-suffix"
+             style="display:grid; grid-template-columns:1fr auto; align-items:stretch;
+                    border:1px solid #2D2D2D; background:#0A0A0A;">
+          <input class="input text-mono" id="f-w" name="w_perc"
+                 type="number" inputmode="decimal" step="0.1" min="0"
+                 value="25"
+                 style="border:0; font-size:16px; text-align:right; padding-right:8px;">
+          <span class="text-mono text-muted uc"
+                style="display:flex; align-items:center; padding:0 12px;
+                       border-left:1px solid #2D2D2D; font-size:12px;">mm</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- riga 2: AMP (ALT) · GUAD -->
+    <div class="input-row">
+      <div class="form-group">
+        <label class="label" for="f-amp">
+          AMP (ALT) <span class="req">*</span>
+        </label>
+        <div class="input-with-suffix"
+             style="display:grid; grid-template-columns:1fr auto; align-items:stretch;
+                    border:1px solid #2D2D2D; background:#0A0A0A;">
+          <input class="input text-mono" id="f-amp" name="amp_alt"
+                 type="number" inputmode="decimal" step="0.1" min="0"
+                 value="18"
+                 style="border:0; font-size:16px; text-align:right; padding-right:8px;">
+          <span class="text-mono text-muted uc"
+                style="display:flex; align-items:center; padding:0 12px;
+                       border-left:1px solid #2D2D2D; font-size:12px;">mm</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="label" for="f-guad">
+          GUAD <span class="req">*</span>
+        </label>
+        <div class="input-with-suffix"
+             style="display:grid; grid-template-columns:1fr auto; align-items:stretch;
+                    border:1px solid #2D2D2D; background:#0A0A0A;">
+          <input class="input text-mono" id="f-guad" name="guad"
+                 type="number" inputmode="decimal" step="0.1"
+                 value="8"
+                 style="border:0; font-size:16px; text-align:right; padding-right:8px;">
+          <span class="text-mono text-muted uc"
+                style="display:flex; align-items:center; padding:0 12px;
+                       border-left:1px solid #2D2D2D; font-size:12px;">Db</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- riga 3: PALO TE (full) -->
+    <div class="form-group">
+      <label class="label" for="f-palo">
+        PALO TE <span class="req">*</span>
+      </label>
+      <input class="input text-mono" id="f-palo" name="palo_te"
+             type="text" inputmode="text"
+             value="12B"
+             placeholder="ES. 12B"
+             style="font-size:16px;">
+    </div>
+
+    <!-- riga 4: SONDA pill group radio (3 voci) NON SELEZIONATO -->
+    <div class="form-group">
+      <span class="label" id="f-sonda-lab">
+        SONDA <span class="req">*</span>
+      </span>
+      <!-- NEED_CLASS: .pill-group / .pill-radio (radio hidden + label cliccabile, touch 48px+) -->
+      <div class="pill-group" role="radiogroup" aria-labelledby="f-sonda-lab"
+           style="display:grid; grid-template-columns:repeat(3, 1fr); gap:6px;">
+
+        <input type="radio" name="sonda" id="f-sonda-p20"   value="P20-2"
+               class="pill-radio-input" hidden>
+        <label for="f-sonda-p20" class="pill-radio"
+               style="display:flex; align-items:center; justify-content:center;
+                      min-height:48px; padding:10px 8px;
+                      background:#0A0A0A; border:1px solid #2D2D2D;
+                      color:#C8C8B8; font-family:'JetBrains Mono', monospace;
+                      font-size:12px; font-weight:700; letter-spacing:0.08em;
+                      text-transform:uppercase; cursor:pointer;">
+          P20-2
+        </label>
+
+        <input type="radio" name="sonda" id="f-sonda-fta45" value="FTA45-2"
+               class="pill-radio-input" hidden>
+        <label for="f-sonda-fta45" class="pill-radio"
+               style="display:flex; align-items:center; justify-content:center;
+                      min-height:48px; padding:10px 8px;
+                      background:#0A0A0A; border:1px solid #2D2D2D;
+                      color:#C8C8B8; font-family:'JetBrains Mono', monospace;
+                      font-size:12px; font-weight:700; letter-spacing:0.08em;
+                      text-transform:uppercase; cursor:pointer;">
+          FTA45-2
+        </label>
+
+        <input type="radio" name="sonda" id="f-sonda-fta70" value="FTA70-2"
+               class="pill-radio-input" hidden>
+        <label for="f-sonda-fta70" class="pill-radio"
+               style="display:flex; align-items:center; justify-content:center;
+                      min-height:48px; padding:10px 8px;
+                      background:#0A0A0A; border:1px solid #2D2D2D;
+                      color:#C8C8B8; font-family:'JetBrains Mono', monospace;
+                      font-size:12px; font-weight:700; letter-spacing:0.08em;
+                      text-transform:uppercase; cursor:pointer;">
+          FTA70-2
+        </label>
+      </div>
+    </div>
+
+    <!-- riga 5: FONDO SCALA (full, vuoto) -->
+    <div class="form-group">
+      <label class="label" for="f-fondo">
+        FONDO SCALA <span class="req">*</span>
+      </label>
+      <div class="input-with-suffix"
+           style="display:grid; grid-template-columns:1fr auto; align-items:stretch;
+                  border:1px solid #2D2D2D; background:#0A0A0A;">
+        <input class="input text-mono" id="f-fondo" name="fondo_scala"
+               type="number" inputmode="decimal" step="0.1" min="0"
+               value=""
+               placeholder="—"
+               style="border:0; font-size:16px; text-align:right; padding-right:8px;">
+        <span class="text-mono text-muted uc"
+              style="display:flex; align-items:center; padding:0 12px;
+                     border-left:1px solid #2D2D2D; font-size:12px;">mm</span>
+      </div>
+    </div>
+
+    <!-- riga 6: SEDE pill group radio (8 voci) NON SELEZIONATO -->
+    <div class="form-group">
+      <span class="label" id="f-sede-lab">
+        SEDE <span class="req">*</span>
+      </span>
+      <!-- 8 pill, 2 colonne x 4 righe (touch 48px+ anche in densità alta) -->
+      <div class="pill-group" role="radiogroup" aria-labelledby="f-sede-lab"
+           style="display:grid; grid-template-columns:repeat(2, 1fr); gap:6px;">
+
+        <input type="radio" name="sede" id="f-sede-suola"  value="SUOLA"
+               class="pill-radio-input" hidden>
+        <label for="f-sede-suola" class="pill-radio"
+               style="display:flex; align-items:center; justify-content:center;
+                      min-height:48px; padding:10px 8px;
+                      background:#0A0A0A; border:1px solid #2D2D2D;
+                      color:#C8C8B8; font-family:'JetBrains Mono', monospace;
+                      font-size:12px; font-weight:700; letter-spacing:0.08em;
+                      text-transform:uppercase; cursor:pointer;">
+          SUOLA
+        </label>
+
+        <input type="radio" name="sede" id="f-sede-gambo"  value="GAMBO"
+               class="pill-radio-input" hidden>
+        <label for="f-sede-gambo" class="pill-radio"
+               style="display:flex; align-items:center; justify-content:center;
+                      min-height:48px; padding:10px 8px;
+                      background:#0A0A0A; border:1px solid #2D2D2D;
+                      color:#C8C8B8; font-family:'JetBrains Mono', monospace;
+                      font-size:12px; font-weight:700; letter-spacing:0.08em;
+                      text-transform:uppercase; cursor:pointer;">
+          GAMBO
+        </label>
+
+        <input type="radio" name="sede" id="f-sede-fungo"  value="FUNGO"
+               class="pill-radio-input" hidden>
+        <label for="f-sede-fungo" class="pill-radio"
+               style="display:flex; align-items:center; justify-content:center;
+                      min-height:48px; padding:10px 8px;
+                      background:#0A0A0A; border:1px solid #2D2D2D;
+                      color:#C8C8B8; font-family:'JetBrains Mono', monospace;
+                      font-size:12px; font-weight:700; letter-spacing:0.08em;
+                      text-transform:uppercase; cursor:pointer;">
+          FUNGO
+        </label>
+
+        <input type="radio" name="sede" id="f-sede-piano"  value="PIANO STECC."
+               class="pill-radio-input" hidden>
+        <label for="f-sede-piano" class="pill-radio"
+               style="display:flex; align-items:center; justify-content:center;
+                      min-height:48px; padding:10px 8px;
+                      background:#0A0A0A; border:1px solid #2D2D2D;
+                      color:#C8C8B8; font-family:'JetBrains Mono', monospace;
+                      font-size:12px; font-weight:700; letter-spacing:0.08em;
+                      text-transform:uppercase; cursor:pointer; text-align:center;">
+          PIANO STECC.
+        </label>
+
+        <input type="radio" name="sede" id="f-sede-patino" value="PATINO"
+               class="pill-radio-input" hidden>
+        <label for="f-sede-patino" class="pill-radio"
+               style="display:flex; align-items:center; justify-content:center;
+                      min-height:48px; padding:10px 8px;
+                      background:#0A0A0A; border:1px solid #2D2D2D;
+                      color:#C8C8B8; font-family:'JetBrains Mono', monospace;
+                      font-size:12px; font-weight:700; letter-spacing:0.08em;
+                      text-transform:uppercase; cursor:pointer;">
+          PATINO
+        </label>
+
+        <input type="radio" name="sede" id="f-sede-anima"  value="ANIMA"
+               class="pill-radio-input" hidden>
+        <label for="f-sede-anima" class="pill-radio"
+               style="display:flex; align-items:center; justify-content:center;
+                      min-height:48px; padding:10px 8px;
+                      background:#0A0A0A; border:1px solid #2D2D2D;
+                      color:#C8C8B8; font-family:'JetBrains Mono', monospace;
+                      font-size:12px; font-weight:700; letter-spacing:0.08em;
+                      text-transform:uppercase; cursor:pointer;">
+          ANIMA
+        </label>
+
+        <input type="radio" name="sede" id="f-sede-eco"    value="ECO POST."
+               class="pill-radio-input" hidden>
+        <label for="f-sede-eco" class="pill-radio"
+               style="display:flex; align-items:center; justify-content:center;
+                      min-height:48px; padding:10px 8px;
+                      background:#0A0A0A; border:1px solid #2D2D2D;
+                      color:#C8C8B8; font-family:'JetBrains Mono', monospace;
+                      font-size:12px; font-weight:700; letter-spacing:0.08em;
+                      text-transform:uppercase; cursor:pointer;">
+          ECO POST.
+        </label>
+
+        <input type="radio" name="sede" id="f-sede-altro"  value="ALTRO"
+               class="pill-radio-input" hidden>
+        <label for="f-sede-altro" class="pill-radio"
+               style="display:flex; align-items:center; justify-content:center;
+                      min-height:48px; padding:10px 8px;
+                      background:#0A0A0A; border:1px solid #2D2D2D;
+                      color:#C8C8B8; font-family:'JetBrains Mono', monospace;
+                      font-size:12px; font-weight:700; letter-spacing:0.08em;
+                      text-transform:uppercase; cursor:pointer;">
+          ALTRO
+        </label>
+      </div>
+    </div>
+  </fieldset>
+
+  <!-- =====================================================================
+       STEP 2 · BINARIO   (hidden placeholder)
+       ===================================================================== -->
+  <fieldset class="form-step" data-step="2" id="step-2-panel"
+            role="tabpanel" aria-labelledby="tab-binario" hidden>
+    <legend class="sect"><span>▸ STEP 2 · BINARIO</span></legend>
+    <div class="text-muted text-xs uc" style="padding:16px 8px;">
+      ▸ DA DEFINIRE
+    </div>
+  </fieldset>
+
+  <!-- =====================================================================
+       STEP 3 · SALDATURA   (hidden placeholder)
+       ===================================================================== -->
+  <fieldset class="form-step" data-step="3" id="step-3-panel"
+            role="tabpanel" aria-labelledby="tab-saldatura" hidden>
+    <legend class="sect"><span>▸ STEP 3 · SALDATURA</span></legend>
+    <div class="text-muted text-xs uc" style="padding:16px 8px;">
+      ▸ DA DEFINIRE
+    </div>
+  </fieldset>
+
+  <!-- =====================================================================
+       STEP 4 · FIRMA   (hidden placeholder)
+       ===================================================================== -->
+  <fieldset class="form-step" data-step="4" id="step-4-panel"
+            role="tabpanel" aria-labelledby="tab-firma" hidden>
+    <legend class="sect"><span>▸ STEP 4 · FIRMA</span></legend>
+    <div class="text-muted text-xs uc" style="padding:16px 8px;">
+      ▸ DA DEFINIRE
+    </div>
+  </fieldset>
+
+</form>
+
+<!-- ─────────────────────────────────────────────────────────────────────
+     POPOVER WARNING · sticky sopra footer · 3 campi mancanti
+     NEED_CLASS: .warning-popover (card amber outline non bloccante)
+     ───────────────────────────────────────────────────────────────────── -->
+<aside class="warning-popover" role="status" aria-live="polite"
+       style="position:fixed; left:0; right:0; bottom:128px; z-index:39;
+              max-width:420px; margin:0 auto; padding:0 8px;">
+  <div class="pill-amber"
+       style="display:flex; align-items:center; gap:8px;
+              background:#0F0F0F; border:1px solid #F0A028;
+              padding:10px 12px;
+              font-family:'JetBrains Mono', monospace;
+              font-size:11px; font-weight:700; letter-spacing:0.08em;
+              text-transform:uppercase; color:#F0A028;">
+    <span aria-hidden="true">⚠</span>
+    <span style="flex:1; line-height:1.3;">
+      3 CAMPI MANCANTI · Sonda · Fondo scala · Sede
+    </span>
+    <button type="button" class="btn-ghost"
+            data-action="warning-jump"
+            style="background:transparent; border:1px solid #F0A028;
+                   color:#F0A028; font-family:'Inter', sans-serif;
+                   font-weight:700; font-size:11px; letter-spacing:0.08em;
+                   text-transform:uppercase; padding:6px 8px; min-height:32px;
+                   white-space:nowrap;">
+      ▸ COMPILA ORA →
+    </button>
+  </div>
+</aside>
+
+<!-- ─────────────────────────────────────────────────────────────────────
+     STICKY FOOTER · ANTEPRIMA PDF (ghost) · ▸ SALVA (primary amber)
+     NEED_CLASS: .scheda-foot (barra sticky bottom modal-full)
+     ───────────────────────────────────────────────────────────────────── -->
+<div class="scheda-foot" role="group" aria-label="Azioni scheda"
+     style="position:fixed; left:0; right:0; bottom:0; z-index:40;
+            max-width:420px; margin:0 auto;
+            background:#0F0F0F; border-top:1px solid #2D2D2D;
+            padding:8px; display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+  <button type="button" class="btn-ghost text-mono" data-action="anteprima-pdf">
+    ANTEPRIMA PDF
+  </button>
+  <button type="button" class="btn-primary" data-action="salva-scheda">
+    ▸ SALVA
+  </button>
+</div>

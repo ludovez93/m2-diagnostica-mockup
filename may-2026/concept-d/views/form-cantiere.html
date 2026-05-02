@@ -1,0 +1,219 @@
+<!-- =====================================================================
+     SCREEN 4 · FORM CANTIERE (creazione / edit)
+     Concept D — Operations Terminal
+     Stepwise 4 step (Info / Binari / Lavorazioni / Riepilogo)
+     ===================================================================== -->
+
+<!-- ─────────────────────────────────────────────────────────────────────
+     PAGE HEADER · back + titolo + step indicator
+     ───────────────────────────────────────────────────────────────────── -->
+<header class="page-head">
+  <button class="back" type="button" data-action="back" aria-label="Indietro">‹</button>
+  <div style="flex:1;">
+    <h1 class="text-amber uc">▸ NUOVO CANTIERE</h1>
+    <div class="h-sub">STEP 2 / 4 · BINARI</div>
+  </div>
+  <!-- NEED_CLASS: .step-dots / .step-dot / .step-dot.active -->
+  <div class="step-dots" role="tablist" aria-label="Avanzamento step">
+    <span class="step-dot done" aria-current="false">●</span>
+    <span class="step-dot active" aria-current="step">●</span>
+    <span class="step-dot" aria-current="false">○</span>
+    <span class="step-dot" aria-current="false">○</span>
+  </div>
+</header>
+
+<form id="form-cantiere" class="form-cantiere" autocomplete="off" novalidate>
+
+  <!-- =====================================================================
+       STEP 1 · INFO BASE   (hidden)
+       ===================================================================== -->
+  <fieldset class="form-step" data-step="1" hidden>
+    <legend class="sect"><span>▸ STEP 1 · INFO BASE</span></legend>
+
+    <div class="form-group">
+      <label class="label" for="f-nome">NOME CANTIERE <span class="req">*</span></label>
+      <input class="input" id="f-nome" name="nome" type="text"
+             value="Bologna - Modena"
+             placeholder="ES. LA SPEZIA – ARCOLA"
+             style="font-size:16px;">
+    </div>
+
+    <div class="input-row">
+      <div class="form-group">
+        <label class="label" for="f-codice">
+          CODICE M2
+          <span class="hint">es. 33/26</span>
+        </label>
+        <input class="input" id="f-codice" name="codice" type="text"
+               value="47/26"
+               inputmode="numeric"
+               pattern="\d+/\d{2}"
+               placeholder="00/00"
+               style="font-size:16px;">
+      </div>
+      <div class="form-group">
+        <label class="label" for="f-tratta">TRATTA</label>
+        <input class="input" id="f-tratta" name="tratta" type="text"
+               value="BO-MO"
+               placeholder="ES. BO-MO"
+               style="font-size:16px;">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="label" for="f-data-fine">DATA FINE <span class="req">*</span></label>
+      <input class="input" id="f-data-fine" name="data_fine" type="date"
+             value="2026-06-30"
+             style="font-size:16px;">
+    </div>
+
+    <div class="form-group">
+      <span class="label">TIPO</span>
+      <!-- pill group amber -->
+      <div class="segmented" role="radiogroup" aria-label="Tipo cantiere">
+        <button type="button" class="active" role="radio" aria-checked="true"  data-value="notturno">NOTTURNO</button>
+        <button type="button"                role="radio" aria-checked="false" data-value="diurno">DIURNO</button>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="toggle" for="f-urgente">
+        <input type="checkbox" id="f-urgente" name="urgente">
+        <span class="toggle-track" aria-hidden="true"></span>
+        <span class="toggle-label">URGENTE</span>
+      </label>
+    </div>
+
+    <div class="form-group">
+      <span class="label">GIORNI ATTIVI</span>
+      <!-- NEED_CLASS: .day-circles / .day-circle / .day-circle.active -->
+      <div class="day-circles" role="group" aria-label="Giorni della settimana attivi">
+        <button type="button" class="day-circle"        aria-pressed="false" data-day="0">D</button>
+        <button type="button" class="day-circle active" aria-pressed="true"  data-day="1">L</button>
+        <button type="button" class="day-circle active" aria-pressed="true"  data-day="2">M</button>
+        <button type="button" class="day-circle active" aria-pressed="true"  data-day="3">M</button>
+        <button type="button" class="day-circle active" aria-pressed="true"  data-day="4">G</button>
+        <button type="button" class="day-circle active" aria-pressed="true"  data-day="5">V</button>
+        <button type="button" class="day-circle"        aria-pressed="false" data-day="6">S</button>
+      </div>
+    </div>
+  </fieldset>
+
+  <!-- =====================================================================
+       STEP 2 · BINARI   (visibile)
+       ===================================================================== -->
+  <fieldset class="form-step" data-step="2">
+    <legend class="sect"><span>▸ STEP 2 · BINARI</span></legend>
+
+    <!-- Lista binari aggiunti -->
+    <div class="table">
+      <div class="table-head" style="grid-template-columns: 8px 80px 1fr 88px;">
+        <div></div>
+        <div>TIPO</div>
+        <div>RANGE KM</div>
+        <div class="right">AZIONE</div>
+      </div>
+
+      <!-- NEED_CLASS: .binario-row (estende .row con grid 4 col) -->
+      <div class="row binario-row" style="grid-template-columns: 8px 80px 1fr 88px;">
+        <div class="row-dot"></div>
+        <div class="text-mono text-amber" style="font-weight:700; letter-spacing:0.08em;">DISPARI</div>
+        <div class="text-mono text-primary">171+000 → 163+000</div>
+        <div class="right" style="display:flex; gap:4px; justify-content:flex-end;">
+          <button type="button" class="btn-icon" data-action="binario-edit"   data-id="1" aria-label="Modifica binario">✎</button>
+          <button type="button" class="btn-icon" data-action="binario-remove" data-id="1" aria-label="Rimuovi binario">×</button>
+        </div>
+      </div>
+
+      <div class="row binario-row" style="grid-template-columns: 8px 80px 1fr 88px;">
+        <div class="row-dot"></div>
+        <div class="text-mono text-amber" style="font-weight:700; letter-spacing:0.08em;">PARI</div>
+        <div class="text-mono text-primary">171+000 → 161+000</div>
+        <div class="right" style="display:flex; gap:4px; justify-content:flex-end;">
+          <button type="button" class="btn-icon" data-action="binario-edit"   data-id="2" aria-label="Modifica binario">✎</button>
+          <button type="button" class="btn-icon" data-action="binario-remove" data-id="2" aria-label="Rimuovi binario">×</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mini-form inline aggiungi binario -->
+    <!-- NEED_CLASS: .binario-form (card inline aperta sotto la lista) -->
+    <div class="binario-form" style="margin-top:8px; background:#0A0A0A; border:1px solid #2D2D2D; padding:8px;">
+      <div class="divider-label" style="margin-top:0;">▸ AGGIUNGI BINARIO</div>
+
+      <div class="form-group">
+        <span class="label">TIPO</span>
+        <div class="segmented" role="radiogroup" aria-label="Tipo binario">
+          <button type="button" class="active" role="radio" aria-checked="true"  data-value="dispari">DISPARI</button>
+          <button type="button"                role="radio" aria-checked="false" data-value="pari">PARI</button>
+          <button type="button"                role="radio" aria-checked="false" data-value="unico">UNICO</button>
+          <button type="button"                role="radio" aria-checked="false" data-value="interconnessione">INTERC.</button>
+        </div>
+      </div>
+
+      <div class="input-row">
+        <div class="form-group">
+          <label class="label" for="f-km-da">KM DA</label>
+          <input class="input text-mono" id="f-km-da" name="km_da" type="text"
+                 inputmode="numeric"
+                 pattern="\d+\+\d{3}"
+                 placeholder="000+000"
+                 style="font-size:16px;">
+        </div>
+        <div class="form-group">
+          <label class="label" for="f-km-a">KM A</label>
+          <input class="input text-mono" id="f-km-a" name="km_a" type="text"
+                 inputmode="numeric"
+                 pattern="\d+\+\d{3}"
+                 placeholder="000+000"
+                 style="font-size:16px;">
+        </div>
+      </div>
+
+      <div class="text-muted text-xs uc" style="margin-top:-4px; margin-bottom:8px;">
+        ▸ KM IN ORDINE REALE DEL LAVORO
+      </div>
+
+      <div class="btn-row" style="margin-top:0;">
+        <button type="button" class="btn-ghost"   data-action="binario-cancel">ANNULLA</button>
+        <button type="button" class="btn-primary" data-action="binario-add">AGGIUNGI</button>
+      </div>
+    </div>
+  </fieldset>
+
+  <!-- =====================================================================
+       STEP 3 · LAVORAZIONI   (hidden)
+       ===================================================================== -->
+  <fieldset class="form-step" data-step="3" hidden>
+    <legend class="sect"><span>▸ STEP 3 · LAVORAZIONI</span></legend>
+    <!-- placeholder -->
+    <div class="text-muted text-xs uc" style="padding:16px 8px;">
+      ▸ DA DEFINIRE
+    </div>
+  </fieldset>
+
+  <!-- =====================================================================
+       STEP 4 · RIEPILOGO   (hidden)
+       ===================================================================== -->
+  <fieldset class="form-step" data-step="4" hidden>
+    <legend class="sect"><span>▸ STEP 4 · RIEPILOGO</span></legend>
+    <!-- placeholder -->
+    <div class="text-muted text-xs uc" style="padding:16px 8px;">
+      ▸ DA DEFINIRE
+    </div>
+  </fieldset>
+
+</form>
+
+<!-- ─────────────────────────────────────────────────────────────────────
+     STICKY BOTTOM CTA · INDIETRO / AVANTI
+     NEED_CLASS: .form-foot (barra sticky bottom, sopra .nav)
+     ───────────────────────────────────────────────────────────────────── -->
+<div class="form-foot" role="group" aria-label="Navigazione step"
+     style="position:fixed; left:0; right:0; bottom:56px; z-index:40;
+            max-width:420px; margin:0 auto;
+            background:#0F0F0F; border-top:1px solid #2D2D2D;
+            padding:8px; display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+  <button type="button" class="btn-ghost"   data-action="step-prev">‹ INDIETRO</button>
+  <button type="button" class="btn-primary" data-action="step-next">AVANTI →</button>
+</div>

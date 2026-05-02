@@ -1,0 +1,192 @@
+<!-- =====================================================================
+     SCREEN 2 · DASHBOARD
+     Concept D — Operations Terminal
+     Coerente con _reference.html, classi da style.css
+     ===================================================================== -->
+
+<!-- Bloomberg-style ticker -->
+<div class="ticker">
+  <span>M2.DIAG <span class="ok blink">●</span> SYNCED 22:14:08</span>
+  <span>LP/G · 04 cant. · 11 diff</span>
+</div>
+
+<!-- Function bar 4-cell -->
+<div class="fbar">
+  <button class="fbar-cell amber" type="button" data-action="filter-da-aprire">
+    <strong>1</strong>
+    DA APRIRE
+  </button>
+  <button class="fbar-cell green" type="button" data-action="filter-attivi">
+    <strong>3</strong>
+    ATTIVI
+  </button>
+  <button class="fbar-cell" type="button" data-action="filter-difetti">
+    <strong>11</strong>
+    DIFETTI
+  </button>
+  <button class="fbar-cell" type="button" data-action="filter-schede">
+    <strong>5</strong>
+    SCHEDE
+  </button>
+</div>
+
+<!-- ─────────────────────────────────────────────────────────────────────
+     STASERA · LIVE — command hero
+     ───────────────────────────────────────────────────────────────────── -->
+<div class="sect">
+  <span>▸ STASERA · LIVE</span>
+</div>
+<div class="cmd-stasera">
+  <div class="cmd-line">OPEN 22:30 · LASPEZIA-ARCOLA</div>
+  <div class="cmd-name">La Spezia – Arcola</div>
+  <div class="cmd-tratta">33/26 · DISPARI 171→163 · PARI 171→161 · TRATTA SARZ-LASP</div>
+
+  <div class="cmd-grid">
+    <div class="cmd-cell">
+      <div class="cmd-cell-lab">AVANZ</div>
+      <div class="cmd-cell-val amber">58%</div>
+    </div>
+    <div class="cmd-cell">
+      <div class="cmd-cell-lab">SALD</div>
+      <div class="cmd-cell-val">418</div>
+    </div>
+    <div class="cmd-cell">
+      <div class="cmd-cell-lab">DIFF</div>
+      <div class="cmd-cell-val danger">11</div>
+    </div>
+    <div class="cmd-cell">
+      <div class="cmd-cell-lab">METEO</div>
+      <div class="cmd-cell-val green">3°</div>
+    </div>
+  </div>
+
+  <button class="cmd-cta" type="button" data-action="open-notte" data-id="2">APRI NOTTE →</button>
+</div>
+
+<!-- ─────────────────────────────────────────────────────────────────────
+     ATTIVI / 3
+     ───────────────────────────────────────────────────────────────────── -->
+<div class="sect sect-q">
+  <span>▸ ATTIVI / 3</span>
+</div>
+<div class="table">
+  <div class="table-head">
+    <div></div>
+    <div>CANTIERE</div>
+    <div class="right">SALD</div>
+    <div class="right">DIFF</div>
+    <div class="right">%</div>
+  </div>
+
+  <button class="row" type="button" data-action="open-cantiere" data-id="empoli">
+    <div class="row-dot"></div>
+    <div>
+      <div class="row-name">Empoli – San Miniato</div>
+      <div class="row-codice">26/26 · DISP 39→26</div>
+    </div>
+    <div class="col-num">237</div>
+    <div class="col-num">3</div>
+    <div class="col-num amber">30%</div>
+  </button>
+
+  <button class="row" type="button" data-action="open-cantiere" data-id="genova">
+    <div class="row-dot warn"></div>
+    <div>
+      <div class="row-name">Genova</div>
+      <div class="row-codice">SCAD. · PARI 10→11</div>
+    </div>
+    <div class="col-num">0</div>
+    <div class="col-num">0</div>
+    <div class="col-num warn">0%</div>
+  </button>
+
+  <button class="row" type="button" data-action="open-cantiere" data-id="test">
+    <div class="row-dot zero"></div>
+    <div>
+      <div class="row-name">Test</div>
+      <div class="row-codice">DISP 100→120</div>
+    </div>
+    <div class="col-num">0</div>
+    <div class="col-num">0</div>
+    <div class="col-num zero">2%</div>
+  </button>
+</div>
+
+<!-- ─────────────────────────────────────────────────────────────────────
+     PAUSA / 3
+     ───────────────────────────────────────────────────────────────────── -->
+<div class="sect sect-q">
+  <span>▸ PAUSA / 3</span>
+</div>
+<div class="table">
+  <button class="row" type="button" data-action="open-cantiere" data-id="brescia">
+    <div class="row-dot zero"></div>
+    <div>
+      <div class="row-name">Brescia – Verona AV</div>
+      <div class="row-codice">39/25</div>
+    </div>
+    <div class="col-num">525</div>
+    <div class="col-num">1</div>
+    <div class="col-num zero">28%</div>
+  </button>
+
+  <button class="row" type="button" data-action="open-cantiere" data-id="chiusi">
+    <div class="row-dot zero"></div>
+    <div>
+      <div class="row-name">Chiusi – Montallese</div>
+      <div class="row-codice">—</div>
+    </div>
+    <div class="col-num">404</div>
+    <div class="col-num">9</div>
+    <div class="col-num zero">25%</div>
+  </button>
+
+  <button class="row" type="button" data-action="open-cantiere" data-id="merano">
+    <div class="row-dot zero"></div>
+    <div>
+      <div class="row-name">Merano – Malles</div>
+      <div class="row-codice">—</div>
+    </div>
+    <div class="col-num">0</div>
+    <div class="col-num">0</div>
+    <div class="col-num zero">0%</div>
+  </button>
+</div>
+
+<!-- ─────────────────────────────────────────────────────────────────────
+     COMPLETATI / 1
+     ───────────────────────────────────────────────────────────────────── -->
+<div class="sect sect-q">
+  <span>▸ COMPLETATI / 1</span>
+</div>
+<div class="table">
+  <button class="row" type="button" data-action="open-cantiere" data-id="laquila">
+    <div class="row-dot"></div>
+    <div>
+      <div class="row-name">L'Aquila – Sulmona</div>
+      <div class="row-codice">32/25</div>
+    </div>
+    <div class="col-num">612</div>
+    <div class="col-num">4</div>
+    <div class="col-num">100%</div>
+  </button>
+</div>
+
+<!-- ─────────────────────────────────────────────────────────────────────
+     ARCHIVIATI / 1
+     ───────────────────────────────────────────────────────────────────── -->
+<div class="sect sect-q">
+  <span>▸ ARCHIVIATI / 1</span>
+</div>
+<div class="table">
+  <button class="row" type="button" data-action="open-cantiere" data-id="ravenna">
+    <div class="row-dot zero"></div>
+    <div>
+      <div class="row-name">Ravenna</div>
+      <div class="row-codice">28/25</div>
+    </div>
+    <div class="col-num">298</div>
+    <div class="col-num">2</div>
+    <div class="col-num zero">100%</div>
+  </button>
+</div>

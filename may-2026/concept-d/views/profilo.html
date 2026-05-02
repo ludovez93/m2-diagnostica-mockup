@@ -1,0 +1,206 @@
+<!-- =====================================================================
+     SCREEN 9 · PROFILO
+     Concept D — Operations Terminal
+     Vista profilo: identità operatore, statistiche orgogliose, sicurezza,
+     firma, preferenze (headlamp/haptic/lingua), info app.
+     ===================================================================== -->
+
+<!-- ─────────────────────────────────────────────────────────────────────
+     STICKY HEADER
+     ───────────────────────────────────────────────────────────────────── -->
+<header class="page-head">
+  <button class="back" type="button" data-action="back" aria-label="Indietro">‹</button>
+  <div class="flex-1">
+    <h1 class="text-amber uc">▸ PROFILO</h1>
+    <div class="h-sub">OPERATORE · SESSIONE LOCALE</div>
+  </div>
+</header>
+
+<!-- ─────────────────────────────────────────────────────────────────────
+     IDENTITÀ — hero (no details)
+     ───────────────────────────────────────────────────────────────────── -->
+
+<!-- NEED_CLASS: .ident (hero card flex con avatar a sinistra, info al centro, action a destra) -->
+<!-- NEED_CLASS: .ident-avatar (64x64, gradient amber, iniziali mono centrate, font 22px bold) -->
+<!-- NEED_CLASS: .ident-body (colonna nome + sigla) -->
+<!-- NEED_CLASS: .ident-name (Inter bold 18px, text-primary) -->
+<!-- NEED_CLASS: .ident-code (mono muted, sigla operatore) -->
+<div class="ident">
+  <div class="ident-avatar" aria-hidden="true">LP</div>
+  <div class="ident-body">
+    <div class="ident-name">Ludovico Paulon</div>
+    <div class="ident-code text-muted uc">OPER. LP · STRUMENTO G · M2RAILGROUP</div>
+  </div>
+  <button class="btn-ghost" type="button" data-action="edit-profilo">▸ MODIFICA</button>
+</div>
+
+<!-- ─────────────────────────────────────────────────────────────────────
+     STATISTICHE — section bar + 4 cell mono numeri grandi
+     ───────────────────────────────────────────────────────────────────── -->
+<div class="sect sect-q mt-2">
+  <span>▸ STATISTICHE</span>
+</div>
+
+<div class="stat-grid">
+  <div class="stat">
+    <div class="stat-val amber">247</div>
+    <div class="stat-lab">NOTTI</div>
+  </div>
+  <div class="stat">
+    <div class="stat-val">8.450</div>
+    <div class="stat-lab">SALD</div>
+  </div>
+  <div class="stat">
+    <div class="stat-val danger">12</div>
+    <div class="stat-lab">DIFETTI</div>
+  </div>
+  <div class="stat">
+    <div class="stat-val">67%</div>
+    <div class="stat-lab">AVANZ MEDIO</div>
+  </div>
+</div>
+
+<!-- ─────────────────────────────────────────────────────────────────────
+     SICUREZZA — pin + esci (mostrato in stato CONFERMA)
+     ───────────────────────────────────────────────────────────────────── -->
+
+<!-- NEED_CLASS: .group (wrapper <details> stile terminal) -->
+<!-- NEED_CLASS: .group-summary (riga summary cliccabile, stile sect-q) -->
+<!-- NEED_CLASS: .group-body (padding + bg secondary contenuto details) -->
+<!-- NEED_CLASS: .pin-row (riga PIN: label + dots + button mini a destra) -->
+<!-- NEED_CLASS: .pin-dots (mono, font letter-spacing, text-primary) -->
+<!-- NEED_CLASS: .btn-mini (button piccolo, padding ridotto, min-height 32, mono uppercase) -->
+
+<details class="group" open>
+  <summary class="sect sect-q group-summary">
+    <span>▸ SICUREZZA</span>
+    <span class="text-muted">▾</span>
+  </summary>
+  <div class="group-body">
+
+    <div class="pin-row">
+      <span class="text-muted uc text-xs">PIN ATTUALE</span>
+      <span class="pin-dots text-primary text-mono">●●●●</span>
+      <button class="btn-mini" type="button" data-action="cambia-pin">CAMBIA</button>
+    </div>
+
+    <button
+      class="btn-danger btn-block mt-2"
+      type="button"
+      data-action="logout"
+      data-confirm="double-tap"
+      data-confirm-state="2"
+      aria-label="Esci dall'app (tap due volte per confermare)">
+      ▸ CONFERMA USCITA
+    </button>
+
+  </div>
+</details>
+
+<!-- ─────────────────────────────────────────────────────────────────────
+     FIRMA OPERATORE — canvas vuoto + azioni
+     ───────────────────────────────────────────────────────────────────── -->
+
+<!-- NEED_CLASS: .sig-canvas-wrap (wrapper canvas con bordo amber dashed e placeholder centrato) -->
+<!-- NEED_CLASS: .sig-canvas (canvas 280x100 display block bg secondary, mx auto) -->
+<!-- NEED_CLASS: .sig-placeholder (overlay assoluto, mono uppercase muted, centrato, pointer-events none) -->
+
+<details class="group">
+  <summary class="sect sect-q group-summary">
+    <span>▸ FIRMA OPERATORE</span>
+    <span class="text-muted">▸</span>
+  </summary>
+  <div class="group-body">
+
+    <div class="sig-canvas-wrap">
+      <canvas class="sig-canvas" width="280" height="100" aria-label="Area firma operatore"></canvas>
+      <span class="sig-placeholder text-muted uc">▸ DISEGNA LA FIRMA</span>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-ghost" type="button" data-action="firma-cancella">CANCELLA</button>
+      <button class="btn-secondary" type="button" data-action="firma-carica">CARICA DA PROFILO</button>
+    </div>
+
+  </div>
+</details>
+
+<!-- ─────────────────────────────────────────────────────────────────────
+     PREFERENZE — headlamp / haptic / lingua (open di default)
+     ───────────────────────────────────────────────────────────────────── -->
+
+<!-- NEED_CLASS: .pref-row (riga setting: label flex-1 + control a destra, min-height 48, border-bottom subtle) -->
+<!-- NEED_CLASS: .pref-row-label (mono, text-body, uppercase) -->
+<!-- NEED_CLASS: .pref-row-value (mono muted a destra per valori statici tipo "ITALIANO") -->
+
+<details class="group" open>
+  <summary class="sect sect-q group-summary">
+    <span>▸ PREFERENZE</span>
+    <span class="text-muted">▾</span>
+  </summary>
+  <div class="group-body">
+
+    <div class="pref-row">
+      <span class="pref-row-label uc">MODALITÀ FRONTALE (HEADLAMP)</span>
+      <button
+        class="toggle"
+        type="button"
+        role="switch"
+        aria-checked="false"
+        data-pref="headlamp">
+        <span class="toggle-track" aria-hidden="true"></span>
+      </button>
+    </div>
+
+    <div class="pref-row">
+      <span class="pref-row-label uc">VIBRAZIONE (HAPTIC)</span>
+      <button
+        class="toggle"
+        type="button"
+        role="switch"
+        aria-checked="true"
+        data-pref="haptic">
+        <span class="toggle-track" aria-hidden="true"></span>
+      </button>
+    </div>
+
+    <div class="pref-row">
+      <span class="pref-row-label uc">LINGUA</span>
+      <span class="pref-row-value text-muted">ITALIANO</span>
+    </div>
+
+  </div>
+</details>
+
+<!-- ─────────────────────────────────────────────────────────────────────
+     INFO APP — tabella mono key/value + debug
+     ───────────────────────────────────────────────────────────────────── -->
+
+<details class="group">
+  <summary class="sect sect-q group-summary">
+    <span>▸ INFO APP</span>
+    <span class="text-muted">▸</span>
+  </summary>
+
+  <div class="kv">
+    <div class="kv-row">
+      <span class="k">VERSIONE</span>
+      <span class="v">2.0 (build 263)</span>
+    </div>
+    <div class="kv-row">
+      <span class="k">ULTIMA SYNC</span>
+      <span class="v">2 MAG 2026 · 19:30</span>
+    </div>
+    <div class="kv-row">
+      <span class="k">SERVER</span>
+      <span class="v">92.4.172.126</span>
+    </div>
+    <div class="kv-row">
+      <span class="k">DEBUG</span>
+      <span class="v">
+        <button class="btn-mini" type="button" data-action="debug">?debug=1</button>
+      </span>
+    </div>
+  </div>
+
+</details>

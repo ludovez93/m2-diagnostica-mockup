@@ -1,0 +1,152 @@
+<!-- =====================================================================
+     SCREEN 5 · NOTTE (sessione live)
+     Concept D — Operations Terminal
+     Editor centrale = PLACEHOLDER STATICO (LEARNED #221, #260)
+     ===================================================================== -->
+
+<!-- ─────────────────────────────────────────────────────────────────────
+     HEADER STICKY · 2 righe
+     ───────────────────────────────────────────────────────────────────── -->
+<header class="page-head night-head">
+  <div class="night-head-row">
+    <button class="back" type="button" data-action="back" aria-label="Indietro">‹</button>
+    <div class="flex-1">
+      <h1>La Spezia – Arcola</h1>
+      <div class="h-sub text-mono">13→14 APR 2026</div>
+    </div>
+    <div class="actions">
+      <span class="night-save-dot text-green" aria-live="polite" title="Salvato">● SAVED</span>
+      <button class="btn-icon night-menu-btn" type="button" data-action="open-menu" aria-label="Menu">…</button>
+    </div>
+  </div>
+  <div class="night-head-row night-head-row-2">
+    <button class="pill pill-amber night-binario-pill" type="button" data-action="toggle-binario" aria-label="Cambia binario">
+      <span class="text-amber">DISPARI</span>
+      <span class="text-muted"> ⇄</span>
+    </button>
+    <span class="night-elapsed text-mono text-muted">▸ EDITING · 14:23 elapsed</span>
+  </div>
+</header>
+
+<!-- ─────────────────────────────────────────────────────────────────────
+     COUNTER STRIP · sticky sotto header (mini fbar)
+     ───────────────────────────────────────────────────────────────────── -->
+<div class="fbar night-counter-strip" role="group" aria-label="Contatori sessione">
+  <div class="fbar-cell green">
+    <strong>12</strong>
+    OK
+  </div>
+  <div class="fbar-cell danger">
+    <strong>3</strong>
+    DIFF
+  </div>
+  <div class="fbar-cell">
+    <strong>2</strong>
+    NDC
+  </div>
+  <div class="fbar-cell amber">
+    <strong>145<span class="text-xs">m</span></strong>
+    TOT
+  </div>
+</div>
+
+<!-- ─────────────────────────────────────────────────────────────────────
+     EDITOR BODY · PLACEHOLDER STATICO (non funzionale)
+     ───────────────────────────────────────────────────────────────────── -->
+<div class="night-editor" role="presentation" aria-hidden="false">
+
+  <div class="night-editor-line night-editor-line--diff">
+    <span class="night-editor-tok night-editor-tok--km">165+700</span>
+    <span class="night-editor-tok night-editor-tok--lato">DX</span>
+    <span class="night-editor-tok night-editor-tok--codice">211</span>
+    <span class="night-editor-tok night-editor-tok--tipo">N</span>
+    <span class="night-editor-tok">17</span>
+    <span class="night-editor-tok night-editor-tok--data">13/04/2026</span>
+    <span class="night-editor-tok night-editor-tok--op">LP</span>
+  </div>
+  <div class="night-editor-line night-editor-line--sub">
+    <span class="night-editor-tok night-editor-tok--sub">Profondità 12 mm</span>
+  </div>
+  <div class="night-editor-line night-editor-line--sub">
+    <span class="night-editor-tok night-editor-tok--sub">Altezza 25 mm</span>
+  </div>
+  <div class="night-editor-line night-editor-line--sub">
+    <span class="night-editor-tok night-editor-tok--sub">Db 8</span>
+  </div>
+
+  <div class="night-editor-line">
+    <span class="night-editor-tok night-editor-tok--km">166+450</span>
+    <span class="night-editor-tok night-editor-tok--lato">SX</span>
+    <span class="night-editor-tok night-editor-tok--tipo">TR</span>
+  </div>
+
+  <div class="night-editor-line night-editor-line--sep">
+    <span class="text-amber">▸ BINARIO PARI</span>
+  </div>
+
+  <div class="night-editor-line">
+    <span class="night-editor-tok night-editor-tok--km">162+800</span>
+    <span class="night-editor-tok night-editor-tok--lato">DX</span>
+    <span class="night-editor-tok night-editor-tok--tipo">ALL</span>
+  </div>
+  <div class="night-editor-line">
+    <span class="night-editor-tok night-editor-tok--km">163+200</span>
+    <span class="night-editor-tok night-editor-tok--lato">SX</span>
+    <span class="night-editor-tok night-editor-tok--tipo">TR</span>
+  </div>
+
+  <div class="night-editor-line night-editor-line--caret">
+    <span class="night-caret" aria-hidden="true">▌</span>
+  </div>
+
+  <p class="night-editor-foot text-muted text-xs">▸ EDITOR — non funzionale nel mockup</p>
+</div>
+
+<!-- ─────────────────────────────────────────────────────────────────────
+     MINI-CALC TRAVERSE · sticky bottom-1 (sopra CTA)
+     ───────────────────────────────────────────────────────────────────── -->
+<aside class="night-calc" aria-label="Calcolatrice traverse">
+
+  <div class="night-calc-head">
+    <span class="text-mono text-xs text-muted">ULTIMO KM</span>
+    <span class="text-mono text-amber">162+800</span>
+    <span class="night-calc-result text-mono">+ 0,3m × 5 = <strong class="text-amber">164m</strong></span>
+  </div>
+
+  <div class="night-calc-chips">
+    <button class="pill pill-amber" type="button" data-tipo="all">ALL</button>
+    <button class="pill pill-mute" type="button" data-tipo="scin">SCIN</button>
+    <button class="pill pill-mute" type="button" data-tipo="gr">GR</button>
+  </div>
+
+  <div class="night-numpad" role="group" aria-label="Numpad">
+    <button class="night-numpad-key" type="button">1</button>
+    <button class="night-numpad-key" type="button">2</button>
+    <button class="night-numpad-key" type="button">3</button>
+    <button class="night-numpad-key" type="button">4</button>
+    <button class="night-numpad-key" type="button">5</button>
+    <button class="night-numpad-key" type="button">6</button>
+    <button class="night-numpad-key" type="button">7</button>
+    <button class="night-numpad-key" type="button">8</button>
+    <button class="night-numpad-key" type="button">9</button>
+    <button class="night-numpad-key night-numpad-key--mute" type="button">,</button>
+    <button class="night-numpad-key" type="button">0</button>
+    <button class="night-numpad-key night-numpad-key--mute" type="button">⌫</button>
+  </div>
+
+  <div class="night-side-row">
+    <button class="btn-ghost" type="button" data-side="dx">DX</button>
+    <button class="btn-ghost" type="button" data-side="sx">SX</button>
+    <button class="btn-ghost" type="button" data-side="both">DX&amp;SX</button>
+  </div>
+
+</aside>
+
+<!-- ─────────────────────────────────────────────────────────────────────
+     STICKY BOTTOM CTA · elabora risultati
+     ───────────────────────────────────────────────────────────────────── -->
+<div class="night-cta-bottom">
+  <button class="btn-primary btn-block" type="button" data-action="elabora-risultati">
+    ▸ ELABORA RISULTATI →
+  </button>
+</div>

@@ -1,0 +1,207 @@
+<!-- ====================================================================
+     LOGIN · Operations Terminal
+     Stato di default: nessun utente selezionato → mostrare lista utenti.
+     Stato selezionato: aggiungere classe "is-selected" su .login-wrap
+       (oppure data-state="pin") per nascondere user list e mostrare numpad.
+     Markup statico: entrambi i blocchi presenti, JS si occuperà del toggle.
+     ==================================================================== -->
+
+<div class="login-wrap login-crt" data-state="select">
+
+  <!-- Bloomberg-style ticker (header monospace) -->
+  <div class="ticker" role="status" aria-live="polite">
+    <span>READY <span class="ok blink">●</span> LOGIN REQUIRED</span>
+    <span data-clock>22:14:08</span>
+  </div>
+
+  <!-- BRAND HEADER (titolo monospace amber + sigla muted) -->
+  <header class="login-brand">
+    <div class="logo-mark">M2</div>
+    <h1 class="text-mono uc text-amber">M2 DIAGNOSTICA</h1>
+    <div class="sub">v2.0 · TERMINAL</div>
+  </header>
+
+  <!-- ================================================================
+       STATE A · USER SELECT
+       Visibile quando data-state="select"
+       ================================================================ -->
+  <div class="login-card login-step login-step-user" data-step="user">
+
+    <div class="divider-label">▸ SELECT OPERATOR</div>
+
+    <div class="user-list">
+
+      <button type="button"
+              class="user-card"
+              data-action="select-user"
+              data-user="LP"
+              aria-label="Seleziona operatore Ludovico, gruppo G">
+        <span class="user-sigla">LP</span>
+        <span class="user-body">
+          <span class="user-name">Ludovico</span>
+          <span class="user-meta">OPERATORE · GRUPPO G</span>
+        </span>
+        <span class="user-arrow" aria-hidden="true">›</span>
+      </button>
+
+      <button type="button"
+              class="user-card"
+              data-action="select-user"
+              data-user="CA"
+              aria-label="Seleziona operatore Cristopher, gruppo B">
+        <span class="user-sigla">CA</span>
+        <span class="user-body">
+          <span class="user-name">Cristopher</span>
+          <span class="user-meta">OPERATORE · GRUPPO B</span>
+        </span>
+        <span class="user-arrow" aria-hidden="true">›</span>
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- ================================================================
+       STATE B · PIN ENTRY
+       Visibile quando data-state="pin"
+       Statico in markup, JS toggla via data-state sul wrapper.
+       ================================================================ -->
+  <div class="login-card login-step login-step-pin" data-step="pin" hidden>
+
+    <div class="divider-label">
+      ▸ PIN
+      <button type="button"
+              class="pin-back"
+              data-action="back-to-user"
+              aria-label="Cambia operatore">‹ CAMBIA</button>
+    </div>
+
+    <!-- PIN DOTS (4 cifre, status live) -->
+    <div class="pin-dots"
+         role="status"
+         aria-live="polite"
+         aria-label="Cifre inserite: 0 di 4"
+         data-pin-length="0">
+      <span class="pin-dot" data-filled="false">●</span>
+      <span class="pin-dot" data-filled="false">●</span>
+      <span class="pin-dot" data-filled="false">●</span>
+      <span class="pin-dot" data-filled="false">●</span>
+    </div>
+
+    <!-- NUMPAD 3x4 monospace -->
+    <div class="numpad" role="group" aria-label="Tastiera numerica PIN">
+
+      <button type="button" class="numkey" data-action="digit" data-digit="1" aria-label="Cifra 1">1</button>
+      <button type="button" class="numkey" data-action="digit" data-digit="2" aria-label="Cifra 2">2</button>
+      <button type="button" class="numkey" data-action="digit" data-digit="3" aria-label="Cifra 3">3</button>
+
+      <button type="button" class="numkey" data-action="digit" data-digit="4" aria-label="Cifra 4">4</button>
+      <button type="button" class="numkey" data-action="digit" data-digit="5" aria-label="Cifra 5">5</button>
+      <button type="button" class="numkey" data-action="digit" data-digit="6" aria-label="Cifra 6">6</button>
+
+      <button type="button" class="numkey" data-action="digit" data-digit="7" aria-label="Cifra 7">7</button>
+      <button type="button" class="numkey" data-action="digit" data-digit="8" aria-label="Cifra 8">8</button>
+      <button type="button" class="numkey" data-action="digit" data-digit="9" aria-label="Cifra 9">9</button>
+
+      <button type="button" class="numkey numkey-aux" data-action="erase" aria-label="Cancella">←</button>
+      <button type="button" class="numkey" data-action="digit" data-digit="0" aria-label="Cifra 0">0</button>
+      <button type="button" class="numkey numkey-ok" data-action="confirm" aria-label="Conferma PIN">✓</button>
+
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="login-foot">M2 RAIL GROUP · TERMINAL ID 001</div>
+
+</div>
+
+<!-- ====================================================================
+     NEED_CLASS LIST
+     Le seguenti classi NON esistono in style.css scaffold e vanno aggiunte:
+     ==================================================================== -->
+
+<!-- NEED_CLASS: login-crt — variante .login-wrap con scanline orizzontale
+     CRT (1px ogni 3px) via background-image linear-gradient + pointer-events:none
+     pseudo-element. Esempio:
+       .login-crt::after {
+         content:''; position:fixed; inset:0; pointer-events:none; z-index:1;
+         background: repeating-linear-gradient(0deg,
+           rgba(255,255,255,0.025) 0px,
+           rgba(255,255,255,0.025) 1px,
+           transparent 1px,
+           transparent 3px);
+       }
+-->
+
+<!-- NEED_CLASS: user-list — wrapper flex column gap 8px per le card utente -->
+
+<!-- NEED_CLASS: user-card — <button> orizzontale full-width, terminal style:
+     display:grid; grid-template-columns: 56px 1fr auto;
+     align-items:center; gap:12px;
+     background: var(--bg-secondary); border: 1px solid var(--border-default);
+     padding: 12px var(--sp-2); min-height: var(--tt);
+     text-align:left; color:inherit; font-family:inherit;
+     :active { background: var(--accent-amber-soft); border-color: var(--accent-amber); }
+-->
+
+<!-- NEED_CLASS: user-sigla — sigla mono amber 18-20px font-weight 700,
+     bordata 1px amber, padding 8px 0, text-align center, font-family mono,
+     letter-spacing 0.08em; box-style "tag" tipo .login-brand .logo-mark scaled -->
+
+<!-- NEED_CLASS: user-body — flex column, contiene nome + meta -->
+
+<!-- NEED_CLASS: user-name — font-family Inter, font-size 15px, font-weight 600,
+     color var(--text-primary), line-height 1.2 -->
+
+<!-- NEED_CLASS: user-meta — font-family mono, font-size 10px,
+     color var(--text-muted), letter-spacing 0.08em, text-transform uppercase,
+     margin-top 2px -->
+
+<!-- NEED_CLASS: user-arrow — char ›, color var(--text-muted), font-size 18px,
+     font-family mono, padding-right 4px -->
+
+<!-- NEED_CLASS: login-step — display:block (default), no extra style.
+     Usato come hook semantico per gli step. Funziona anche solo con [hidden]. -->
+
+<!-- NEED_CLASS: login-step-user — variante step user (no style aggiuntivo) -->
+
+<!-- NEED_CLASS: login-step-pin — variante step pin (no style aggiuntivo) -->
+
+<!-- NEED_CLASS: pin-back — <button> compatto in coda al divider-label:
+     background:transparent; border:0; color:var(--accent-amber);
+     font-family:mono; font-size:10px; font-weight:700; letter-spacing:0.12em;
+     text-transform:uppercase; cursor:pointer; padding:2px 4px;
+     margin-left:auto; -->
+
+<!-- NEED_CLASS: pin-dots — display:flex; justify-content:center; gap:18px;
+     padding: var(--sp-4) 0; border-bottom: 1px solid var(--border-subtle);
+     margin-bottom: var(--sp-3); -->
+
+<!-- NEED_CLASS: pin-dot — span 14px, color var(--text-faint) (vuoto)
+     transitions a color amber quando data-filled="true".
+     Esempio:
+       .pin-dot { font-size:18px; color: var(--text-faint); line-height:1; }
+       .pin-dot[data-filled="true"] { color: var(--accent-amber); }
+-->
+
+<!-- NEED_CLASS: numpad — display:grid; grid-template-columns: repeat(3,1fr);
+     gap: 1px; background: var(--border-default);
+     border: 1px solid var(--border-default);
+     /* tutti i .numkey diventano celle dentro grid 1px gap → effetto linee terminal */
+-->
+
+<!-- NEED_CLASS: numkey — <button> tasto numpad:
+     min-height: 56px; (touch target richiesto)
+     background: var(--bg-secondary); border: 0; color: var(--text-primary);
+     font-family: var(--ff-mono); font-size: 22px; font-weight: 700;
+     letter-spacing: 0; cursor: pointer;
+     :active { background: var(--accent-amber-soft); color: var(--accent-amber); }
+-->
+
+<!-- NEED_CLASS: numkey-aux — variante per ← (erase):
+     color: var(--text-secondary); font-size: 20px; -->
+
+<!-- NEED_CLASS: numkey-ok — variante per ✓ (confirm):
+     background: var(--accent-amber-soft); color: var(--accent-amber);
+     :active { background: var(--accent-amber); color: #000; } -->
