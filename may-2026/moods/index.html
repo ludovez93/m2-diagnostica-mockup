@@ -4,88 +4,95 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#0a0e1a">
-<title>M2 Mood comparison</title>
+<title>M2 Concept comparison</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     background: #0a0e1a; color: #e6edf3;
     font-family: 'Inter', -apple-system, sans-serif;
-    padding: 24px 16px 48px; max-width: 480px; margin: 0 auto;
+    padding: 20px 16px 48px; max-width: 480px; margin: 0 auto;
     min-height: 100vh;
   }
-  h1 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
-  .sub { color: #8b949e; font-size: 14px; margin-bottom: 32px; }
+  h1 { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+  .sub { color: #8b949e; font-size: 13px; margin-bottom: 24px; line-height: 1.5; }
+  .alert {
+    background: rgba(240,160,40,0.1); border: 1px solid rgba(240,160,40,0.3);
+    color: #F0A028; padding: 10px 12px; border-radius: 8px;
+    font-size: 12px; margin-bottom: 20px; line-height: 1.5;
+  }
   .card {
     display: block; text-decoration: none;
     background: #161b22; border: 1px solid #30363d;
-    border-radius: 12px; padding: 20px; margin-bottom: 16px;
-    color: inherit; transition: border-color 200ms;
+    border-radius: 10px; padding: 16px; margin-bottom: 12px;
+    color: inherit;
   }
-  .card:active, .card:hover { border-color: #58A6FF; }
   .card-tag {
-    font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
-    text-transform: uppercase; margin-bottom: 8px;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; margin-bottom: 6px;
   }
-  .card.m1 .card-tag { color: #F0A028; }
-  .card.m2 .card-tag { color: #22D3EE; }
-  .card.m3 .card-tag { color: #FFB74D; }
-  .card-title { font-size: 19px; font-weight: 700; margin-bottom: 4px; }
-  .card-desc { color: #8b949e; font-size: 14px; line-height: 1.5; margin-bottom: 12px; }
-  .card-ref { font-size: 12px; color: #6e7681; font-style: italic; }
-  .swatch { display: inline-block; width: 16px; height: 16px; border-radius: 4px; margin-right: 4px; vertical-align: middle; border: 1px solid rgba(255,255,255,0.1); }
-  .swatches { margin-top: 12px; }
-  .footer { color: #6e7681; font-size: 13px; margin-top: 24px; text-align: center; line-height: 1.6; }
+  .card.A .card-tag { color: #F0A028; }
+  .card.B .card-tag { color: #22D3EE; }
+  .card.C .card-tag { color: #9BD57B; }
+  .card.D .card-tag { color: #F0A028; }
+  .card-title { font-size: 17px; font-weight: 700; margin-bottom: 4px; color: #fff; }
+  .card-desc { color: #c9d1d9; font-size: 13px; line-height: 1.5; margin-bottom: 8px; }
+  .card-key { font-size: 11px; color: #8b949e; font-style: italic; }
+  .divider { border: 0; border-top: 1px solid #30363d; margin: 24px 0 16px; }
+  .footer { color: #6e7681; font-size: 12px; margin-top: 16px; text-align: center; line-height: 1.6; }
+  .deprecated {
+    background: rgba(108,114,128,0.1); border: 1px solid #30363d;
+    border-radius: 8px; padding: 10px; margin-bottom: 8px;
+  }
+  .deprecated-title { font-size: 11px; color: #8b949e; font-weight: 600; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .deprecated a { color: #6e7681; font-size: 12px; text-decoration: none; display: block; padding: 4px 0; }
 </style>
 </head>
 <body>
 
-<h1>M2 Diagnostica — Mood comparison</h1>
-<p class="sub">Stessa schermata (dashboard sintetica), 3 mood diversi.<br>Aprili in sequenza dal cellulare.</p>
+<h1>4 Concept · layout diversi</h1>
+<p class="sub">Stesso contenuto, <strong>architettura informativa radicalmente diversa</strong>. Aprili in sequenza.</p>
 
-<a class="card m1" href="mood-1-cockpit.html">
-  <div class="card-tag">▸ Mood 1 · Cockpit aviation field</div>
-  <div class="card-title">Avorio su grigio caldo</div>
-  <div class="card-desc">L'app sembra un EFB pro (ForeFlight, Krautkrämer USM). Dark theme calibrato per night vision con frontale.</div>
-  <div class="card-ref">Riferimenti: ForeFlight, DJI Pilot 2, Krautkrämer USM Go+</div>
-  <div class="swatches">
-    <span class="swatch" style="background:#1A1F1A"></span>
-    <span class="swatch" style="background:#252B25"></span>
-    <span class="swatch" style="background:#E8DDC4"></span>
-    <span class="swatch" style="background:#F0A028"></span>
-    <span class="swatch" style="background:#4ADE80"></span>
-  </div>
+<div class="alert">⚠ I 3 Mood vecchi (mood-1/2/3) erano stesso layout con palette diverse. Questi 4 concept hanno layout VERAMENTE diversi.</div>
+
+<a class="card A" href="concept-A-turno.html">
+  <div class="card-tag">▸ Concept A · SINGLE-FOCUS</div>
+  <div class="card-title">Solo turno di stasera</div>
+  <div class="card-desc">Una schermata, un'azione: la notte di stasera. Numeri grandi, CTA enorme. "Apri app = sai cosa fare ora". Tutti gli altri cantieri sotto un link minimale.</div>
+  <div class="card-key">Cosa cambia: niente lista cantieri sulla home. Tutto è "stasera".</div>
 </a>
 
-<a class="card m2" href="mood-2-devtool.html">
-  <div class="card-tag">● Mood 2 · Dev-tool dark sobrio</div>
-  <div class="card-title">Linear / GitHub style</div>
-  <div class="card-desc">L'app sembra un tool tech moderno 2026 (Linear, GitHub Mobile, Datadog). Pulito, gerarchia chiara, accent cyan.</div>
-  <div class="card-ref">Riferimenti: Linear, GitHub Mobile, Datadog</div>
-  <div class="swatches">
-    <span class="swatch" style="background:#0D1117"></span>
-    <span class="swatch" style="background:#161B22"></span>
-    <span class="swatch" style="background:#C9D1D9"></span>
-    <span class="swatch" style="background:#22D3EE"></span>
-    <span class="swatch" style="background:#3FB950"></span>
-  </div>
+<a class="card B" href="concept-B-cockpit.html">
+  <div class="card-tag">▸ Concept B · COCKPIT DASHBOARD</div>
+  <div class="card-title">Pannello strumenti</div>
+  <div class="card-desc">Top status strip + bento grid 2x2 widget (stasera, gauge progress %, difetti aperti) + tabella cantieri compatta sotto. Stile "pannello aviation".</div>
+  <div class="card-key">Cosa cambia: dati a colpo d'occhio in widget separati, gauge circolare per %.</div>
 </a>
 
-<a class="card m3" href="mood-3-industrial.html">
-  <div class="card-tag">▸ Mood 3 · Industrial / Bloomberg</div>
-  <div class="card-title">Cockpit denso terminale</div>
-  <div class="card-desc">L'app sembra Bloomberg Terminal mobile + ServiceNow Mobile Agent. Massima densità informativa, monospace dominante, status pill a sinistra.</div>
-  <div class="card-ref">Riferimenti: Bloomberg Terminal, Pandrol Connect, ServiceNow Mobile</div>
-  <div class="swatches">
-    <span class="swatch" style="background:#0F0F0F"></span>
-    <span class="swatch" style="background:#1C1C1C"></span>
-    <span class="swatch" style="background:#E5E5E5"></span>
-    <span class="swatch" style="background:#F0A028"></span>
-    <span class="swatch" style="background:#26A69A"></span>
-  </div>
+<a class="card C" href="concept-C-timeline.html">
+  <div class="card-tag">▸ Concept C · TIMELINE / DIARIO</div>
+  <div class="card-title">Diario notti cronologico</div>
+  <div class="card-desc">Scroll verticale temporale: stasera, domani, ieri, l'altro ieri. Timeline con punti colorati per stato. Stile journal/log industriale.</div>
+  <div class="card-key">Cosa cambia: niente "lista cantieri", lista NOTTI in ordine cronologico.</div>
 </a>
 
-<p class="footer">Solo dashboard, single screen.<br>Quando hai deciso, dimmi: "<strong>Mood 1</strong>" / "<strong>Mood 2</strong>" / "<strong>Mood 3</strong>" o un mix.</p>
+<a class="card D" href="concept-D-terminal.html">
+  <div class="card-tag">▸ Concept D · OPERATIONS TERMINAL</div>
+  <div class="card-title">Bloomberg-style densità</div>
+  <div class="card-desc">Ticker live in cima, function bar con 4 KPI, output stasera come "comando", tabella densissima cantieri (sald/diff/% in colonne). Massima informazione per pixel.</div>
+  <div class="card-key">Cosa cambia: tutta l'info di 4 schermate compressa in 1.</div>
+</a>
+
+<hr class="divider">
+
+<div class="deprecated">
+  <div class="deprecated-title">Versioni precedenti (palette only — non più rilevanti)</div>
+  <a href="mood-1-cockpit.html">Mood 1 cockpit</a>
+  <a href="mood-2-devtool.html">Mood 2 dev-tool</a>
+  <a href="mood-3-industrial.html">Mood 3 industrial</a>
+</div>
+
+<p class="footer">Quando hai deciso, scrivimi: "<strong>Concept A</strong>" / "<strong>Concept B</strong>" / "<strong>Concept C</strong>" / "<strong>Concept D</strong>" o un mix (es. "B+D").</p>
 
 </body>
 </html>

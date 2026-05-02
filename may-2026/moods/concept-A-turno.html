@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0F1410">
+<title>Concept A — TURNO single-focus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #0F1410; min-height: 100vh; height: 100vh; overflow: hidden; }
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: #E8DDC4;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.4;
+    display: flex; flex-direction: column;
+  }
+
+  .tag {
+    position: fixed; top: 8px; left: 50%; transform: translateX(-50%);
+    background: rgba(240,160,40,0.15); color: #F0A028;
+    padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 700;
+    letter-spacing: 0.08em; z-index: 100; border: 1px solid rgba(240,160,40,0.3);
+  }
+
+  .app { flex: 1; max-width: 420px; margin: 0 auto; padding: 28px 20px 0; width: 100%; display: flex; flex-direction: column; }
+
+  /* Top minimal */
+  .top { display: flex; justify-content: space-between; font-size: 11px; color: #6B7066; letter-spacing: 0.1em; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; margin-bottom: 32px; }
+  .top .ok { color: #4ADE80; }
+
+  /* Big focus */
+  .focus-label { font-size: 12px; color: #F0A028; letter-spacing: 0.2em; font-weight: 700; text-transform: uppercase; }
+  .focus-time {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 96px; font-weight: 700; line-height: 0.95;
+    letter-spacing: -0.04em; color: #FFF; margin-top: 12px;
+  }
+  .focus-name { font-size: 28px; font-weight: 700; margin-top: 12px; color: #E8DDC4; line-height: 1.2; }
+  .focus-tratta { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #6B7066; margin-top: 4px; letter-spacing: 0.04em; }
+
+  /* Stats inline minimal */
+  .stats { display: flex; gap: 28px; margin-top: 32px; padding: 18px 0; border-top: 1px solid rgba(232,221,196,0.08); border-bottom: 1px solid rgba(232,221,196,0.08); }
+  .stat-val { font-family: 'JetBrains Mono', monospace; font-size: 22px; font-weight: 700; color: #FFF; line-height: 1; }
+  .stat-lab { font-size: 10px; color: #6B7066; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 6px; font-weight: 600; }
+
+  /* CTA enorme */
+  .cta-wrap { margin-top: 36px; }
+  .cta {
+    background: #F0A028; color: #0F1410;
+    border: none; width: 100%;
+    padding: 28px; font-family: 'Inter', sans-serif;
+    font-weight: 800; font-size: 22px;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    cursor: pointer; border-radius: 4px;
+    display: flex; justify-content: center; align-items: center; gap: 16px;
+  }
+  .cta:active { background: #D88E1F; }
+
+  /* Footer link */
+  .more {
+    margin-top: auto; padding: 20px 0;
+    text-align: center; color: #6B7066;
+    font-size: 13px; font-weight: 600;
+    background: transparent; border: none; cursor: pointer;
+    letter-spacing: 0.04em;
+  }
+  .more strong { color: #E8DDC4; }
+</style>
+</head>
+<body>
+<span class="tag">CONCEPT A · SINGLE-FOCUS</span>
+
+<div class="app">
+
+  <div class="top">
+    <span>M2.DIAG <span class="ok">●</span> SYNC</span>
+    <span>22:14 · LP</span>
+  </div>
+
+  <div class="focus-label">▸ STASERA</div>
+  <div class="focus-time">22:30</div>
+  <div class="focus-name">La Spezia – Arcola</div>
+  <div class="focus-tratta">33/26 · Tratta Sarzana–La Spezia</div>
+
+  <div class="stats">
+    <div>
+      <div class="stat-val">58<span style="font-size:14px;color:#6B7066;">%</span></div>
+      <div class="stat-lab">Fatto</div>
+    </div>
+    <div>
+      <div class="stat-val">12</div>
+      <div class="stat-lab">Notti</div>
+    </div>
+    <div>
+      <div class="stat-val">3°<span style="font-size:14px;color:#4ADE80;">C</span></div>
+      <div class="stat-lab">Sereno</div>
+    </div>
+    <div>
+      <div class="stat-val">11</div>
+      <div class="stat-lab">Diff aperti</div>
+    </div>
+  </div>
+
+  <div class="cta-wrap">
+    <button class="cta">APRI NOTTE <span>→</span></button>
+  </div>
+
+  <button class="more">3 altri cantieri attivi · <strong>Tutti →</strong></button>
+
+</div>
+
+</body>
+</html>
