@@ -58,8 +58,10 @@
     wireBottomNav();
     wireDialogs();
 
-    // Default screen
-    showScreen(DEFAULT_SCREEN);
+    // Initial screen: ?screen=X o #X o default
+    var params = new URLSearchParams(location.search);
+    var initial = params.get('screen') || (location.hash || '').replace('#', '') || DEFAULT_SCREEN;
+    showScreen(initial in $screens ? initial : DEFAULT_SCREEN);
   }
 
   // -----------------------------------------------------------
