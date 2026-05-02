@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#1A1F1A">
+<title>Mood 1 — Cockpit aviation field</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #1A1F1A; min-height: 100vh; }
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: #E8DDC4;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.4;
+  }
+
+  .app { max-width: 420px; margin: 0 auto; padding: 16px 16px 88px; }
+  .mood-tag {
+    position: fixed; top: 8px; left: 50%; transform: translateX(-50%);
+    background: rgba(240,160,40,0.15); color: #F0A028;
+    padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 700;
+    letter-spacing: 0.08em; z-index: 100; border: 1px solid rgba(240,160,40,0.3);
+  }
+
+  /* Header */
+  .header { display: flex; justify-content: space-between; align-items: flex-start; margin: 24px 0 24px; }
+  .greeting { font-size: 22px; font-weight: 700; color: #E8DDC4; letter-spacing: -0.01em; }
+  .date { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #A39E89; margin-top: 4px; letter-spacing: 0.02em; }
+  .avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: linear-gradient(135deg, #F0A028, #C77F1E);
+    color: #1A1F1A; font-weight: 700; font-size: 13px;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid rgba(232,221,196,0.2);
+  }
+
+  /* Hero card "Stasera" */
+  .hero {
+    background: #252B25;
+    border: 1px solid rgba(240,160,40,0.35);
+    border-radius: 8px;
+    padding: 18px 18px 16px;
+    margin-bottom: 24px;
+    position: relative;
+  }
+  .hero-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+    color: #F0A028; text-transform: uppercase;
+  }
+  .hero-name { font-size: 19px; font-weight: 700; margin-top: 6px; color: #E8DDC4; }
+  .hero-meta { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #A39E89; margin-top: 4px; }
+  .hero-stats { display: flex; gap: 24px; margin: 16px 0 14px; padding: 12px 0; border-top: 1px solid rgba(232,221,196,0.08); border-bottom: 1px solid rgba(232,221,196,0.08); }
+  .hero-stat { flex: 1; }
+  .hero-stat-value { font-family: 'JetBrains Mono', monospace; font-size: 28px; font-weight: 700; color: #E8DDC4; line-height: 1; letter-spacing: -0.02em; }
+  .hero-stat-label { font-size: 10px; color: #A39E89; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 4px; font-weight: 600; }
+  .cta {
+    background: #F0A028; color: #1A1F1A;
+    border: none; width: 100%;
+    padding: 14px; border-radius: 4px;
+    font-family: 'Inter', sans-serif; font-weight: 700; font-size: 14px;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    display: flex; justify-content: space-between; align-items: center;
+    cursor: pointer;
+  }
+  .cta:active { background: #D88E1F; }
+
+  /* Section */
+  .section {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+    color: #A39E89; text-transform: uppercase; margin: 8px 0 12px;
+  }
+
+  /* Cantiere row */
+  .cant {
+    background: #252B25;
+    border-left: 3px solid #4ADE80;
+    padding: 14px 16px;
+    margin-bottom: 8px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 12px;
+    border-radius: 0 4px 4px 0;
+  }
+  .cant-name { font-size: 15px; font-weight: 600; color: #E8DDC4; }
+  .cant-meta { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #A39E89; margin-top: 4px; }
+  .cant-pct { font-family: 'JetBrains Mono', monospace; font-size: 22px; font-weight: 700; color: #E8DDC4; line-height: 1; }
+  .cant-pct-label { font-size: 9px; color: #A39E89; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 2px; text-align: right; }
+  .cant.warn { border-left-color: #F59E0B; }
+  .cant.zero { border-left-color: #6B6E5F; }
+
+  /* Pause row */
+  .pause-toggle {
+    background: transparent; border: 1px solid rgba(232,221,196,0.15);
+    color: #A39E89; padding: 12px 16px; border-radius: 4px;
+    margin-top: 16px; width: 100%;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600;
+    cursor: pointer;
+  }
+
+  /* Bottom nav */
+  .nav {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: rgba(26,31,26,0.97);
+    border-top: 1px solid rgba(232,221,196,0.1);
+    padding: 8px 16px 16px;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    max-width: 420px; margin: 0 auto;
+  }
+  .nav-tab {
+    background: transparent; border: none; color: #A39E89;
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    padding: 8px 0; cursor: pointer;
+    font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 600;
+    letter-spacing: 0.05em; text-transform: uppercase;
+  }
+  .nav-tab.active { color: #F0A028; }
+  .nav-tab svg { width: 22px; height: 22px; stroke-width: 2; fill: none; stroke: currentColor; }
+
+  /* Status dot */
+  .dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 6px; }
+  .dot.ok { background: #4ADE80; }
+</style>
+</head>
+<body>
+<span class="mood-tag">MOOD 1 · COCKPIT</span>
+
+<div class="app">
+
+  <div class="header">
+    <div>
+      <div class="greeting">Buonasera, Ludovico</div>
+      <div class="date">SAB 02 MAG 2026 · 22:14</div>
+    </div>
+    <div class="avatar">LP</div>
+  </div>
+
+  <div class="hero">
+    <div class="hero-label">▸ STASERA 22:30</div>
+    <div class="hero-name">La Spezia – Arcola</div>
+    <div class="hero-meta">33/26 · DISPARI 171→163 · PARI 171→161</div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-value">58%</div>
+        <div class="hero-stat-label">Avanz.</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value">12</div>
+        <div class="hero-stat-label">Notti</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value">3°</div>
+        <div class="hero-stat-label">Meteo</div>
+      </div>
+    </div>
+    <button class="cta">APRI NOTTE <span>→</span></button>
+  </div>
+
+  <div class="section">▸ ATTIVI · 3</div>
+
+  <div class="cant">
+    <div>
+      <div class="cant-name">Empoli – San Miniato</div>
+      <div class="cant-meta">237 SALD · 6 NOTTI · DISP 39→26</div>
+    </div>
+    <div>
+      <div class="cant-pct">30%</div>
+      <div class="cant-pct-label">avanz.</div>
+    </div>
+  </div>
+
+  <div class="cant warn">
+    <div>
+      <div class="cant-name">Genova</div>
+      <div class="cant-meta">0 SALD · 0 NOTTI · CONSEGNA SCADUTA</div>
+    </div>
+    <div>
+      <div class="cant-pct">0%</div>
+      <div class="cant-pct-label">avanz.</div>
+    </div>
+  </div>
+
+  <div class="cant zero">
+    <div>
+      <div class="cant-name">Test</div>
+      <div class="cant-meta">0 SALD · 0 NOTTI · DISP 100→120</div>
+    </div>
+    <div>
+      <div class="cant-pct">2%</div>
+      <div class="cant-pct-label">avanz.</div>
+    </div>
+  </div>
+
+  <button class="pause-toggle">
+    <span>IN PAUSA · 3</span>
+    <span>▼</span>
+  </button>
+
+</div>
+
+<nav class="nav">
+  <button class="nav-tab active">
+    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8v10a2 2 0 0 1-2 2h-4v-7H9v7H5a2 2 0 0 1-2-2z"></path></svg>
+    Home
+  </button>
+  <button class="nav-tab">
+    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+    Mese
+  </button>
+  <button class="nav-tab">
+    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+    Profilo
+  </button>
+  <button class="nav-tab">
+    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2v1h6v-1c0-.8.4-1.5 1-2A7 7 0 0 0 12 2z"></path></svg>
+    Frontale
+  </button>
+</nav>
+
+</body>
+</html>

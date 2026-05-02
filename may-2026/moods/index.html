@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0a0e1a">
+<title>M2 Mood comparison</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #0a0e1a; color: #e6edf3;
+    font-family: 'Inter', -apple-system, sans-serif;
+    padding: 24px 16px 48px; max-width: 480px; margin: 0 auto;
+    min-height: 100vh;
+  }
+  h1 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+  .sub { color: #8b949e; font-size: 14px; margin-bottom: 32px; }
+  .card {
+    display: block; text-decoration: none;
+    background: #161b22; border: 1px solid #30363d;
+    border-radius: 12px; padding: 20px; margin-bottom: 16px;
+    color: inherit; transition: border-color 200ms;
+  }
+  .card:active, .card:hover { border-color: #58A6FF; }
+  .card-tag {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; margin-bottom: 8px;
+  }
+  .card.m1 .card-tag { color: #F0A028; }
+  .card.m2 .card-tag { color: #22D3EE; }
+  .card.m3 .card-tag { color: #FFB74D; }
+  .card-title { font-size: 19px; font-weight: 700; margin-bottom: 4px; }
+  .card-desc { color: #8b949e; font-size: 14px; line-height: 1.5; margin-bottom: 12px; }
+  .card-ref { font-size: 12px; color: #6e7681; font-style: italic; }
+  .swatch { display: inline-block; width: 16px; height: 16px; border-radius: 4px; margin-right: 4px; vertical-align: middle; border: 1px solid rgba(255,255,255,0.1); }
+  .swatches { margin-top: 12px; }
+  .footer { color: #6e7681; font-size: 13px; margin-top: 24px; text-align: center; line-height: 1.6; }
+</style>
+</head>
+<body>
+
+<h1>M2 Diagnostica — Mood comparison</h1>
+<p class="sub">Stessa schermata (dashboard sintetica), 3 mood diversi.<br>Aprili in sequenza dal cellulare.</p>
+
+<a class="card m1" href="mood-1-cockpit.html">
+  <div class="card-tag">▸ Mood 1 · Cockpit aviation field</div>
+  <div class="card-title">Avorio su grigio caldo</div>
+  <div class="card-desc">L'app sembra un EFB pro (ForeFlight, Krautkrämer USM). Dark theme calibrato per night vision con frontale.</div>
+  <div class="card-ref">Riferimenti: ForeFlight, DJI Pilot 2, Krautkrämer USM Go+</div>
+  <div class="swatches">
+    <span class="swatch" style="background:#1A1F1A"></span>
+    <span class="swatch" style="background:#252B25"></span>
+    <span class="swatch" style="background:#E8DDC4"></span>
+    <span class="swatch" style="background:#F0A028"></span>
+    <span class="swatch" style="background:#4ADE80"></span>
+  </div>
+</a>
+
+<a class="card m2" href="mood-2-devtool.html">
+  <div class="card-tag">● Mood 2 · Dev-tool dark sobrio</div>
+  <div class="card-title">Linear / GitHub style</div>
+  <div class="card-desc">L'app sembra un tool tech moderno 2026 (Linear, GitHub Mobile, Datadog). Pulito, gerarchia chiara, accent cyan.</div>
+  <div class="card-ref">Riferimenti: Linear, GitHub Mobile, Datadog</div>
+  <div class="swatches">
+    <span class="swatch" style="background:#0D1117"></span>
+    <span class="swatch" style="background:#161B22"></span>
+    <span class="swatch" style="background:#C9D1D9"></span>
+    <span class="swatch" style="background:#22D3EE"></span>
+    <span class="swatch" style="background:#3FB950"></span>
+  </div>
+</a>
+
+<a class="card m3" href="mood-3-industrial.html">
+  <div class="card-tag">▸ Mood 3 · Industrial / Bloomberg</div>
+  <div class="card-title">Cockpit denso terminale</div>
+  <div class="card-desc">L'app sembra Bloomberg Terminal mobile + ServiceNow Mobile Agent. Massima densità informativa, monospace dominante, status pill a sinistra.</div>
+  <div class="card-ref">Riferimenti: Bloomberg Terminal, Pandrol Connect, ServiceNow Mobile</div>
+  <div class="swatches">
+    <span class="swatch" style="background:#0F0F0F"></span>
+    <span class="swatch" style="background:#1C1C1C"></span>
+    <span class="swatch" style="background:#E5E5E5"></span>
+    <span class="swatch" style="background:#F0A028"></span>
+    <span class="swatch" style="background:#26A69A"></span>
+  </div>
+</a>
+
+<p class="footer">Solo dashboard, single screen.<br>Quando hai deciso, dimmi: "<strong>Mood 1</strong>" / "<strong>Mood 2</strong>" / "<strong>Mood 3</strong>" o un mix.</p>
+
+</body>
+</html>
