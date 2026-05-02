@@ -1,0 +1,595 @@
+<!--
+  ============================================================
+  OVERLAYS — modali secondarie (PLAN §7.10 + §18 #3, #5)
+  Frammento HTML che raccoglie 4 bottom-sheet/dialog secondari del mockup.
+
+  Tutte le modali sono mostrate VISIBILI per il mockup (open + visible),
+  con backdrop dedicato. In produzione vanno hidden e attivate via data-action.
+
+  Pattern usato:
+   - <div role="dialog" aria-modal="true"> wrappato in .modal-backdrop
+   - .sheet (esistente in style.css) per il contenitore bottom
+   - bottoni footer = .btn .btn-primary / .btn-ghost / .btn-danger-ghost
+   - pill-group + pill-toggle (riusati da scheda.html / form-cantiere.html)
+   - data-action="close-sheet" su backdrop click + close X
+
+  Le 4 modali:
+   1. sheet-edit-notte         — modifica notte (PLAN §7.3 + §18 #3)
+   2. sheet-add-elemento       — aggiungi elemento controllato (PLAN §7.3)
+   3. sheet-edit-saldatura     — modifica saldatura (PLAN §7.6)
+   4. sheet-calendar-day       — bottom-sheet calendar tap (PLAN §7.8 + §18 #5)
+
+  ============================================================
+
+  NEED_CLASS:
+  - .modal-backdrop                    — overlay backdrop fisso (position fixed, inset 0, background var(--bg-overlay), z-index var(--z-modal), display flex, align-items flex-end, justify-content center)
+  - .modal-backdrop.is-stacked         — versione per overlays.html quando se ne mostrano più in colonna nel mockup (position relative, min-height 100vh, padding-bottom safe-area)
+  - .sheet-header                      — header dello sheet (display flex, align-items center, justify-content space-between, gap s-3, margin-bottom s-4)
+  - .sheet-title                       — titolo del bottom-sheet (font-family font-display, font-size t-title-md, font-weight 600, color text-primary, flex 1)
+  - .sheet-body                        — area form scrollabile (display flex, flex-direction column, gap s-4)
+  - .sheet-footer                      — footer azioni (display flex, gap s-2, margin-top s-5, padding-top s-4, border-top 1px solid var(--border-subtle))
+  - .sheet-footer .btn                 — flex 1 0 auto sui bottoni footer
+  - .sheet-footer__danger              — wrapper per "Elimina" (margin-right auto, separa dai bottoni di destra)
+  - .pill-group                        — gruppo pill orizzontali (display flex, flex-wrap wrap, gap s-2) — già richiesta in form-cantiere/scheda
+  - .pill-toggle                       — pill cliccabile radio/checkbox (display inline-flex, align-items center, padding 10px 16px, min-height 44px, border-radius r-full, border 1px solid border-default, background bg-card, color text-secondary, font-size t-body-md, font-weight 600, cursor pointer, transition all t-fast, position relative) — già richiesta
+  - .pill-toggle input                 — radio/checkbox nascosto (position absolute, opacity 0)
+  - .pill-toggle.is-active             — stato selezionato di default (background accent-cyan-dim, border-color border-accent, color accent-cyan)
+  - .pill-toggle:has(input:checked)    — stato selezionato dinamico (background accent-cyan-dim, border-color border-accent, color accent-cyan)
+  - .pill-toggle--success.is-active    — variante success (background accent-success-glow, border-color border-success, color accent-success)
+  - .pill-toggle--warn.is-active       — variante warn   (background accent-warn-glow, border-color border-warn, color accent-warn)
+  - .pill-toggle--danger.is-active     — variante danger (background accent-danger-glow, border-color border-danger, color accent-danger)
+  - .btn-danger-ghost                  — bottone elimina ghost (background transparent, color accent-danger, border 1px solid var(--border-danger))
+  - .btn-danger-ghost.is-confirming    — primo tap del doppio-tap (background accent-danger-glow, border-color accent-danger, color accent-danger)
+  - .field-conditional                 — wrapper campo che appare solo se condizione (display block; con [hidden] nascosto)
+  - .field-helper-inline               — helper text (display block, margin-top s-1, color text-muted, font-size t-meta)
+  - .km-input                          — input km mono (font-family font-mono, letter-spacing 0.02em, text-align center)
+  - .day-list                          — lista notti del giorno (display flex, flex-direction column, gap s-2)
+  - .day-list__item                    — singola notte (display flex, align-items center, gap s-3, padding s-3 s-4, background bg-card, border 1px solid border-default, border-radius r-md, min-height 64px, cursor pointer, text-decoration none, color text-primary, transition all t-fast)
+  - .day-list__item:hover              — hover (background bg-elevated, border-color border-accent)
+  - .day-list__main                    — wrapper testi (flex 1, display flex, flex-direction column, gap 2px, min-width 0)
+  - .day-list__title                   — titolo notte (color text-primary, font-weight 600)
+  - .day-list__meta                    — meta orario (color text-secondary, font-family font-mono, font-size t-meta)
+  - .day-list__chevron                 — freccia destra (color text-muted, flex-shrink 0)
+  - .mockup-stack                      — wrapper SOLO mockup per impilare le 4 modali una sotto l'altra (display flex, flex-direction column, gap s-6, padding s-4, padding-top calc(s-4 + safe-area-inset-top))
+  - .mockup-stack__caption             — caption sopra ogni modale (color text-muted, font-family font-mono, font-size t-meta, text-transform uppercase, letter-spacing 0.08em, margin-bottom s-2)
+-->
+
+
+<section class="screen" data-screen="overlays">
+
+  <header class="screen-header">
+    <h1 class="screen-header__title">Overlays</h1>
+    <span class="t-meta text-muted">4 modali — tutte visibili</span>
+  </header>
+
+  <div class="mockup-stack">
+
+
+    <!-- ============================================================
+         MODALE 1 — Edit notte (bottom-sheet)
+         PLAN §7.3 / §18 #3
+         ID nota: index.html ha già <dialog id="sheet-edit-notte">.
+         Qui usiamo l'ID con suffisso "-mockup" per evitare collisione,
+         e mostriamo il pattern completo aperto in linea.
+         ============================================================ -->
+    <div>
+      <span class="mockup-stack__caption">1 · Modifica notte</span>
+
+      <div class="modal-backdrop is-stacked"
+           data-action="close-sheet"
+           data-target="sheet-edit-notte">
+
+        <div class="sheet"
+             id="sheet-edit-notte-mockup"
+             role="dialog"
+             aria-modal="true"
+             aria-labelledby="sheet-edit-notte-title">
+
+          <div class="sheet-handle" aria-hidden="true"></div>
+
+          <header class="sheet-header">
+            <h2 id="sheet-edit-notte-title" class="sheet-title">Modifica notte</h2>
+            <button type="button"
+                    class="icon-btn spring-tap"
+                    data-action="close-sheet"
+                    data-target="sheet-edit-notte"
+                    aria-label="Chiudi modifica notte">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                   aria-hidden="true">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </header>
+
+          <form class="sheet-body" id="form-edit-notte" novalidate>
+
+            <!-- Data notte -->
+            <div class="field">
+              <label class="field-label" for="en-data">Data notte</label>
+              <input type="date"
+                     id="en-data"
+                     name="data"
+                     class="input input-mono"
+                     value="2026-05-05"
+                     required>
+            </div>
+
+            <!-- Stato (pill group) -->
+            <div class="field">
+              <span class="field-label" id="en-stato-label">Stato</span>
+              <div class="pill-group" role="radiogroup" aria-labelledby="en-stato-label">
+                <label class="pill-toggle">
+                  <input type="radio" name="stato" value="programmata" checked>
+                  <span>Programmata</span>
+                </label>
+                <label class="pill-toggle pill-toggle--warn is-active">
+                  <input type="radio" name="stato" value="saltata">
+                  <span>Saltata</span>
+                </label>
+                <label class="pill-toggle pill-toggle--success">
+                  <input type="radio" name="stato" value="completata">
+                  <span>Completata</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Motivo salto — visibile solo se stato=saltata -->
+            <div class="field field-conditional" data-show-when="stato=saltata">
+              <label class="field-label" for="en-motivo">Motivo salto</label>
+              <select id="en-motivo" name="motivo_salto" class="select">
+                <option value="">— scegli un motivo —</option>
+                <option value="pioggia" selected>Pioggia</option>
+                <option value="allerta_meteo">Allerta meteo</option>
+                <option value="problemi_tecnici">Problemi tecnici</option>
+                <option value="altro">Altro</option>
+              </select>
+            </div>
+
+            <!-- Note -->
+            <div class="field">
+              <label class="field-label" for="en-note">Note</label>
+              <textarea id="en-note"
+                        name="note"
+                        class="textarea"
+                        rows="3"
+                        placeholder="Note libere sulla notte (opzionale)"></textarea>
+            </div>
+
+          </form>
+
+          <footer class="sheet-footer">
+            <div class="sheet-footer__danger">
+              <button type="button"
+                      class="btn btn-md btn-danger-ghost spring-tap"
+                      data-action="delete-notte"
+                      data-double-tap="1"
+                      aria-label="Elimina notte (doppio tap per confermare)">
+                Elimina
+              </button>
+            </div>
+            <button type="button"
+                    class="btn btn-md btn-ghost spring-tap"
+                    data-action="close-sheet"
+                    data-target="sheet-edit-notte">
+              Annulla
+            </button>
+            <button type="submit"
+                    form="form-edit-notte"
+                    class="btn btn-md btn-primary spring-tap"
+                    data-action="save-notte">
+              Salva
+            </button>
+          </footer>
+
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ============================================================
+         MODALE 2 — Aggiungi elemento controllato (bottom-sheet)
+         PLAN §7.3 sezione "Elementi controllati"
+         ============================================================ -->
+    <div>
+      <span class="mockup-stack__caption">2 · Aggiungi elemento</span>
+
+      <div class="modal-backdrop is-stacked"
+           data-action="close-sheet"
+           data-target="sheet-add-elemento">
+
+        <div class="sheet"
+             id="sheet-add-elemento"
+             role="dialog"
+             aria-modal="true"
+             aria-labelledby="sheet-add-elemento-title">
+
+          <div class="sheet-handle" aria-hidden="true"></div>
+
+          <header class="sheet-header">
+            <h2 id="sheet-add-elemento-title" class="sheet-title">Aggiungi elemento</h2>
+            <button type="button"
+                    class="icon-btn spring-tap"
+                    data-action="close-sheet"
+                    data-target="sheet-add-elemento"
+                    aria-label="Chiudi aggiungi elemento">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                   aria-hidden="true">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </header>
+
+          <form class="sheet-body" id="form-add-elemento" novalidate>
+
+            <!-- Tipo elemento -->
+            <div class="field">
+              <span class="field-label" id="ae-tipo-label">Tipo</span>
+              <div class="pill-group" role="radiogroup" aria-labelledby="ae-tipo-label">
+                <label class="pill-toggle pill-toggle--success is-active">
+                  <input type="radio" name="tipo" value="regolazione" checked>
+                  <span>Regolazione</span>
+                </label>
+                <label class="pill-toggle pill-toggle--warn">
+                  <input type="radio" name="tipo" value="deviatoio">
+                  <span>Deviatoio</span>
+                </label>
+                <label class="pill-toggle pill-toggle--danger">
+                  <input type="radio" name="tipo" value="ricontrollo">
+                  <span>Ricontrollo</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- KM -->
+            <div class="field">
+              <label class="field-label" for="ae-km">Km</label>
+              <input type="text"
+                     id="ae-km"
+                     name="km"
+                     class="input input-mono km-input"
+                     placeholder="168+200"
+                     pattern="\d+\+\d{3}"
+                     inputmode="numeric"
+                     autocomplete="off"
+                     value="168+200"
+                     required>
+              <span class="field-helper-inline">Formato: chilometro + metri (es. 168+200)</span>
+            </div>
+
+            <!-- Lato -->
+            <div class="field">
+              <span class="field-label" id="ae-lato-label">Lato</span>
+              <div class="pill-group" role="radiogroup" aria-labelledby="ae-lato-label">
+                <label class="pill-toggle is-active">
+                  <input type="radio" name="lato" value="dx" checked>
+                  <span>DX</span>
+                </label>
+                <label class="pill-toggle">
+                  <input type="radio" name="lato" value="sx">
+                  <span>SX</span>
+                </label>
+                <label class="pill-toggle">
+                  <input type="radio" name="lato" value="entrambi">
+                  <span>Entrambi</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Note (opzionale) -->
+            <div class="field">
+              <label class="field-label" for="ae-note">Note (opzionale)</label>
+              <textarea id="ae-note"
+                        name="note"
+                        class="textarea"
+                        rows="3"
+                        placeholder="Dettagli aggiuntivi sull'elemento controllato"></textarea>
+            </div>
+
+          </form>
+
+          <footer class="sheet-footer">
+            <button type="button"
+                    class="btn btn-md btn-ghost spring-tap"
+                    data-action="close-sheet"
+                    data-target="sheet-add-elemento">
+              Annulla
+            </button>
+            <button type="submit"
+                    form="form-add-elemento"
+                    class="btn btn-md btn-primary spring-tap"
+                    data-action="add-elemento">
+              Aggiungi
+            </button>
+          </footer>
+
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ============================================================
+         MODALE 3 — Edit saldatura (bottom-sheet)
+         PLAN §7.6 — usata da Risultati per edit riga saldatura
+         ============================================================ -->
+    <div>
+      <span class="mockup-stack__caption">3 · Modifica saldatura</span>
+
+      <div class="modal-backdrop is-stacked"
+           data-action="close-sheet"
+           data-target="sheet-edit-saldatura">
+
+        <div class="sheet"
+             id="sheet-edit-saldatura"
+             role="dialog"
+             aria-modal="true"
+             aria-labelledby="sheet-edit-saldatura-title">
+
+          <div class="sheet-handle" aria-hidden="true"></div>
+
+          <header class="sheet-header">
+            <h2 id="sheet-edit-saldatura-title" class="sheet-title">Modifica saldatura</h2>
+            <button type="button"
+                    class="icon-btn spring-tap"
+                    data-action="close-sheet"
+                    data-target="sheet-edit-saldatura"
+                    aria-label="Chiudi modifica saldatura">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                   aria-hidden="true">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </header>
+
+          <form class="sheet-body" id="form-edit-saldatura" novalidate>
+
+            <!-- KM -->
+            <div class="field">
+              <label class="field-label" for="es-km">Km</label>
+              <input type="text"
+                     id="es-km"
+                     name="km"
+                     class="input input-mono km-input"
+                     placeholder="168+200"
+                     pattern="\d+\+\d{3}"
+                     inputmode="numeric"
+                     autocomplete="off"
+                     value="167+845"
+                     required>
+            </div>
+
+            <!-- Lato -->
+            <div class="field">
+              <span class="field-label" id="es-lato-label">Lato</span>
+              <div class="pill-group" role="radiogroup" aria-labelledby="es-lato-label">
+                <label class="pill-toggle is-active">
+                  <input type="radio" name="lato" value="dx" checked>
+                  <span>DX</span>
+                </label>
+                <label class="pill-toggle">
+                  <input type="radio" name="lato" value="sx">
+                  <span>SX</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Tipo -->
+            <div class="field">
+              <span class="field-label" id="es-tipo-label">Tipo</span>
+              <div class="pill-group" role="radiogroup" aria-labelledby="es-tipo-label">
+                <label class="pill-toggle is-active">
+                  <input type="radio" name="tipo" value="TR" checked>
+                  <span>TR</span>
+                </label>
+                <label class="pill-toggle">
+                  <input type="radio" name="tipo" value="ALL">
+                  <span>ALL</span>
+                </label>
+                <label class="pill-toggle">
+                  <input type="radio" name="tipo" value="SCIN">
+                  <span>SCIN</span>
+                </label>
+                <label class="pill-toggle">
+                  <input type="radio" name="tipo" value="altro">
+                  <span>Altro</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Stato -->
+            <div class="field">
+              <span class="field-label" id="es-stato-label">Stato</span>
+              <div class="pill-group" role="radiogroup" aria-labelledby="es-stato-label">
+                <label class="pill-toggle pill-toggle--success">
+                  <input type="radio" name="stato" value="ok">
+                  <span>OK</span>
+                </label>
+                <label class="pill-toggle pill-toggle--danger is-active">
+                  <input type="radio" name="stato" value="difetto" checked>
+                  <span>Difetto</span>
+                </label>
+                <label class="pill-toggle pill-toggle--warn">
+                  <input type="radio" name="stato" value="no_dac">
+                  <span>NO DAC</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Codice difetto — visibile solo se stato=difetto -->
+            <div class="field field-conditional" data-show-when="stato=difetto">
+              <label class="field-label" for="es-codice-difetto">Codice difetto</label>
+              <input type="text"
+                     id="es-codice-difetto"
+                     name="codice_difetto"
+                     class="input input-mono"
+                     placeholder="es. 211, 113, 121"
+                     list="codici-difetto"
+                     inputmode="numeric"
+                     autocomplete="off"
+                     value="211">
+              <datalist id="codici-difetto">
+                <option value="211">211 — Difetto sensibile mediano</option>
+                <option value="113">113 — Difetto trasversale fungo</option>
+                <option value="121">121 — Difetto longitudinale</option>
+                <option value="221">221 — Difetto di saldatura</option>
+                <option value="411">411 — Difetto trasversale gambo</option>
+                <option value="421">421 — Difetto longitudinale gambo</option>
+              </datalist>
+              <span class="field-helper-inline">Inserisci codice o seleziona dalla lista</span>
+            </div>
+
+          </form>
+
+          <footer class="sheet-footer">
+            <div class="sheet-footer__danger">
+              <button type="button"
+                      class="btn btn-md btn-danger-ghost spring-tap"
+                      data-action="delete-saldatura"
+                      data-double-tap="1"
+                      aria-label="Elimina saldatura (doppio tap per confermare)">
+                Elimina
+              </button>
+            </div>
+            <button type="button"
+                    class="btn btn-md btn-ghost spring-tap"
+                    data-action="close-sheet"
+                    data-target="sheet-edit-saldatura">
+              Annulla
+            </button>
+            <button type="submit"
+                    form="form-edit-saldatura"
+                    class="btn btn-md btn-primary spring-tap"
+                    data-action="save-saldatura">
+              Salva
+            </button>
+          </footer>
+
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ============================================================
+         MODALE 4 — Calendar tap day (bottom-sheet)
+         PLAN §7.8 + §18 #5 — tap su cella calendar = bottom-sheet con notti del giorno
+         ============================================================ -->
+    <div>
+      <span class="mockup-stack__caption">4 · Tap giorno calendar</span>
+
+      <div class="modal-backdrop is-stacked"
+           data-action="close-sheet"
+           data-target="sheet-calendar-day">
+
+        <div class="sheet"
+             id="sheet-calendar-day"
+             role="dialog"
+             aria-modal="true"
+             aria-labelledby="sheet-calendar-day-title">
+
+          <div class="sheet-handle" aria-hidden="true"></div>
+
+          <header class="sheet-header">
+            <h2 id="sheet-calendar-day-title" class="sheet-title">Lun 5 Maggio 2026</h2>
+            <button type="button"
+                    class="icon-btn spring-tap"
+                    data-action="close-sheet"
+                    data-target="sheet-calendar-day"
+                    aria-label="Chiudi giorno">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                   aria-hidden="true">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </header>
+
+          <div class="sheet-body">
+
+            <ul class="day-list" aria-label="Notti programmate per il giorno">
+
+              <li>
+                <a href="#cantiere"
+                   class="day-list__item spring-tap"
+                   data-action="screen"
+                   data-screen="cantiere"
+                   data-cantiere-id="la-spezia-arcola">
+                  <span class="pill pill-cyan-outline" aria-hidden="true">SP</span>
+                  <span class="day-list__main">
+                    <span class="day-list__title">La Spezia - Arcola</span>
+                    <span class="day-list__meta">22:00 · Dispari 171 &rarr; 163</span>
+                  </span>
+                  <svg class="day-list__chevron" viewBox="0 0 24 24" fill="none"
+                       stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                       stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
+                </a>
+              </li>
+
+              <li>
+                <a href="#cantiere"
+                   class="day-list__item spring-tap"
+                   data-action="screen"
+                   data-screen="cantiere"
+                   data-cantiere-id="empoli-san-miniato">
+                  <span class="pill pill-cyan-outline" aria-hidden="true">EM</span>
+                  <span class="day-list__main">
+                    <span class="day-list__title">Empoli - San Miniato</span>
+                    <span class="day-list__meta">21:30 · Pari 39 &rarr; 26</span>
+                  </span>
+                  <svg class="day-list__chevron" viewBox="0 0 24 24" fill="none"
+                       stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                       stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
+                </a>
+              </li>
+
+            </ul>
+
+          </div>
+
+          <footer class="sheet-footer">
+            <button type="button"
+                    class="btn btn-md btn-ghost btn-block spring-tap"
+                    data-action="programma-notte"
+                    data-data="2026-05-05">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                   aria-hidden="true" width="18" height="18">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+              Programma nuova notte
+            </button>
+          </footer>
+
+        </div>
+      </div>
+    </div>
+
+
+  </div><!-- /.mockup-stack -->
+
+</section>
+
+
+<!-- ============================================================
+     DECISIONI APPLICATE (riferimento PLAN §18)
+     - #3: Edit notte = bottom-sheet (sale dal basso, dismiss swipe-down)
+     - #5: Calendar tap = bottom-sheet con lista notti del giorno
+     - #18: Doppio-tap su Elimina (data-double-tap="1") — gestito da mockup.js
+     - LEARNED #46: doppio-tap conferma azioni distruttive (no confirm() iOS)
+     - LEARNED #60: nessuna abbreviazione (es. "Aggiungi", non "Agg.")
+     - LEARNED #78: tutti gli input font-size 16px via classe .input
+     - PLAN §5.4: input padding 14px 16px, color-scheme dark su date
+     - PLAN §11: touch target 44-48px su pill-toggle / icon-btn / day-list__item
+     - PLAN §7.10: backdrop click = close (data-action="close-sheet")
+     - PLAN vincolo §3.3: niente backdrop-filter (rgba opaco su .modal-backdrop)
+     ============================================================ -->

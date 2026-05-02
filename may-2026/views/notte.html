@@ -1,0 +1,172 @@
+<!-- ============================================================
+     NOTTE — vista editor saldature (PLAN §7.5)
+     ATTENZIONE: l'editor reale e' INTOCCABILE (LEARNED #221, #260).
+     Qui rappresentiamo solo VISIVAMENTE la pagina:
+     - header sticky (back, titolo + data, save dot, pill binario, menu)
+     - counter strip sticky (pill colorate inline)
+     - editor body = PLACEHOLDER STATICO non funzionale
+     - mini-calc traverse sticky bottom + numpad inline
+     - sticky bottom bar "ELABORA risultati"
+     ============================================================ -->
+
+<!-- === Header sticky (PLAN §7.5) === -->
+<header class="notte-header sticky-bar">
+  <div class="notte-header__row">
+    <button type="button" class="icon-btn spring-tap" aria-label="Indietro">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+    </button>
+
+    <div class="notte-header__title">
+      <h1 class="t-card-title">La Spezia - Arcola</h1>
+      <p class="t-meta">13 → 14 Aprile 2026</p>
+    </div>
+
+    <span class="notte-save" title="Salvato" aria-label="Stato salvataggio: salvato">
+      <span class="save-dot save-dot--saved" aria-hidden="true"></span>
+      <span class="t-micro text-success">Salvato</span>
+    </span>
+
+    <button type="button" class="icon-btn spring-tap" aria-label="Menu opzioni notte">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="5" r="1.5"></circle>
+        <circle cx="12" cy="12" r="1.5"></circle>
+        <circle cx="12" cy="19" r="1.5"></circle>
+      </svg>
+    </button>
+  </div>
+
+  <div class="notte-header__row notte-header__row--sub">
+    <button type="button" class="pill pill-cyan spring-tap notte-bin" aria-label="Binario corrente: Dispari (tap per cambiare)">
+      <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="17 1 21 5 17 9"></polyline>
+        <path d="M3 11V9a4 4 0 0 1 4-4h14"></path>
+        <polyline points="7 23 3 19 7 15"></polyline>
+        <path d="M21 13v2a4 4 0 0 1-4 4H3"></path>
+      </svg>
+      Dispari
+    </button>
+    <span class="t-meta text-muted">tap per cambiare</span>
+  </div>
+</header>
+
+<!-- === Counter strip sticky (PLAN §7.5 + §9 saldature counter) === -->
+<div class="notte-counter sticky-bar">
+  <div class="notte-counter__row">
+    <span class="pill pill-cyan-outline">OK 12</span>
+    <span class="pill pill-danger">Difetti 3</span>
+    <span class="pill pill-warn-outline">NO DAC 2</span>
+    <span class="pill pill-muted">Tot 145m</span>
+  </div>
+</div>
+
+<!-- === Editor body — PLACEHOLDER STATICO non funzionale === -->
+<div class="notte-editor card-standard">
+  <div class="notte-editor__viewport" aria-label="Editor saldature (placeholder visivo)" role="presentation">
+    <!-- riga 1 — difetto, header -->
+    <div class="ed-row ed-row--defect">
+      <span class="ed-num">1</span>
+      <span class="ed-km">165+700</span>
+      <span class="ed-side ed-side--dx">DX</span>
+      <span class="ed-code">211</span>
+      <span class="ed-type ed-type--n">N</span>
+      <span class="ed-rail">17</span>
+      <span class="ed-date">13/04/2026</span>
+      <span class="ed-op">LP</span>
+    </div>
+    <!-- riga 2 — sub-attributo difetto -->
+    <div class="ed-row ed-row--sub">
+      <span class="ed-sub-key">Profondità</span>
+      <span class="ed-sub-val">12 mm</span>
+    </div>
+    <!-- riga 3 — sub-attributo difetto -->
+    <div class="ed-row ed-row--sub">
+      <span class="ed-sub-key">Altezza</span>
+      <span class="ed-sub-val">25 mm</span>
+    </div>
+    <!-- riga 4 — sub-attributo difetto -->
+    <div class="ed-row ed-row--sub">
+      <span class="ed-sub-key">Db</span>
+      <span class="ed-sub-val">8</span>
+    </div>
+
+    <!-- riga 5 — saldatura normale TR -->
+    <div class="ed-row">
+      <span class="ed-num">2</span>
+      <span class="ed-km">166+450</span>
+      <span class="ed-side ed-side--sx">SX</span>
+      <span class="ed-type ed-type--tr">TR</span>
+    </div>
+
+    <!-- riga 6 — separatore binario -->
+    <div class="ed-row ed-row--sep">
+      <span class="ed-sep-label">BINARIO PARI</span>
+    </div>
+
+    <!-- riga 7 — alluminotermica -->
+    <div class="ed-row">
+      <span class="ed-num">3</span>
+      <span class="ed-km">162+800</span>
+      <span class="ed-side ed-side--dx">DX</span>
+      <span class="ed-type ed-type--all">ALL</span>
+    </div>
+
+    <!-- caret indicator (visivo, non funzionale) -->
+    <div class="ed-caret-line" aria-hidden="true">
+      <span class="ed-caret"></span>
+    </div>
+  </div>
+
+  <p class="notte-editor__note t-meta text-muted">Editor — non funzionale nel mockup</p>
+</div>
+
+<!-- === Mini-calc traverse + numpad sticky bottom === -->
+<aside class="trav-mini sticky-bottom" aria-label="Calcolo traverse">
+  <div class="trav-mini__head">
+    <span class="t-micro text-secondary">Ultimo km</span>
+    <span class="t-meta text-cyan">162+800</span>
+    <span class="trav-mini__calc t-meta">+ 0,3 m × 5 = <strong class="text-success">164 m</strong></span>
+  </div>
+
+  <div class="trav-mini__chips">
+    <button type="button" class="pill pill-cyan-outline spring-tap">ALL</button>
+    <button type="button" class="pill pill-warn-outline spring-tap">SCIN</button>
+    <button type="button" class="pill pill-success-outline spring-tap">GR</button>
+  </div>
+
+  <div class="trav-mini__body">
+    <div class="trav-numpad">
+      <button type="button" class="trav-key spring-tap">1</button>
+      <button type="button" class="trav-key spring-tap">2</button>
+      <button type="button" class="trav-key spring-tap">3</button>
+      <button type="button" class="trav-key spring-tap">4</button>
+      <button type="button" class="trav-key spring-tap">5</button>
+      <button type="button" class="trav-key spring-tap">6</button>
+      <button type="button" class="trav-key spring-tap">7</button>
+      <button type="button" class="trav-key spring-tap">8</button>
+      <button type="button" class="trav-key spring-tap">9</button>
+      <button type="button" class="trav-key trav-key--util spring-tap" aria-label="Cancella">←</button>
+      <button type="button" class="trav-key spring-tap">0</button>
+      <button type="button" class="trav-key trav-key--ok spring-tap" aria-label="Conferma">✓</button>
+    </div>
+
+    <div class="trav-sides">
+      <button type="button" class="btn btn-secondary btn-sm spring-tap">DX</button>
+      <button type="button" class="btn btn-secondary btn-sm spring-tap">SX</button>
+      <button type="button" class="btn btn-secondary btn-sm spring-tap">DX&nbsp;&amp;&nbsp;SX</button>
+    </div>
+  </div>
+</aside>
+
+<!-- === Sticky bottom CTA === -->
+<div class="notte-cta sticky-bottom">
+  <button type="button" class="btn btn-primary btn-lg btn-block spring-tap">
+    ELABORA risultati
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <line x1="5" y1="12" x2="19" y2="12"></line>
+      <polyline points="12 5 19 12 12 19"></polyline>
+    </svg>
+  </button>
+</div>

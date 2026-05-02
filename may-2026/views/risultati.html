@@ -1,0 +1,317 @@
+<!-- ============================================================
+     RISULTATI — Mockup M2 Diagnostica 2026
+     PLAN §7.6 — vista post-elaborazione notte
+     Solo content della <section data-screen="risultati">
+     Modalita: NON chiusa (button "Chiudi notte" attivo, sticky bottom)
+     Dati: 16 saldature totali · 3 difetti · 2 NO DAC · 11 OK · 1/3 schede
+     ============================================================ -->
+
+<!-- 1) Header — back + titolo + sottotitolo + save dot -->
+<header class="screen-header page-enter stagger-1">
+  <button type="button"
+          class="icon-btn spring-tap"
+          data-action="screen"
+          data-screen="notte"
+          aria-label="Torna alla notte">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <line x1="19" y1="12" x2="5" y2="12"></line>
+      <polyline points="12 19 5 12 12 5"></polyline>
+    </svg>
+  </button>
+
+  <div class="flex-1">
+    <h1 class="t-screen-title">Risultati notte</h1>
+    <p class="t-meta text-muted mt-1">13 → 14 Aprile · La Spezia – Arcola</p>
+  </div>
+
+  <span class="save-dot save-dot--saved" role="status" aria-label="Salvato"></span>
+</header>
+
+
+<!-- 2) BANNER DIFETTI HERO — card warn elevated, glow danger -->
+<button type="button"
+        class="card-hero hero-card defect-banner bento-hero spring-tap mb-5 page-enter stagger-2"
+        data-action="open-scheda"
+        data-id="1"
+        aria-label="3 difetti trovati — apri prima scheda I.1">
+
+  <span class="t-micro text-danger">Difetti trovati</span>
+
+  <p class="t-display text-danger mt-2">3</p>
+  <p class="t-card-title mt-1">DIFETTI da compilare</p>
+  <p class="t-body text-secondary mt-2">
+    Compila la scheda I.1 per ognuno
+  </p>
+
+  <div class="row gap-2 mt-4">
+    <span class="pill pill-warn-outline">1 / 3 schede compilate</span>
+  </div>
+</button>
+
+
+<!-- 3) STAT STRIP — 4 metriche inline mono -->
+<div class="row gap-3 mb-6 page-enter stagger-3" aria-label="Riepilogo statistiche notte">
+  <span class="t-meta">
+    <span class="text-success">12</span>
+    <span class="text-muted">OK</span>
+  </span>
+  <span class="text-muted t-meta">·</span>
+  <span class="t-meta">
+    <span class="text-danger">3</span>
+    <span class="text-muted">difetti</span>
+  </span>
+  <span class="text-muted t-meta">·</span>
+  <span class="t-meta">
+    <span class="text-warn">2</span>
+    <span class="text-muted">NO DAC</span>
+  </span>
+  <span class="text-muted t-meta">·</span>
+  <span class="t-meta">
+    <span>145m</span>
+    <span class="text-muted">tot</span>
+  </span>
+</div>
+
+
+<!-- 4) LISTA SALDATURE — raggruppate per binario -->
+
+<!-- 4a) BINARIO DISPARI · 11 saldature — open di default -->
+<details class="dash-group mb-3 page-enter stagger-4" open>
+  <summary class="t-section dash-group__summary">
+    Binario dispari · 11 saldature
+  </summary>
+
+  <div class="col gap-2 mt-3">
+
+    <!-- 165+700 · DX · 211 — DIFETTO, scheda compilata -->
+    <button type="button"
+            class="card-standard sald-row sald-row--defect spring-tap row gap-3"
+            data-action="open-scheda"
+            data-id="1"
+            aria-label="165+700 dispari destra, codice 211, difetto, scheda compilata">
+      <span class="t-meta sald-row__km">165+700</span>
+      <span class="t-meta text-muted">DX</span>
+      <span class="t-meta flex-1">211</span>
+      <span class="pill pill-danger">Difetto</span>
+      <span class="t-meta text-success" aria-label="Scheda compilata">✓</span>
+    </button>
+
+    <!-- 166+450 · SX · TR — OK -->
+    <button type="button"
+            class="card-subtle sald-row spring-tap row gap-3"
+            data-action="edit-saldatura"
+            data-id="2"
+            aria-label="166+450 dispari sinistra, traversa, regolare">
+      <span class="t-meta sald-row__km">166+450</span>
+      <span class="t-meta text-muted">SX</span>
+      <span class="t-meta flex-1">TR</span>
+      <span class="t-meta text-muted">OK</span>
+    </button>
+
+    <!-- 167+200 · DX · 113 — DIFETTO, scheda mancante -->
+    <button type="button"
+            class="card-standard sald-row sald-row--defect spring-tap row gap-3"
+            data-action="open-scheda"
+            data-id="2"
+            aria-label="167+200 dispari destra, codice 113, difetto, scheda da compilare">
+      <span class="t-meta sald-row__km">167+200</span>
+      <span class="t-meta text-muted">DX</span>
+      <span class="t-meta flex-1">113</span>
+      <span class="pill pill-danger">Difetto</span>
+      <span class="t-meta text-muted" aria-label="Scheda mancante">—</span>
+    </button>
+
+    <!-- 167+800 · SX · ALL — OK -->
+    <button type="button"
+            class="card-subtle sald-row spring-tap row gap-3"
+            data-action="edit-saldatura"
+            data-id="4"
+            aria-label="167+800 dispari sinistra, ALL, regolare">
+      <span class="t-meta sald-row__km">167+800</span>
+      <span class="t-meta text-muted">SX</span>
+      <span class="t-meta flex-1">ALL</span>
+      <span class="t-meta text-muted">OK</span>
+    </button>
+
+    <!-- 168+150 · DX · TR — NO DAC -->
+    <button type="button"
+            class="card-standard sald-row sald-row--nodac spring-tap row gap-3"
+            data-action="edit-saldatura"
+            data-id="5"
+            aria-label="168+150 dispari destra, traversa, NO DAC">
+      <span class="t-meta sald-row__km">168+150</span>
+      <span class="t-meta text-muted">DX</span>
+      <span class="t-meta flex-1">TR</span>
+      <span class="pill pill-warn-outline">No DAC</span>
+    </button>
+
+    <!-- 169+300 · SX · TR — OK -->
+    <button type="button"
+            class="card-subtle sald-row spring-tap row gap-3"
+            data-action="edit-saldatura"
+            data-id="6"
+            aria-label="169+300 dispari sinistra, traversa, regolare">
+      <span class="t-meta sald-row__km">169+300</span>
+      <span class="t-meta text-muted">SX</span>
+      <span class="t-meta flex-1">TR</span>
+      <span class="t-meta text-muted">OK</span>
+    </button>
+
+    <!-- 170+050 · DX · TR — OK (placeholder per arrivare a 11 → mostriamo solo 6 visibili + più giù) -->
+    <button type="button"
+            class="card-subtle sald-row spring-tap row gap-3"
+            data-action="edit-saldatura"
+            data-id="7"
+            aria-label="170+050 dispari destra, traversa, regolare">
+      <span class="t-meta sald-row__km">170+050</span>
+      <span class="t-meta text-muted">DX</span>
+      <span class="t-meta flex-1">TR</span>
+      <span class="t-meta text-muted">OK</span>
+    </button>
+
+  </div>
+</details>
+
+
+<!-- 4b) BINARIO PARI · 5 saldature — collapsed default -->
+<details class="dash-group mb-5 page-enter stagger-5">
+  <summary class="t-section dash-group__summary">
+    Binario pari · 5 saldature
+  </summary>
+
+  <div class="col gap-2 mt-3">
+
+    <!-- 142+200 · DX · 411 — DIFETTO scheda mancante -->
+    <button type="button"
+            class="card-standard sald-row sald-row--defect spring-tap row gap-3"
+            data-action="open-scheda"
+            data-id="3"
+            aria-label="142+200 pari destra, codice 411, difetto, scheda da compilare">
+      <span class="t-meta sald-row__km">142+200</span>
+      <span class="t-meta text-muted">DX</span>
+      <span class="t-meta flex-1">411</span>
+      <span class="pill pill-danger">Difetto</span>
+      <span class="t-meta text-muted" aria-label="Scheda mancante">—</span>
+    </button>
+
+    <!-- 143+550 · SX · ALL — OK -->
+    <button type="button"
+            class="card-subtle sald-row spring-tap row gap-3"
+            data-action="edit-saldatura"
+            data-id="9"
+            aria-label="143+550 pari sinistra, ALL, regolare">
+      <span class="t-meta sald-row__km">143+550</span>
+      <span class="t-meta text-muted">SX</span>
+      <span class="t-meta flex-1">ALL</span>
+      <span class="t-meta text-muted">OK</span>
+    </button>
+
+  </div>
+</details>
+
+
+<!-- 5) RIEPILOGO WHATSAPP — 2 card collassabili -->
+<h2 class="t-section mb-3">Riepilogo WhatsApp</h2>
+
+<details class="dash-group mb-3">
+  <summary class="t-section dash-group__summary">
+    Formato M2
+  </summary>
+  <div class="card-standard mt-3">
+    <pre class="t-meta whatsapp-preview">La Spezia – Arcola
+13 → 14 Aprile 2026
+Bin. Dispari 165+700 → 170+050
+Bin. Pari 142+200 → 143+550
+
+Saldature: 16 (OK 11 · Diff 3 · NO DAC 2)
+Metratura: 145 m
+
+Difetti:
+• 165+700 DX · cod 211
+• 167+200 DX · cod 113
+• 142+200 DX · cod 411
+
+Operatore: LP</pre>
+    <button type="button"
+            class="btn btn-secondary btn-sm btn-block spring-tap mt-3"
+            data-action="copy-whatsapp"
+            data-format="m2"
+            aria-label="Copia riepilogo formato M2">
+      Copia
+    </button>
+  </div>
+</details>
+
+<details class="dash-group mb-5">
+  <summary class="t-section dash-group__summary">
+    Formato GFC
+  </summary>
+  <div class="card-standard mt-3">
+    <pre class="t-meta whatsapp-preview">GFC — La Spezia/Arcola
+13/14-04-2026
+
+DISPARI 165+700/170+050
+PARI    142+200/143+550
+
+n. 16 sald. (11 ok / 3 diff / 2 no dac)
+m. 145
+
+Difetti rilevati:
+- km 165+700 dx - 211
+- km 167+200 dx - 113
+- km 142+200 dx - 411
+
+LP</pre>
+    <button type="button"
+            class="btn btn-secondary btn-sm btn-block spring-tap mt-3"
+            data-action="copy-whatsapp"
+            data-format="gfc"
+            aria-label="Copia riepilogo formato GFC">
+      Copia
+    </button>
+  </div>
+</details>
+
+
+<!-- 6) EXPORT — button group orizzontale -->
+<h2 class="t-section mb-3">Export</h2>
+<div class="row gap-3 mb-6">
+  <button type="button"
+          class="btn btn-secondary btn-md spring-tap flex-1"
+          data-action="export-tsv"
+          aria-label="Scarica TSV">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" stroke-width="2"
+         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+      <polyline points="7 10 12 15 17 10"></polyline>
+      <line x1="12" y1="15" x2="12" y2="3"></line>
+    </svg>
+    Scarica TSV
+  </button>
+  <button type="button"
+          class="btn btn-secondary btn-md spring-tap flex-1"
+          data-action="export-pdf"
+          aria-label="Scarica PDF">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" stroke-width="2"
+         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+      <polyline points="14 2 14 8 20 8"></polyline>
+    </svg>
+    Scarica PDF
+  </button>
+</div>
+
+
+<!-- 7) STICKY BOTTOM — Chiudi notte (doppio-tap conferma, decisione #19 haptic) -->
+<div class="sticky-bottom">
+  <button type="button"
+          class="btn btn-danger btn-lg btn-block spring-tap"
+          data-action="close-notte"
+          data-confirm="double-tap"
+          aria-label="Chiudi notte (tocca due volte per confermare)">
+    Chiudi notte
+  </button>
+</div>

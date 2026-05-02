@@ -1,0 +1,426 @@
+<!-- ============================================================
+     FORM-CANTIERE — PLAN §7.4 + decisioni #1, #17 (sez. 18)
+     - Form stepwise 4 step con progress dots in alto
+     - Step indicator: ● ● ○ ○  (mostro step 2 nel mockup)
+     - Sotto step indicator: "Step 2 di 4 · Binari"
+     - Header: back arrow (#17 = torna a step precedente) + "Nuovo cantiere"
+     - Step 1: nome, codice M2 separato (#1), tratta, data fine, notturno/diurno,
+               urgente toggle, giorni attivi DLMMGVS (mostrato hidden)
+     - Step 2: lista binari + add inline form (mostrato VISIBILE)
+     - Step 3, 4: hidden (lavorazioni, riepilogo)
+     - Sticky bottom: Indietro ghost + Avanti primary
+     - Tutti gli input font-size 16px (LEARNED #78)
+     - input[type=date] color-scheme dark gestito dallo scaffold
+     - LEARNED #144: helper "ordine reale del lavoro" su km binario
+     ============================================================ -->
+
+<header class="screen-header form-cantiere__header page-enter">
+  <button type="button"
+          class="icon-btn spring-tap"
+          data-action="step-prev"
+          aria-label="Torna allo step precedente">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+         aria-hidden="true">
+      <path d="M19 12H5"></path>
+      <path d="M12 19l-7-7 7-7"></path>
+    </svg>
+  </button>
+  <h1 class="screen-header__title">Nuovo cantiere</h1>
+</header>
+
+<!-- ============================================================
+     Step indicator: ● ● ○ ○  (step 2 attivo)
+     ============================================================ -->
+<div class="step-indicator page-enter stagger-1" role="group" aria-label="Avanzamento creazione cantiere">
+  <span class="step-dot is-done"   aria-label="Step 1: Info base, completato"></span>
+  <span class="step-dot is-active" aria-label="Step 2: Binari, in corso" aria-current="step"></span>
+  <span class="step-dot"            aria-label="Step 3: Lavorazioni, da fare"></span>
+  <span class="step-dot"            aria-label="Step 4: Riepilogo, da fare"></span>
+</div>
+
+<p class="step-meta t-meta page-enter stagger-1">Step 2 di 4 &middot; Binari</p>
+
+<form class="form-cantiere page-enter stagger-2"
+      id="form-cantiere"
+      autocomplete="off"
+      novalidate>
+
+  <!-- ============================================================
+       STEP 1 — Info base (HIDDEN: già compilato)
+       Dati pre-fill: nome "Bologna - Modena", codice "47/26",
+       tratta "BO-MO", data fine "30 Giugno 2026", notturno
+       ============================================================ -->
+  <fieldset class="form-step" data-step="1" hidden>
+    <legend class="sr-only">Step 1: Informazioni base</legend>
+
+    <div class="field">
+      <label class="field-label" for="fc-nome">Nome cantiere</label>
+      <input type="text"
+             id="fc-nome"
+             name="nome"
+             class="input"
+             value="Bologna - Modena"
+             placeholder="Es. La Spezia - Arcola"
+             required>
+    </div>
+
+    <div class="field">
+      <label class="field-label" for="fc-codice">Codice M2</label>
+      <input type="text"
+             id="fc-codice"
+             name="codice"
+             class="input input-mono"
+             value="47/26"
+             placeholder="33/26"
+             inputmode="text">
+      <span class="field-helper t-meta">Es. 33/26 (opzionale)</span>
+    </div>
+
+    <div class="field">
+      <label class="field-label" for="fc-tratta">Tratta</label>
+      <input type="text"
+             id="fc-tratta"
+             name="tratta"
+             class="input input-mono"
+             value="BO-MO"
+             placeholder="Es. BO-MO"
+             required>
+    </div>
+
+    <div class="field">
+      <label class="field-label" for="fc-data-fine">Data fine prevista</label>
+      <input type="date"
+             id="fc-data-fine"
+             name="data_fine"
+             class="input input-mono"
+             value="2026-06-30"
+             required>
+    </div>
+
+    <div class="field">
+      <span class="field-label" id="fc-tipo-label">Tipo cantiere</span>
+      <div class="pill-group" role="radiogroup" aria-labelledby="fc-tipo-label">
+        <label class="pill-toggle is-active">
+          <input type="radio" name="tipo" value="notturno" checked>
+          <span>Notturno</span>
+        </label>
+        <label class="pill-toggle">
+          <input type="radio" name="tipo" value="diurno">
+          <span>Diurno</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="field field-row">
+      <label class="field-row__label" for="fc-urgente">
+        <span class="field-label">Urgente</span>
+        <span class="field-helper t-meta">Priorità alta sulla dashboard</span>
+      </label>
+      <label class="toggle">
+        <input type="checkbox" id="fc-urgente" name="urgente">
+        <span class="toggle-slider" aria-hidden="true"></span>
+      </label>
+    </div>
+
+    <div class="field">
+      <span class="field-label" id="fc-giorni-label">Giorni attivi</span>
+      <div class="days-group" role="group" aria-labelledby="fc-giorni-label">
+        <label class="day-circle">
+          <input type="checkbox" name="giorni" value="1" checked>
+          <span aria-hidden="true">L</span>
+          <span class="sr-only">Lunedì</span>
+        </label>
+        <label class="day-circle">
+          <input type="checkbox" name="giorni" value="2" checked>
+          <span aria-hidden="true">M</span>
+          <span class="sr-only">Martedì</span>
+        </label>
+        <label class="day-circle">
+          <input type="checkbox" name="giorni" value="3" checked>
+          <span aria-hidden="true">M</span>
+          <span class="sr-only">Mercoledì</span>
+        </label>
+        <label class="day-circle">
+          <input type="checkbox" name="giorni" value="4" checked>
+          <span aria-hidden="true">G</span>
+          <span class="sr-only">Giovedì</span>
+        </label>
+        <label class="day-circle">
+          <input type="checkbox" name="giorni" value="5" checked>
+          <span aria-hidden="true">V</span>
+          <span class="sr-only">Venerdì</span>
+        </label>
+        <label class="day-circle">
+          <input type="checkbox" name="giorni" value="6">
+          <span aria-hidden="true">S</span>
+          <span class="sr-only">Sabato</span>
+        </label>
+        <label class="day-circle">
+          <input type="checkbox" name="giorni" value="0">
+          <span aria-hidden="true">D</span>
+          <span class="sr-only">Domenica</span>
+        </label>
+      </div>
+    </div>
+  </fieldset>
+
+
+  <!-- ============================================================
+       STEP 2 — Binari (VISIBILE come step corrente)
+       2 binari pre-esistenti + add inline form aperto
+       ============================================================ -->
+  <fieldset class="form-step" data-step="2">
+    <legend class="sr-only">Step 2: Binari del cantiere</legend>
+
+    <ul class="binari-list" aria-label="Binari aggiunti">
+
+      <!-- Binario 1: Dispari 171+000 → 163+000 -->
+      <li class="binario-card">
+        <div class="binario-card__main">
+          <span class="pill pill-cyan-outline">Dispari</span>
+          <span class="binario-card__range t-meta">171+000 &rarr; 163+000</span>
+        </div>
+        <div class="binario-card__actions">
+          <button type="button"
+                  class="icon-btn spring-tap"
+                  data-action="binario-edit"
+                  data-binario-id="1"
+                  aria-label="Modifica binario Dispari">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                 aria-hidden="true">
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+            </svg>
+          </button>
+          <button type="button"
+                  class="icon-btn spring-tap"
+                  data-action="binario-remove"
+                  data-binario-id="1"
+                  aria-label="Rimuovi binario Dispari">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                 aria-hidden="true">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path>
+              <path d="M10 11v6"></path>
+              <path d="M14 11v6"></path>
+            </svg>
+          </button>
+        </div>
+      </li>
+
+      <!-- Binario 2: Pari 171+000 → 161+000 -->
+      <li class="binario-card">
+        <div class="binario-card__main">
+          <span class="pill pill-cyan-outline">Pari</span>
+          <span class="binario-card__range t-meta">171+000 &rarr; 161+000</span>
+        </div>
+        <div class="binario-card__actions">
+          <button type="button"
+                  class="icon-btn spring-tap"
+                  data-action="binario-edit"
+                  data-binario-id="2"
+                  aria-label="Modifica binario Pari">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                 aria-hidden="true">
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+            </svg>
+          </button>
+          <button type="button"
+                  class="icon-btn spring-tap"
+                  data-action="binario-remove"
+                  data-binario-id="2"
+                  aria-label="Rimuovi binario Pari">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                 aria-hidden="true">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path>
+              <path d="M10 11v6"></path>
+              <path d="M14 11v6"></path>
+            </svg>
+          </button>
+        </div>
+      </li>
+
+    </ul>
+
+    <!-- ============================================================
+         Mini-form inline aggiunta binario (mostrato aperto nel mockup)
+         ============================================================ -->
+    <div class="binario-add" data-binario-add-form>
+
+      <p class="t-section binario-add__title">Aggiungi binario</p>
+
+      <div class="field">
+        <span class="field-label" id="fc-binario-tipo-label">Tipo</span>
+        <div class="pill-group" role="radiogroup" aria-labelledby="fc-binario-tipo-label">
+          <label class="pill-toggle is-active">
+            <input type="radio" name="binario_tipo" value="dispari" checked>
+            <span>Dispari</span>
+          </label>
+          <label class="pill-toggle">
+            <input type="radio" name="binario_tipo" value="pari">
+            <span>Pari</span>
+          </label>
+          <label class="pill-toggle">
+            <input type="radio" name="binario_tipo" value="unico">
+            <span>Unico</span>
+          </label>
+          <label class="pill-toggle">
+            <input type="radio" name="binario_tipo" value="interconnessione">
+            <span>Interconnessione</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="field-grid-2">
+        <div class="field">
+          <label class="field-label" for="fc-km-da">Km da</label>
+          <input type="text"
+                 id="fc-km-da"
+                 name="km_da"
+                 class="input input-mono"
+                 placeholder="171+000"
+                 inputmode="numeric"
+                 pattern="\d+\+\d{3}">
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="fc-km-a">Km a</label>
+          <input type="text"
+                 id="fc-km-a"
+                 name="km_a"
+                 class="input input-mono"
+                 placeholder="163+000"
+                 inputmode="numeric"
+                 pattern="\d+\+\d{3}">
+        </div>
+      </div>
+
+      <p class="field-helper t-meta binario-add__helper">
+        Inserisci km nell&apos;ordine reale del lavoro
+      </p>
+
+      <div class="binario-add__actions">
+        <button type="button"
+                class="btn btn-ghost btn-sm spring-tap"
+                data-action="binario-add-cancel">
+          Annulla
+        </button>
+        <button type="button"
+                class="btn btn-secondary btn-sm spring-tap"
+                data-action="binario-add-confirm">
+          Aggiungi
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Bottone "+ Aggiungi binario" (mostrato anche se form aperto, alternativo) -->
+    <button type="button"
+            class="btn btn-ghost btn-block binario-add-toggle spring-tap"
+            data-action="binario-add-open"
+            hidden>
+      + Aggiungi binario
+    </button>
+
+  </fieldset>
+
+
+  <!-- ============================================================
+       STEP 3 — Lavorazioni (HIDDEN)
+       ============================================================ -->
+  <fieldset class="form-step" data-step="3" hidden>
+    <legend class="sr-only">Step 3: Lavorazioni</legend>
+    <!-- placeholder, popolato in iterazione successiva -->
+  </fieldset>
+
+
+  <!-- ============================================================
+       STEP 4 — Riepilogo (HIDDEN)
+       ============================================================ -->
+  <fieldset class="form-step" data-step="4" hidden>
+    <legend class="sr-only">Step 4: Riepilogo</legend>
+    <!-- placeholder, popolato in iterazione successiva -->
+  </fieldset>
+
+</form>
+
+
+<!-- ============================================================
+     Sticky bottom — navigation step (Indietro / Avanti)
+     ============================================================ -->
+<div class="form-cantiere__nav sticky-bottom">
+  <button type="button"
+          class="btn btn-ghost btn-md spring-tap"
+          data-action="step-prev">
+    Indietro
+  </button>
+  <button type="button"
+          class="btn btn-primary btn-md flex-1 spring-tap"
+          data-action="step-next">
+    Avanti &rarr;
+  </button>
+</div>
+
+
+<!-- ============================================================
+     NEED_CLASS — classi nuove richieste (non presenti in style.css)
+     Da aggiungere allo scaffold style.css in fase di styling vista
+     ============================================================ -->
+<!-- NEED_CLASS: form-cantiere__header   (margin-bottom s-3, sticky? no, normale) -->
+<!-- NEED_CLASS: step-indicator          (display flex, gap s-2, justify-content center, margin-bottom s-2) -->
+<!-- NEED_CLASS: step-dot                (width 10px, height 10px, border-radius 50%, background bg-card, border 1px solid border-default, transition all t-fast) -->
+<!-- NEED_CLASS: step-dot.is-done        (background accent-cyan-dim, border-color border-accent) -->
+<!-- NEED_CLASS: step-dot.is-active      (background accent-cyan, border-color accent-cyan, box-shadow shadow-glow-cyan, width 28px, border-radius var(--r-full)) -->
+<!-- NEED_CLASS: step-meta               (text-align center, color text-secondary, margin-bottom s-6) -->
+<!-- NEED_CLASS: form-cantiere           (display block, margin-bottom calc(72px + sticky-bottom space)) -->
+<!-- NEED_CLASS: form-step               (border none, padding 0, margin 0, display block) -->
+<!-- NEED_CLASS: field-helper            (display block, margin-top s-1, color text-muted, font-size t-meta) -->
+<!-- NEED_CLASS: field-row               (display flex, align-items center, justify-content space-between, gap s-3) -->
+<!-- NEED_CLASS: field-row__label        (flex 1, display flex, flex-direction column, gap s-1, cursor pointer) -->
+<!-- NEED_CLASS: field-grid-2            (display grid, grid-template-columns repeat(2, 1fr), gap s-3) -->
+<!-- NEED_CLASS: pill-group              (display flex, flex-wrap wrap, gap s-2) -->
+<!-- NEED_CLASS: pill-toggle             (display inline-flex, align-items center, padding 10px 16px, min-height 44px, border-radius r-full, border 1px solid border-default, background bg-card, color text-secondary, font-size t-body-md, font-weight 600, cursor pointer, transition all t-fast, position relative) -->
+<!-- NEED_CLASS: pill-toggle input       (position absolute, opacity 0, pointer-events none) -->
+<!-- NEED_CLASS: pill-toggle.is-active   (background accent-cyan-dim, border-color border-accent, color accent-cyan) -->
+<!-- NEED_CLASS: pill-toggle:has(input:checked) (background accent-cyan-dim, border-color border-accent, color accent-cyan) -->
+<!-- NEED_CLASS: pill-toggle:active      (transform scale(0.97)) -->
+<!-- NEED_CLASS: days-group              (display flex, gap s-2, justify-content space-between) -->
+<!-- NEED_CLASS: day-circle              (width 44px, height 44px, min-width 44px, min-height 44px, border-radius 50%, border 1px solid border-default, background bg-card, color text-secondary, display flex center, font-family font-display, font-weight 700, font-size t-body-md, cursor pointer, transition all t-fast, position relative, flex 1) -->
+<!-- NEED_CLASS: day-circle input        (position absolute, opacity 0, pointer-events none) -->
+<!-- NEED_CLASS: day-circle:has(input:checked) (background accent-cyan-dim, border-color border-accent, color accent-cyan) -->
+<!-- NEED_CLASS: day-circle:active       (transform scale(0.95)) -->
+<!-- NEED_CLASS: binari-list             (display flex, flex-direction column, gap s-3, margin-bottom s-4) -->
+<!-- NEED_CLASS: binario-card            (display flex, align-items center, justify-content space-between, gap s-3, padding s-3 s-4, background bg-card, border 1px solid border-default, border-radius r-md, min-height 64px) -->
+<!-- NEED_CLASS: binario-card__main      (display flex, align-items center, gap s-3, flex 1, flex-wrap wrap) -->
+<!-- NEED_CLASS: binario-card__range     (color text-primary) -->
+<!-- NEED_CLASS: binario-card__actions   (display flex, gap s-1, flex-shrink 0) -->
+<!-- NEED_CLASS: binario-add             (display block, padding s-4, background bg-elevated, border 1px solid border-accent, border-radius r-md, margin-bottom s-4, box-shadow shadow-glow-cyan opacity 50%) -->
+<!-- NEED_CLASS: binario-add__title      (margin-bottom s-3) -->
+<!-- NEED_CLASS: binario-add__helper     (margin-top s-2, margin-bottom s-4) -->
+<!-- NEED_CLASS: binario-add__actions    (display flex, gap s-2, justify-content flex-end) -->
+<!-- NEED_CLASS: binario-add-toggle      (border 1px dashed border-default, color text-secondary) -->
+<!-- NEED_CLASS: form-cantiere__nav      (display flex, gap s-3, padding s-3 s-4, padding-bottom calc(s-3 + safe-area-inset-bottom), background linear-gradient(to top, bg-base 70%, transparent), position sticky, bottom calc(72px + safe-area-inset-bottom), z-index z-sticky, margin-left -s-4, margin-right -s-4, margin-top s-6) -->
+
+
+<!-- ============================================================
+     DECISIONI APPLICATE (riferimento PLAN §18)
+     - #1: Codice M2 in campo separato (input #fc-codice distinto da #fc-nome)
+     - #17: Tap back arrow torna allo step precedente (data-action="step-prev"
+            sia su icon-btn header sia su btn ghost in sticky bottom);
+            uscita dal form solo da step 1 (gestita in mockup.js)
+     - LEARNED #78: tutti gli input font-size 16px via classe .input
+     - LEARNED #144: helper "Inserisci km nell'ordine reale del lavoro"
+     - LEARNED #60: nessuna abbreviazione (es. "Aggiungi binario", non "Agg.")
+     - PLAN §7.4: form stepwise 4 step, codice M2 separato, pill notturno/diurno,
+                  giorni attivi DLMMGVS, mask km \d+\+\d{3}, sticky bottom
+     - PLAN §5.4: input padding 14px 16px, color-scheme dark su date,
+                  font-size 16px no zoom iOS
+     - PLAN §11: touch target 44-48px su day-circle / pill-toggle / icon-btn
+     ============================================================ -->

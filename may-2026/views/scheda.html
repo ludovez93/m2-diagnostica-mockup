@@ -1,0 +1,326 @@
+<!--
+  ============================================================
+  SCHEDA I.1 — modale fullscreen (PLAN §7.7)
+  Wrappata in <section class="screen" data-screen="scheda"> per coerenza con le altre viste
+  (l'utente la naviga via DEV nav nel mockup).
+
+  4 step in tabs orizzontali. Step 1 "Difetto" attivo, gli altri inactive.
+  Popover warning campi mancanti VISIBILE (non nascosto) per il mockup.
+  Footer sticky con "Anteprima PDF" ghost + "Salva" primary.
+  ============================================================
+
+  NEED_CLASS:
+  - .scheda-modal               — wrapper modale fullscreen (display:flex column, height:100%)
+  - .scheda-header              — header sticky top (close X · titolo · step indicator)
+  - .scheda-header__title       — titolo centrato
+  - .scheda-step-indicator      — "Step 1 di 4" + dots a destra
+  - .scheda-step-dots           — wrapper dots ● ○ ○ ○
+  - .scheda-step-dot            — singolo dot
+  - .scheda-step-dot.is-active  — dot pieno cyan
+  - .scheda-tabs                — tab bar orizzontale 4 step
+  - .scheda-tab                 — singola tab (button)
+  - .scheda-tab.is-active       — tab attivo (underline cyan, text primary)
+  - .scheda-body                — area scrollabile contenuto step
+  - .scheda-step                — singolo step (form fieldset wrapper)
+  - .pill-group                 — gruppo radio pill orizzontali (flex wrap)
+  - .pill-radio                 — wrapper input+label per pill cliccabile
+  - .pill-radio input           — radio nascosto
+  - .pill-radio__label          — label cliccabile (touch target 48px)
+  - .pill-radio input:checked + .pill-radio__label  — stato selezionato (bg cyan, text inverse)
+  - .input-suffix               — wrapper input number con suffisso "mm" / "Db"
+  - .input-suffix__unit         — testo suffisso a destra dell'input
+  - .warning-popover            — card sticky bottom warning campi mancanti
+  - .warning-popover__icon      — icona warn
+  - .warning-popover__text      — testo warning
+  - .scheda-footer              — footer sticky bottom (2 button)
+-->
+
+<section class="screen" data-screen="scheda">
+
+  <div class="scheda-modal" role="dialog" aria-labelledby="scheda-title" aria-modal="true">
+
+    <!-- ============================================================
+         HEADER STICKY — close X · titolo centro · step indicator destra
+         ============================================================ -->
+    <header class="scheda-header">
+      <button type="button" class="icon-btn spring-tap" data-action="close-scheda" aria-label="Chiudi scheda">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+
+      <h1 id="scheda-title" class="scheda-header__title">Scheda I.1</h1>
+
+      <div class="scheda-step-indicator" aria-label="Avanzamento">
+        <span class="t-meta">Step 1 di 4</span>
+        <span class="scheda-step-dots" aria-hidden="true">
+          <span class="scheda-step-dot is-active"></span>
+          <span class="scheda-step-dot"></span>
+          <span class="scheda-step-dot"></span>
+          <span class="scheda-step-dot"></span>
+        </span>
+      </div>
+    </header>
+
+    <!-- ============================================================
+         TAB BAR — 4 step orizzontali
+         ============================================================ -->
+    <nav class="scheda-tabs" role="tablist" aria-label="Step compilazione">
+      <button type="button" class="scheda-tab is-active spring-tap" role="tab" aria-selected="true" data-action="step-tab" data-step="1">
+        Difetto
+      </button>
+      <button type="button" class="scheda-tab spring-tap" role="tab" aria-selected="false" data-action="step-tab" data-step="2">
+        Binario
+      </button>
+      <button type="button" class="scheda-tab spring-tap" role="tab" aria-selected="false" data-action="step-tab" data-step="3">
+        Saldatura
+      </button>
+      <button type="button" class="scheda-tab spring-tap" role="tab" aria-selected="false" data-action="step-tab" data-step="4">
+        Firma
+      </button>
+    </nav>
+
+    <!-- ============================================================
+         BODY — area scrollabile, contiene gli step
+         ============================================================ -->
+    <div class="scheda-body">
+
+      <form id="scheda-form" novalidate>
+
+        <!-- ============================================================
+             STEP 1 — Difetto (visibile)
+             ============================================================ -->
+        <fieldset class="scheda-step" data-step="1">
+          <legend class="sr-only">Dati difetto</legend>
+
+          <!-- 1. Profondita fessura -->
+          <div class="field">
+            <label class="field-label" for="f-profondita">Profondita fessura</label>
+            <div class="input-suffix">
+              <input
+                class="input input-mono"
+                type="number"
+                id="f-profondita"
+                name="profondita"
+                inputmode="decimal"
+                step="0.1"
+                min="0"
+                value="12"
+                placeholder="0">
+              <span class="input-suffix__unit">mm</span>
+            </div>
+          </div>
+
+          <!-- 2. W (Percorso) -->
+          <div class="field">
+            <label class="field-label" for="f-percorso">W (Percorso)</label>
+            <div class="input-suffix">
+              <input
+                class="input input-mono"
+                type="number"
+                id="f-percorso"
+                name="percorso"
+                inputmode="decimal"
+                step="0.1"
+                min="0"
+                value="25"
+                placeholder="0">
+              <span class="input-suffix__unit">mm</span>
+            </div>
+          </div>
+
+          <!-- 3. Ampiezza (Altezza) -->
+          <div class="field">
+            <label class="field-label" for="f-ampiezza">Ampiezza (Altezza)</label>
+            <div class="input-suffix">
+              <input
+                class="input input-mono"
+                type="number"
+                id="f-ampiezza"
+                name="ampiezza"
+                inputmode="decimal"
+                step="0.1"
+                min="0"
+                value="18"
+                placeholder="0">
+              <span class="input-suffix__unit">mm</span>
+            </div>
+          </div>
+
+          <!-- 4. Guadagno -->
+          <div class="field">
+            <label class="field-label" for="f-guadagno">Guadagno</label>
+            <div class="input-suffix">
+              <input
+                class="input input-mono"
+                type="number"
+                id="f-guadagno"
+                name="guadagno"
+                inputmode="decimal"
+                step="0.1"
+                value="8"
+                placeholder="0">
+              <span class="input-suffix__unit">Db</span>
+            </div>
+          </div>
+
+          <!-- 5. Palo T.E. -->
+          <div class="field">
+            <label class="field-label" for="f-palo">Palo T.E.</label>
+            <input
+              class="input input-mono"
+              type="text"
+              id="f-palo"
+              name="palo"
+              autocomplete="off"
+              spellcheck="false"
+              value="12B"
+              placeholder="es. 12B">
+          </div>
+
+          <!-- 6. Sonda — pill group radio -->
+          <div class="field">
+            <span class="field-label" id="f-sonda-label">Sonda</span>
+            <div class="pill-group" role="radiogroup" aria-labelledby="f-sonda-label">
+              <label class="pill-radio">
+                <input type="radio" name="sonda" value="P20-2">
+                <span class="pill-radio__label">P20-2</span>
+              </label>
+              <label class="pill-radio">
+                <input type="radio" name="sonda" value="FTA45-2">
+                <span class="pill-radio__label">FTA45-2</span>
+              </label>
+              <label class="pill-radio">
+                <input type="radio" name="sonda" value="FTA70-2">
+                <span class="pill-radio__label">FTA70-2</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- 7. Fondo Scala -->
+          <div class="field">
+            <label class="field-label" for="f-fondoscala">Fondo Scala</label>
+            <div class="input-suffix">
+              <input
+                class="input input-mono"
+                type="number"
+                id="f-fondoscala"
+                name="fondoscala"
+                inputmode="decimal"
+                step="1"
+                min="0"
+                value=""
+                placeholder="0">
+              <span class="input-suffix__unit">mm</span>
+            </div>
+          </div>
+
+          <!-- 8. Sede tecnica — pill group radio (8 sedi) -->
+          <div class="field">
+            <span class="field-label" id="f-sede-label">Sede tecnica</span>
+            <div class="pill-group" role="radiogroup" aria-labelledby="f-sede-label">
+              <label class="pill-radio">
+                <input type="radio" name="sede" value="suola">
+                <span class="pill-radio__label">Suola</span>
+              </label>
+              <label class="pill-radio">
+                <input type="radio" name="sede" value="gambo">
+                <span class="pill-radio__label">Gambo</span>
+              </label>
+              <label class="pill-radio">
+                <input type="radio" name="sede" value="fungo">
+                <span class="pill-radio__label">Fungo</span>
+              </label>
+              <label class="pill-radio">
+                <input type="radio" name="sede" value="piano-steccatura">
+                <span class="pill-radio__label">Piano di steccatura</span>
+              </label>
+              <label class="pill-radio">
+                <input type="radio" name="sede" value="patino">
+                <span class="pill-radio__label">Patino</span>
+              </label>
+              <label class="pill-radio">
+                <input type="radio" name="sede" value="anima">
+                <span class="pill-radio__label">Anima</span>
+              </label>
+              <label class="pill-radio">
+                <input type="radio" name="sede" value="eco-posteriore">
+                <span class="pill-radio__label">Eco posteriore</span>
+              </label>
+              <label class="pill-radio">
+                <input type="radio" name="sede" value="altro">
+                <span class="pill-radio__label">Altro</span>
+              </label>
+            </div>
+          </div>
+
+        </fieldset>
+
+        <!-- ============================================================
+             STEP 2 — Binario (placeholder hidden)
+             ============================================================ -->
+        <fieldset class="scheda-step" data-step="2" hidden>
+          <legend class="sr-only">Dati binario</legend>
+          <p class="text-secondary t-body">Step 2 — campi binario (placeholder).</p>
+        </fieldset>
+
+        <!-- ============================================================
+             STEP 3 — Saldatura (placeholder hidden)
+             ============================================================ -->
+        <fieldset class="scheda-step" data-step="3" hidden>
+          <legend class="sr-only">Dati saldatura</legend>
+          <p class="text-secondary t-body">Step 3 — campi saldatura (placeholder).</p>
+        </fieldset>
+
+        <!-- ============================================================
+             STEP 4 — Firma (placeholder hidden)
+             ============================================================ -->
+        <fieldset class="scheda-step" data-step="4" hidden>
+          <legend class="sr-only">Firma</legend>
+          <p class="text-secondary t-body">Step 4 — canvas firma (placeholder).</p>
+        </fieldset>
+
+      </form>
+
+      <!-- ============================================================
+           POPOVER WARNING — campi mancanti (VISIBILE per il mockup)
+           Sticky bottom (sopra footer)
+           ============================================================ -->
+      <aside class="warning-popover" role="status" aria-live="polite">
+        <span class="warning-popover__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+            <line x1="12" y1="9" x2="12" y2="13"></line>
+            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+          </svg>
+        </span>
+        <span class="warning-popover__text">
+          <strong>3 campi mancanti:</strong> Sonda, Fondo Scala, Sede
+        </span>
+        <button type="button" class="btn btn-ghost btn-sm spring-tap" data-action="goto-missing">
+          Compila ora
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </button>
+      </aside>
+
+    </div>
+
+    <!-- ============================================================
+         FOOTER STICKY — "Anteprima PDF" ghost + "Salva" primary
+         ============================================================ -->
+    <footer class="scheda-footer">
+      <button type="button" class="btn btn-ghost btn-md spring-tap" data-action="preview-pdf">
+        Anteprima PDF
+      </button>
+      <button type="button" class="btn btn-primary btn-md spring-tap" data-action="save-scheda">
+        Salva
+      </button>
+    </footer>
+
+  </div>
+
+</section>

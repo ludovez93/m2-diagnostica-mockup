@@ -1,0 +1,174 @@
+<!-- ============================================================
+     LOGIN — PLAN §7.1
+     - Niente logo M2 (decisione finalizzata #10)
+     - Solo titolo testuale "DIAGNOSTICA" micro uppercase in cima
+     - 2 user cards (LP Ludovico, CA Cristopher), avatar 96px gradient
+     - Numpad PIN (mostrato dopo tap user card via data-action)
+     - Background mesh gradient cyan glow centrale (CSS pseudo-element)
+     - Bottom nav nascosta dallo scaffold mockup.js sul login
+     ============================================================ -->
+
+<div class="login-bg-mesh" aria-hidden="true"></div>
+
+<header class="login-header">
+  <h1 class="t-micro login-title">DIAGNOSTICA</h1>
+</header>
+
+<main class="login-main">
+
+  <!-- ============================================================
+       Step 1 — Selezione operatore (Apple TV "Who's watching")
+       ============================================================ -->
+  <div class="login-users page-enter" data-step="users">
+    <p class="t-section login-users__hint">Seleziona operatore</p>
+
+    <div class="login-users__grid">
+
+      <button type="button"
+              class="user-card spring-tap stagger-1 page-enter"
+              data-action="select-user"
+              data-user="LP"
+              aria-label="Operatore Ludovico, sigla LP">
+        <span class="user-avatar user-avatar--cyan" aria-hidden="true">
+          <span class="user-avatar__initials">LP</span>
+        </span>
+        <span class="user-card__name t-card-title">Ludovico</span>
+        <span class="user-card__sigla t-meta">LP</span>
+      </button>
+
+      <button type="button"
+              class="user-card spring-tap stagger-2 page-enter"
+              data-action="select-user"
+              data-user="CA"
+              aria-label="Operatore Cristopher, sigla CA">
+        <span class="user-avatar user-avatar--success" aria-hidden="true">
+          <span class="user-avatar__initials">CA</span>
+        </span>
+        <span class="user-card__name t-card-title">Cristopher</span>
+        <span class="user-card__sigla t-meta">CA</span>
+      </button>
+
+    </div>
+  </div>
+
+  <!-- ============================================================
+       Step 2 — Numpad PIN (Apple Lock Screen dark)
+       Hidden by default, shown via data-step toggle in mockup.js
+       ============================================================ -->
+  <div class="login-numpad page-enter" data-step="pin" hidden>
+
+    <button type="button"
+            class="icon-btn login-numpad__back spring-tap"
+            data-action="back-to-users"
+            aria-label="Torna alla selezione operatore">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+           aria-hidden="true">
+        <path d="M19 12H5"></path>
+        <path d="M12 19l-7-7 7-7"></path>
+      </svg>
+    </button>
+
+    <p class="t-section login-numpad__hint">Inserisci PIN</p>
+
+    <div class="pin-dots" role="status" aria-label="PIN: 0 di 4 cifre inserite">
+      <span class="pin-dot" data-filled="false" aria-hidden="true"></span>
+      <span class="pin-dot" data-filled="false" aria-hidden="true"></span>
+      <span class="pin-dot" data-filled="false" aria-hidden="true"></span>
+      <span class="pin-dot" data-filled="false" aria-hidden="true"></span>
+    </div>
+
+    <div class="numpad-grid" role="group" aria-label="Tastierino numerico PIN">
+
+      <button type="button" class="numpad-key spring-tap"
+              data-action="pin-digit" data-digit="1"
+              aria-label="Cifra 1">1</button>
+      <button type="button" class="numpad-key spring-tap"
+              data-action="pin-digit" data-digit="2"
+              aria-label="Cifra 2">2</button>
+      <button type="button" class="numpad-key spring-tap"
+              data-action="pin-digit" data-digit="3"
+              aria-label="Cifra 3">3</button>
+
+      <button type="button" class="numpad-key spring-tap"
+              data-action="pin-digit" data-digit="4"
+              aria-label="Cifra 4">4</button>
+      <button type="button" class="numpad-key spring-tap"
+              data-action="pin-digit" data-digit="5"
+              aria-label="Cifra 5">5</button>
+      <button type="button" class="numpad-key spring-tap"
+              data-action="pin-digit" data-digit="6"
+              aria-label="Cifra 6">6</button>
+
+      <button type="button" class="numpad-key spring-tap"
+              data-action="pin-digit" data-digit="7"
+              aria-label="Cifra 7">7</button>
+      <button type="button" class="numpad-key spring-tap"
+              data-action="pin-digit" data-digit="8"
+              aria-label="Cifra 8">8</button>
+      <button type="button" class="numpad-key spring-tap"
+              data-action="pin-digit" data-digit="9"
+              aria-label="Cifra 9">9</button>
+
+      <button type="button" class="numpad-key numpad-key--util spring-tap"
+              data-action="pin-back"
+              aria-label="Cancella ultima cifra">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 5H8l-7 7 7 7h13a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2z"></path>
+          <line x1="18" y1="9" x2="12" y2="15"></line>
+          <line x1="12" y1="9" x2="18" y2="15"></line>
+        </svg>
+      </button>
+
+      <button type="button" class="numpad-key spring-tap"
+              data-action="pin-digit" data-digit="0"
+              aria-label="Cifra 0">0</button>
+
+      <button type="button" class="numpad-key numpad-key--confirm spring-tap"
+              data-action="pin-confirm"
+              aria-label="Conferma PIN">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+      </button>
+
+    </div>
+
+  </div>
+
+</main>
+
+<!-- ============================================================
+     NEED_CLASS — classi nuove richieste (non presenti in style.css)
+     Da aggiungere allo scaffold style.css in fase di styling vista
+     ============================================================ -->
+<!-- NEED_CLASS: login-bg-mesh        (pseudo-element con cyan radial gradient centrale, decorativo, position fixed inset 0, z-index var(--z-bg)) -->
+<!-- NEED_CLASS: login-header         (padding top safe-area, text-align center, margin-bottom generoso) -->
+<!-- NEED_CLASS: login-title          (color text-secondary, margin top consistente) -->
+<!-- NEED_CLASS: login-main           (display flex, flex-direction column, align-items center, justify-content center, min-height 100dvh, gap generoso) -->
+<!-- NEED_CLASS: login-users          (width 100%, display flex column, align center, gap s-6) -->
+<!-- NEED_CLASS: login-users__hint    (text-align center, margin-bottom s-5) -->
+<!-- NEED_CLASS: login-users__grid    (display flex, gap s-6, justify-content center) -->
+<!-- NEED_CLASS: user-card            (display flex column, align center, gap s-3, padding s-4, background transparent, border none, min-width 120px, min-height 48px touch target) -->
+<!-- NEED_CLASS: user-avatar          (width 96px, height 96px, border-radius var(--r-full), display flex center, font display 700, font-size 2rem, color text-inverse, box-shadow glow) -->
+<!-- NEED_CLASS: user-avatar--cyan    (background linear-gradient da accent-cyan a accent-cyan-dim) -->
+<!-- NEED_CLASS: user-avatar--success (background linear-gradient da accent-success a accent-success-glow) -->
+<!-- NEED_CLASS: user-avatar__initials (font-family var(--font-display), font-weight 700) -->
+<!-- NEED_CLASS: user-card__name      (color text-primary, text-align center) -->
+<!-- NEED_CLASS: user-card__sigla     (color text-muted, text-align center) -->
+<!-- NEED_CLASS: login-numpad         (width 100%, max-width 320px, display flex column, align center, gap s-5, position relative) -->
+<!-- NEED_CLASS: login-numpad__back   (position absolute, top 0, left 0) -->
+<!-- NEED_CLASS: login-numpad__hint   (text-align center, margin-bottom s-3) -->
+<!-- NEED_CLASS: pin-dots             (display flex, gap s-4, justify-content center, margin-bottom s-5) -->
+<!-- NEED_CLASS: pin-dot              (width 16px, height 16px, border-radius 50%, border 1px solid border-strong, background transparent, transition all t-fast) -->
+<!-- NEED_CLASS: pin-dot[data-filled="true"] (background accent-cyan, border-color accent-cyan, box-shadow shadow-glow-cyan) -->
+<!-- NEED_CLASS: numpad-grid          (display grid, grid-template-columns repeat(3, 1fr), gap s-3, width 100%) -->
+<!-- NEED_CLASS: numpad-key           (width 64px, height 64px, min-width 48px, min-height 48px, border-radius var(--r-full), background bg-card, border 1px solid border-default, color text-primary, font-family var(--font-mono), font-size 1.5rem, font-weight 500, display flex center, justify-self center, transition all t-fast) -->
+<!-- NEED_CLASS: numpad-key:active    (background active-overlay, border-color border-strong) -->
+<!-- NEED_CLASS: numpad-key--util     (background transparent, border-color transparent, color text-secondary) -->
+<!-- NEED_CLASS: numpad-key--confirm  (background accent-cyan-dim, border-color border-accent, color accent-cyan) -->
+<!-- NEED_CLASS: numpad-key svg       (width 24px, height 24px) -->

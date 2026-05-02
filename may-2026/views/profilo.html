@@ -1,0 +1,217 @@
+<!-- ============================================================
+     PROFILO — Mockup M2 Diagnostica 2026
+     PLAN §7.9 + §4-5 (componenti) + §11 (haptic) + §12 (headlamp)
+     Solo content della <section data-screen="profilo">
+     ============================================================ -->
+
+<!-- 1) Header: back + titolo "Profilo" -->
+<header class="screen-header page-enter stagger-1">
+  <button type="button"
+          class="icon-btn spring-tap"
+          data-action="screen"
+          data-screen="dashboard"
+          aria-label="Torna alla dashboard">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <line x1="19" y1="12" x2="5" y2="12"></line>
+      <polyline points="12 19 5 12 12 5"></polyline>
+    </svg>
+  </button>
+  <h1 class="screen-header__title">Profilo</h1>
+</header>
+
+<!-- 2) IDENTITA' — sezione hero (NON details) -->
+<section class="card-hero hero-card mb-6 page-enter stagger-2"
+         aria-labelledby="profilo-identita-title">
+  <div class="row gap-4">
+    <div class="avatar avatar-lg" aria-hidden="true">
+      <span class="avatar-initials">LP</span>
+    </div>
+    <div class="flex-1">
+      <h2 id="profilo-identita-title" class="t-screen-title">Ludovico Paulon</h2>
+      <p class="t-meta text-muted mt-1">LP &middot; Strumento G</p>
+    </div>
+    <button type="button"
+            class="btn btn-ghost btn-sm spring-tap"
+            data-action="edit-profile"
+            aria-label="Modifica profilo">
+      Modifica
+    </button>
+  </div>
+</section>
+
+<!-- 3) STATISTICHE — bento 2x2 -->
+<h3 class="t-section mb-3 page-enter stagger-3">Statistiche</h3>
+<div class="bento mb-6 page-enter stagger-3">
+
+  <div class="card card-standard stat-tile">
+    <span class="t-display stat-value">247</span>
+    <span class="t-meta text-muted stat-label">Notti totali</span>
+  </div>
+
+  <div class="card card-standard stat-tile">
+    <span class="t-display stat-value">8.450</span>
+    <span class="t-meta text-muted stat-label">Saldature</span>
+  </div>
+
+  <div class="card card-standard stat-tile">
+    <span class="t-display stat-value text-danger">12</span>
+    <span class="t-meta text-muted stat-label">Difetti aperti</span>
+  </div>
+
+  <div class="card card-standard stat-tile">
+    <span class="t-display stat-value text-cyan">67%</span>
+    <span class="t-meta text-muted stat-label">Avanzamento medio</span>
+  </div>
+
+</div>
+
+<!-- 4) SICUREZZA — details -->
+<details class="card card-standard details-section mb-3 page-enter stagger-4">
+  <summary class="details-summary">
+    <span class="t-card-title">Sicurezza</span>
+    <svg class="details-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <polyline points="6 9 12 15 18 9"></polyline>
+    </svg>
+  </summary>
+
+  <div class="details-body col gap-3">
+
+    <button type="button"
+            class="btn btn-secondary btn-block btn-md spring-tap"
+            data-action="change-pin"
+            aria-label="Cambia PIN">
+      Cambia PIN
+    </button>
+
+    <!-- Logout doppio-tap (decisione #22) — mockup mostra stato 2 visibile -->
+    <button type="button"
+            class="btn btn-danger btn-block btn-md spring-tap"
+            data-action="logout"
+            data-state="confirmed"
+            aria-label="Conferma uscita: tap di nuovo per uscire">
+      Confermi? Tap di nuovo per uscire
+    </button>
+
+  </div>
+</details>
+
+<!-- 5) FIRMA — details -->
+<details class="card card-standard details-section mb-3 page-enter stagger-4">
+  <summary class="details-summary">
+    <span class="t-card-title">Firma</span>
+    <svg class="details-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <polyline points="6 9 12 15 18 9"></polyline>
+    </svg>
+  </summary>
+
+  <div class="details-body col gap-3">
+
+    <div class="signature-pad-wrap">
+      <canvas class="signature-pad"
+              width="280"
+              height="120"
+              aria-label="Area disegno firma">
+      </canvas>
+      <span class="signature-placeholder t-micro text-muted">Disegna la firma qui</span>
+    </div>
+
+    <div class="row gap-2">
+      <button type="button"
+              class="btn btn-ghost btn-sm spring-tap flex-1"
+              data-action="signature-clear"
+              aria-label="Cancella firma">
+        Cancella
+      </button>
+      <button type="button"
+              class="btn btn-secondary btn-sm spring-tap flex-1"
+              data-action="signature-load-profile"
+              aria-label="Carica firma profilo">
+        Carica firma profilo
+      </button>
+    </div>
+
+  </div>
+</details>
+
+<!-- 6) PREFERENZE — details (con Headlamp Mode + Haptic) -->
+<details class="card card-standard details-section mb-3 page-enter stagger-5" open>
+  <summary class="details-summary">
+    <span class="t-card-title">Preferenze</span>
+    <svg class="details-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <polyline points="6 9 12 15 18 9"></polyline>
+    </svg>
+  </summary>
+
+  <div class="details-body col gap-4">
+
+    <!-- Headlamp Mode (decisione #2) -->
+    <div class="pref-row">
+      <div class="pref-text flex-1">
+        <span class="t-card-title">Modalita Frontale</span>
+        <span class="t-meta text-muted">
+          Per quando hai la frontale puntata sullo schermo. Anche da bottom nav: 4&deg; tab tap-and-hold.
+        </span>
+      </div>
+      <button type="button"
+              class="toggle-btn"
+              role="switch"
+              aria-checked="false"
+              data-action="toggle-headlamp"
+              aria-label="Modalita Frontale">
+        <span class="toggle-btn-track" aria-hidden="true">
+          <span class="toggle-btn-thumb"></span>
+        </span>
+      </button>
+    </div>
+
+    <!-- Haptic feedback (decisione #19, default ON) -->
+    <div class="pref-row">
+      <div class="pref-text flex-1">
+        <span class="t-card-title">Vibrazione (haptic)</span>
+        <span class="t-meta text-muted">
+          Feedback tattile sui tocchi importanti.
+        </span>
+      </div>
+      <button type="button"
+              class="toggle-btn is-on"
+              role="switch"
+              aria-checked="true"
+              data-action="toggle-haptic"
+              aria-label="Vibrazione haptic">
+        <span class="toggle-btn-track" aria-hidden="true">
+          <span class="toggle-btn-thumb"></span>
+        </span>
+      </button>
+    </div>
+
+    <!-- Lingua -->
+    <div class="field">
+      <label for="pref-lang" class="field-label">Lingua</label>
+      <select id="pref-lang" class="select" data-action="change-lang">
+        <option value="it" selected>Italiano</option>
+      </select>
+    </div>
+
+  </div>
+</details>
+
+<!-- 7) INFO APP — details -->
+<details class="card card-standard details-section mb-6 page-enter stagger-5">
+  <summary class="details-summary">
+    <span class="t-card-title">Info app</span>
+    <svg class="details-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <polyline points="6 9 12 15 18 9"></polyline>
+    </svg>
+  </summary>
+
+  <div class="details-body col gap-2">
+    <p class="t-meta">Versione 2.0 (build 263)</p>
+    <p class="t-meta text-muted">Ultima sync: 2 Maggio 2026, 19:30</p>
+    <a href="?debug=1"
+       class="t-meta text-cyan"
+       data-action="open-debug"
+       aria-label="Apri modalita debug">
+      Debug
+    </a>
+  </div>
+</details>

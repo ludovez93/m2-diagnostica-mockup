@@ -1,0 +1,228 @@
+<!-- ============================================================
+     DASHBOARD — Mockup M2 Diagnostica 2026
+     PLAN §7.2 + §6 (bento + hero card)
+     Solo content della <section data-screen="dashboard">
+     ============================================================ -->
+
+<!-- 1) Greeting line + avatar profilo -->
+<header class="screen-header page-enter stagger-1">
+  <div class="flex-1">
+    <h1 class="t-screen-title">Buonasera, Ludovico</h1>
+    <p class="t-meta text-muted mt-1">Sabato 2 Maggio 2026</p>
+  </div>
+  <button type="button"
+          class="avatar avatar-sm spring-tap"
+          data-action="screen"
+          data-screen="profilo"
+          aria-label="Apri profilo">
+    <span class="avatar-initials">LP</span>
+  </button>
+</header>
+
+<!-- 2) HERO bento card "Stasera 22:30 → La Spezia – Arcola" + bento grid attivi -->
+<div class="bento mb-6">
+
+  <!-- HERO: Stasera (full width / bento-hero) -->
+  <button type="button"
+          class="card-hero hero-card bento-hero spring-tap page-enter stagger-2"
+          data-action="open-cantiere"
+          data-id="1"
+          aria-label="Apri notte stasera 22:30 — La Spezia – Arcola">
+
+    <span class="t-micro text-cyan">Stasera 22:30</span>
+
+    <h2 class="t-card-title mt-2">
+      La Spezia – Arcola
+      <span class="t-meta text-muted">33/26</span>
+    </h2>
+    <p class="t-meta mt-1">Dispari 171 → 163</p>
+
+    <!-- Stat tiles inline -->
+    <div class="row gap-2 mt-4">
+      <div class="card-subtle stat-tile flex-1 text-center">
+        <span class="t-display text-cyan">58%</span>
+        <span class="t-micro text-muted">Avanzam.</span>
+      </div>
+      <div class="card-subtle stat-tile flex-1 text-center">
+        <span class="t-display">12</span>
+        <span class="t-micro text-muted">Notti</span>
+      </div>
+      <div class="card-subtle stat-tile flex-1 text-center">
+        <span class="t-display">3°</span>
+        <span class="t-micro text-muted">Meteo</span>
+      </div>
+    </div>
+
+    <!-- CTA primary fullwidth -->
+    <span class="btn btn-primary btn-lg btn-block mt-4" aria-hidden="true">
+      Apri notte
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2"
+           stroke-linecap="round" stroke-linejoin="round">
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+        <polyline points="12 5 19 12 12 19"></polyline>
+      </svg>
+    </span>
+  </button>
+
+</div>
+
+<!-- 3) Section title ATTIVI · 3 -->
+<h2 class="t-section mb-3 page-enter stagger-3">Attivi · 3</h2>
+
+<!-- 4) Bento grid 2 colonne — cantieri attivi (escluso La Spezia in hero) -->
+<div class="bento mb-6">
+
+  <!-- Empoli – San Miniato (id 4) -->
+  <button type="button"
+          class="card-standard cantiere-card spring-tap page-enter stagger-3"
+          data-action="open-cantiere"
+          data-id="4"
+          aria-label="Empoli – San Miniato, 30 percento avanzamento">
+    <h3 class="t-card-title">Empoli – San Miniato</h3>
+    <p class="t-meta text-muted mt-1">4/26</p>
+    <p class="t-display text-cyan mt-3">30%</p>
+    <p class="t-meta mt-2">237 sald · 6 notti</p>
+    <p class="t-meta text-muted mt-1">Dispari 39→26</p>
+    <p class="t-meta text-muted">Pari 32→26</p>
+  </button>
+
+  <!-- Genova (id 6) -->
+  <button type="button"
+          class="card-standard cantiere-card spring-tap page-enter stagger-4"
+          data-action="open-cantiere"
+          data-id="6"
+          aria-label="Genova, 0 percento, consegna scaduta">
+    <h3 class="t-card-title">Genova</h3>
+    <p class="t-meta text-muted mt-1">6/26</p>
+    <p class="t-display mt-3">0%</p>
+    <p class="t-meta mt-2">0 sald · 0 notti</p>
+    <p class="t-meta text-muted mt-1">Pari 10→11</p>
+    <span class="pill pill-danger-outline mt-2">Consegna scaduta</span>
+  </button>
+
+  <!-- Test (id 13) -->
+  <button type="button"
+          class="card-standard cantiere-card spring-tap page-enter stagger-5"
+          data-action="open-cantiere"
+          data-id="13"
+          aria-label="Test, 2 percento avanzamento">
+    <h3 class="t-card-title">Test</h3>
+    <p class="t-meta text-muted mt-1">13/26</p>
+    <p class="t-display mt-3">2%</p>
+    <p class="t-meta mt-2">0 sald · 0 notti</p>
+    <p class="t-meta text-muted mt-1">Dispari 100→120</p>
+    <p class="t-meta text-muted">Pari 100→120</p>
+  </button>
+
+</div>
+
+<!-- 5) Sezione collassabile — IN PAUSA · 3 -->
+<details class="dash-group mb-4 page-enter stagger-5">
+  <summary class="t-section dash-group__summary">
+    In pausa · 3
+  </summary>
+
+  <div class="col gap-2 mt-3">
+
+    <!-- Brescia – Verona AV (codice 39/25) -->
+    <button type="button"
+            class="card-subtle bento-mini cantiere-mini spring-tap row gap-3"
+            data-action="open-cantiere"
+            data-id="3"
+            aria-label="Brescia – Verona AV, in pausa, 28 percento">
+      <span class="flex-1 t-card-title">
+        Brescia – Verona AV
+        <span class="t-meta text-muted">39/25</span>
+      </span>
+      <span class="t-meta text-muted">525 sald</span>
+      <span class="pill pill-muted">28%</span>
+    </button>
+
+    <!-- Chiusi-Montallese -->
+    <button type="button"
+            class="card-subtle bento-mini cantiere-mini spring-tap row gap-3"
+            data-action="open-cantiere"
+            data-id="2"
+            aria-label="Chiusi-Montallese, in pausa, 25 percento">
+      <span class="flex-1 t-card-title">
+        Chiusi-Montallese
+        <span class="t-meta text-muted">2/26</span>
+      </span>
+      <span class="t-meta text-muted">404 sald</span>
+      <span class="pill pill-muted">25%</span>
+    </button>
+
+    <!-- Merano – Malles -->
+    <button type="button"
+            class="card-subtle bento-mini cantiere-mini spring-tap row gap-3"
+            data-action="open-cantiere"
+            data-id="5"
+            aria-label="Merano – Malles, in pausa, nessuna saldatura">
+      <span class="flex-1 t-card-title">
+        Merano – Malles
+        <span class="t-meta text-muted">5/26</span>
+      </span>
+      <span class="t-meta text-muted">0 sald</span>
+      <span class="pill pill-muted">0%</span>
+    </button>
+
+  </div>
+</details>
+
+<!-- 6) Sezione collassabile — COMPLETATI · 1 (decisione #6: dati finti) -->
+<details class="dash-group mb-4">
+  <summary class="t-section dash-group__summary">
+    Completati · 1
+  </summary>
+
+  <div class="col gap-2 mt-3">
+
+    <button type="button"
+            class="card-subtle bento-mini cantiere-mini spring-tap row gap-3"
+            data-action="open-cantiere"
+            data-id="9"
+            aria-label="L'Aquila – Sulmona, completato, 100 percento">
+      <span class="flex-1 t-card-title">
+        L'Aquila – Sulmona
+        <span class="t-meta text-muted">32/25</span>
+      </span>
+      <span class="t-meta text-muted">800 sald</span>
+      <span class="pill pill-success-outline">100%</span>
+    </button>
+
+  </div>
+</details>
+
+<!-- 7) Sezione collassabile — ARCHIVIATI · 1 -->
+<details class="dash-group mb-5">
+  <summary class="t-section dash-group__summary">
+    Archiviati · 1
+  </summary>
+
+  <div class="col gap-2 mt-3">
+
+    <button type="button"
+            class="card-subtle bento-mini cantiere-mini spring-tap row gap-3"
+            data-action="open-cantiere"
+            data-id="7"
+            aria-label="Ravenna, archiviato">
+      <span class="flex-1 t-card-title">
+        Ravenna
+        <span class="t-meta text-muted">28/25</span>
+      </span>
+      <span class="t-meta text-muted">1200 sald</span>
+      <span class="pill pill-muted">Archiviato</span>
+    </button>
+
+  </div>
+</details>
+
+<!-- 8) CTA fondo — Nuovo cantiere -->
+<button type="button"
+        class="btn btn-ghost btn-block btn-lg spring-tap mb-4"
+        data-action="screen"
+        data-screen="form-cantiere"
+        aria-label="Nuovo cantiere">
+  + Nuovo cantiere
+</button>

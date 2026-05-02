@@ -1,0 +1,663 @@
+<!-- ============================================================
+     CANTIERE — PLAN §7.3
+     - Header sticky: back + nome cantiere + codice M2 separato + pill ATTIVO + menu "..."
+     - Niente tab (decisione #4) → tutto in scroll lineare con <details>
+     - APRI NOTTE come prima cosa visibile (LEARNED #98)
+     - Avanzamento % protagonista (display number grande)
+     - Difetti accessibili facilmente con indicator scheda
+     - Codice M2 separato dal nome (decisione #1)
+     - Niente backdrop-filter su sticky header (LEARNED #182, #197)
+
+     Cantiere demo: La Spezia - Arcola · 33/26 · id 2 · 58% · 418 saldature
+     ============================================================ -->
+
+
+<!-- ============================================================
+     1. HEADER STICKY
+     ============================================================ -->
+<header class="cantiere-header" data-screen-header>
+  <button type="button"
+          class="icon-btn spring-tap"
+          data-action="screen"
+          data-screen="dashboard"
+          aria-label="Torna alla dashboard">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+         aria-hidden="true">
+      <path d="M19 12H5"></path>
+      <path d="M12 19l-7-7 7-7"></path>
+    </svg>
+  </button>
+
+  <div class="cantiere-header__title">
+    <h1 class="cantiere-header__name t-card-title">La Spezia - Arcola</h1>
+    <div class="cantiere-header__meta">
+      <span class="cantiere-header__code t-meta">33/26</span>
+      <span class="pill pill-cyan" aria-label="Stato: attivo">ATTIVO</span>
+    </div>
+  </div>
+
+  <button type="button"
+          class="icon-btn spring-tap"
+          data-action="cantiere-menu"
+          aria-label="Azioni cantiere"
+          aria-haspopup="menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+         aria-hidden="true">
+      <circle cx="12" cy="5"  r="1.5"></circle>
+      <circle cx="12" cy="12" r="1.5"></circle>
+      <circle cx="12" cy="19" r="1.5"></circle>
+    </svg>
+  </button>
+</header>
+
+<!-- Dropdown menu cantiere (toggled via data-action="cantiere-menu") -->
+<div class="cantiere-menu" id="cantiere-menu" role="menu" aria-label="Azioni cantiere" hidden>
+  <button type="button" class="cantiere-menu__item spring-tap" role="menuitem" data-action="cantiere-edit">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+      <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+    </svg>
+    <span>Modifica</span>
+  </button>
+  <button type="button" class="cantiere-menu__item spring-tap" role="menuitem" data-action="cantiere-pause">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <rect x="6" y="4" width="4" height="16"></rect>
+      <rect x="14" y="4" width="4" height="16"></rect>
+    </svg>
+    <span>Pausa</span>
+  </button>
+  <button type="button" class="cantiere-menu__item spring-tap" role="menuitem" data-action="cantiere-complete">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <polyline points="20 6 9 17 4 12"></polyline>
+    </svg>
+    <span>Completa</span>
+  </button>
+  <button type="button" class="cantiere-menu__item spring-tap" role="menuitem" data-action="cantiere-archive">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <polyline points="21 8 21 21 3 21 3 8"></polyline>
+      <rect x="1" y="3" width="22" height="5"></rect>
+      <line x1="10" y1="12" x2="14" y2="12"></line>
+    </svg>
+    <span>Archivia</span>
+  </button>
+  <button type="button" class="cantiere-menu__item cantiere-menu__item--danger spring-tap" role="menuitem" data-action="cantiere-delete" data-confirm="double-tap">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <polyline points="3 6 5 6 21 6"></polyline>
+      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+    </svg>
+    <span>Elimina</span>
+  </button>
+</div>
+
+
+<!-- ============================================================
+     CONTENT — scroll lineare con <details>
+     ============================================================ -->
+<div class="cantiere-content">
+
+  <!-- ============================================================
+       1) HERO "Stasera 22:30 → APRI NOTTE" (decisione LEARNED #98)
+       ============================================================ -->
+  <article class="card-hero cantiere-hero spring-tap page-enter stagger-1"
+           data-action="open-notte"
+           aria-labelledby="cantiere-hero-title">
+    <header class="cantiere-hero__top">
+      <span class="t-micro text-cyan">Stasera 22:30</span>
+      <span class="t-meta cantiere-hero__sub">Apri notte</span>
+    </header>
+
+    <h2 id="cantiere-hero-title" class="cantiere-hero__when t-display-hero">
+      22:30
+    </h2>
+    <p class="cantiere-hero__sub-line t-meta">
+      Interruzione 22:00 — 05:00 · Notturno
+    </p>
+
+    <button type="button"
+            class="btn btn-primary btn-lg btn-block spring-tap cantiere-hero__cta"
+            data-action="open-notte"
+            aria-label="Apri notte di stasera">
+      APRI NOTTE
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+           aria-hidden="true">
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+        <polyline points="12 5 19 12 12 19"></polyline>
+      </svg>
+    </button>
+  </article>
+
+
+  <!-- ============================================================
+       2) AVANZAMENTO — display % grande + barra per binario
+       ============================================================ -->
+  <section class="cantiere-section page-enter stagger-2" aria-labelledby="sec-avanzamento">
+    <h3 id="sec-avanzamento" class="t-section cantiere-section__title">Avanzamento</h3>
+
+    <div class="card card-standard cantiere-progress">
+      <div class="cantiere-progress__display">
+        <span class="t-display-hero cantiere-progress__pct">58%</span>
+        <span class="t-meta text-secondary cantiere-progress__total">418 saldature totali</span>
+      </div>
+
+      <div class="cantiere-progress__binari">
+
+        <div class="binario-row">
+          <div class="binario-row__head">
+            <span class="t-card-title">Dispari</span>
+            <span class="t-meta binario-row__range">171 → 163</span>
+          </div>
+          <div class="bar-track" role="progressbar"
+               aria-valuemin="0" aria-valuemax="100" aria-valuenow="60"
+               aria-label="Avanzamento binario dispari: 60%">
+            <div class="bar-fill bar-fill--cyan" style="width: 60%;"></div>
+          </div>
+          <span class="t-meta binario-row__pct">60%</span>
+        </div>
+
+        <div class="binario-row">
+          <div class="binario-row__head">
+            <span class="t-card-title">Pari</span>
+            <span class="t-meta binario-row__range">171 → 161</span>
+          </div>
+          <div class="bar-track" role="progressbar"
+               aria-valuemin="0" aria-valuemax="100" aria-valuenow="56"
+               aria-label="Avanzamento binario pari: 56%">
+            <div class="bar-fill bar-fill--cyan" style="width: 56%;"></div>
+          </div>
+          <span class="t-meta binario-row__pct">56%</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       3) SLOT LAVORAZIONI — chip orizzontali (default OPEN)
+       ============================================================ -->
+  <details class="cantiere-details page-enter stagger-3" open>
+    <summary class="cantiere-details__summary">
+      <span class="t-section">Lavorazioni · 5 attive</span>
+      <svg class="cantiere-details__chevron" viewBox="0 0 24 24"
+           fill="none" stroke="currentColor" stroke-width="2"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </summary>
+
+    <div class="cantiere-details__body">
+      <div class="slot-chips">
+
+        <div class="slot-chip slot-chip--cyan">
+          <span class="t-micro slot-chip__label">Linea</span>
+          <span class="t-meta slot-chip__count">30 / 52</span>
+        </div>
+
+        <div class="slot-chip slot-chip--warn">
+          <span class="t-micro slot-chip__label">Deviatoi</span>
+          <span class="t-meta slot-chip__count">4 / 8</span>
+        </div>
+
+        <div class="slot-chip slot-chip--success">
+          <span class="t-micro slot-chip__label">Regolazioni</span>
+          <span class="t-meta slot-chip__count">6 / 12</span>
+        </div>
+
+        <div class="slot-chip slot-chip--danger">
+          <span class="t-micro slot-chip__label">Ricontrollo</span>
+          <span class="t-meta slot-chip__count">1 / 3</span>
+        </div>
+
+      </div>
+    </div>
+  </details>
+
+
+  <!-- ============================================================
+       4) NOTTI COMPLETATE · 12 (default CLOSED, mostra ultime 5)
+       ============================================================ -->
+  <details class="cantiere-details page-enter stagger-4">
+    <summary class="cantiere-details__summary">
+      <span class="t-section">Notti completate · 12</span>
+      <svg class="cantiere-details__chevron" viewBox="0 0 24 24"
+           fill="none" stroke="currentColor" stroke-width="2"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </summary>
+
+    <div class="cantiere-details__body">
+      <ul class="notti-list">
+
+        <li>
+          <button type="button" class="notte-item spring-tap"
+                  data-action="open-notte-history" data-notte-id="12">
+            <span class="t-meta notte-item__date">12 → 13 Aprile 2026</span>
+            <span class="t-meta text-secondary notte-item__stats">28 saldature · 3 difetti</span>
+          </button>
+        </li>
+
+        <li>
+          <button type="button" class="notte-item spring-tap"
+                  data-action="open-notte-history" data-notte-id="11">
+            <span class="t-meta notte-item__date">10 → 11 Aprile 2026</span>
+            <span class="t-meta text-secondary notte-item__stats">35 saldature · 2 difetti</span>
+          </button>
+        </li>
+
+        <li>
+          <button type="button" class="notte-item spring-tap"
+                  data-action="open-notte-history" data-notte-id="10">
+            <span class="t-meta notte-item__date">8 → 9 Aprile 2026</span>
+            <span class="t-meta text-secondary notte-item__stats">42 saldature · 1 difetto</span>
+          </button>
+        </li>
+
+        <li>
+          <button type="button" class="notte-item spring-tap"
+                  data-action="open-notte-history" data-notte-id="9">
+            <span class="t-meta notte-item__date">5 → 6 Aprile 2026</span>
+            <span class="t-meta text-secondary notte-item__stats">31 saldature · 4 difetti</span>
+          </button>
+        </li>
+
+        <li>
+          <button type="button" class="notte-item spring-tap"
+                  data-action="open-notte-history" data-notte-id="8">
+            <span class="t-meta notte-item__date">3 → 4 Aprile 2026</span>
+            <span class="t-meta text-secondary notte-item__stats">38 saldature · 2 difetti</span>
+          </button>
+        </li>
+
+      </ul>
+
+      <button type="button" class="btn btn-ghost btn-block btn-sm spring-tap mt-3"
+              data-action="show-all-notti">
+        Mostra tutte (12)
+      </button>
+    </div>
+  </details>
+
+
+  <!-- ============================================================
+       5) DIFETTI APERTI · 3 (default OPEN — accesso facile)
+       ============================================================ -->
+  <details class="cantiere-details page-enter stagger-5" open>
+    <summary class="cantiere-details__summary">
+      <span class="t-section">
+        Difetti aperti
+        <span class="pill pill-danger cantiere-details__count">3</span>
+      </span>
+      <svg class="cantiere-details__chevron" viewBox="0 0 24 24"
+           fill="none" stroke="currentColor" stroke-width="2"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </summary>
+
+    <div class="cantiere-details__body">
+      <ul class="difetti-list">
+
+        <li>
+          <button type="button" class="difetto-item spring-tap"
+                  data-action="open-scheda" data-difetto-id="1">
+            <span class="t-meta difetto-item__km">165+700</span>
+            <span class="pill pill-cyan-outline">DISPARI</span>
+            <span class="pill pill-danger-outline">211</span>
+            <span class="difetto-item__scheda difetto-item__scheda--ok">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                   aria-hidden="true">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              <span class="t-micro">Scheda</span>
+            </span>
+          </button>
+        </li>
+
+        <li>
+          <button type="button" class="difetto-item spring-tap"
+                  data-action="open-scheda" data-difetto-id="2">
+            <span class="t-meta difetto-item__km">167+200</span>
+            <span class="pill pill-cyan-outline">PARI</span>
+            <span class="pill pill-danger-outline">113</span>
+            <span class="difetto-item__scheda difetto-item__scheda--missing">
+              <span aria-hidden="true">—</span>
+              <span class="t-micro">Scheda</span>
+            </span>
+          </button>
+        </li>
+
+        <li>
+          <button type="button" class="difetto-item spring-tap"
+                  data-action="open-scheda" data-difetto-id="3">
+            <span class="t-meta difetto-item__km">169+850</span>
+            <span class="pill pill-cyan-outline">DISPARI</span>
+            <span class="pill pill-danger-outline">121</span>
+            <span class="difetto-item__scheda difetto-item__scheda--ok">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                   aria-hidden="true">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              <span class="t-micro">Scheda</span>
+            </span>
+          </button>
+        </li>
+
+      </ul>
+    </div>
+  </details>
+
+
+  <!-- ============================================================
+       6) LAVORAZIONI — config slot (edit con doppio-tap)
+       ============================================================ -->
+  <details class="cantiere-details">
+    <summary class="cantiere-details__summary">
+      <span class="t-section">Lavorazioni</span>
+      <svg class="cantiere-details__chevron" viewBox="0 0 24 24"
+           fill="none" stroke="currentColor" stroke-width="2"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </summary>
+
+    <div class="cantiere-details__body">
+      <ul class="lavorazioni-list">
+
+        <li class="lavorazione-item">
+          <div class="lavorazione-item__info">
+            <span class="t-card-title">Linea Dispari</span>
+            <span class="t-meta text-secondary">50 slot</span>
+          </div>
+          <button type="button" class="icon-btn spring-tap"
+                  data-action="edit-lavorazione" data-lavorazione="linea-dispari"
+                  data-confirm="double-tap"
+                  aria-label="Modifica Linea Dispari">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                 aria-hidden="true">
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+            </svg>
+          </button>
+        </li>
+
+        <li class="lavorazione-item">
+          <div class="lavorazione-item__info">
+            <span class="t-card-title">Linea Pari</span>
+            <span class="t-meta text-secondary">48 slot</span>
+          </div>
+          <button type="button" class="icon-btn spring-tap"
+                  data-action="edit-lavorazione" data-lavorazione="linea-pari"
+                  data-confirm="double-tap"
+                  aria-label="Modifica Linea Pari">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                 aria-hidden="true">
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+            </svg>
+          </button>
+        </li>
+
+        <li class="lavorazione-item">
+          <div class="lavorazione-item__info">
+            <span class="t-card-title">Deviatoi</span>
+            <span class="t-meta text-secondary">8 slot</span>
+          </div>
+          <button type="button" class="icon-btn spring-tap"
+                  data-action="edit-lavorazione" data-lavorazione="deviatoi"
+                  data-confirm="double-tap"
+                  aria-label="Modifica Deviatoi">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                 aria-hidden="true">
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+            </svg>
+          </button>
+        </li>
+
+        <li class="lavorazione-item">
+          <div class="lavorazione-item__info">
+            <span class="t-card-title">Ricontrollo</span>
+            <span class="t-meta text-secondary">3 slot</span>
+          </div>
+          <button type="button" class="icon-btn spring-tap"
+                  data-action="edit-lavorazione" data-lavorazione="ricontrollo"
+                  data-confirm="double-tap"
+                  aria-label="Modifica Ricontrollo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                 aria-hidden="true">
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+            </svg>
+          </button>
+        </li>
+
+      </ul>
+    </div>
+  </details>
+
+
+  <!-- ============================================================
+       7) ELEMENTI CONTROLLATI
+       ============================================================ -->
+  <details class="cantiere-details">
+    <summary class="cantiere-details__summary">
+      <span class="t-section">Elementi controllati</span>
+      <svg class="cantiere-details__chevron" viewBox="0 0 24 24"
+           fill="none" stroke="currentColor" stroke-width="2"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </summary>
+
+    <div class="cantiere-details__body">
+
+      <button type="button"
+              class="btn btn-secondary btn-md btn-block spring-tap mb-3"
+              data-action="add-elemento">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true" width="20" height="20">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+        Aggiungi elemento
+      </button>
+
+      <ul class="elementi-list">
+
+        <li class="elemento-item">
+          <span class="t-meta elemento-item__km">168+200</span>
+          <span class="pill pill-muted">DX</span>
+          <span class="t-meta text-secondary elemento-item__type">regolazione</span>
+          <span class="elemento-item__status elemento-item__status--ok"
+                aria-label="Esito positivo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                 aria-hidden="true">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </span>
+        </li>
+
+        <li class="elemento-item">
+          <span class="t-meta elemento-item__km">169+450</span>
+          <span class="pill pill-muted">SX</span>
+          <span class="t-meta text-secondary elemento-item__type">deviatoio</span>
+          <span class="elemento-item__status elemento-item__status--ko"
+                aria-label="Esito negativo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                 aria-hidden="true">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </span>
+        </li>
+
+      </ul>
+    </div>
+  </details>
+
+
+  <!-- ============================================================
+       8) INFO CANTIERE
+       ============================================================ -->
+  <details class="cantiere-details">
+    <summary class="cantiere-details__summary">
+      <span class="t-section">Info cantiere</span>
+      <svg class="cantiere-details__chevron" viewBox="0 0 24 24"
+           fill="none" stroke="currentColor" stroke-width="2"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </summary>
+
+    <div class="cantiere-details__body">
+      <dl class="info-list">
+
+        <div class="info-row">
+          <dt class="t-micro info-row__label">Tratta</dt>
+          <dd class="t-body info-row__value">Sarzana - La Spezia</dd>
+        </div>
+
+        <div class="info-row">
+          <dt class="t-micro info-row__label">Deadline</dt>
+          <dd class="t-body info-row__value text-warn">
+            30 Aprile 2026
+            <span class="t-micro info-row__hint">scaduta</span>
+          </dd>
+        </div>
+
+        <div class="info-row">
+          <dt class="t-micro info-row__label">Orario interruzione</dt>
+          <dd class="t-meta info-row__value">22:00 — 05:00</dd>
+        </div>
+
+        <div class="info-row">
+          <dt class="t-micro info-row__label">Tipo</dt>
+          <dd class="t-body info-row__value">Notturno</dd>
+        </div>
+
+        <div class="info-row info-row--toggle">
+          <dt class="t-micro info-row__label">Urgente</dt>
+          <dd class="info-row__value">
+            <label class="toggle" aria-label="Marca cantiere come urgente">
+              <input type="checkbox" data-action="toggle-urgente">
+              <span class="toggle-slider"></span>
+            </label>
+          </dd>
+        </div>
+
+      </dl>
+    </div>
+  </details>
+
+</div>
+
+
+<!-- ============================================================
+     NEED_CLASS — classi nuove richieste (non presenti in style.css)
+     Da aggiungere allo scaffold style.css in fase di styling vista
+     ============================================================ -->
+<!-- NEED_CLASS: cantiere-header              (position sticky top 0, z-index var(--z-sticky), display flex align-items center gap s-2, padding s-3 s-2, background rgba(13,17,23,0.95) opaco NO backdrop-filter, border-bottom 1px solid border-default, margin -s-4 -s-4 s-4 calcolato per stretch al bordo dello .screen) -->
+<!-- NEED_CLASS: cantiere-header__title       (flex 1, display flex flex-direction column, align-items center, gap 2px, min-width 0) -->
+<!-- NEED_CLASS: cantiere-header__name        (text-align center, white-space nowrap, overflow hidden, text-overflow ellipsis, max-width 100%) -->
+<!-- NEED_CLASS: cantiere-header__meta        (display flex align-items center gap s-2) -->
+<!-- NEED_CLASS: cantiere-header__code        (color text-muted, font-family var(--font-mono)) -->
+<!-- NEED_CLASS: cantiere-menu                (position absolute, top 56px, right s-3, z-index var(--z-popover), background bg-elevated, border 1px solid border-default, border-radius var(--r-md), padding s-2, min-width 200px, box-shadow shadow-elev, display flex flex-direction column gap 2px) -->
+<!-- NEED_CLASS: cantiere-menu__item          (display flex align-items center gap s-3, padding s-3, border-radius var(--r-sm), color text-primary, min-height 48px, transition background var(--t-fast)) -->
+<!-- NEED_CLASS: cantiere-menu__item:hover    (background hover-overlay) -->
+<!-- NEED_CLASS: cantiere-menu__item svg      (width 20px, height 20px, color text-secondary, flex-shrink 0) -->
+<!-- NEED_CLASS: cantiere-menu__item--danger  (color accent-danger) -->
+<!-- NEED_CLASS: cantiere-menu__item--danger svg (color accent-danger) -->
+<!-- NEED_CLASS: cantiere-content             (display flex flex-direction column gap s-5) -->
+<!-- NEED_CLASS: cantiere-section             (display flex flex-direction column gap s-3) -->
+<!-- NEED_CLASS: cantiere-section__title      (margin-bottom s-1) -->
+<!-- NEED_CLASS: cantiere-hero                (display flex flex-direction column gap s-3, cursor pointer) -->
+<!-- NEED_CLASS: cantiere-hero__top           (display flex align-items baseline justify-content space-between gap s-2) -->
+<!-- NEED_CLASS: cantiere-hero__sub           (color text-muted) -->
+<!-- NEED_CLASS: cantiere-hero__when          (color text-primary, line-height 1, margin-top s-1) -->
+<!-- NEED_CLASS: cantiere-hero__sub-line      (color text-secondary, margin-bottom s-2) -->
+<!-- NEED_CLASS: cantiere-hero__cta           (margin-top s-2) -->
+<!-- NEED_CLASS: cantiere-progress            (display flex flex-direction column gap s-4) -->
+<!-- NEED_CLASS: cantiere-progress__display   (display flex flex-direction column gap s-1, align-items flex-start) -->
+<!-- NEED_CLASS: cantiere-progress__pct       (color accent-cyan, line-height 1) -->
+<!-- NEED_CLASS: cantiere-progress__total     (color text-muted) -->
+<!-- NEED_CLASS: cantiere-progress__binari    (display flex flex-direction column gap s-3, padding-top s-3, border-top 1px solid border-subtle) -->
+<!-- NEED_CLASS: binario-row                  (display grid, grid-template-columns 1fr auto, grid-template-rows auto auto, gap s-1 s-3, align-items center) -->
+<!-- NEED_CLASS: binario-row__head            (grid-column 1 / 2, display flex align-items baseline gap s-3) -->
+<!-- NEED_CLASS: binario-row__range           (color text-secondary) -->
+<!-- NEED_CLASS: binario-row__pct             (grid-column 2 / 3, grid-row 1 / 3, font-family var(--font-mono), color text-primary, font-weight 700, font-size var(--t-body-lg)) -->
+<!-- NEED_CLASS: bar-track                    (grid-column 1 / 2, height 8px, background bg-base, border-radius var(--r-full), overflow hidden, position relative) -->
+<!-- NEED_CLASS: bar-fill                     (height 100%, border-radius var(--r-full), transition width var(--t-slow) var(--ease-soft)) -->
+<!-- NEED_CLASS: bar-fill--cyan               (background linear-gradient(90deg, var(--accent-cyan-dim), var(--accent-cyan)), box-shadow shadow-glow-cyan) -->
+<!-- NEED_CLASS: bar-fill--success            (background linear-gradient(90deg, var(--accent-success-glow), var(--accent-success))) -->
+<!-- NEED_CLASS: bar-fill--warn               (background linear-gradient(90deg, var(--accent-warn-glow), var(--accent-warn))) -->
+
+<!-- NEED_CLASS: cantiere-details             (background bg-card, border 1px solid border-default, border-radius var(--r-md), overflow hidden) -->
+<!-- NEED_CLASS: cantiere-details__summary    (display flex align-items center justify-content space-between gap s-3, padding s-4, cursor pointer, list-style none, min-height 56px, user-select none) -->
+<!-- NEED_CLASS: cantiere-details__summary::-webkit-details-marker (display none) -->
+<!-- NEED_CLASS: cantiere-details__summary::marker (display none) -->
+<!-- NEED_CLASS: cantiere-details__chevron    (width 20px, height 20px, color text-secondary, flex-shrink 0, transition transform var(--t-normal) var(--ease-soft)) -->
+<!-- NEED_CLASS: cantiere-details[open] .cantiere-details__chevron (transform rotate(180deg)) -->
+<!-- NEED_CLASS: cantiere-details__body       (padding 0 s-4 s-4, display flex flex-direction column) -->
+<!-- NEED_CLASS: cantiere-details__count      (margin-left s-2) -->
+
+<!-- NEED_CLASS: slot-chips                   (display flex flex-wrap wrap, gap s-2) -->
+<!-- NEED_CLASS: slot-chip                    (display inline-flex flex-direction column gap 2px, padding s-2 s-3, border-radius var(--r-sm), border 1px solid border-default, background bg-base, min-width 88px) -->
+<!-- NEED_CLASS: slot-chip__label             (color text-secondary) -->
+<!-- NEED_CLASS: slot-chip__count             (color text-primary, font-weight 700) -->
+<!-- NEED_CLASS: slot-chip--cyan              (border-color border-accent, background accent-cyan-dim) -->
+<!-- NEED_CLASS: slot-chip--cyan .slot-chip__label    (color accent-cyan) -->
+<!-- NEED_CLASS: slot-chip--warn              (border-color border-warn, background rgba(255,176,32,0.08)) -->
+<!-- NEED_CLASS: slot-chip--warn .slot-chip__label    (color accent-warn) -->
+<!-- NEED_CLASS: slot-chip--success           (border-color border-success, background rgba(0,230,118,0.08)) -->
+<!-- NEED_CLASS: slot-chip--success .slot-chip__label (color accent-success) -->
+<!-- NEED_CLASS: slot-chip--danger            (border-color border-danger, background rgba(255,82,82,0.08)) -->
+<!-- NEED_CLASS: slot-chip--danger .slot-chip__label  (color accent-danger) -->
+
+<!-- NEED_CLASS: notti-list                   (display flex flex-direction column gap 0) -->
+<!-- NEED_CLASS: notte-item                   (display flex justify-content space-between align-items center gap s-3, width 100%, padding s-3, border none, background transparent, color text-primary, text-align left, border-bottom 1px solid border-subtle, min-height 48px) -->
+<!-- NEED_CLASS: notte-item:active            (background active-overlay) -->
+<!-- NEED_CLASS: notte-item:last-child        (border-bottom none) -->
+
+<!-- NEED_CLASS: difetti-list                 (display flex flex-direction column gap s-2) -->
+<!-- NEED_CLASS: difetto-item                 (display flex flex-wrap wrap align-items center gap s-2, width 100%, padding s-3, background bg-base, border 1px solid border-default, border-left 3px solid var(--accent-danger), border-radius var(--r-sm), color text-primary, text-align left, min-height 48px) -->
+<!-- NEED_CLASS: difetto-item:active          (background active-overlay) -->
+<!-- NEED_CLASS: difetto-item__km             (color text-primary, font-weight 700, min-width 64px) -->
+<!-- NEED_CLASS: difetto-item__scheda         (display inline-flex align-items center gap 4px, margin-left auto) -->
+<!-- NEED_CLASS: difetto-item__scheda svg     (width 16px, height 16px) -->
+<!-- NEED_CLASS: difetto-item__scheda--ok     (color accent-success) -->
+<!-- NEED_CLASS: difetto-item__scheda--missing (color text-muted) -->
+
+<!-- NEED_CLASS: lavorazioni-list             (display flex flex-direction column gap 0) -->
+<!-- NEED_CLASS: lavorazione-item             (display flex align-items center justify-content space-between gap s-3, padding s-3 0, border-bottom 1px solid border-subtle, min-height 56px) -->
+<!-- NEED_CLASS: lavorazione-item:last-child  (border-bottom none) -->
+<!-- NEED_CLASS: lavorazione-item__info       (display flex flex-direction column gap 2px, flex 1, min-width 0) -->
+
+<!-- NEED_CLASS: elementi-list                (display flex flex-direction column gap s-2) -->
+<!-- NEED_CLASS: elemento-item                (display flex align-items center gap s-2, padding s-3, background bg-base, border 1px solid border-default, border-radius var(--r-sm), min-height 48px) -->
+<!-- NEED_CLASS: elemento-item__km            (color text-primary, font-weight 700, min-width 64px) -->
+<!-- NEED_CLASS: elemento-item__type          (flex 1) -->
+<!-- NEED_CLASS: elemento-item__status        (display inline-flex align-items center justify-content center, width 28px, height 28px, border-radius var(--r-full), flex-shrink 0) -->
+<!-- NEED_CLASS: elemento-item__status svg    (width 16px, height 16px) -->
+<!-- NEED_CLASS: elemento-item__status--ok    (background accent-success-glow, color accent-success) -->
+<!-- NEED_CLASS: elemento-item__status--ko    (background accent-danger-glow, color accent-danger) -->
+
+<!-- NEED_CLASS: info-list                    (display flex flex-direction column gap 0) -->
+<!-- NEED_CLASS: info-row                     (display flex align-items center justify-content space-between gap s-3, padding s-3 0, border-bottom 1px solid border-subtle, min-height 48px) -->
+<!-- NEED_CLASS: info-row:last-child          (border-bottom none) -->
+<!-- NEED_CLASS: info-row__label              (color text-secondary, flex-shrink 0) -->
+<!-- NEED_CLASS: info-row__value              (color text-primary, text-align right, display inline-flex align-items center gap s-2) -->
+<!-- NEED_CLASS: info-row__hint               (color text-muted, font-style normal) -->
+<!-- NEED_CLASS: info-row--toggle .info-row__value (justify-content flex-end) -->
