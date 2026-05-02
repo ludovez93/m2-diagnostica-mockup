@@ -18,7 +18,7 @@
   /* Borders */
   --border-subtle:     #1A1A1A;
   --border-default:    #2D2D2D;
-  --border-amber:      #F0A028;
+  --border-amber:      #3B82F6;
 
   /* Text */
   --text-primary:      #FFFFFF;   /* heading, valori chiave */
@@ -28,9 +28,9 @@
   --text-faint:        #555555;   /* placeholder, disabled */
 
   /* Accent — Bloomberg amber, neutrale informativo */
-  --accent-amber:      #F0A028;
-  --accent-amber-soft: rgba(240,160,40,0.08);
-  --accent-amber-bord: rgba(240,160,40,0.4);
+  --accent-amber:      #3B82F6;
+  --accent-amber-soft: rgba(59,130,246,0.08);
+  --accent-amber-bord: rgba(59,130,246,0.4);
 
   /* Status colors */
   --color-success:     #26A69A;   /* TradingView teal */
@@ -107,7 +107,7 @@ html.headlamp-mode {
   --text-muted:        #999999;
   --text-faint:        #777777;
 
-  --accent-amber:      #FFB020;   /* saturato per visibilità sotto frontale */
+  --accent-amber:      #60A5FA;   /* saturato per visibilità sotto frontale */
   --accent-amber-soft: rgba(255,176,32,0.15);
   --accent-amber-bord: rgba(255,176,32,0.6);
 }
@@ -1269,7 +1269,7 @@ dialog::backdrop {
   inset: 0;
   background: linear-gradient(90deg,
     transparent 0%,
-    rgba(240,160,40,0.06) 50%,
+    rgba(59,130,246,0.06) 50%,
     transparent 100%);
   animation: skel-pulse 1.4s linear infinite;
 }

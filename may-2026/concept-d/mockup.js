@@ -128,7 +128,54 @@
     'open-profilo': 'profilo',
     'open-dashboard': 'dashboard',
     'select-user': 'dashboard',
+    'edit-cantiere': 'form-cantiere',
+    'edit-profilo': 'form-cantiere',
+    'elabora-risultati': 'risultati',
     'screen': null // legge data-screen
+  };
+  var ACTION_TO_SHEET = {
+    'add-elemento': 'sheet-add-elemento',
+    'open-saldatura': 'sheet-edit-saldatura',
+    'open-elemento': 'sheet-edit-saldatura',
+    'open-day': 'sheet-calendar-day',
+    'open-notte-detail': 'sheet-edit-notte-mockup',
+    'new-notte': 'sheet-edit-notte-mockup'
+  };
+  var TOAST_ONLY = {
+    'copy-wa': 'Copiato negli appunti',
+    'export-tsv': 'Demo: export TSV',
+    'export-pdf': 'Demo: export PDF',
+    'salva-scheda': 'Scheda salvata',
+    'anteprima-pdf': 'Demo: anteprima PDF',
+    'cambia-pin': 'Demo: cambia PIN',
+    'firma-cancella': 'Firma cancellata',
+    'firma-carica': 'Firma caricata da profilo',
+    'debug': 'Demo: ?debug=1',
+    'binario-add': 'Demo: binario aggiunto',
+    'binario-cancel': '',
+    'binario-edit': 'Demo: edit binario',
+    'binario-remove': 'Demo: binario rimosso',
+    'edit-lavorazione': 'Demo: edit lavorazione',
+    'mese-prev-next': '',
+    'mese-today': 'Oggi',
+    'show-all-nights': 'Demo: tutte le notti',
+    'warning-jump': 'Salta al primo campo mancante',
+    'toggle-binario': '',
+    'toggle-urgente': '',
+    'filter-attivi': 'Filtro: solo attivi',
+    'filter-da-aprire': 'Filtro: da aprire',
+    'filter-difetti': 'Filtro: difetti',
+    'filter-schede': 'Filtro: schede mancanti',
+    'filter-cantiere': '',
+    'archive-cantiere': 'Cantiere archiviato',
+    'pause-cantiere': 'Cantiere in pausa',
+    'complete-cantiere': 'Cantiere completato',
+    'delete-cantiere': '',
+    'confirm-delete': 'Eliminato',
+    'logout': '',
+    'chiudi-notte': '',
+    'close-menu': '',
+    'open-menu': ''
   };
   var BACK_MAP = {
     cantiere: 'dashboard', 'form-cantiere': 'dashboard', notte: 'cantiere',
@@ -157,11 +204,51 @@
       if (target) showScreen(target);
       return;
     }
-    // open-sheet/close-sheet handled elsewhere
+    if (action in ACTION_TO_SHEET) {
+      var sheetId = ACTION_TO_SHEET[action];
+      var sheet = document.getElementById(sheetId);
+      if (sheet) {
+        sheet.removeAttribute('hidden');
+        if (sheet.tagName === 'DIALOG' && typeof sheet.show === 'function') {
+          try { sheet.setAttribute('open', ''); } catch(_) {}
+        }
+        document.body.style.overflow = 'hidden';
+      }
+      return;
+    }
     if (action === 'close-sheet') {
       var id = el.getAttribute('data-target');
-      var dlg = id ? document.getElementById(id) : el.closest('dialog');
-      if (dlg) closeSheet(dlg);
+      var dlg = id ? document.getElementById(id) : el.closest('[id^="sheet-"], dialog');
+      if (dlg) {
+        dlg.setAttribute('hidden', '');
+        if (dlg.tagName === 'DIALOG') dlg.removeAttribute('open');
+        document.body.style.overflow = '';
+      }
+      return;
+    }
+    if (action === 'open-menu') {
+      // Toggle dropdown menu cantiere "..."
+      var menu = document.querySelector('.cant-menu-wrap, [data-menu-target]') || document.getElementById('cant-menu');
+      if (menu) menu.toggleAttribute('hidden');
+      return;
+    }
+    if (action === 'close-menu') {
+      var m = document.querySelector('.cant-menu-wrap, [data-menu-target]') || document.getElementById('cant-menu');
+      if (m) m.setAttribute('hidden', '');
+      return;
+    }
+    if (action === 'logout') {
+      showScreen('login');
+      return;
+    }
+    if (action === 'chiudi-notte') {
+      toast && toast('Notte chiusa', 'success');
+      setTimeout(function () { showScreen('dashboard'); }, 600);
+      return;
+    }
+    if (action in TOAST_ONLY) {
+      var msg = TOAST_ONLY[action];
+      if (msg && typeof toast === 'function') toast(msg, 'info');
       return;
     }
     // step navigation (form-cantiere / scheda)
