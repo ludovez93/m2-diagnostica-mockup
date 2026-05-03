@@ -3973,3 +3973,119 @@ button[data-action="add-elemento"] {
   font-size: 16px !important;
   letter-spacing: -0.01em;
 }
+
+/* ============================================================
+   v=25 — Editor live unificato + counter compatto + calcolatore traverse
+   ============================================================ */
+
+/* Editor unico (no più textarea + preview duplicato) */
+.night-editor-live {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 14px 16px;
+  color: var(--text-body);
+  font-family: var(--ff-mono);
+  font-size: 14px;
+  line-height: 1.7;
+  width: 100%;
+  min-height: 180px;
+  outline: none;
+  transition: border-color 150ms;
+  white-space: pre-wrap;
+}
+.night-editor-live:focus {
+  border-color: var(--accent-amber);
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.10);
+}
+.night-editor-live:empty::before {
+  content: attr(data-placeholder);
+  color: var(--text-muted);
+  font-style: italic;
+}
+.night-editor-live .ed-line { min-height: 1.7em; }
+
+/* Token */
+.tok-km { color: #22D3EE; font-weight: 700; }
+.tok-lato { background: rgba(59,130,246,0.18); color: #fff; padding: 1px 8px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+.tok-tipo { background: rgba(38,166,154,0.18); color: var(--color-success-alt); padding: 1px 8px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+.tok-codice { background: var(--color-danger); color: #fff; padding: 1px 8px; border-radius: 999px; font-size: 12px; font-weight: 700; }
+.tok-n { background: transparent; border: 1px solid var(--color-warn-alt, #FFB74D); color: var(--color-warn-alt, #FFB74D); padding: 0 6px; border-radius: 999px; font-size: 11px; font-weight: 700; }
+.tok-data { color: var(--text-muted); font-size: 12px; }
+.tok-op { background: rgba(38,166,154,0.18); color: var(--color-success-alt); padding: 1px 8px; border-radius: 999px; font-size: 12px; font-weight: 700; }
+.tok-sub { color: var(--text-secondary); font-size: 12px; padding-left: 16px; }
+.tok-sep { color: var(--accent-amber); font-weight: 700; font-family: var(--ff-display); font-size: 13px; }
+.tok-plain { color: var(--text-body); }
+
+/* Counter compatto (no più fbar grosso) */
+.night-counter-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 10px 8px;
+  margin: 8px 0 12px;
+}
+.night-cnt {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  gap: 2px;
+}
+.night-cnt strong {
+  font-family: var(--ff-mono);
+  font-size: 18px; font-weight: 700;
+  line-height: 1;
+}
+.night-cnt span {
+  font-size: 10px;
+  color: var(--text-muted);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* Calcolatore traverse moderno */
+.night-calc {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 12px;
+  margin: 12px 0;
+  display: flex; flex-direction: column;
+  gap: 10px;
+}
+.trav-head {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 8px;
+}
+.trav-out {
+  font-family: var(--ff-mono); font-size: 13px;
+  color: var(--text-body);
+}
+.trav-row {
+  display: grid;
+  grid-template-columns: 90px 1fr auto;
+  gap: 8px;
+  align-items: center;
+}
+.trav-label {
+  font-size: 12px; color: var(--text-muted);
+}
+.trav-input {
+  font-family: var(--ff-mono);
+  font-size: 16px;
+}
+.trav-mult { font-size: 12px; color: var(--text-muted); }
+.night-calc-chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.night-side-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 6px;
+}
+.trav-add-btn {
+  font-size: 13px;
+  font-weight: 600;
+  padding: 10px 8px;
+}

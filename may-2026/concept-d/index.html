@@ -11,12 +11,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
 
-  <link rel="stylesheet" href="style.css?v=24">
+  <link rel="stylesheet" href="style.css?v=25">
 </head>
 <body>
 
   <!-- VERSION BADGE (cache check) -->
-  <div style="position:fixed;top:8px;left:8px;background:#3B82F6;color:#fff;padding:4px 10px;border-radius:999px;font-family:Inter,sans-serif;font-size:11px;font-weight:700;z-index:9999;letter-spacing:0.04em;box-shadow:0 2px 8px rgba(59,130,246,0.4);" aria-hidden="true">v24</div>
+  <div style="position:fixed;top:8px;left:8px;background:#3B82F6;color:#fff;padding:4px 10px;border-radius:999px;font-family:Inter,sans-serif;font-size:11px;font-weight:700;z-index:9999;letter-spacing:0.04em;box-shadow:0 2px 8px rgba(59,130,246,0.4);" aria-hidden="true">v25</div>
 
   <!-- DEV NAV (jump screen) -->
   <label class="visually-hidden" for="dev-nav-select" hidden>Vai a vista</label>
@@ -1393,51 +1393,30 @@
       <!-- ─────────────────────────────────────────────────────────────────────
            COUNTER STRIP · sticky sotto header (mini fbar)
            ───────────────────────────────────────────────────────────────────── -->
-      <div class="fbar night-counter-strip" role="group" aria-label="Contatori sessione">
-        <div class="fbar-cell green">
-          <strong>12</strong>
-          Conformi
-        </div>
-        <div class="fbar-cell danger">
-          <strong>3</strong>
-          Difetti
-        </div>
-        <div class="fbar-cell">
-          <strong>2</strong>
-          No DAC
-        </div>
-        <div class="fbar-cell amber">
-          <strong>145<span class="text-xs">m</span></strong>
-          Totale
-        </div>
+      <div class="night-counter-row" role="group" aria-label="Contatori sessione">
+        <div class="night-cnt"><strong id="cnt-controllate" class="text-primary">17</strong><span>Controllate</span></div>
+        <div class="night-cnt"><strong id="cnt-conformi" class="text-green">12</strong><span>Conformi</span></div>
+        <div class="night-cnt"><strong id="cnt-difetti" class="text-danger">3</strong><span>Difetti</span></div>
+        <div class="night-cnt"><strong id="cnt-nodac" class="text-warn">2</strong><span>No DAC</span></div>
+        <div class="night-cnt"><strong id="cnt-km" class="text-primary">145m</strong><span>Percorsi</span></div>
       </div>
       
       <!-- ─────────────────────────────────────────────────────────────────────
            EDITOR BODY · PLACEHOLDER STATICO (non funzionale)
            ───────────────────────────────────────────────────────────────────── -->
       <div class="night-editor-wrap">
-        <textarea
-          class="night-editor-input"
-          id="mockup-editor-input"
+        <div
+          class="night-editor-live"
+          id="mockup-editor-live"
+          contenteditable="true"
           spellcheck="false"
           autocomplete="off"
           autocapitalize="off"
-          aria-label="Inserisci righe saldature"
-          placeholder="Scrivi righe come:&#10;165+700 DX 211 N 17 13/04/2026 LP&#10;166+450 SX TR&#10;Binario Pari&#10;162+800 DX ALL"
-        >Binario Dispari
-165+700 DX 211 N 17 13/04/2026 LP
-Profondità 12 mm
-Altezza 25 mm
-Db 8
-166+450 SX TR
-Binario Pari
-162+800 DX ALL
-163+200 SX TR</textarea>
-        <div class="night-editor-preview" id="mockup-editor-preview" aria-live="polite"></div>
+          aria-label="Editor saldature"
+          data-placeholder="Scrivi qui le saldature, es: 165+700 DX TR"
+        ></div>
         <p class="night-editor-info">
-          Mini-editor di prova. Scrivi righe tipo <code>km lato tipo</code>.
-          Sigle: <strong>TR</strong>=standard · <strong>ALL</strong>=alluminotermica · <strong>SCIN</strong>=scintillio · <strong>GR</strong>=regolazione · <strong>N</strong>=NO DAC.
-          Codici difetto: 113/121/211/etc.
+          <strong>TR</strong>=standard · <strong>ALL</strong>=alluminotermica · <strong>SCIN</strong>=scintillio · <strong>GR</strong>=regolazione · <strong>N</strong>=NO DAC. Codici difetto: 113/121/211/...
         </p>
       </div>
 
@@ -1445,40 +1424,34 @@ Binario Pari
            MINI-CALC TRAVERSE · sticky bottom-1 (sopra CTA)
            ───────────────────────────────────────────────────────────────────── -->
       <aside class="night-calc" aria-label="Calcolatrice traverse">
+        <div class="trav-head">
+          <span class="text-xs text-muted">Calcolatore traverse</span>
+          <span class="trav-out" id="trav-out">— scrivi numero traverse</span>
+        </div>
 
-        <div class="night-calc-head">
-          <span class="text-xs text-muted">Ultimo km</span>
-          <span class="text-mono text-amber">162+800</span>
-          <span class="night-calc-result text-mono">+ 0,3m × 5 = <strong class="text-amber">164m</strong></span>
+        <div class="trav-row">
+          <label class="trav-label" for="trav-n"># Traverse</label>
+          <input type="number" inputmode="numeric" id="trav-n" class="input trav-input" placeholder="es. 5" min="0" />
+          <span class="trav-mult">× 0,6m</span>
+        </div>
+
+        <div class="trav-row">
+          <label class="trav-label" for="trav-km">Ultimo km</label>
+          <input type="text" id="trav-km" class="input input-mono trav-input" placeholder="es. 162+800" />
         </div>
 
         <div class="night-calc-chips">
-          <button class="pill pill-amber" type="button" data-tipo="all">All</button>
-          <button class="pill pill-mute" type="button" data-tipo="scin">Scin</button>
-          <button class="pill pill-mute" type="button" data-tipo="gr">Gr</button>
-        </div>
-      
-        <div class="night-numpad" role="group" aria-label="Numpad">
-          <button class="night-numpad-key" type="button">1</button>
-          <button class="night-numpad-key" type="button">2</button>
-          <button class="night-numpad-key" type="button">3</button>
-          <button class="night-numpad-key" type="button">4</button>
-          <button class="night-numpad-key" type="button">5</button>
-          <button class="night-numpad-key" type="button">6</button>
-          <button class="night-numpad-key" type="button">7</button>
-          <button class="night-numpad-key" type="button">8</button>
-          <button class="night-numpad-key" type="button">9</button>
-          <button class="night-numpad-key night-numpad-key--mute" type="button">,</button>
-          <button class="night-numpad-key" type="button">0</button>
-          <button class="night-numpad-key night-numpad-key--mute" type="button">⌫</button>
-        </div>
-      
-        <div class="night-side-row">
-          <button class="btn-ghost" type="button" data-side="dx">DX</button>
-          <button class="btn-ghost" type="button" data-side="sx">SX</button>
-          <button class="btn-ghost" type="button" data-side="both">DX & SX</button>
+          <button class="pill pill-mute" type="button" data-tipo="tr">TR</button>
+          <button class="pill pill-mute" type="button" data-tipo="all">ALL</button>
+          <button class="pill pill-mute" type="button" data-tipo="scin">SCIN</button>
+          <button class="pill pill-mute" type="button" data-tipo="gr">GR</button>
         </div>
 
+        <div class="night-side-row">
+          <button class="btn-secondary trav-add-btn" type="button" data-side="dx">+ DX</button>
+          <button class="btn-secondary trav-add-btn" type="button" data-side="sx">+ SX</button>
+          <button class="btn-secondary trav-add-btn" type="button" data-side="both">+ DX & SX</button>
+        </div>
       </aside>
 
       <!-- ─────────────────────────────────────────────────────────────────────
@@ -2996,7 +2969,7 @@ Binario Pari
   <!-- TOAST CONTAINER -->
   <div id="toast-container" aria-live="polite" aria-atomic="false"></div>
 
-  <script src="mockup.js?v=24"></script>
+  <script src="mockup.js?v=25"></script>
 
   <!-- Extra overlay modals -->
   <!--

@@ -434,81 +434,152 @@
     boot();
   }
 
-  /* ---------- MINI-EDITOR PARSER (mockup notte, no app live) ---------- */
-  // Riconosce: km lato [tipo] [codice] [N progr] [data] [op]
-  // Tipi: TR / ALL / SCIN / GR / N
-  // Sub-attributi (Profondità/Altezza/Db) restano testuali muted
-  function colorizeLine(line) {
-    var raw = line;
-    var trimmed = raw.trim();
-    if (!trimmed) return '<div class="night-editor-line"><span class="night-editor-tok">&nbsp;</span></div>';
-
-    // Separatore "Binario Pari/Dispari/Unico"
-    var binMatch = trimmed.match(/^(binario\s+(?:pari|dispari|unico|interconnessione\s+\w+))$/i);
-    if (binMatch) {
-      return '<div class="night-editor-line night-editor-line--sep"><span class="text-amber">' + escHtml(trimmed) + '</span></div>';
-    }
-
-    // Sub-attributi: profondità/altezza/db/percorso/palo
-    if (/^(profondit|altezza|db|percorso|palo|fungo|gambo|suola|hs|ps|bc|cc)/i.test(trimmed)) {
-      return '<div class="night-editor-line night-editor-line--sub"><span class="night-editor-tok night-editor-tok--sub">' + escHtml(trimmed) + '</span></div>';
-    }
-
-    // Riga saldatura standard: km, lato, tokens
-    var m = trimmed.match(/^(\d+\+\d+)\s+(DX|SX)\s*(.*)$/i);
-    if (!m) {
-      return '<div class="night-editor-line"><span class="night-editor-tok">' + escHtml(trimmed) + '</span></div>';
-    }
-    var km = m[1], lato = m[2].toUpperCase(), rest = m[3];
-    var html = '<div class="night-editor-line';
-    if (/\b\d{2,3}\b/.test(rest) && /\bN\b/i.test(rest)) html += ' night-editor-line--diff';
-    html += '">';
-    html += '<span class="night-editor-tok night-editor-tok--km">' + km + '</span>';
-    html += '<span class="night-editor-tok night-editor-tok--lato">' + lato + '</span>';
-
-    // Tokenize il resto
-    var parts = rest.trim().split(/\s+/).filter(Boolean);
-    parts.forEach(function (p) {
-      var pUp = p.toUpperCase();
-      if (/^(TR|ALL|SCIN|GR)$/i.test(p)) {
-        html += '<span class="night-editor-tok night-editor-tok--tipo">' + pUp + '</span>';
-      } else if (/^\d{2,3}$/.test(p)) {
-        // codice difetto
-        html += '<span class="night-editor-tok night-editor-tok--codice">' + p + '</span>';
-      } else if (/^N$/i.test(p)) {
-        html += '<span class="night-editor-tok night-editor-tok--codice" style="background:transparent;border:1px solid var(--color-warn);color:var(--color-warn);">N</span>';
-      } else if (/^\d{1,2}\/\d{1,2}\/\d{2,4}$/.test(p)) {
-        html += '<span class="night-editor-tok night-editor-tok--data">' + p + '</span>';
-      } else if (/^[A-Z]{2,3}$/.test(pUp) && parts.indexOf(p) === parts.length - 1) {
-        // operatore (sigla 2-3 lettere alla fine)
-        html += '<span class="night-editor-tok night-editor-tok--op">' + pUp + '</span>';
-      } else {
-        html += '<span class="night-editor-tok">' + escHtml(p) + '</span>';
-      }
-    });
-    html += '</div>';
-    return html;
-  }
+  /* ---------- MINI-EDITOR LIVE COLORIZE (notte mockup) ---------- */
   function escHtml(s) {
     return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   }
-  function renderEditor() {
-    var input = document.getElementById('mockup-editor-input');
-    var preview = document.getElementById('mockup-editor-preview');
-    if (!input || !preview) return;
-    var lines = input.value.split('\n');
-    if (!lines.length || (lines.length === 1 && !lines[0].trim())) {
-      preview.innerHTML = '<span class="night-editor-preview-empty">Anteprima colorata — scrivi sopra per vedere i token</span>';
-      return;
+  function tokenize(line) {
+    var trimmed = line.trim();
+    if (!trimmed) return '<br>';
+    var bin = trimmed.match(/^binario\s+(pari|dispari|unico|interconnessione\s+\w+)$/i);
+    if (bin) return '<span class="tok-sep">' + escHtml(trimmed) + '</span>';
+    if (/^(profondit|altezza|db|percorso|palo|fungo|gambo|suola)/i.test(trimmed)) {
+      return '<span class="tok-sub">' + escHtml(trimmed) + '</span>';
     }
-    preview.innerHTML = lines.map(colorizeLine).join('');
+    var m = trimmed.match(/^(\d+\+\d+)\s+(DX|SX)\s*(.*)$/i);
+    if (!m) return '<span class="tok-plain">' + escHtml(trimmed) + '</span>';
+    var html = '<span class="tok-km">' + m[1] + '</span> ';
+    html += '<span class="tok-lato">' + m[2].toUpperCase() + '</span>';
+    var parts = m[3].trim().split(/\s+/).filter(Boolean);
+    parts.forEach(function (p) {
+      var pUp = p.toUpperCase();
+      if (/^(TR|ALL|SCIN|GR)$/i.test(p)) html += ' <span class="tok-tipo">' + pUp + '</span>';
+      else if (/^\d{2,3}$/.test(p)) html += ' <span class="tok-codice">' + p + '</span>';
+      else if (/^N$/i.test(p)) html += ' <span class="tok-n">N</span>';
+      else if (/^\d{1,2}\/\d{1,2}\/\d{2,4}$/.test(p)) html += ' <span class="tok-data">' + p + '</span>';
+      else if (/^[A-Z]{2,3}$/.test(pUp) && parts.indexOf(p) === parts.length - 1) html += ' <span class="tok-op">' + pUp + '</span>';
+      else html += ' <span class="tok-plain">' + escHtml(p) + '</span>';
+    });
+    return html;
+  }
+  function getCaretOffset(el) {
+    var sel = window.getSelection();
+    if (!sel || !sel.rangeCount) return 0;
+    var range = sel.getRangeAt(0).cloneRange();
+    range.selectNodeContents(el);
+    range.setEnd(sel.focusNode, sel.focusOffset);
+    return range.toString().length;
+  }
+  function setCaretOffset(el, offset) {
+    var node, totalOff = 0, walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+    while ((node = walker.nextNode())) {
+      var len = node.nodeValue.length;
+      if (totalOff + len >= offset) {
+        var range = document.createRange();
+        range.setStart(node, offset - totalOff);
+        range.collapse(true);
+        var sel = window.getSelection();
+        sel.removeAllRanges(); sel.addRange(range);
+        return;
+      }
+      totalOff += len;
+    }
+  }
+  function colorizeEditor() {
+    var ed = document.getElementById('mockup-editor-live');
+    if (!ed) return;
+    var off = getCaretOffset(ed);
+    var text = ed.innerText.replace(/​/g, '');
+    var lines = text.split('\n');
+    var html = lines.map(function (l) { return '<div class="ed-line">' + tokenize(l) + '</div>'; }).join('');
+    if (ed.innerHTML !== html) {
+      ed.innerHTML = html;
+      try { setCaretOffset(ed, off); } catch (e) {}
+    }
+    updateCounters();
+  }
+  function updateCounters() {
+    var ed = document.getElementById('mockup-editor-live');
+    if (!ed) return;
+    var lines = ed.innerText.split('\n').map(function (l) { return l.trim(); }).filter(Boolean);
+    var controllate = 0, conformi = 0, difetti = 0, nodac = 0;
+    var kmList = [];
+    lines.forEach(function (l) {
+      if (/^binario\s+/i.test(l)) return;
+      if (/^(profondit|altezza|db|percorso|palo|fungo|gambo|suola)/i.test(l)) return;
+      var m = l.match(/^(\d+\+\d+)\s+(DX|SX)\s*(.*)$/i);
+      if (!m) return;
+      controllate++;
+      kmList.push(m[1]);
+      var rest = m[3].toUpperCase();
+      if (/\bN\b/.test(rest) && !/\b(TR|ALL|SCIN|GR)\b/.test(rest)) nodac++;
+      else if (/\b\d{2,3}\b/.test(rest)) difetti++;
+      else conformi++;
+    });
+    setText('cnt-controllate', controllate);
+    setText('cnt-conformi', conformi);
+    setText('cnt-difetti', difetti);
+    setText('cnt-nodac', nodac);
+    if (kmList.length >= 2) {
+      var first = kmToMeters(kmList[0]);
+      var last = kmToMeters(kmList[kmList.length - 1]);
+      var diff = Math.abs(last - first);
+      setText('cnt-km', diff + 'm');
+    } else {
+      setText('cnt-km', '0m');
+    }
+  }
+  function kmToMeters(km) {
+    var p = km.split('+');
+    return parseInt(p[0], 10) * 1000 + parseInt(p[1] || 0, 10);
+  }
+  function setText(id, v) {
+    var el = document.getElementById(id);
+    if (el) el.textContent = v;
   }
   document.addEventListener('input', function (ev) {
-    if (ev.target && ev.target.id === 'mockup-editor-input') renderEditor();
+    if (ev.target && ev.target.id === 'mockup-editor-live') colorizeEditor();
+    if (ev.target && (ev.target.id === 'trav-n' || ev.target.id === 'trav-km')) updateTrav();
   });
-  // initial render after DOM ready
-  if (document.readyState !== 'loading') setTimeout(renderEditor, 100);
-  else document.addEventListener('DOMContentLoaded', function () { setTimeout(renderEditor, 100); });
+  function updateTrav() {
+    var n = parseFloat(document.getElementById('trav-n').value) || 0;
+    var km = document.getElementById('trav-km').value.trim();
+    var out = document.getElementById('trav-out');
+    if (!out) return;
+    if (!n) { out.textContent = '— scrivi numero traverse'; return; }
+    var add = n * 0.6;
+    var addStr = add.toFixed(1).replace('.', ',') + 'm';
+    if (!km) { out.innerHTML = n + ' × 0,6m = <strong>' + addStr + '</strong>'; return; }
+    var m = km.match(/^(\d+)\+(\d+)/);
+    if (!m) { out.textContent = 'Km non valido (es: 162+800)'; return; }
+    var totalM = parseInt(m[1], 10) * 1000 + parseInt(m[2], 10) + add;
+    var newKm = Math.floor(totalM / 1000) + '+' + String(Math.round(totalM % 1000)).padStart(3, '0');
+    out.innerHTML = '+ ' + addStr + ' → <strong class="text-amber">' + newKm + '</strong>';
+  }
+  // Calc add line from traverse calculator
+  document.addEventListener('click', function (ev) {
+    var el = ev.target.closest('.trav-add-btn');
+    if (!el) return;
+    var side = el.getAttribute('data-side');
+    var km = document.getElementById('trav-km').value.trim();
+    var n = parseFloat(document.getElementById('trav-n').value) || 0;
+    var ed = document.getElementById('mockup-editor-live');
+    if (!km || !ed) return;
+    var m = km.match(/^(\d+)\+(\d+)/);
+    if (!m) return;
+    var totalM = parseInt(m[1], 10) * 1000 + parseInt(m[2], 10) + (n * 0.6);
+    var newKm = Math.floor(totalM / 1000) + '+' + String(Math.round(totalM % 1000)).padStart(3, '0');
+    var lineDX = newKm + ' DX TR';
+    var lineSX = newKm + ' SX TR';
+    var add = side === 'dx' ? lineDX : side === 'sx' ? lineSX : lineDX + '\n' + lineSX;
+    var current = ed.innerText.replace(/​/g, '').replace(/\n+$/, '');
+    ed.innerText = (current ? current + '\n' : '') + add;
+    document.getElementById('trav-km').value = newKm; // aggiorna ultimo km
+    colorizeEditor();
+    ev.preventDefault();
+  });
+  if (document.readyState !== 'loading') setTimeout(colorizeEditor, 200);
+  else document.addEventListener('DOMContentLoaded', function () { setTimeout(colorizeEditor, 200); });
 
   /* ---------- EXPORTS ---------- */
   window.showScreen = showScreen;
