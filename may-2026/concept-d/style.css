@@ -1955,8 +1955,7 @@ html.headlamp-mode .login-crt::after { background: none; }
   font-weight: 700;
 }
 .cant-elem-add {
-  border-top: 0;
-  margin-top: -1px;
+  /* border-top + margin-top:-1px rimossi: il bottone è separato dalla tabella, non più attaccato */
 }
 
 .cant-info-kv { /* hook semantico */ }
