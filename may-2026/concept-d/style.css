@@ -3656,3 +3656,17 @@ html.headlamp-mode .ident-avatar { border-radius: 50%; }
 .pref-row-label,
 .kv-row .k { text-transform: none; }
 
+
+/* Hero "Stasera" — zona tap area (apre cantiere) separata dal CTA "Apri notte" */
+.hero-tap-area {
+  display: block; width: 100%; background: transparent; border: 0;
+  padding: 0; margin: 0 0 12px; text-align: left; color: inherit;
+  cursor: pointer; border-radius: 8px;
+  transition: background 150ms;
+}
+.hero-tap-area:active { background: rgba(255,255,255,0.04); }
+.hero-link-hint {
+  font-family: var(--ff-display); font-size: 11px; font-weight: 500;
+  color: var(--accent-amber); margin-left: 8px; opacity: 0.85;
+  white-space: nowrap;
+}

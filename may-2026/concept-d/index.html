@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
 
-  <link rel="stylesheet" href="style.css?v=15">
+  <link rel="stylesheet" href="style.css?v=16">
 </head>
 <body>
 
@@ -285,28 +285,30 @@
         <span class="pill pill-green">In corso</span>
       </div>
       <div class="cmd-stasera">
-        <div class="cmd-line">Apertura 22:30</div>
-        <div class="cmd-name">La Spezia – Arcola</div>
-        <div class="cmd-tratta">33/26 · Dispari 171→163 · Pari 171→161 · Tratta Sarzana – La Spezia</div>
+        <button class="hero-tap-area" type="button" data-action="open-cantiere" data-id="2" aria-label="Vedi cantiere La Spezia - Arcola">
+          <div class="cmd-line">Apertura 22:30</div>
+          <div class="cmd-name">La Spezia – Arcola <span class="hero-link-hint">Vedi cantiere →</span></div>
+          <div class="cmd-tratta">33/26 · Dispari 171→163 · Pari 171→161 · Tratta Sarzana – La Spezia</div>
 
-        <div class="cmd-grid">
-          <div class="cmd-cell">
-            <div class="cmd-cell-lab">Avanzamento</div>
-            <div class="cmd-cell-val amber">58%</div>
+          <div class="cmd-grid">
+            <div class="cmd-cell">
+              <div class="cmd-cell-lab">Avanzamento</div>
+              <div class="cmd-cell-val amber">58%</div>
+            </div>
+            <div class="cmd-cell">
+              <div class="cmd-cell-lab">Saldature</div>
+              <div class="cmd-cell-val">418</div>
+            </div>
+            <div class="cmd-cell">
+              <div class="cmd-cell-lab">Difetti</div>
+              <div class="cmd-cell-val danger">11</div>
+            </div>
+            <div class="cmd-cell">
+              <div class="cmd-cell-lab">Meteo</div>
+              <div class="cmd-cell-val green">3°</div>
+            </div>
           </div>
-          <div class="cmd-cell">
-            <div class="cmd-cell-lab">Saldature</div>
-            <div class="cmd-cell-val">418</div>
-          </div>
-          <div class="cmd-cell">
-            <div class="cmd-cell-lab">Difetti</div>
-            <div class="cmd-cell-val danger">11</div>
-          </div>
-          <div class="cmd-cell">
-            <div class="cmd-cell-lab">Meteo</div>
-            <div class="cmd-cell-val green">3°</div>
-          </div>
-        </div>
+        </button>
 
         <button class="cmd-cta" type="button" data-action="open-notte" data-id="2">Apri notte</button>
       </div>
@@ -3113,7 +3115,7 @@
   <!-- TOAST CONTAINER -->
   <div id="toast-container" aria-live="polite" aria-atomic="false"></div>
 
-  <script src="mockup.js?v=15"></script>
+  <script src="mockup.js?v=16"></script>
 
   <!-- Extra overlay modals -->
   <!--
