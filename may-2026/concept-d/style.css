@@ -1800,18 +1800,24 @@ html.headlamp-mode .login-crt::after { background: none; }
   font-feature-settings: 'tnum' 1;
 }
 .cant-bar {
-  height: 8px;
-  background: var(--bg-surface);
-  border: 1px solid var(--border-default);
+  height: 10px;
+  background: rgba(255,255,255,0.06);
+  border: 0;
+  border-radius: 999px;
   position: relative;
   overflow: hidden;
+  margin-top: 6px;
 }
 .cant-bar-fill {
   height: 100%;
-  background: var(--accent-amber);
+  background: linear-gradient(90deg, var(--accent-amber), #60A5FA);
+  border-radius: 999px;
   transition: width 240ms ease-out;
+  box-shadow: 0 0 12px rgba(59,130,246,0.3);
 }
-.cant-bar-fill.green { background: var(--color-success-alt); }
+.cant-bar-fill.green { background: linear-gradient(90deg, var(--color-success-alt), #4ADE80); box-shadow: 0 0 12px rgba(38,166,154,0.3); }
+.cant-bar-fill.warn { background: linear-gradient(90deg, #FFB74D, #F0A028); box-shadow: 0 0 12px rgba(240,160,40,0.3); }
+.cant-bar-fill.danger { background: linear-gradient(90deg, var(--color-danger), #DC2626); box-shadow: 0 0 12px rgba(239,68,68,0.3); }
 
 .cant-det { border: 0; background: transparent; }
 .cant-det > summary { cursor: pointer; list-style: none; }
