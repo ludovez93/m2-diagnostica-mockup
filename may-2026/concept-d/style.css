@@ -3676,20 +3676,20 @@ html.headlamp-mode .ident-avatar { border-radius: 50%; }
    ============================================================ */
 .cant-stats {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
   margin: 12px 0 16px;
 }
 .cant-stat {
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   border-radius: 12px;
-  padding: 10px 8px;
+  padding: 14px 16px;
   display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  text-align: center;
-  min-height: 76px;
-  gap: 2px;
+  align-items: flex-start; justify-content: center;
+  text-align: left;
+  min-height: 80px;
+  gap: 4px;
 }
 .cant-stat-k {
   font-family: var(--ff-display); font-size: 10px; font-weight: 600;
@@ -3802,4 +3802,21 @@ html.headlamp-mode .ident-avatar { border-radius: 50%; }
   background: var(--accent-amber) !important;
   border-color: var(--accent-amber) !important;
   color: #fff !important;
+}
+
+/* Tabelle Difetti/Elementi: gap tra colonne, pill non attaccati */
+.cant-diff-row, .cant-elem-row, .row-sald {
+  gap: 12px !important;
+  padding: 12px 14px !important;
+}
+.cant-diff-row > *, .cant-elem-row > *, .row-sald > * {
+  display: flex; align-items: center; gap: 8px;
+}
+.cant-diff-row .pill, .cant-elem-row .pill, .row-sald .pill {
+  margin: 0 4px;
+  padding: 4px 10px;
+  font-size: 11px;
+}
+.cant-diff-row .col-tipo, .row-sald .col-tipo {
+  margin-left: 4px;
 }
