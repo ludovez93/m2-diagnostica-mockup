@@ -4230,3 +4230,15 @@ button[data-action="add-elemento"] {
   white-space: pre-wrap;
   word-wrap: break-word;
 }
+
+/* v=31 — Token in line allineati col textarea (no padding/box, solo colore+peso) */
+.editor-highlight .tok-km { color: #22D3EE; font-weight: 700; background: transparent; padding: 0; border: 0; border-radius: 0; }
+.editor-highlight .tok-lato { color: var(--accent-amber); font-weight: 700; background: transparent; padding: 0; border: 0; border-radius: 0; }
+.editor-highlight .tok-tipo { color: var(--color-success-alt); font-weight: 600; background: transparent; padding: 0; border: 0; border-radius: 0; }
+.editor-highlight .tok-codice { color: var(--color-danger); font-weight: 700; background: transparent; padding: 0; border: 0; border-radius: 0; }
+.editor-highlight .tok-n { color: var(--color-warn-alt, #FFB74D); font-weight: 700; background: transparent; padding: 0; border: 0; border-radius: 0; }
+.editor-highlight .tok-data { color: var(--text-muted); font-weight: 400; background: transparent; padding: 0; border: 0; border-radius: 0; }
+.editor-highlight .tok-op { color: var(--color-success-alt); font-weight: 700; background: transparent; padding: 0; border: 0; border-radius: 0; }
+.editor-highlight .tok-sub { color: var(--text-secondary); font-weight: 400; background: transparent; padding: 0; border: 0; border-radius: 0; }
+.editor-highlight .tok-sep { color: var(--accent-amber); font-weight: 700; background: transparent; padding: 0; border: 0; border-radius: 0; }
+.editor-highlight .tok-plain { color: var(--text-body); font-weight: 400; background: transparent; padding: 0; border: 0; border-radius: 0; }

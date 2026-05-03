@@ -439,26 +439,35 @@
     return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   }
   function tokenize(line) {
-    var trimmed = line.trim();
-    if (!trimmed) return '<br>';
-    var bin = trimmed.match(/^binario\s+(pari|dispari|unico|interconnessione\s+\w+)$/i);
-    if (bin) return '<span class="tok-sep">' + escHtml(trimmed) + '</span>';
-    if (/^(profondit|altezza|db|percorso|palo|fungo|gambo|suola)/i.test(trimmed)) {
-      return '<span class="tok-sub">' + escHtml(trimmed) + '</span>';
+    // CHARACTER-PERFECT preserve: niente trim, niente uppercase, niente normalize
+    if (!line) return '';
+    // Binario separator (mantiene whitespace)
+    var bin = line.match(/^(\s*)(binario\s+(?:pari|dispari|unico|interconnessione\s+\w+))(\s*)$/i);
+    if (bin) return escHtml(bin[1]) + '<span class="tok-sep">' + escHtml(bin[2]) + '</span>' + escHtml(bin[3]);
+    // Sub-attributi
+    if (/^\s*(profondit|altezza|db|percorso|palo|fungo|gambo|suola)/i.test(line)) {
+      return '<span class="tok-sub">' + escHtml(line) + '</span>';
     }
-    var m = trimmed.match(/^(\d+\+\d+)\s+(DX|SX)\s*(.*)$/i);
-    if (!m) return '<span class="tok-plain">' + escHtml(trimmed) + '</span>';
-    var html = '<span class="tok-km">' + m[1] + '</span> ';
-    html += '<span class="tok-lato">' + m[2].toUpperCase() + '</span>';
-    var parts = m[3].trim().split(/\s+/).filter(Boolean);
+    // Saldatura: cattura ogni parte preservando spazi
+    var rgx = /^(\s*)(\d+\+\d+(?:[.,]\d+)?)(\s+)(DX|SX)(\s*)(.*)$/i;
+    var m = line.match(rgx);
+    if (!m) return escHtml(line);
+    var html = escHtml(m[1]);
+    html += '<span class="tok-km">' + escHtml(m[2]) + '</span>';
+    html += escHtml(m[3]);
+    html += '<span class="tok-lato">' + escHtml(m[4]) + '</span>';
+    html += escHtml(m[5]);
+    // Resto: split preservando whitespace
+    var parts = m[6].split(/(\s+)/);
     parts.forEach(function (p) {
-      var pUp = p.toUpperCase();
-      if (/^(TR|ALL|SCIN|GR)$/i.test(p)) html += ' <span class="tok-tipo">' + pUp + '</span>';
-      else if (/^\d{2,3}$/.test(p)) html += ' <span class="tok-codice">' + p + '</span>';
-      else if (/^N$/i.test(p)) html += ' <span class="tok-n">N</span>';
-      else if (/^\d{1,2}\/\d{1,2}\/\d{2,4}$/.test(p)) html += ' <span class="tok-data">' + p + '</span>';
-      else if (/^[A-Z]{2,3}$/.test(pUp) && parts.indexOf(p) === parts.length - 1) html += ' <span class="tok-op">' + pUp + '</span>';
-      else html += ' <span class="tok-plain">' + escHtml(p) + '</span>';
+      if (!p) return;
+      if (/^\s+$/.test(p)) { html += escHtml(p); return; }
+      if (/^(TR|ALL|SCIN|GR)$/i.test(p)) html += '<span class="tok-tipo">' + escHtml(p) + '</span>';
+      else if (/^\d{2,3}$/.test(p)) html += '<span class="tok-codice">' + escHtml(p) + '</span>';
+      else if (/^N$/i.test(p)) html += '<span class="tok-n">' + escHtml(p) + '</span>';
+      else if (/^\d{1,2}\/\d{1,2}\/\d{2,4}$/.test(p)) html += '<span class="tok-data">' + escHtml(p) + '</span>';
+      else if (/^[A-Za-z]{2,3}$/.test(p)) html += '<span class="tok-op">' + escHtml(p) + '</span>';
+      else html += '<span class="tok-plain">' + escHtml(p) + '</span>';
     });
     return html;
   }
