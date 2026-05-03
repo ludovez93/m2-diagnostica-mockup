@@ -3261,3 +3261,29 @@ html.headlamp-mode .scheda-form .sig-canvas-wrap {
   font-family: var(--ff-display);
 }
 
+
+/* ============================================================
+   ANTI-1980 FINAL — modernizza container con border 1px radius 0
+   ============================================================ */
+.login-card { border-radius: 12px !important; }
+.kv, .cant-info-kv { border-radius: 10px !important; }
+.night-editor { border-radius: 12px !important; padding: 14px !important; }
+.night-calc { border-radius: 12px !important; }
+.night-head { border-radius: 0 0 12px 12px; }
+.night-head-row, .night-head-row-2 { border-radius: 0; }
+.night-counter-strip { border-radius: 8px; margin: 8px 0; }
+.scheda-section { border-radius: 12px; padding: 14px; margin-bottom: 12px; background: var(--bg-surface); border: 1px solid var(--border-subtle); }
+fieldset.scheda-section legend { padding: 0 8px; }
+.user-card { border-radius: 12px !important; }
+.numpad-grid, .numpad { border-radius: 12px; overflow: hidden; }
+.numkey { border-radius: 0 !important; }
+.fbar-cell { border-right: none !important; }
+.fbar { gap: 8px; padding: 8px; background: transparent !important; border: 0 !important; }
+.fbar > .fbar-cell {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 10px;
+}
+.day-circle { border-radius: 50% !important; }
+.chip { border-radius: 999px !important; }
+.toggle-track { border-radius: 999px !important; }
