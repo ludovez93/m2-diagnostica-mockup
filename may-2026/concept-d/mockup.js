@@ -487,18 +487,24 @@
   }
   function colorizeEditor() {
     var ta = document.getElementById('mockup-editor-input');
-    var preview = document.getElementById('mockup-editor-preview');
-    if (!ta || !preview) return;
+    var hl = document.getElementById('mockup-editor-highlight');
+    if (!ta || !hl) return;
+    // syntax-highlight: textarea trasparente sopra, highlight div sotto
     var lines = ta.value.split('\n');
-    if (lines.length === 0 || (lines.length === 1 && !lines[0].trim())) {
-      preview.innerHTML = '';
-    } else {
-      preview.innerHTML = lines.filter(function(l){return l.trim();}).map(function (l) {
-        return '<div class="ed-line">' + tokenize(l) + '</div>';
-      }).join('');
-    }
+    hl.innerHTML = lines.map(function (l) {
+      return '<div class="ed-hl-line">' + (l.trim() ? tokenize(l) : '&nbsp;') + '</div>';
+    }).join('');
+    // sync scroll
+    hl.scrollTop = ta.scrollTop;
     updateCounters();
   }
+  // Sync scroll dei due
+  document.addEventListener('scroll', function (ev) {
+    if (ev.target && ev.target.id === 'mockup-editor-input') {
+      var hl = document.getElementById('mockup-editor-highlight');
+      if (hl) hl.scrollTop = ev.target.scrollTop;
+    }
+  }, true);
   function syncLastKm() {
     var ta = document.getElementById('mockup-editor-input');
     var travKm = document.getElementById('trav-km');
@@ -611,50 +617,50 @@
   });
   var LONG_EXAMPLE = [
     'Binario Dispari',
-    '171+000 DX TR',
-    '171+050 SX TR',
-    '171+100 DX TR',
-    '171+150 SX TR',
+    '171+000 DX',
+    '171+050 SX',
+    '171+100 DX',
+    '171+150 SX',
     '171+200 DX ALL',
-    '171+250 SX TR',
-    '171+300 DX TR',
-    '171+350 SX TR',
+    '171+250 SX',
+    '171+300 DX',
+    '171+350 SX',
     '171+400 DX 211 N 17 13/04/2026 LP',
     'Profondità 12 mm',
     'Altezza 25 mm',
     'Db 8',
-    '171+450 SX TR',
-    '171+500 DX TR',
+    '171+450 SX',
+    '171+500 DX',
     '171+550 SX ALL',
-    '171+600 DX TR',
+    '171+600 DX',
     '171+650 SX 113 N 18 13/04/2026 LP',
     'Profondità 8 mm',
     'Altezza 15 mm',
-    '171+700 DX TR',
-    '171+750 SX TR',
+    '171+700 DX',
+    '171+750 SX',
     '171+800 DX SCIN',
-    '171+850 SX TR',
+    '171+850 SX',
     '171+900 DX N',
-    '171+950 SX TR',
+    '171+950 SX',
     'Binario Pari',
-    '171+000 DX TR',
-    '171+050 SX TR',
-    '171+100 DX TR',
-    '171+150 SX TR',
-    '171+200 DX TR',
+    '171+000 DX',
+    '171+050 SX',
+    '171+100 DX',
+    '171+150 SX',
+    '171+200 DX',
     '171+250 SX ALL',
-    '171+300 DX TR',
-    '171+350 SX TR',
-    '171+400 DX TR',
+    '171+300 DX',
+    '171+350 SX',
+    '171+400 DX',
     '171+450 SX 121 N 19 13/04/2026 CA',
     'Profondità 15 mm',
     'Altezza 30 mm',
     'Db 10',
-    '171+500 DX TR',
-    '171+550 SX TR',
-    '171+600 DX TR',
-    '171+650 SX TR',
-    '171+700 DX TR'
+    '171+500 DX',
+    '171+550 SX',
+    '171+600 DX',
+    '171+650 SX',
+    '171+700 DX'
   ].join('\n');
 
   // Calc add line from traverse calculator

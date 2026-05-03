@@ -11,12 +11,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
 
-  <link rel="stylesheet" href="style.css?v=29">
+  <link rel="stylesheet" href="style.css?v=30">
 </head>
 <body>
 
   <!-- VERSION BADGE (cache check) -->
-  <div style="position:fixed;top:8px;left:8px;background:#3B82F6;color:#fff;padding:4px 10px;border-radius:999px;font-family:Inter,sans-serif;font-size:11px;font-weight:700;z-index:9999;letter-spacing:0.04em;box-shadow:0 2px 8px rgba(59,130,246,0.4);" aria-hidden="true">v29</div>
+  <div style="position:fixed;top:8px;left:8px;background:#3B82F6;color:#fff;padding:4px 10px;border-radius:999px;font-family:Inter,sans-serif;font-size:11px;font-weight:700;z-index:9999;letter-spacing:0.04em;box-shadow:0 2px 8px rgba(59,130,246,0.4);" aria-hidden="true">v30</div>
 
   <!-- DEV NAV (jump screen) -->
   <label class="visually-hidden" for="dev-nav-select" hidden>Vai a vista</label>
@@ -1405,23 +1405,25 @@
            EDITOR BODY · PLACEHOLDER STATICO (non funzionale)
            ───────────────────────────────────────────────────────────────────── -->
       <div class="night-editor-wrap">
-        <textarea
-          class="night-editor-input"
-          id="mockup-editor-input"
-          spellcheck="false"
-          autocomplete="off"
-          autocapitalize="off"
-          autocorrect="off"
-          rows="10"
-          placeholder="Scrivi qui le saldature&#10;Es: 165+700 DX TR"
-        ></textarea>
+        <div class="editor-syntax">
+          <div class="editor-highlight" id="mockup-editor-highlight" aria-hidden="true"></div>
+          <textarea
+            class="editor-real"
+            id="mockup-editor-input"
+            spellcheck="false"
+            autocomplete="off"
+            autocapitalize="off"
+            autocorrect="off"
+            rows="10"
+            placeholder="Scrivi qui le saldature&#10;Es: 165+700 DX"
+          ></textarea>
+        </div>
         <div class="night-editor-actions">
           <button type="button" class="btn-ghost btn-sm" data-action="editor-clear">Pulisci</button>
-          <button type="button" class="btn-ghost btn-sm" data-action="editor-load-long">Esempio lungo (40+ righe)</button>
+          <button type="button" class="btn-ghost btn-sm" data-action="editor-load-long">Esempio lungo</button>
         </div>
-        <div class="night-editor-preview-mini" id="mockup-editor-preview" aria-live="polite"></div>
         <p class="night-editor-info">
-          <strong>TR</strong>=standard · <strong>ALL</strong>=alluminotermica · <strong>SCIN</strong>=scintillio · <strong>GR</strong>=regolazione · <strong>N</strong>=NO DAC
+          Default = saldatura standard. <strong>ALL</strong>=alluminotermica · <strong>SCIN</strong>=scintillio · <strong>GR</strong>=regolazione · <strong>N</strong>=NO DAC
         </p>
       </div>
 
@@ -2974,7 +2976,7 @@
   <!-- TOAST CONTAINER -->
   <div id="toast-container" aria-live="polite" aria-atomic="false"></div>
 
-  <script src="mockup.js?v=29"></script>
+  <script src="mockup.js?v=30"></script>
 
   <!-- Extra overlay modals -->
   <!--

@@ -4155,3 +4155,78 @@ button[data-action="add-elemento"] {
   min-height: 32px !important;
   border-radius: 8px !important;
 }
+
+/* ============================================================
+   v=30 — EDITOR FINALE: syntax-highlight pattern
+   textarea trasparente sopra (Invio funziona iOS) +
+   div colorato sotto (vedi token in line)
+   ============================================================ */
+.editor-syntax {
+  position: relative;
+  min-height: 200px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  background: var(--bg-secondary);
+  overflow: hidden;
+  transition: border-color 150ms;
+}
+.editor-syntax:focus-within {
+  border-color: var(--accent-amber);
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.10);
+}
+
+/* SHARED: stesse metriche perfette per allineamento token sotto cursore */
+.editor-syntax .editor-highlight,
+.editor-syntax .editor-real {
+  font-family: var(--ff-mono);
+  font-size: 16px;
+  line-height: 1.7;
+  letter-spacing: 0;
+  padding: 14px 16px;
+  margin: 0;
+  border: 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 200px;
+  tab-size: 4;
+}
+
+.editor-syntax .editor-highlight {
+  color: var(--text-body);
+  pointer-events: none;
+  z-index: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.editor-syntax .editor-real {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: transparent;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  caret-color: var(--accent-amber);
+  resize: none;
+  outline: none;
+  z-index: 2;
+  height: 100%;
+}
+.editor-syntax .editor-real::placeholder {
+  color: var(--text-muted);
+  -webkit-text-fill-color: var(--text-muted);
+}
+.editor-syntax .editor-real::selection {
+  background: rgba(59,130,246,0.3);
+  -webkit-text-fill-color: transparent;
+}
+
+/* Linea highlight: token inline */
+.ed-hl-line {
+  min-height: 1.7em;
+  display: block;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
