@@ -498,13 +498,20 @@
     var ta = document.getElementById('mockup-editor-input');
     var hl = document.getElementById('mockup-editor-highlight');
     if (!ta || !hl) return;
-    // syntax-highlight: textarea trasparente sopra, highlight div sotto
+    // syntax-highlight: textarea trasparente sopra, highlight div sotto.
+    // CRITICO: uso \n literal tra righe (NO <div> wrapper) così entrambi
+    // gli elementi usano flow di white-space: pre-wrap identico al textarea
+    // → niente arrotondamento per-riga, niente drift verticale accumulato.
     var lines = ta.value.split('\n');
-    hl.innerHTML = lines.map(function (l) {
-      return '<div class="ed-hl-line">' + (l.trim() ? tokenize(l) : '&nbsp;') + '</div>';
-    }).join('');
+    var html = lines.map(function (l) {
+      return l.length ? tokenize(l) : '';
+    }).join('\n');
+    // trailing newline visivo (textarea ne ha uno fittizio)
+    if (ta.value.endsWith('\n')) html += '​';
+    hl.innerHTML = html;
     // sync scroll
     hl.scrollTop = ta.scrollTop;
+    hl.scrollLeft = ta.scrollLeft;
     updateCounters();
   }
   // Sync scroll dei due (entrambi assi)
