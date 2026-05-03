@@ -452,6 +452,11 @@
     var rgx = /^(\s*)(\d+\+\d+(?:[.,]\d+)?)(\s+)(DX|SX)(\s*)(.*)$/i;
     var m = line.match(rgx);
     if (!m) return escHtml(line);
+    // Stato riga: difetto se ha codice 3-cifre, NoDAC se ha N (e niente codice)
+    var preTokens = m[6].split(/\s+/).filter(Boolean);
+    var hasCode3 = preTokens.some(function (t) { return /^\d{3}$/.test(t); });
+    var hasN = preTokens.some(function (t) { return /^[nN]$/.test(t); });
+    var stateCls = hasCode3 ? 'line-def' : (hasN ? 'line-ndc' : '');
     var html = escHtml(m[1]);
     html += '<span class="tok-km">' + escHtml(m[2]) + '</span>';
     html += escHtml(m[3]);
@@ -469,6 +474,7 @@
       else if (/^[A-Za-z]{2,3}$/.test(p)) html += '<span class="tok-op">' + escHtml(p) + '</span>';
       else html += '<span class="tok-plain">' + escHtml(p) + '</span>';
     });
+    if (stateCls) html = '<span class="' + stateCls + '">' + html + '</span>';
     return html;
   }
   function getCaretOffset(el) {

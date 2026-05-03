@@ -4268,3 +4268,10 @@ button[data-action="add-elemento"] {
 .editor-highlight .tok-sub { color: var(--text-secondary); }
 .editor-highlight .tok-sep { color: var(--accent-amber); }
 .editor-highlight .tok-plain { color: var(--text-body); }
+/* Stato riga: difetto / NoDAC — override su km, lato, plain */
+.editor-highlight .line-def .tok-km,
+.editor-highlight .line-def .tok-lato,
+.editor-highlight .line-def .tok-plain { color: var(--color-danger); }
+.editor-highlight .line-ndc .tok-km,
+.editor-highlight .line-ndc .tok-lato,
+.editor-highlight .line-ndc .tok-plain { color: var(--color-warn-alt, #FFB74D); }
