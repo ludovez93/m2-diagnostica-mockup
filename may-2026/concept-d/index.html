@@ -11,12 +11,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
 
-  <link rel="stylesheet" href="style.css?v=22">
+  <link rel="stylesheet" href="style.css?v=23">
 </head>
 <body>
 
   <!-- VERSION BADGE (cache check) -->
-  <div style="position:fixed;top:8px;left:8px;background:#3B82F6;color:#fff;padding:4px 10px;border-radius:999px;font-family:Inter,sans-serif;font-size:11px;font-weight:700;z-index:9999;letter-spacing:0.04em;box-shadow:0 2px 8px rgba(59,130,246,0.4);" aria-hidden="true">v22</div>
+  <div style="position:fixed;top:8px;left:8px;background:#3B82F6;color:#fff;padding:4px 10px;border-radius:999px;font-family:Inter,sans-serif;font-size:11px;font-weight:700;z-index:9999;letter-spacing:0.04em;box-shadow:0 2px 8px rgba(59,130,246,0.4);" aria-hidden="true">v23</div>
 
   <!-- DEV NAV (jump screen) -->
   <label class="visually-hidden" for="dev-nav-select" hidden>Vai a vista</label>
@@ -50,8 +50,7 @@
       
         <!-- BRAND HEADER -->
         <header class="login-brand">
-          <div class="logo-mark">M2</div>
-          <h1 class="text-amber">M2 Diagnostica</h1>
+          <h1 class="text-amber">Diagnostica</h1>
           <div class="sub">v2.0</div>
         </header>
 
@@ -73,7 +72,7 @@
               <span class="user-sigla">LP</span>
               <span class="user-body">
                 <span class="user-name">Ludovico</span>
-                <span class="user-meta">Operatore · Gruppo G</span>
+                <span class="user-meta">Operatore · Strumento G</span>
               </span>
               <span class="user-arrow" aria-hidden="true">›</span>
             </button>
@@ -86,7 +85,7 @@
               <span class="user-sigla">CA</span>
               <span class="user-body">
                 <span class="user-name">Cristopher</span>
-                <span class="user-meta">Operatore · Gruppo B</span>
+                <span class="user-meta">Operatore · Strumento B</span>
               </span>
               <span class="user-arrow" aria-hidden="true">›</span>
             </button>
@@ -146,7 +145,7 @@
         </div>
       
         <!-- FOOTER -->
-        <div class="login-foot">M2 Rail Group</div>
+        <!-- footer M2 Rail Group rimosso (non è app ufficiale) -->
       
       </div>
       
@@ -260,25 +259,7 @@
         <div class="d-header-avatar" aria-hidden="true">LP</div>
       </div>
 
-      <!-- Stat tiles 4-cell -->
-      <div class="fbar">
-        <button class="fbar-cell amber" type="button" data-action="filter-da-aprire">
-          <strong>1</strong>
-          Da aprire
-        </button>
-        <button class="fbar-cell green" type="button" data-action="filter-attivi">
-          <strong>3</strong>
-          Attivi
-        </button>
-        <button class="fbar-cell" type="button" data-action="filter-difetti">
-          <strong>11</strong>
-          Difetti
-        </button>
-        <button class="fbar-cell" type="button" data-action="filter-schede">
-          <strong>5</strong>
-          Schede
-        </button>
-      </div>
+      <!-- 4 stat tiles top rimosse (non chiare per l'utente) -->
 
       <!-- ─────────────────────────────────────────────────────────────────────
            Stasera — command hero
@@ -290,8 +271,16 @@
       <div class="cmd-stasera">
         <button class="hero-tap-area" type="button" data-action="open-cantiere" data-id="2" aria-label="Vedi cantiere La Spezia - Arcola">
           <div class="cmd-line">Apertura 22:30</div>
-          <div class="cmd-name">La Spezia – Arcola <span class="hero-link-hint">Vedi cantiere →</span></div>
-          <div class="cmd-tratta">33/26 · Dispari 171→163 · Pari 171→161 · Tratta Sarzana – La Spezia</div>
+          <div class="hero-name-row">
+            <h2 class="cmd-name">La Spezia – Arcola</h2>
+            <span class="hero-codice-pill">33/26</span>
+          </div>
+          <div class="hero-link-hint">Vedi cantiere →</div>
+          <ul class="hero-meta-list">
+            <li><span class="hero-meta-k">Binario dispari</span><span class="hero-meta-v">171 → 163</span></li>
+            <li><span class="hero-meta-k">Binario pari</span><span class="hero-meta-v">171 → 161</span></li>
+            <li><span class="hero-meta-k">Tratta</span><span class="hero-meta-v">Sarzana – La Spezia</span></li>
+          </ul>
 
           <div class="cmd-grid">
             <div class="cmd-cell">
@@ -308,7 +297,7 @@
             </div>
             <div class="cmd-cell">
               <div class="cmd-cell-lab">Meteo</div>
-              <div class="cmd-cell-val green">3°</div>
+              <div class="cmd-cell-val green">3° · Sereno</div>
             </div>
           </div>
         </button>
@@ -3030,7 +3019,7 @@
   <!-- TOAST CONTAINER -->
   <div id="toast-container" aria-live="polite" aria-atomic="false"></div>
 
-  <script src="mockup.js?v=22"></script>
+  <script src="mockup.js?v=23"></script>
 
   <!-- Extra overlay modals -->
   <!--

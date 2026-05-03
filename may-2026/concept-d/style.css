@@ -3876,3 +3876,60 @@ button[data-action="add-elemento"] {
   text-align: right;
   white-space: nowrap;
 }
+
+/* Dashboard hero v=23 — codice inline col nome, meta in lista ordinata */
+.hero-name-row {
+  display: flex; align-items: center; gap: 10px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+.hero-name-row .cmd-name { margin: 0; line-height: 1.2; }
+.hero-codice-pill {
+  font-family: var(--ff-mono);
+  font-size: 12px; font-weight: 700;
+  color: var(--accent-amber);
+  background: rgba(59,130,246,0.12);
+  border: 1px solid rgba(59,130,246,0.3);
+  padding: 3px 10px;
+  border-radius: 999px;
+  letter-spacing: 0.02em;
+}
+.hero-link-hint {
+  display: block;
+  font-family: var(--ff-display);
+  font-size: 11px;
+  color: var(--accent-amber);
+  margin-top: 6px;
+  margin-left: 0;
+  opacity: 0.85;
+}
+.hero-meta-list {
+  list-style: none;
+  margin: 14px 0 0 !important;
+  padding: 12px 0 0 !important;
+  border-top: 1px solid var(--border-subtle);
+}
+.hero-meta-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 4px 0;
+  font-size: 13px;
+}
+.hero-meta-k {
+  color: var(--text-muted);
+  font-family: var(--ff-display);
+  font-weight: 500;
+}
+.hero-meta-v {
+  color: var(--text-body);
+  font-family: var(--ff-mono);
+  font-feature-settings: 'tnum' 1;
+}
+.cmd-cell-val {
+  font-size: 18px !important;
+}
+.cmd-cell-val.green {
+  font-size: 16px !important;
+  letter-spacing: -0.01em;
+}
