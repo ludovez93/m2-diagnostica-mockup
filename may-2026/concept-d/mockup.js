@@ -543,7 +543,7 @@
     if (ev.target && (ev.target.id === 'trav-n' || ev.target.id === 'trav-km')) updateTrav();
   });
   function updateTrav() {
-    var n = parseFloat(document.getElementById('trav-n').value) || 0;
+    var n = parseFloat(document.getElementById('trav-n').value.replace(',', '.')) || 0;
     var km = document.getElementById('trav-km').value.trim();
     var out = document.getElementById('trav-out');
     if (!out) return;
@@ -563,7 +563,7 @@
     if (!el) return;
     var side = el.getAttribute('data-side');
     var km = document.getElementById('trav-km').value.trim();
-    var n = parseFloat(document.getElementById('trav-n').value) || 0;
+    var n = parseFloat(document.getElementById('trav-n').value.replace(',', '.')) || 0;
     var ta = document.getElementById('mockup-editor-input');
     if (!km || !ta) return;
     var m = km.match(/^(\d+)\+(\d+)/);
