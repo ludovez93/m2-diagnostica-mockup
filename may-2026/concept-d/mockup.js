@@ -542,20 +542,33 @@
     if (ev.target && ev.target.id === 'mockup-editor-input') colorizeEditor();
     if (ev.target && (ev.target.id === 'trav-n' || ev.target.id === 'trav-km')) updateTrav();
   });
+  // Logica esatta app live (notte.js): travParseKm + travFmtKm
+  function travParseKm(s) {
+    if (!s) return 0;
+    var m = s.match(/(\d+)\+(\d+)(?:[.,](\d+))?/);
+    if (!m) return 0;
+    var km = parseInt(m[1], 10) * 1000;
+    var metri = parseInt(m[2], 10);
+    var dec = m[3] ? parseFloat('0.' + m[3]) : 0;
+    return km + metri + dec;
+  }
+  function travFmtKm(v) {
+    if (v <= 0) return '';
+    return Math.floor(v / 1000) + '+' + String(Math.round(v % 1000)).padStart(3, '0');
+  }
   function updateTrav() {
-    var n = parseFloat(document.getElementById('trav-n').value.replace(',', '.')) || 0;
+    var n = parseInt(document.getElementById('trav-n').value, 10);
     var km = document.getElementById('trav-km').value.trim();
     var out = document.getElementById('trav-out');
     if (!out) return;
-    if (!n) { out.textContent = '— scrivi numero traverse'; return; }
+    if (!n && n !== 0) { out.textContent = '— scrivi numero traverse'; return; }
     var add = n * 0.6;
     var addStr = add.toFixed(1).replace('.', ',') + 'm';
     if (!km) { out.innerHTML = n + ' × 0,6m = <strong>' + addStr + '</strong>'; return; }
-    var m = km.match(/^(\d+)\+(\d+)/);
-    if (!m) { out.textContent = 'Km non valido (es: 162+800)'; return; }
-    var totalM = parseInt(m[1], 10) * 1000 + parseInt(m[2], 10) + add;
-    var newKm = Math.floor(totalM / 1000) + '+' + String(Math.round(totalM % 1000)).padStart(3, '0');
-    out.innerHTML = '+ ' + addStr + ' → <strong class="text-amber">' + newKm + '</strong>';
+    var ultimo = travParseKm(km);
+    if (ultimo <= 0) { out.textContent = 'Km non valido (es: 162+800)'; return; }
+    var nuovoKm = ultimo + add;
+    out.innerHTML = '+ ' + addStr + ' → <strong class="text-amber">' + travFmtKm(nuovoKm) + '</strong>';
   }
   // Calc add line from traverse calculator
   document.addEventListener('click', function (ev) {
@@ -563,13 +576,13 @@
     if (!el) return;
     var side = el.getAttribute('data-side');
     var km = document.getElementById('trav-km').value.trim();
-    var n = parseFloat(document.getElementById('trav-n').value.replace(',', '.')) || 0;
+    var n = parseInt(document.getElementById('trav-n').value, 10) || 0;
     var ta = document.getElementById('mockup-editor-input');
     if (!km || !ta) return;
-    var m = km.match(/^(\d+)\+(\d+)/);
-    if (!m) return;
-    var totalM = parseInt(m[1], 10) * 1000 + parseInt(m[2], 10) + (n * 0.6);
-    var newKm = Math.floor(totalM / 1000) + '+' + String(Math.round(totalM % 1000)).padStart(3, '0');
+    var ultimo = travParseKm(km);
+    if (ultimo <= 0) return;
+    var nuovoKmExact = ultimo + (n * 0.6);
+    var newKm = travFmtKm(nuovoKmExact);
     var lineDX = newKm + ' DX TR';
     var lineSX = newKm + ' SX TR';
     var add = side === 'dx' ? lineDX : side === 'sx' ? lineSX : lineDX + '\n' + lineSX;
