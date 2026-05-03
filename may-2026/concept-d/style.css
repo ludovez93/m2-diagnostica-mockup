@@ -4182,6 +4182,7 @@ button[data-action="add-elemento"] {
   font-size: 16px;
   line-height: 1.7;
   letter-spacing: 0;
+  font-weight: 600;
   padding: 14px 16px;
   margin: 0;
   border: 0;
@@ -4232,13 +4233,35 @@ button[data-action="add-elemento"] {
 }
 
 /* v=31 — Token in line allineati col textarea (no padding/box, solo colore+peso) */
-.editor-highlight .tok-km { color: #22D3EE; font-weight: 700; background: transparent; padding: 0; border: 0; border-radius: 0; }
-.editor-highlight .tok-lato { color: var(--accent-amber); font-weight: 700; background: transparent; padding: 0; border: 0; border-radius: 0; }
-.editor-highlight .tok-tipo { color: var(--color-success-alt); font-weight: 600; background: transparent; padding: 0; border: 0; border-radius: 0; }
-.editor-highlight .tok-codice { color: var(--color-danger); font-weight: 700; background: transparent; padding: 0; border: 0; border-radius: 0; }
-.editor-highlight .tok-n { color: var(--color-warn-alt, #FFB74D); font-weight: 700; background: transparent; padding: 0; border: 0; border-radius: 0; }
-.editor-highlight .tok-data { color: var(--text-muted); font-weight: 400; background: transparent; padding: 0; border: 0; border-radius: 0; }
-.editor-highlight .tok-op { color: var(--color-success-alt); font-weight: 700; background: transparent; padding: 0; border: 0; border-radius: 0; }
-.editor-highlight .tok-sub { color: var(--text-secondary); font-weight: 400; background: transparent; padding: 0; border: 0; border-radius: 0; }
-.editor-highlight .tok-sep { color: var(--accent-amber); font-weight: 700; background: transparent; padding: 0; border: 0; border-radius: 0; }
-.editor-highlight .tok-plain { color: var(--text-body); font-weight: 400; background: transparent; padding: 0; border: 0; border-radius: 0; }
+/* Tutti i token: STESSA font-weight + STESSA font-size del base.
+   Differenza solo via color, così textarea trasparente e highlight hanno
+   metriche identiche carattere-per-carattere → cursore allineato. */
+.editor-highlight .tok-km,
+.editor-highlight .tok-lato,
+.editor-highlight .tok-tipo,
+.editor-highlight .tok-codice,
+.editor-highlight .tok-n,
+.editor-highlight .tok-data,
+.editor-highlight .tok-op,
+.editor-highlight .tok-sub,
+.editor-highlight .tok-sep,
+.editor-highlight .tok-plain {
+  font-weight: 600;
+  font-size: inherit;
+  font-family: inherit;
+  background: transparent;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  letter-spacing: 0;
+}
+.editor-highlight .tok-km { color: #22D3EE; }
+.editor-highlight .tok-lato { color: var(--accent-amber); }
+.editor-highlight .tok-tipo { color: var(--color-success-alt); }
+.editor-highlight .tok-codice { color: var(--color-danger); }
+.editor-highlight .tok-n { color: var(--color-warn-alt, #FFB74D); }
+.editor-highlight .tok-data { color: var(--text-muted); }
+.editor-highlight .tok-op { color: var(--color-success-alt); }
+.editor-highlight .tok-sub { color: var(--text-secondary); }
+.editor-highlight .tok-sep { color: var(--accent-amber); }
+.editor-highlight .tok-plain { color: var(--text-body); }

@@ -507,13 +507,25 @@
     hl.scrollTop = ta.scrollTop;
     updateCounters();
   }
-  // Sync scroll dei due
+  // Sync scroll dei due (entrambi assi)
+  function syncEditorScroll() {
+    var ta = document.getElementById('mockup-editor-input');
+    var hl = document.getElementById('mockup-editor-highlight');
+    if (!ta || !hl) return;
+    hl.scrollTop = ta.scrollTop;
+    hl.scrollLeft = ta.scrollLeft;
+  }
   document.addEventListener('scroll', function (ev) {
-    if (ev.target && ev.target.id === 'mockup-editor-input') {
-      var hl = document.getElementById('mockup-editor-highlight');
-      if (hl) hl.scrollTop = ev.target.scrollTop;
-    }
+    if (ev.target && ev.target.id === 'mockup-editor-input') syncEditorScroll();
   }, true);
+  document.addEventListener('input', function (ev) {
+    if (ev.target && ev.target.id === 'mockup-editor-input') {
+      // Doppio rAF per assicurarsi che il browser abbia aggiornato il textarea
+      requestAnimationFrame(function () {
+        requestAnimationFrame(syncEditorScroll);
+      });
+    }
+  });
   function syncLastKm() {
     var ta = document.getElementById('mockup-editor-input');
     var travKm = document.getElementById('trav-km');
