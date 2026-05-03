@@ -3332,3 +3332,321 @@ fieldset.scheda-section legend { padding: 0 8px; }
 
 /* Editor notte: separator binario colorato */
 .night-editor-line--sep { color: var(--accent-amber); }
+
+/* =========================================================================
+   G. DESIGN SYSTEM CONSISTENCY PASS — 2026-05
+   Override globale per uniformare radius / spacing / hover / typography
+   su tutti i container, dopo che le modifiche puntuali precedenti hanno
+   lasciato incoerenze. Questo blocco è la single source of truth finale.
+   ========================================================================= */
+
+/* --- G.1 — RADIUS UNIFORMI ----------------------------------------------- */
+
+/* Container card grandi (≥150px width, padding ≥10px, border 1px) → 12px */
+.cmd-stasera,
+.wa-card,
+.login-card,
+.scheda-section,
+.sig-canvas-wrap,
+.cant-info-kv,
+.kv,
+.night-editor,
+.night-calc,
+.night-numpad,
+.numpad,
+.element-card,
+.binario-card,
+.cantiere-card,
+.cantiere-link-card,
+.group,
+.stat,
+.ident,
+.cant-hero,
+.cant-progress,
+.hero-difetti,
+.hero-difetti-cta,
+.cant-menu-panel,
+.scheda-grid,
+.cal-head,
+.cal-grid,
+.binario-form,
+.user-card,
+.search-bar > .input-wrap,
+.skel { border-radius: 12px; }
+
+/* Hero-difetti + CTA collegata: il CTA visivamente proseguente perde i top-corners */
+.hero-difetti { border-radius: 12px 12px 0 0; }
+.hero-difetti-cta { border-radius: 0 0 12px 12px; }
+
+/* Cant-progress quando segue cant-hero senza gap: continua il radius bottom */
+.cant-progress { border-radius: 0 0 12px 12px; }
+
+/* Container medi / tabelle / righe con border 1px → 10px */
+.table,
+.input-with-suffix,
+.segmented,
+.toast,
+.cant-progress-hero,
+.cal-grid-compact,
+.toggle .toggle-track,
+.input,
+select.input,
+textarea.input,
+input[type="text"],
+input[type="number"],
+input[type="time"],
+input[type="date"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+input[type="tel"],
+input[type="url"] { border-radius: 10px; }
+
+/* Sticky bottom bars: NESSUN radius (sono al bordo bottom dello schermo) */
+.sticky-foot,
+.form-foot,
+.night-cta-bottom,
+.scheda-foot,
+.warning-popover,
+.nav { border-radius: 0; }
+
+/* Sheet bottom-up: top rounded only (16px = sheet style) */
+.sheet { border-radius: 16px 16px 0 0; overflow: hidden; }
+.sheet-overlay > .sheet { border-radius: 16px 16px 0 0; }
+.modal-full,
+.modal-full > .sheet,
+.sheet.modal-full { border-radius: 0; } /* fullscreen no radius */
+
+/* Mini bottoni / chips compatti / pill rotonde / numpad keys */
+.btn-primary,
+.btn-secondary,
+.btn-ghost,
+.btn-danger,
+.btn-icon,
+.btn-mini,
+.cmd-cta,
+.stasera-cta,
+.item-cta,
+.scheda-tab,
+.step-tab,
+.nav-tab,
+.mese-nav-btn,
+.mese-today-btn,
+.numkey-ok,
+.cant-conf-edit,
+.night-bar .end-btn,
+.page-head .back,
+.sheet-head .close,
+.pin-back { border-radius: 8px; }
+
+/* Pill rotonde testuali / chip filtri / status pill */
+.pill,
+.chip,
+.filter-chip,
+.status-pill,
+.pill-radio-label,
+.cmd-line,
+.night-binario-pill,
+.el-tag,
+.element-card .el-tag { border-radius: 999px; }
+
+/* Avatar sempre cerchio */
+.ident-avatar,
+.user-avatar,
+.d-header-avatar,
+.row-dot,
+.cal-day .dot,
+.legend-item .dot,
+.save-dot { border-radius: 50%; }
+
+/* numpad/numkey: il container è arrotondato + clip; le celle interne stay flat */
+.numpad,
+.night-numpad { overflow: hidden; }
+.numkey,
+.night-numpad-key { border-radius: 0; }
+
+/* --- G.2 — IDENT-AVATAR FIX (era quadrato + gradient amber/arancio) ----- */
+.ident-avatar {
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-amber) 0%, #1E40AF 100%);
+  color: #FFFFFF;
+}
+
+/* --- G.3 — RIMOZIONE CAPS + LETTER-SPACING WIDE RESIDUI ------------------ */
+/* Nessuna parola intera in caps. Sigle tecniche (LP/CA/DX/SX/OK/DAC/RFI)
+   gestite caso per caso con .uc inline. */
+.day-circle { text-transform: none; letter-spacing: 0.01em; }
+.scheda-section-title .meta { text-transform: none; letter-spacing: 0; }
+.step-indicator { letter-spacing: 0.04em; }
+.cant-menu-trigger { letter-spacing: 0; }
+
+/* --- G.4 — HOVER / ACTIVE COERENTI SU TUTTI I BUTTON --------------------- */
+button:not(:disabled),
+.row,
+.user-card,
+.kv-row.clickable,
+.cant-menu-item,
+.cant-notti-row {
+  transition: background 150ms ease, border-color 150ms ease,
+              transform 80ms ease, color 150ms ease;
+}
+
+@media (hover: hover) {
+  .btn-primary:hover    { filter: brightness(1.08); }
+  .btn-secondary:hover  { background: var(--accent-amber-soft); }
+  .btn-ghost:hover      { background: rgba(255,255,255,0.04); }
+  .btn-danger:hover     { filter: brightness(1.08); }
+  .btn-icon:hover       { background: var(--bg-surface); }
+  .btn-mini:hover       { background: var(--accent-amber-soft); }
+  .row:hover,
+  .user-card:hover,
+  .cant-menu-item:hover,
+  .cant-notti-row:hover { background: rgba(255,255,255,0.04); }
+  .nav-tab:hover        { background: rgba(255,255,255,0.03); }
+  .chip:hover           { background: var(--bg-surface); }
+  .pill-radio-label:hover { background: var(--accent-amber-soft); }
+  .scheda-tab:hover,
+  .step-tab:hover       { color: var(--text-primary); }
+  .cmd-cta:hover        { filter: brightness(1.08); }
+  .mese-nav-btn:hover,
+  .mese-today-btn:hover { filter: brightness(1.08); }
+}
+
+/* Active feedback uniforme: lieve scale + bg più scuro */
+.btn-primary:active,
+.btn-secondary:active,
+.btn-ghost:active,
+.btn-danger:active,
+.btn-icon:active,
+.btn-mini:active,
+.cmd-cta:active,
+.mese-today-btn:active,
+.mese-nav-btn:active,
+.numkey:active,
+.night-numpad-key:active,
+.day-circle:active,
+.chip:active,
+.pill-radio-label:active,
+.user-card:active,
+.row:active,
+.cant-menu-item:active,
+.scheda-tab:active,
+.step-tab:active { transform: scale(0.985); }
+
+/* --- G.5 — TOUCH TARGET ≥48px (safety) ----------------------------------- */
+.btn-primary,
+.btn-secondary,
+.btn-ghost,
+.btn-danger,
+.btn-icon,
+.cmd-cta,
+.row,
+.user-card,
+.cant-menu-item,
+.scheda-tab,
+.step-tab,
+.nav-tab,
+.pill-radio-label,
+.numkey,
+.night-numpad-key { min-height: var(--tt); }
+
+/* --- G.6 — SPACING NORMALIZED -------------------------------------------- */
+/* Padding card-style coerente per tutti i container 12px-radius */
+.cmd-stasera,
+.wa-card,
+.login-card,
+.scheda-section,
+.cant-progress,
+.kv,
+.element-card,
+.binario-form,
+.ident,
+.user-card,
+.cant-menu-panel { padding: 14px 16px; }
+
+.night-editor,
+.night-calc,
+.sig-canvas-wrap { padding: 14px; }
+
+/* Tabella row padding standard */
+.table .row,
+.table .table-head { padding: 12px 14px; }
+
+/* Gap tra elementi correlati uniformato a 8px dove non sia già più piccolo */
+.btn-row,
+.input-row,
+.input-row-3,
+.day-circles,
+.cant-head-actions,
+.sig-actions,
+.sheet-foot,
+.form-foot,
+.scheda-foot { gap: 8px; }
+
+/* --- G.7 — BORDER COLOR NORMALIZATION ------------------------------------ */
+/* Container generici devono usare border-default neutro, non amber.
+   Amber resta solo per: CTA primary, hero card attiva, stati attivi.   */
+.scheda-section,
+.cant-progress,
+.cant-info-kv,
+.kv,
+.element-card,
+.binario-form,
+.user-card,
+.input-with-suffix,
+.segmented,
+.table,
+.toast,
+.cal-head,
+.cal-grid,
+.scheda-grid,
+.search-bar,
+.skel,
+.binario-card,
+.hero-difetti { border-color: var(--border-default); }
+
+/* --- G.8 — TYPOGRAPHY NORMALIZATION -------------------------------------- */
+/* Assicura body Inter 14px peso 400-500 dove non già definito */
+.cant-bin-name { letter-spacing: 0; text-transform: none; }
+.cant-chip-lab,
+.cant-chip-val { letter-spacing: 0; text-transform: none; }
+
+/* Heading sect-q: peso 500 sub-section */
+.sect-q { font-weight: 500; letter-spacing: 0; text-transform: none; }
+
+/* User-meta: era mono uppercase per il sigla — qui in chiaro */
+.user-meta { letter-spacing: 0; text-transform: none; font-family: var(--ff-display); }
+
+/* Logo-mark login: la sigla "M2" può restare leggermente spaziata (sigla tecnica) */
+.login-brand .logo-mark { letter-spacing: 0.04em; border-radius: 10px; }
+.user-sigla { border-radius: 8px; letter-spacing: 0.02em; }
+
+/* --- G.9 — STICKY BARS BG COERENTE --------------------------------------- */
+.sticky-foot,
+.form-foot,
+.night-cta-bottom,
+.scheda-foot,
+.nav { background: rgba(15,15,15,0.97); border-top: 1px solid var(--border-default); }
+
+/* --- G.10 — HEADLAMP MODE COMPATIBILITY ---------------------------------- */
+/* Mantieni gli override già definiti, ma assicura che il radius non cambi */
+html.headlamp-mode .btn-primary,
+html.headlamp-mode .btn-secondary,
+html.headlamp-mode .btn-ghost,
+html.headlamp-mode .btn-danger,
+html.headlamp-mode .cmd-cta { border-radius: 8px; }
+html.headlamp-mode .ident-avatar { border-radius: 50%; }
+
+/* --- G.11 — SAFETY: mai uppercase su parole intere ----------------------- */
+/* Eccetto chi ha .uc esplicito (sigle tecniche brevi) */
+.cant-bin-name,
+.cant-chip-lab,
+.scheda-section-title,
+.row-name,
+.user-name,
+.ident-name,
+.cant-head-name,
+.d-header-greet,
+.pref-row-label,
+.kv-row .k { text-transform: none; }
+
