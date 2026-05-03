@@ -73,101 +73,84 @@
 <!-- NEED_CLASS: .col-km / .col-lato / .col-tipo / .col-stato / .col-scheda (allineamento) -->
 <!-- NEED_CLASS: .scheda-mark (✓ verde compilata / "—" muted) -->
 
-<details class="group" open>
-  <summary class="sect sect-q group-summary">
-    <span>▸ DISPARI · 11 SALD</span>
-    <span class="text-muted">▾</span>
-  </summary>
-  <div class="table table-sald">
-    <div class="table-head">
-      <div class="col-km">KM</div>
-      <div class="col-lato">LATO</div>
-      <div class="col-tipo">TIPO</div>
-      <div class="col-stato">STATO</div>
-      <div class="col-scheda right">SCHEDA</div>
-    </div>
+<div class="sect sect-q">
+  <span>Saldature controllate · 16</span>
+  <span class="text-muted">11 dispari · 5 pari</span>
+</div>
 
-    <button class="row row-sald is-diff" type="button" data-action="open-scheda" data-id="d1">
-      <div class="col-km">165+700</div>
-      <div class="col-lato">DX</div>
-      <div class="col-tipo">211</div>
-      <div class="col-stato"><span class="pill pill-danger">DIFF</span></div>
-      <div class="col-scheda right scheda-mark text-green">✓</div>
-    </button>
-
-    <button class="row row-sald" type="button" data-action="open-saldatura" data-id="s2">
-      <div class="col-km">166+450</div>
-      <div class="col-lato">SX</div>
-      <div class="col-tipo">TR</div>
-      <div class="col-stato"><span class="pill pill-green">OK</span></div>
-      <div class="col-scheda right scheda-mark text-muted">—</div>
-    </button>
-
-    <button class="row row-sald is-diff" type="button" data-action="open-scheda" data-id="d2">
-      <div class="col-km">167+200</div>
-      <div class="col-lato">DX</div>
-      <div class="col-tipo">113</div>
-      <div class="col-stato"><span class="pill pill-danger">DIFF</span></div>
-      <div class="col-scheda right scheda-mark text-muted">—</div>
-    </button>
-
-    <button class="row row-sald" type="button" data-action="open-saldatura" data-id="s4">
-      <div class="col-km">167+800</div>
-      <div class="col-lato">SX</div>
-      <div class="col-tipo">ALL</div>
-      <div class="col-stato"><span class="pill pill-green">OK</span></div>
-      <div class="col-scheda right scheda-mark text-muted">—</div>
-    </button>
-
-    <button class="row row-sald is-ndc" type="button" data-action="open-saldatura" data-id="s5">
-      <div class="col-km">168+150</div>
-      <div class="col-lato">DX</div>
-      <div class="col-tipo">N TR</div>
-      <div class="col-stato"><span class="pill pill-warn">NDC</span></div>
-      <div class="col-scheda right scheda-mark text-muted">—</div>
-    </button>
-
-    <button class="row row-sald" type="button" data-action="open-saldatura" data-id="s6">
-      <div class="col-km">169+300</div>
-      <div class="col-lato">SX</div>
-      <div class="col-tipo">TR</div>
-      <div class="col-stato"><span class="pill pill-green">OK</span></div>
-      <div class="col-scheda right scheda-mark text-muted">—</div>
-    </button>
+<div class="table table-sald">
+  <div class="table-head" style="grid-template-columns: 60px 1fr auto 60px 36px;">
+    <div>Km</div>
+    <div>Bin / Lato</div>
+    <div>Tipo</div>
+    <div class="right">Stato</div>
+    <div class="right">I.1</div>
   </div>
-</details>
 
-<details class="group">
-  <summary class="sect sect-q group-summary">
-    <span>▸ PARI · 5 SALD</span>
-    <span class="text-muted">▸</span>
-  </summary>
-  <div class="table table-sald">
-    <div class="table-head">
-      <div class="col-km">KM</div>
-      <div class="col-lato">LATO</div>
-      <div class="col-tipo">TIPO</div>
-      <div class="col-stato">STATO</div>
-      <div class="col-scheda right">SCHEDA</div>
-    </div>
+  <button class="row row-sald is-diff" type="button" data-action="open-scheda" data-id="d1" style="grid-template-columns: 60px 1fr auto 60px 36px;">
+    <div class="col-km">165+700</div>
+    <div><span class="pill pill-mute">DISP</span> · DX</div>
+    <div class="col-tipo">211</div>
+    <div class="right"><span class="pill pill-danger">DIFF</span></div>
+    <div class="right scheda-mark text-green">✓</div>
+  </button>
 
-    <button class="row row-sald is-diff" type="button" data-action="open-scheda" data-id="d3">
-      <div class="col-km">170+100</div>
-      <div class="col-lato">SX</div>
-      <div class="col-tipo">211</div>
-      <div class="col-stato"><span class="pill pill-danger">DIFF</span></div>
-      <div class="col-scheda right scheda-mark text-muted">—</div>
-    </button>
+  <button class="row row-sald" type="button" data-action="open-saldatura" data-id="s2" style="grid-template-columns: 60px 1fr auto 60px 36px;">
+    <div class="col-km">166+450</div>
+    <div><span class="pill pill-mute">DISP</span> · SX</div>
+    <div class="col-tipo">TR</div>
+    <div class="right"><span class="pill pill-green">OK</span></div>
+    <div class="right scheda-mark text-muted">—</div>
+  </button>
 
-    <button class="row row-sald" type="button" data-action="open-saldatura" data-id="s8">
-      <div class="col-km">170+800</div>
-      <div class="col-lato">DX</div>
-      <div class="col-tipo">TR</div>
-      <div class="col-stato"><span class="pill pill-green">OK</span></div>
-      <div class="col-scheda right scheda-mark text-muted">—</div>
-    </button>
-  </div>
-</details>
+  <button class="row row-sald is-diff" type="button" data-action="open-scheda" data-id="d2" style="grid-template-columns: 60px 1fr auto 60px 36px;">
+    <div class="col-km">167+200</div>
+    <div><span class="pill pill-mute">DISP</span> · DX</div>
+    <div class="col-tipo">113</div>
+    <div class="right"><span class="pill pill-danger">DIFF</span></div>
+    <div class="right scheda-mark text-muted">—</div>
+  </button>
+
+  <button class="row row-sald" type="button" data-action="open-saldatura" data-id="s4" style="grid-template-columns: 60px 1fr auto 60px 36px;">
+    <div class="col-km">167+800</div>
+    <div><span class="pill pill-mute">DISP</span> · SX</div>
+    <div class="col-tipo">ALL</div>
+    <div class="right"><span class="pill pill-green">OK</span></div>
+    <div class="right scheda-mark text-muted">—</div>
+  </button>
+
+  <button class="row row-sald is-ndc" type="button" data-action="open-saldatura" data-id="s5" style="grid-template-columns: 60px 1fr auto 60px 36px;">
+    <div class="col-km">168+150</div>
+    <div><span class="pill pill-mute">DISP</span> · DX</div>
+    <div class="col-tipo">TR</div>
+    <div class="right"><span class="pill pill-warn">NDC</span></div>
+    <div class="right scheda-mark text-muted">—</div>
+  </button>
+
+  <button class="row row-sald" type="button" data-action="open-saldatura" data-id="s6" style="grid-template-columns: 60px 1fr auto 60px 36px;">
+    <div class="col-km">169+300</div>
+    <div><span class="pill pill-mute">DISP</span> · SX</div>
+    <div class="col-tipo">TR</div>
+    <div class="right"><span class="pill pill-green">OK</span></div>
+    <div class="right scheda-mark text-muted">—</div>
+  </button>
+
+  <button class="row row-sald is-diff" type="button" data-action="open-scheda" data-id="d3" style="grid-template-columns: 60px 1fr auto 60px 36px;">
+    <div class="col-km">170+100</div>
+    <div><span class="pill pill-mute">PARI</span> · SX</div>
+    <div class="col-tipo">211</div>
+    <div class="right"><span class="pill pill-danger">DIFF</span></div>
+    <div class="right scheda-mark text-muted">—</div>
+  </button>
+
+  <button class="row row-sald" type="button" data-action="open-saldatura" data-id="s8" style="grid-template-columns: 60px 1fr auto 60px 36px;">
+    <div class="col-km">170+800</div>
+    <div><span class="pill pill-mute">PARI</span> · DX</div>
+    <div class="col-tipo">TR</div>
+    <div class="right"><span class="pill pill-green">OK</span></div>
+    <div class="right scheda-mark text-muted">—</div>
+  </button>
+</div>
 
 <!-- ─────────────────────────────────────────────────────────────────────
      RIEPILOGO WHATSAPP
@@ -187,18 +170,15 @@
     <div class="sect sect-q">
       <span>▸ FORMATO M2</span>
     </div>
-    <pre class="wa-pre">M2 · 13→14 APR · LASPEZIA-ARCOLA
-─────────────────────────────
-SALD: 16 (DISP 11 / PARI 5)
-OK:    12
-DIFF:   3 → schede I.1 in corso
-NDC:    2
-TEMPO: 145m
-
-DIFETTI:
-- 165+700 DX · 211
-- 167+200 DX · 113
-- 170+100 SX · 211</pre>
+    <pre class="wa-pre">Notte 13 → 14 Aprile 2026
+Linea: 33/26 La Spezia - Arcola
+Binario: DISPARI E PARI
+Da Km: 171+000
+a Km: 161+000
+Operatori: LP CA
+Km percorsi: 8.50
+Saldature controllate: 16
+Saldature difettose: 3 + 2 No DAC</pre>
     <button class="btn-secondary btn-block wa-copy" type="button" data-action="copy-wa" data-format="m2">COPIA</button>
   </div>
 
@@ -206,14 +186,17 @@ DIFETTI:
     <div class="sect sect-q">
       <span>▸ FORMATO GFC</span>
     </div>
-    <pre class="wa-pre">GFC · 13/14-04
-LASPEZIA-ARCOLA
-Saldature: 16
-- OK: 12
-- Difetti: 3 (1 scheda)
-- NDC: 2
-Tempo lavoro: 2h 25m
-Tratta SARZ-LASP</pre>
+    <pre class="wa-pre">M2 CONTROLLO SALDATURE
+13 Aprile 2026
+Linea: La Spezia Arcola
+Binario DISPARI E PARI
+Da km 171+000
+A km 161+000
+Nr. Saldature controllate: 16
+Nr. Saldature difettose: 3
+167+200 DX alluminotermica
+170+100 SX alluminotermica
+165+700 DX scintillio</pre>
     <button class="btn-secondary btn-block wa-copy" type="button" data-action="copy-wa" data-format="gfc">COPIA</button>
   </div>
 </details>

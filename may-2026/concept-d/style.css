@@ -2105,17 +2105,36 @@ html.headlamp-mode .login-crt::after { background: none; }
   color: var(--text-primary);
   font-feature-settings: 'tnum' 1;
 }
-.night-editor-tok--km { color: var(--accent-amber); font-weight: 700; }
-.night-editor-tok--lato { color: var(--text-secondary); }
-.night-editor-tok--codice {
-  color: var(--color-danger);
+.night-editor-tok--km { color: #22D3EE; font-weight: 700; }
+.night-editor-tok--lato {
+  color: var(--accent-amber);
   font-weight: 700;
-  border: 1px solid rgba(239,68,68,0.4);
-  padding: 0 4px;
+  background: rgba(59,130,246,0.12);
+  padding: 1px 6px;
+  border-radius: 4px;
 }
-.night-editor-tok--tipo { color: var(--color-success-alt); }
-.night-editor-tok--data { color: var(--text-muted); }
-.night-editor-tok--op { color: var(--accent-amber); }
+.night-editor-tok--codice {
+  color: #fff;
+  font-weight: 700;
+  background: var(--color-danger);
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+.night-editor-tok--tipo {
+  color: var(--color-success-alt);
+  font-weight: 600;
+  background: rgba(38,166,154,0.12);
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+.night-editor-tok--data { color: var(--text-muted); font-size: 11px; }
+.night-editor-tok--op {
+  color: var(--color-success-alt);
+  font-weight: 700;
+  background: rgba(38,166,154,0.12);
+  padding: 1px 6px;
+  border-radius: 4px;
+}
 .night-editor-tok--sub {
   font-size: var(--fs-xs);
   color: var(--text-secondary);
