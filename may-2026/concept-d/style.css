@@ -3287,3 +3287,48 @@ fieldset.scheda-section legend { padding: 0 8px; }
 .day-circle { border-radius: 50% !important; }
 .chip { border-radius: 999px !important; }
 .toggle-track { border-radius: 999px !important; }
+
+/* ============================================================
+   FIX RADIUS RESIDUI v=12
+   ============================================================ */
+.wa-card { border-radius: 12px !important; overflow: hidden; padding: 12px; margin-top: 8px; }
+.wa-card .sect, .wa-card .sect-q { padding-left: 0; padding-right: 0; }
+.wa-pre { border-radius: 8px !important; }
+.sig-canvas-wrap { border-radius: 12px !important; padding: 14px !important; }
+.night-numpad { border-radius: 12px !important; overflow: hidden; }
+.night-head-row-2 { border-radius: 0; padding: 6px 0; }
+/* sticky-foot, form-foot, night-cta-bottom restano flat: sono bar fixed */
+.sticky-foot, .form-foot, .night-cta-bottom {
+  background: rgba(15,15,15,0.97);
+  border-top: 1px solid var(--border-subtle);
+}
+
+/* ============================================================
+   LISTA SALDATURE — semplifica multicolore
+   - Pill "Disp"/"Pari" rimossa visivamente (mantenuta come testo neutro)
+   - Stato pill: solo colore semantico (verde/rosso/giallo)
+   - Border-left colorato della riga indica stato
+   ============================================================ */
+.row-sald .pill-mute {
+  background: transparent !important;
+  color: var(--text-muted) !important;
+  padding: 0 !important;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none !important;
+  font-size: 12px;
+  border: 0 !important;
+}
+.row-sald.is-diff { border-left: 3px solid var(--color-danger); padding-left: 11px; }
+.row-sald.is-ndc { border-left: 3px solid var(--color-warn-alt, #FFB74D); padding-left: 11px; }
+.row-sald:not(.is-diff):not(.is-ndc) { border-left: 3px solid transparent; padding-left: 11px; }
+.row-sald .col-tipo { color: var(--text-secondary); font-family: var(--ff-mono); font-size: 12px; }
+.row-sald.is-diff .col-tipo { color: var(--color-danger); font-weight: 700; }
+
+/* Counter strip notte / risultati: numeri colorati */
+.fbar-cell.green strong { color: var(--color-success-alt) !important; }
+.fbar-cell.danger strong { color: var(--color-danger) !important; }
+.fbar-cell.amber strong { color: var(--color-warn-alt, #FFB74D) !important; }
+
+/* Editor notte: separator binario colorato */
+.night-editor-line--sep { color: var(--accent-amber); }
