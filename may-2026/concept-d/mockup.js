@@ -486,22 +486,23 @@
     }
   }
   function colorizeEditor() {
-    var ed = document.getElementById('mockup-editor-live');
-    if (!ed) return;
-    var off = getCaretOffset(ed);
-    var text = ed.innerText.replace(/​/g, '');
-    var lines = text.split('\n');
-    var html = lines.map(function (l) { return '<div class="ed-line">' + tokenize(l) + '</div>'; }).join('');
-    if (ed.innerHTML !== html) {
-      ed.innerHTML = html;
-      try { setCaretOffset(ed, off); } catch (e) {}
+    var ta = document.getElementById('mockup-editor-input');
+    var preview = document.getElementById('mockup-editor-preview');
+    if (!ta || !preview) return;
+    var lines = ta.value.split('\n');
+    if (lines.length === 0 || (lines.length === 1 && !lines[0].trim())) {
+      preview.innerHTML = '';
+    } else {
+      preview.innerHTML = lines.filter(function(l){return l.trim();}).map(function (l) {
+        return '<div class="ed-line">' + tokenize(l) + '</div>';
+      }).join('');
     }
     updateCounters();
   }
   function updateCounters() {
-    var ed = document.getElementById('mockup-editor-live');
-    if (!ed) return;
-    var lines = ed.innerText.split('\n').map(function (l) { return l.trim(); }).filter(Boolean);
+    var ta = document.getElementById('mockup-editor-input');
+    if (!ta) return;
+    var lines = ta.value.split('\n').map(function (l) { return l.trim(); }).filter(Boolean);
     var controllate = 0, conformi = 0, difetti = 0, nodac = 0;
     var kmList = [];
     lines.forEach(function (l) {
@@ -538,7 +539,7 @@
     if (el) el.textContent = v;
   }
   document.addEventListener('input', function (ev) {
-    if (ev.target && ev.target.id === 'mockup-editor-live') colorizeEditor();
+    if (ev.target && ev.target.id === 'mockup-editor-input') colorizeEditor();
     if (ev.target && (ev.target.id === 'trav-n' || ev.target.id === 'trav-km')) updateTrav();
   });
   function updateTrav() {
@@ -563,8 +564,8 @@
     var side = el.getAttribute('data-side');
     var km = document.getElementById('trav-km').value.trim();
     var n = parseFloat(document.getElementById('trav-n').value) || 0;
-    var ed = document.getElementById('mockup-editor-live');
-    if (!km || !ed) return;
+    var ta = document.getElementById('mockup-editor-input');
+    if (!km || !ta) return;
     var m = km.match(/^(\d+)\+(\d+)/);
     if (!m) return;
     var totalM = parseInt(m[1], 10) * 1000 + parseInt(m[2], 10) + (n * 0.6);
@@ -572,9 +573,9 @@
     var lineDX = newKm + ' DX TR';
     var lineSX = newKm + ' SX TR';
     var add = side === 'dx' ? lineDX : side === 'sx' ? lineSX : lineDX + '\n' + lineSX;
-    var current = ed.innerText.replace(/​/g, '').replace(/\n+$/, '');
-    ed.innerText = (current ? current + '\n' : '') + add;
-    document.getElementById('trav-km').value = newKm; // aggiorna ultimo km
+    var current = ta.value.replace(/\n+$/, '');
+    ta.value = (current ? current + '\n' : '') + add;
+    document.getElementById('trav-km').value = newKm;
     colorizeEditor();
     ev.preventDefault();
   });
