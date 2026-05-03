@@ -1457,17 +1457,17 @@ select.input:focus-visible,
 /* -------------------------------------------------------------------------
    E1. LOGIN — variant scanline + user select + numpad PIN
    ------------------------------------------------------------------------- */
+/* Soft blue glow centrato — niente più scanline CRT (renderizzava male su iPhone DPR3) */
 .login-crt::after {
   content: '';
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 1;
-  background: repeating-linear-gradient(0deg,
-    rgba(255,255,255,0.025) 0px,
-    rgba(255,255,255,0.025) 1px,
-    transparent 1px,
-    transparent 3px);
+  background: radial-gradient(ellipse at 50% 30%,
+    rgba(59,130,246,0.10) 0%,
+    rgba(59,130,246,0.04) 35%,
+    transparent 70%);
 }
 html.headlamp-mode .login-crt::after { background: none; }
 
