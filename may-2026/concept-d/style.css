@@ -4180,7 +4180,7 @@ button[data-action="add-elemento"] {
 .editor-syntax .editor-real {
   font-family: var(--ff-mono);
   font-size: 16px;
-  line-height: 1.7;
+  line-height: 28px;
   letter-spacing: 0;
   font-weight: 600;
   padding: 14px 16px;
@@ -4189,6 +4189,9 @@ button[data-action="add-elemento"] {
   white-space: pre-wrap;
   word-wrap: break-word;
   overflow-wrap: break-word;
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  font-variant-ligatures: none;
   box-sizing: border-box;
   width: 100%;
   min-height: 200px;
