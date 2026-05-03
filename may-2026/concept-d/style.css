@@ -2862,3 +2862,279 @@ html.headlamp-mode .cal-grid-compact .cal-day { min-height: 48px; }
   border-right: 1px solid var(--border-default);
 }
 
+/* ============================================================
+   SCHEDA I.1 — form lungo (5 sezioni, 23 campi, sticky footer)
+   ------------------------------------------------------------
+   Mood: modernizzato 2026 — Inter dominante, radius 8-12px,
+   blu accent (#3B82F6) come colore primario, no bg amber piene
+   come nei terminal block. Tutto in append: NON modifica classi
+   esistenti (.input, .label, .pill, .pill-group, .pill-radio,
+   .sig-canvas-wrap, .sig-canvas, .sig-placeholder, .scheda-foot).
+   ============================================================ */
+
+/* --- Layout form: wrapper + sezioni --------------------------- */
+.scheda-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+  padding: var(--sp-3) var(--sp-2) calc(var(--tt) + 56px);
+}
+
+.scheda-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.scheda-section-title {
+  font-family: var(--ff-display);
+  font-size: var(--fs-md);
+  font-weight: 600;
+  color: var(--accent-amber);
+  letter-spacing: 0.01em;
+  text-transform: none;
+  padding: 6px 2px 8px;
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-2);
+  min-height: 32px;
+}
+.scheda-section-title .num {
+  font-family: var(--ff-mono);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: var(--ls-wide);
+  margin-right: var(--sp-2);
+}
+.scheda-section-title .meta {
+  font-family: var(--ff-mono);
+  font-size: var(--fs-xxs);
+  color: var(--text-muted);
+  letter-spacing: var(--ls-base);
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+/* --- Riga form: flex base + grid varianti --------------------- */
+.frow {
+  display: flex;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+}
+.frow > .fgroup { flex: 1 1 0; min-width: 0; }
+
+.frow-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-2);
+}
+.frow-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: var(--sp-2);
+}
+.frow-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--sp-2);
+}
+
+/* --- Field group: label sopra, input sotto -------------------- */
+.fgroup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+/* La .fgroup eredita .label e .input gia' definiti dallo scaffold:
+   .label = mono uppercase blu mini, .input = bg-secondary border
+   default focus blu, min-height 48px, padding 12px. Non ridefinisco. */
+
+.field-helper {
+  font-family: var(--ff-display);
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 0.01em;
+  margin-top: 2px;
+  line-height: var(--lh-base);
+}
+
+/* Variante input mono per Km, codici, valori puramente numerici
+   (.input gia' usa --ff-mono di default, ma esplicitiamo per
+   coerenza HTML quando l'agente parallelo applica la classe). */
+.input.mono {
+  font-family: var(--ff-mono);
+  font-feature-settings: 'tnum' 1;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+/* --- Pill radio (single + multi-select) modernizzato ---------- */
+/* L'agente HTML potrebbe generare due pattern alternativi:
+   A) input + label sibling (pill-radio-label) -- definito qui
+   B) input + .pill-radio (gia' definito sopra, righe 2462-2487)
+   Definiamo solo le classi nuove per il pattern A.            */
+
+.pill-radio-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: var(--tt);
+  padding: 10px 14px;
+  background: transparent;
+  border: 1px solid var(--border-default);
+  border-radius: 999px;
+  color: var(--text-body);
+  font-family: var(--ff-display);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
+}
+.pill-radio-label:active {
+  background: var(--accent-amber-soft);
+}
+
+/* radio/checkbox visivamente nascosti — usati come state hook */
+.pill-radio input[type="radio"],
+.pill-radio input[type="checkbox"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Selected: bg blu pieno, soft glow (no animazione infinita) */
+.pill-radio input[type="radio"]:checked + .pill-radio-label,
+.pill-radio input[type="checkbox"]:checked + .pill-radio-label {
+  background: var(--accent-amber);
+  border-color: var(--accent-amber);
+  color: #FFFFFF;
+  box-shadow: 0 0 0 1px var(--accent-amber-bord),
+              0 2px 10px rgba(59,130,246,0.25);
+}
+
+/* Focus ring keyboard (accessibility) */
+.pill-radio:focus-within .pill-radio-label {
+  border-color: var(--accent-amber);
+  box-shadow: 0 0 0 2px var(--accent-amber-bord);
+  outline: none;
+}
+
+/* Pill-dot: pallino mini decorativo / icona check stato.
+   Nel modernizzato 2026 lo teniamo come segnaposto sottile,
+   visibile solo quando lo slot ha contenuto. */
+.pill-dot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 10px;
+  height: 10px;
+  font-family: var(--ff-mono);
+  font-size: 10px;
+  font-weight: 700;
+  color: currentColor;
+  line-height: 1;
+}
+.pill-radio input[type="radio"]:checked + .pill-radio-label .pill-dot,
+.pill-radio input[type="checkbox"]:checked + .pill-radio-label .pill-dot {
+  color: #FFFFFF;
+}
+
+/* Variante multi-select: stessa estetica del single, alias semantico */
+.pill-multi {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* --- Firma: sig-actions + override modernizzato wrap ---------- */
+/* .sig-canvas-wrap, .sig-canvas, .sig-placeholder gia' definiti
+   sopra (righe 2758-2787). Aggiungo solo gli override di radius
+   e padding modernizzati + il nuovo .sig-actions row.            */
+
+.scheda-form .sig-canvas-wrap {
+  border-radius: 10px;
+  padding: var(--sp-3);
+}
+.scheda-form .sig-canvas {
+  max-width: 100%;
+}
+
+.sig-actions {
+  display: flex;
+  gap: var(--sp-2);
+  margin-top: var(--sp-2);
+}
+.sig-actions > * { flex: 1; }
+
+/* --- Tabs Compila / Anteprima -------------------------------- */
+.scheda-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--border-subtle);
+  margin: 0 calc(-1 * var(--app-pad)) var(--sp-3);
+  padding: 0 var(--app-pad);
+  background: var(--bg-primary);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.scheda-tab {
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  color: var(--text-secondary);
+  font-family: var(--ff-display);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  padding: 12px 18px;
+  min-height: var(--tt);
+  cursor: pointer;
+  transition: color 150ms ease, border-color 150ms ease;
+}
+.scheda-tab:active {
+  color: var(--accent-amber);
+}
+.scheda-tab.active {
+  color: var(--accent-amber);
+  border-bottom-color: var(--accent-amber);
+}
+
+/* --- Headlamp Mode override: contrast aumentato, glow off ---- */
+html.headlamp-mode .pill-radio-label {
+  border-color: var(--border-default);
+}
+html.headlamp-mode .pill-radio input[type="radio"]:checked + .pill-radio-label,
+html.headlamp-mode .pill-radio input[type="checkbox"]:checked + .pill-radio-label {
+  box-shadow: 0 0 0 2px var(--accent-amber);
+}
+html.headlamp-mode .scheda-section-title {
+  border-bottom-color: var(--border-default);
+}
+html.headlamp-mode .scheda-tabs {
+  border-bottom-color: var(--border-default);
+}
+html.headlamp-mode .scheda-tab.active {
+  border-bottom-width: 3px;
+}
+html.headlamp-mode .scheda-form .sig-canvas-wrap {
+  border-style: solid;
+  border-color: var(--accent-amber);
+}
+

@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
 
-  <link rel="stylesheet" href="style.css?v=8">
+  <link rel="stylesheet" href="style.css?v=9">
 </head>
 <body>
 
@@ -1849,442 +1849,603 @@
       <!-- =====================================================================
            SCREEN 7 · SCHEDA I.1   (modal-full di compilazione difetto)
            Concept D — Operations Terminal
-           NB: la Scheda I.1 viene mostrata come <section data-screen="scheda">
-               per coerenza DEV nav, ma in produzione è renderizzata dentro
-               <dialog id="modal-scheda"><div class="modal-full">…</div></dialog>
-           Form denso terminal-style · 4 step in tab orizzontali
-           STEP 1 = DIFETTO (visibile)  ·  STEP 2-4 placeholder hidden
+           Riscrittura 2026-05-02: replicato l'ordine campi ESATTO dell'app live
+           (frontend/index.html righe 55-133, overlay #scheda-editor).
+           UNA scheda lunga · 6 sezioni · ~23 campi · niente step indicator.
            ===================================================================== -->
       
       <!-- ─────────────────────────────────────────────────────────────────────
-           HEADER STICKY · close X · titolo amber · step indicator destra
-           Riusa .sheet-head (sfondo amber) come da scaffold modal-full
+           HEADER STICKY · close X · titolo · tabs Compila / Anteprima
            ───────────────────────────────────────────────────────────────────── -->
       <header class="sheet-head" id="scheda-head">
-        <button class="close" type="button" data-action="close-scheda" aria-label="Chiudi scheda">×</button>
-        <span id="scheda-title" style="flex:1; text-align:left; padding-left:8px;">▸ SCHEDA I.1</span>
-        <!-- NEED_CLASS: .step-indicator (mono "STEP N / 4") -->
-        <span class="step-indicator text-mono" aria-live="polite"
-              style="font-family: 'JetBrains Mono', monospace; font-size:10px; font-weight:700; letter-spacing:0.10em;">
-          STEP 1 / 4
+        <button class="close" type="button" data-action="close-scheda" aria-label="Chiudi scheda">&times;</button>
+        <span id="scheda-title" style="flex:1; text-align:left; padding-left:8px;">SCHEDA I.1</span>
+        <span class="ticker" style="padding:0; margin:0; gap:6px;">
+          <span class="ok blink" style="color:#000;">&#9679;</span>
+          <span style="color:#000;">M2-2026-0142</span>
         </span>
       </header>
       
       <!-- ─────────────────────────────────────────────────────────────────────
-           STEP TABS · 4 tab orizzontali · DIFETTO attivo (underline amber)
-           NEED_CLASS: .step-tabs / .step-tab / .step-tab.active
+           TABS Compila / Anteprima
+           Riusa .step-tabs ma con 2 colonne
            ───────────────────────────────────────────────────────────────────── -->
-      <nav class="step-tabs" role="tablist" aria-label="Step compilazione scheda"
-           style="display:grid; grid-template-columns:repeat(4, 1fr);
-                  background:#0A0A0A; border-bottom:1px solid #2D2D2D;
-                  margin:0 -8px;">
+      <!-- NEED_CLASS: .step-tabs--2 → variante 2 colonne (oppure modificare .step-tabs grid-template-columns) -->
+      <nav class="step-tabs" role="tablist" aria-label="Modalità scheda"
+           style="grid-template-columns: repeat(2, 1fr);">
         <button type="button"
                 class="step-tab active"
                 role="tab"
                 aria-selected="true"
-                aria-controls="step-1-panel"
-                data-action="step-tab"
-                data-step="1"
-                style="background:transparent; border:0; border-bottom:2px solid #F0A028;
-                       color:#F0A028; font-family:'JetBrains Mono', monospace;
-                       font-size:10px; font-weight:700; letter-spacing:0.12em;
-                       padding:14px 4px; min-height:48px; text-transform:uppercase;">
-          DIFETTO
+                aria-controls="scheda-form-panel"
+                data-action="scheda-tab"
+                data-tab="form">
+          Compila
         </button>
         <button type="button"
                 class="step-tab"
                 role="tab"
                 aria-selected="false"
-                aria-controls="step-2-panel"
-                data-action="step-tab"
-                data-step="2"
-                style="background:transparent; border:0; border-bottom:2px solid transparent;
-                       color:#777; font-family:'JetBrains Mono', monospace;
-                       font-size:10px; font-weight:700; letter-spacing:0.12em;
-                       padding:14px 4px; min-height:48px; text-transform:uppercase;">
-          BINARIO
-        </button>
-        <button type="button"
-                class="step-tab"
-                role="tab"
-                aria-selected="false"
-                aria-controls="step-3-panel"
-                data-action="step-tab"
-                data-step="3"
-                style="background:transparent; border:0; border-bottom:2px solid transparent;
-                       color:#777; font-family:'JetBrains Mono', monospace;
-                       font-size:10px; font-weight:700; letter-spacing:0.12em;
-                       padding:14px 4px; min-height:48px; text-transform:uppercase;">
-          SALDATURA
-        </button>
-        <button type="button"
-                class="step-tab"
-                role="tab"
-                aria-selected="false"
-                aria-controls="step-4-panel"
-                data-action="step-tab"
-                data-step="4"
-                style="background:transparent; border:0; border-bottom:2px solid transparent;
-                       color:#777; font-family:'JetBrains Mono', monospace;
-                       font-size:10px; font-weight:700; letter-spacing:0.12em;
-                       padding:14px 4px; min-height:48px; text-transform:uppercase;">
-          FIRMA
+                aria-controls="scheda-preview-panel"
+                data-action="scheda-tab"
+                data-tab="preview">
+          Anteprima
         </button>
       </nav>
       
       <!-- ─────────────────────────────────────────────────────────────────────
-           FORM
+           FORM PANEL · UNA scheda lunga, 6 sezioni
            ───────────────────────────────────────────────────────────────────── -->
-      <form id="form-scheda" class="form-scheda" autocomplete="off" novalidate
-            style="padding-bottom:140px;">
+      <form class="form-scheda"
+            id="scheda-form-panel"
+            role="tabpanel"
+            aria-labelledby="scheda-tab-form"
+            data-action="scheda-submit"
+            autocomplete="off"
+            novalidate>
       
-        <!-- =====================================================================
-             STEP 1 · DIFETTO   (visibile)
-             ===================================================================== -->
-        <fieldset class="form-step" data-step="1" id="step-1-panel"
-                  role="tabpanel" aria-labelledby="tab-difetto">
-          <legend class="sect"><span>▸ STEP 1 · DIFETTO</span></legend>
+        <!-- =================================================================
+             SEZIONE 1 · UBICAZIONE
+             ================================================================= -->
+        <fieldset class="form-step">
+          <legend class="sect"><span>Ubicazione</span></legend>
       
-          <!-- riga 1: PROF FESS · W (PERC) -->
-          <div class="input-row">
-            <div class="form-group">
-              <label class="label" for="f-prof">
-                PROF FESS <span class="req">*</span>
-              </label>
-              <!-- NEED_CLASS: .input-with-suffix (input + suffisso unità mono allineato) -->
-              <div class="input-with-suffix"
-                   style="display:grid; grid-template-columns:1fr auto; align-items:stretch;
-                          border:1px solid #2D2D2D; background:#0A0A0A;">
-                <input class="input text-mono" id="f-prof" name="prof_fess"
-                       type="number" inputmode="decimal" step="0.1" min="0"
-                       value="12"
-                       style="border:0; font-size:16px; text-align:right; padding-right:8px;">
-                <span class="text-mono text-muted uc"
-                      style="display:flex; align-items:center; padding:0 12px;
-                             border-left:1px solid #2D2D2D; font-size:12px;">mm</span>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="label" for="f-w">
-                W (PERC) <span class="req">*</span>
-              </label>
-              <div class="input-with-suffix"
-                   style="display:grid; grid-template-columns:1fr auto; align-items:stretch;
-                          border:1px solid #2D2D2D; background:#0A0A0A;">
-                <input class="input text-mono" id="f-w" name="w_perc"
-                       type="number" inputmode="decimal" step="0.1" min="0"
-                       value="25"
-                       style="border:0; font-size:16px; text-align:right; padding-right:8px;">
-                <span class="text-mono text-muted uc"
-                      style="display:flex; align-items:center; padding:0 12px;
-                             border-left:1px solid #2D2D2D; font-size:12px;">mm</span>
-              </div>
-            </div>
-          </div>
-      
-          <!-- riga 2: AMP (ALT) · GUAD -->
-          <div class="input-row">
-            <div class="form-group">
-              <label class="label" for="f-amp">
-                AMP (ALT) <span class="req">*</span>
-              </label>
-              <div class="input-with-suffix"
-                   style="display:grid; grid-template-columns:1fr auto; align-items:stretch;
-                          border:1px solid #2D2D2D; background:#0A0A0A;">
-                <input class="input text-mono" id="f-amp" name="amp_alt"
-                       type="number" inputmode="decimal" step="0.1" min="0"
-                       value="18"
-                       style="border:0; font-size:16px; text-align:right; padding-right:8px;">
-                <span class="text-mono text-muted uc"
-                      style="display:flex; align-items:center; padding:0 12px;
-                             border-left:1px solid #2D2D2D; font-size:12px;">mm</span>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="label" for="f-guad">
-                GUAD <span class="req">*</span>
-              </label>
-              <div class="input-with-suffix"
-                   style="display:grid; grid-template-columns:1fr auto; align-items:stretch;
-                          border:1px solid #2D2D2D; background:#0A0A0A;">
-                <input class="input text-mono" id="f-guad" name="guad"
-                       type="number" inputmode="decimal" step="0.1"
-                       value="8"
-                       style="border:0; font-size:16px; text-align:right; padding-right:8px;">
-                <span class="text-mono text-muted uc"
-                      style="display:flex; align-items:center; padding:0 12px;
-                             border-left:1px solid #2D2D2D; font-size:12px;">Db</span>
-              </div>
-            </div>
-          </div>
-      
-          <!-- riga 3: PALO TE (full) -->
+          <!-- 1. Scheda Nr. -->
           <div class="form-group">
-            <label class="label" for="f-palo">
-              PALO TE <span class="req">*</span>
-            </label>
-            <input class="input text-mono" id="f-palo" name="palo_te"
-                   type="text" inputmode="text"
+            <label class="label" for="scheda_nr">Scheda Nr.</label>
+            <input class="input"
+                   id="scheda_nr"
+                   name="scheda_nr"
+                   type="text"
+                   value="M2-2026-0142"
+                   autocomplete="off"
+                   autocapitalize="characters">
+          </div>
+      
+          <!-- 2. Linea + Localita' (riga 2 col) -->
+          <div class="input-row">
+            <div class="form-group">
+              <label class="label" for="linea">Linea</label>
+              <input class="input"
+                     id="linea"
+                     name="linea"
+                     type="text"
+                     value="33/26 La Spezia - Arcola"
+                     autocomplete="off">
+            </div>
+            <div class="form-group">
+              <label class="label" for="localita">Localita'</label>
+              <input class="input"
+                     id="localita"
+                     name="localita"
+                     type="text"
+                     value="Sarzana"
+                     autocomplete="off">
+            </div>
+          </div>
+      
+          <!-- 3. Tratta -->
+          <div class="form-group">
+            <label class="label" for="tratta">Tratta</label>
+            <input class="input"
+                   id="tratta"
+                   name="tratta"
+                   type="text"
+                   value="Sarzana - La Spezia"
+                   autocomplete="off">
+          </div>
+      
+          <!-- 4. Km + Sede Tecnica (riga 2 col) -->
+          <div class="input-row">
+            <div class="form-group">
+              <label class="label" for="km">Km</label>
+              <input class="input"
+                     id="km"
+                     name="km"
+                     type="text"
+                     inputmode="decimal"
+                     value="165+700"
+                     autocomplete="off">
+            </div>
+            <div class="form-group">
+              <label class="label" for="sede">Sede Tecnica</label>
+              <input class="input"
+                     id="sede"
+                     name="sede"
+                     type="text"
+                     value="DTP Genova"
+                     autocomplete="off">
+            </div>
+          </div>
+        </fieldset>
+      
+        <!-- =================================================================
+             SEZIONE 2 · BINARIO & FILA
+             ================================================================= -->
+        <fieldset class="form-step">
+          <legend class="sect"><span>Binario &amp; Fila</span></legend>
+      
+          <!-- 5. Binario (Unico / Pari / Dispari) -->
+          <div class="form-group">
+            <span class="label" id="lbl-binario">Binario</span>
+            <!-- NEED_CLASS: .pill-group--3 → variante grid-template-columns: repeat(3, 1fr) -->
+            <div class="pill-group"
+                 role="radiogroup"
+                 aria-labelledby="lbl-binario"
+                 style="grid-template-columns: repeat(3, 1fr);">
+              <input class="pill-radio-input" type="radio" name="binario" id="binario-unico" value="unico">
+              <label class="pill-radio" for="binario-unico">Unico</label>
+      
+              <input class="pill-radio-input" type="radio" name="binario" id="binario-pari" value="pari">
+              <label class="pill-radio" for="binario-pari">Pari</label>
+      
+              <input class="pill-radio-input" type="radio" name="binario" id="binario-dispari" value="dispari" checked>
+              <label class="pill-radio" for="binario-dispari">Dispari</label>
+            </div>
+          </div>
+      
+          <!-- 6. Fila (DX / SX) -->
+          <div class="form-group">
+            <span class="label" id="lbl-fila">Fila</span>
+            <!-- NEED_CLASS: .pill-group--2 → variante grid-template-columns: repeat(2, 1fr) -->
+            <div class="pill-group"
+                 role="radiogroup"
+                 aria-labelledby="lbl-fila"
+                 style="grid-template-columns: repeat(2, 1fr);">
+              <input class="pill-radio-input" type="radio" name="fila" id="fila-dx" value="dx" checked>
+              <label class="pill-radio" for="fila-dx">DX</label>
+      
+              <input class="pill-radio-input" type="radio" name="fila" id="fila-sx" value="sx">
+              <label class="pill-radio" for="fila-sx">SX</label>
+            </div>
+          </div>
+      
+          <!-- 7. Tipo Rotaia (E1 / E5 / Altro) -->
+          <div class="form-group">
+            <span class="label" id="lbl-rotaia">Tipo Rotaia</span>
+            <div class="pill-group"
+                 role="radiogroup"
+                 aria-labelledby="lbl-rotaia"
+                 style="grid-template-columns: repeat(3, 1fr);">
+              <input class="pill-radio-input" type="radio" name="rotaia" id="rotaia-e1" value="e1" checked>
+              <label class="pill-radio" for="rotaia-e1">E1 (60UNI)</label>
+      
+              <input class="pill-radio-input" type="radio" name="rotaia" id="rotaia-e5" value="e5">
+              <label class="pill-radio" for="rotaia-e5">E5 (50UNI)</label>
+      
+              <input class="pill-radio-input" type="radio" name="rotaia" id="rotaia-altro" value="altro">
+              <label class="pill-radio" for="rotaia-altro">Altro</label>
+            </div>
+          </div>
+      
+          <!-- 8. Caratteristiche Linea (multi: All'aperto / Galleria / Retta / Curva / C. Alta / C. Bassa) -->
+          <div class="form-group">
+            <span class="label" id="lbl-linea-car">Caratteristiche Linea</span>
+            <!-- NEED_CLASS: .pill-group--multi → grid-template-columns: repeat(3, 1fr); checkbox semantica con stesso look del pill-radio -->
+            <div class="pill-group"
+                 role="group"
+                 aria-labelledby="lbl-linea-car"
+                 style="grid-template-columns: repeat(3, 1fr);">
+              <input class="pill-radio-input" type="checkbox" name="linea_car" id="lc-aperto" value="aperto" checked>
+              <label class="pill-radio" for="lc-aperto">All'aperto</label>
+      
+              <input class="pill-radio-input" type="checkbox" name="linea_car" id="lc-galleria" value="galleria">
+              <label class="pill-radio" for="lc-galleria">Galleria</label>
+      
+              <input class="pill-radio-input" type="checkbox" name="linea_car" id="lc-retta" value="retta">
+              <label class="pill-radio" for="lc-retta">Retta</label>
+      
+              <input class="pill-radio-input" type="checkbox" name="linea_car" id="lc-curva" value="curva" checked>
+              <label class="pill-radio" for="lc-curva">Curva</label>
+      
+              <input class="pill-radio-input" type="checkbox" name="linea_car" id="lc-calta" value="calta">
+              <label class="pill-radio" for="lc-calta">C. Alta</label>
+      
+              <input class="pill-radio-input" type="checkbox" name="linea_car" id="lc-cbassa" value="cbassa">
+              <label class="pill-radio" for="lc-cbassa">C. Bassa</label>
+            </div>
+          </div>
+        </fieldset>
+      
+        <!-- =================================================================
+             SEZIONE 3 · CARATTERISTICHE DIFETTO
+             ================================================================= -->
+        <fieldset class="form-step">
+          <legend class="sect"><span>Caratteristiche Difetto</span></legend>
+      
+          <!-- 9. Data Scheda -->
+          <div class="form-group">
+            <label class="label" for="data_scheda">Data Scheda</label>
+            <input class="input"
+                   id="data_scheda"
+                   name="data_scheda"
+                   type="text"
+                   inputmode="numeric"
+                   placeholder="GG/MM/AAAA"
+                   value="13/04/2026"
+                   autocomplete="off">
+          </div>
+      
+          <!-- 10. Rivelatore + Sonda -->
+          <div class="input-row">
+            <div class="form-group">
+              <label class="label" for="rivelatore">Rivelatore</label>
+              <input class="input"
+                     id="rivelatore"
+                     name="rivelatore"
+                     type="text"
+                     value="EPOCH 650"
+                     autocomplete="off">
+            </div>
+            <div class="form-group">
+              <label class="label" for="sonda">Sonda</label>
+              <input class="input"
+                     id="sonda"
+                     name="sonda"
+                     type="text"
+                     value="FTA70-2"
+                     autocomplete="off">
+            </div>
+          </div>
+      
+          <!-- 11. Accoppiamento + Fondo Scala + Guadagno -->
+          <div class="input-row-3">
+            <div class="form-group">
+              <label class="label" for="accopp">Accoppiamento</label>
+              <input class="input"
+                     id="accopp"
+                     name="accopp"
+                     type="text"
+                     value="GEL"
+                     autocomplete="off">
+            </div>
+            <div class="form-group">
+              <label class="label" for="fondo_scala">Fondo Scala</label>
+              <input class="input"
+                     id="fondo_scala"
+                     name="fondo_scala"
+                     type="text"
+                     inputmode="decimal"
+                     value="100"
+                     autocomplete="off">
+            </div>
+            <div class="form-group">
+              <label class="label" for="guadagno">Guadagno</label>
+              <input class="input"
+                     id="guadagno"
+                     name="guadagno"
+                     type="text"
+                     inputmode="decimal"
+                     value="8"
+                     autocomplete="off">
+            </div>
+          </div>
+      
+          <!-- 12. Ampiezza % + W mm + W1 mm + W2 mm (riga 4 col) -->
+          <!-- NEED_CLASS: .input-row-4 → grid-template-columns: repeat(4, 1fr); gap 8px -->
+          <div class="input-row-4" style="display:grid; grid-template-columns: repeat(4, 1fr); gap: 8px;">
+            <div class="form-group">
+              <label class="label" for="ampiezza">Ampiezza %</label>
+              <input class="input"
+                     id="ampiezza"
+                     name="ampiezza"
+                     type="text"
+                     inputmode="decimal"
+                     value="75"
+                     autocomplete="off">
+            </div>
+            <div class="form-group">
+              <label class="label" for="w">W mm</label>
+              <input class="input"
+                     id="w"
+                     name="w"
+                     type="text"
+                     inputmode="decimal"
+                     value="25"
+                     autocomplete="off">
+            </div>
+            <div class="form-group">
+              <label class="label" for="w1">W1 mm</label>
+              <input class="input"
+                     id="w1"
+                     name="w1"
+                     type="text"
+                     inputmode="decimal"
+                     value="12"
+                     autocomplete="off">
+            </div>
+            <div class="form-group">
+              <label class="label" for="w2">W2 mm</label>
+              <input class="input"
+                     id="w2"
+                     name="w2"
+                     type="text"
+                     inputmode="decimal"
+                     value="13"
+                     autocomplete="off">
+            </div>
+          </div>
+      
+          <!-- 13. Scostamento + Superficie + Percentuale (riga 3 col) -->
+          <div class="input-row-3">
+            <div class="form-group">
+              <label class="label" for="scost">Scostamento</label>
+              <input class="input"
+                     id="scost"
+                     name="scost"
+                     type="text"
+                     inputmode="decimal"
+                     autocomplete="off">
+            </div>
+            <div class="form-group">
+              <label class="label" for="superfice">Superficie</label>
+              <input class="input"
+                     id="superfice"
+                     name="superfice"
+                     type="text"
+                     autocomplete="off">
+            </div>
+            <div class="form-group">
+              <label class="label" for="percent">Percentuale</label>
+              <input class="input"
+                     id="percent"
+                     name="percent"
+                     type="text"
+                     inputmode="decimal"
+                     autocomplete="off">
+            </div>
+          </div>
+      
+          <!-- 14. Lung. Fessura + Prof. Fessura -->
+          <div class="input-row">
+            <div class="form-group">
+              <label class="label" for="lung_fess">Lung. Fessura</label>
+              <input class="input"
+                     id="lung_fess"
+                     name="lung_fess"
+                     type="text"
+                     inputmode="decimal"
+                     value="8"
+                     autocomplete="off">
+            </div>
+            <div class="form-group">
+              <label class="label" for="prof_fess">Prof. Fessura</label>
+              <input class="input"
+                     id="prof_fess"
+                     name="prof_fess"
+                     type="text"
+                     inputmode="decimal"
+                     value="12"
+                     autocomplete="off">
+            </div>
+          </div>
+      
+          <!-- 15. Codice Difetto + Classificazione -->
+          <div class="input-row">
+            <div class="form-group">
+              <label class="label" for="codice">Codice Difetto</label>
+              <input class="input"
+                     id="codice"
+                     name="codice"
+                     type="text"
+                     inputmode="numeric"
+                     value="211"
+                     autocomplete="off">
+            </div>
+            <div class="form-group">
+              <label class="label" for="classif">Classificazione</label>
+              <input class="input"
+                     id="classif"
+                     name="classif"
+                     type="text"
+                     value="B"
+                     autocomplete="off"
+                     autocapitalize="characters">
+            </div>
+          </div>
+      
+          <!-- 16. Osservazioni (full width) -->
+          <div class="form-group">
+            <label class="label" for="note">Osservazioni</label>
+            <input class="input"
+                   id="note"
+                   name="note"
+                   type="text"
+                   autocomplete="off">
+          </div>
+        </fieldset>
+      
+        <!-- =================================================================
+             SEZIONE 4 · SEGNALAZIONI
+             ================================================================= -->
+        <fieldset class="form-step">
+          <legend class="sect"><span>Segnalazioni</span></legend>
+      
+          <!-- 17. Galileo (Si / No) -->
+          <div class="form-group">
+            <span class="label" id="lbl-galileo">Galileo</span>
+            <div class="pill-group"
+                 role="radiogroup"
+                 aria-labelledby="lbl-galileo"
+                 style="grid-template-columns: repeat(2, 1fr);">
+              <input class="pill-radio-input" type="radio" name="galileo" id="galileo-si" value="si" checked>
+              <label class="pill-radio" for="galileo-si">Si</label>
+      
+              <input class="pill-radio-input" type="radio" name="galileo" id="galileo-no" value="no">
+              <label class="pill-radio" for="galileo-no">No</label>
+            </div>
+          </div>
+      
+          <!-- 18. Saldatura eseguita da (RFI / DITTA) -->
+          <div class="form-group">
+            <span class="label" id="lbl-saldatura">Saldatura eseguita da</span>
+            <div class="pill-group"
+                 role="radiogroup"
+                 aria-labelledby="lbl-saldatura"
+                 style="grid-template-columns: repeat(2, 1fr);">
+              <input class="pill-radio-input" type="radio" name="saldatura" id="sald-rfi" value="rfi">
+              <label class="pill-radio" for="sald-rfi">RFI</label>
+      
+              <input class="pill-radio-input" type="radio" name="saldatura" id="sald-ditta" value="ditta" checked>
+              <label class="pill-radio" for="sald-ditta">DITTA</label>
+            </div>
+          </div>
+      
+          <!-- 19. Porzione SA Ditta (Thermit / Railteck) -->
+          <div class="form-group">
+            <span class="label" id="lbl-sa">Porzione SA Ditta</span>
+            <div class="pill-group"
+                 role="radiogroup"
+                 aria-labelledby="lbl-sa"
+                 style="grid-template-columns: repeat(2, 1fr);">
+              <input class="pill-radio-input" type="radio" name="sa" id="sa-thermit" value="thermit" checked>
+              <label class="pill-radio" for="sa-thermit">Thermit</label>
+      
+              <input class="pill-radio-input" type="radio" name="sa" id="sa-railteck" value="railteck">
+              <label class="pill-radio" for="sa-railteck">Railteck</label>
+            </div>
+          </div>
+        </fieldset>
+      
+        <!-- =================================================================
+             SEZIONE 5 · DATI ESECUZIONE
+             ================================================================= -->
+        <fieldset class="form-step">
+          <legend class="sect"><span>Dati Esecuzione</span></legend>
+      
+          <!-- 20. Ditta Esecutrice -->
+          <div class="form-group">
+            <label class="label" for="ditta">Ditta Esecutrice</label>
+            <input class="input"
+                   id="ditta"
+                   name="ditta"
+                   type="text"
+                   value="M2 Rail Group"
+                   autocomplete="off">
+          </div>
+      
+          <!-- 21. Data Esecuzione + N. Punzone -->
+          <div class="input-row">
+            <div class="form-group">
+              <label class="label" for="data_ese">Data Esecuzione</label>
+              <input class="input"
+                     id="data_ese"
+                     name="data_ese"
+                     type="text"
+                     inputmode="numeric"
+                     placeholder="MM/AAAA"
+                     value="03/2018"
+                     autocomplete="off">
+            </div>
+            <div class="form-group">
+              <label class="label" for="punzone">N. Punzone</label>
+              <input class="input"
+                     id="punzone"
+                     name="punzone"
+                     type="text"
+                     inputmode="numeric"
+                     value="447"
+                     autocomplete="off">
+            </div>
+          </div>
+      
+          <!-- 22. Palo T.E. N. -->
+          <div class="form-group">
+            <label class="label" for="palo_te">Palo T.E. N.</label>
+            <input class="input"
+                   id="palo_te"
+                   name="palo_te"
+                   type="text"
                    value="12B"
-                   placeholder="ES. 12B"
-                   style="font-size:16px;">
+                   autocomplete="off">
           </div>
       
-          <!-- riga 4: SONDA pill group radio (3 voci) NON SELEZIONATO -->
-          <div class="form-group">
-            <span class="label" id="f-sonda-lab">
-              SONDA <span class="req">*</span>
-            </span>
-            <!-- NEED_CLASS: .pill-group / .pill-radio (radio hidden + label cliccabile, touch 48px+) -->
-            <div class="pill-group" role="radiogroup" aria-labelledby="f-sonda-lab"
-                 style="display:grid; grid-template-columns:repeat(3, 1fr); gap:6px;">
-      
-              <input type="radio" name="sonda" id="f-sonda-p20"   value="P20-2"
-                     class="pill-radio-input" hidden>
-              <label for="f-sonda-p20" class="pill-radio"
-                     style="display:flex; align-items:center; justify-content:center;
-                            min-height:48px; padding:10px 8px;
-                            background:#0A0A0A; border:1px solid #2D2D2D;
-                            color:#C8C8B8; font-family:'JetBrains Mono', monospace;
-                            font-size:12px; font-weight:700; letter-spacing:0.08em;
-                            text-transform:uppercase; cursor:pointer;">
-                P20-2
-              </label>
-      
-              <input type="radio" name="sonda" id="f-sonda-fta45" value="FTA45-2"
-                     class="pill-radio-input" hidden>
-              <label for="f-sonda-fta45" class="pill-radio"
-                     style="display:flex; align-items:center; justify-content:center;
-                            min-height:48px; padding:10px 8px;
-                            background:#0A0A0A; border:1px solid #2D2D2D;
-                            color:#C8C8B8; font-family:'JetBrains Mono', monospace;
-                            font-size:12px; font-weight:700; letter-spacing:0.08em;
-                            text-transform:uppercase; cursor:pointer;">
-                FTA45-2
-              </label>
-      
-              <input type="radio" name="sonda" id="f-sonda-fta70" value="FTA70-2"
-                     class="pill-radio-input" hidden>
-              <label for="f-sonda-fta70" class="pill-radio"
-                     style="display:flex; align-items:center; justify-content:center;
-                            min-height:48px; padding:10px 8px;
-                            background:#0A0A0A; border:1px solid #2D2D2D;
-                            color:#C8C8B8; font-family:'JetBrains Mono', monospace;
-                            font-size:12px; font-weight:700; letter-spacing:0.08em;
-                            text-transform:uppercase; cursor:pointer;">
-                FTA70-2
-              </label>
+          <!-- 23. Data Fine + Firma Operatore -->
+          <div class="input-row">
+            <div class="form-group">
+              <label class="label" for="data_fin">Data Fine</label>
+              <input class="input"
+                     id="data_fin"
+                     name="data_fin"
+                     type="text"
+                     inputmode="numeric"
+                     placeholder="GG/MM/AAAA"
+                     autocomplete="off">
             </div>
-          </div>
-      
-          <!-- riga 5: FONDO SCALA (full, vuoto) -->
-          <div class="form-group">
-            <label class="label" for="f-fondo">
-              FONDO SCALA <span class="req">*</span>
-            </label>
-            <div class="input-with-suffix"
-                 style="display:grid; grid-template-columns:1fr auto; align-items:stretch;
-                        border:1px solid #2D2D2D; background:#0A0A0A;">
-              <input class="input text-mono" id="f-fondo" name="fondo_scala"
-                     type="number" inputmode="decimal" step="0.1" min="0"
-                     value=""
-                     placeholder="—"
-                     style="border:0; font-size:16px; text-align:right; padding-right:8px;">
-              <span class="text-mono text-muted uc"
-                    style="display:flex; align-items:center; padding:0 12px;
-                           border-left:1px solid #2D2D2D; font-size:12px;">mm</span>
-            </div>
-          </div>
-      
-          <!-- riga 6: SEDE pill group radio (8 voci) NON SELEZIONATO -->
-          <div class="form-group">
-            <span class="label" id="f-sede-lab">
-              SEDE <span class="req">*</span>
-            </span>
-            <!-- 8 pill, 2 colonne x 4 righe (touch 48px+ anche in densità alta) -->
-            <div class="pill-group" role="radiogroup" aria-labelledby="f-sede-lab"
-                 style="display:grid; grid-template-columns:repeat(2, 1fr); gap:6px;">
-      
-              <input type="radio" name="sede" id="f-sede-suola"  value="SUOLA"
-                     class="pill-radio-input" hidden>
-              <label for="f-sede-suola" class="pill-radio"
-                     style="display:flex; align-items:center; justify-content:center;
-                            min-height:48px; padding:10px 8px;
-                            background:#0A0A0A; border:1px solid #2D2D2D;
-                            color:#C8C8B8; font-family:'JetBrains Mono', monospace;
-                            font-size:12px; font-weight:700; letter-spacing:0.08em;
-                            text-transform:uppercase; cursor:pointer;">
-                SUOLA
-              </label>
-      
-              <input type="radio" name="sede" id="f-sede-gambo"  value="GAMBO"
-                     class="pill-radio-input" hidden>
-              <label for="f-sede-gambo" class="pill-radio"
-                     style="display:flex; align-items:center; justify-content:center;
-                            min-height:48px; padding:10px 8px;
-                            background:#0A0A0A; border:1px solid #2D2D2D;
-                            color:#C8C8B8; font-family:'JetBrains Mono', monospace;
-                            font-size:12px; font-weight:700; letter-spacing:0.08em;
-                            text-transform:uppercase; cursor:pointer;">
-                GAMBO
-              </label>
-      
-              <input type="radio" name="sede" id="f-sede-fungo"  value="FUNGO"
-                     class="pill-radio-input" hidden>
-              <label for="f-sede-fungo" class="pill-radio"
-                     style="display:flex; align-items:center; justify-content:center;
-                            min-height:48px; padding:10px 8px;
-                            background:#0A0A0A; border:1px solid #2D2D2D;
-                            color:#C8C8B8; font-family:'JetBrains Mono', monospace;
-                            font-size:12px; font-weight:700; letter-spacing:0.08em;
-                            text-transform:uppercase; cursor:pointer;">
-                FUNGO
-              </label>
-      
-              <input type="radio" name="sede" id="f-sede-piano"  value="PIANO STECC."
-                     class="pill-radio-input" hidden>
-              <label for="f-sede-piano" class="pill-radio"
-                     style="display:flex; align-items:center; justify-content:center;
-                            min-height:48px; padding:10px 8px;
-                            background:#0A0A0A; border:1px solid #2D2D2D;
-                            color:#C8C8B8; font-family:'JetBrains Mono', monospace;
-                            font-size:12px; font-weight:700; letter-spacing:0.08em;
-                            text-transform:uppercase; cursor:pointer; text-align:center;">
-                PIANO STECC.
-              </label>
-      
-              <input type="radio" name="sede" id="f-sede-patino" value="PATINO"
-                     class="pill-radio-input" hidden>
-              <label for="f-sede-patino" class="pill-radio"
-                     style="display:flex; align-items:center; justify-content:center;
-                            min-height:48px; padding:10px 8px;
-                            background:#0A0A0A; border:1px solid #2D2D2D;
-                            color:#C8C8B8; font-family:'JetBrains Mono', monospace;
-                            font-size:12px; font-weight:700; letter-spacing:0.08em;
-                            text-transform:uppercase; cursor:pointer;">
-                PATINO
-              </label>
-      
-              <input type="radio" name="sede" id="f-sede-anima"  value="ANIMA"
-                     class="pill-radio-input" hidden>
-              <label for="f-sede-anima" class="pill-radio"
-                     style="display:flex; align-items:center; justify-content:center;
-                            min-height:48px; padding:10px 8px;
-                            background:#0A0A0A; border:1px solid #2D2D2D;
-                            color:#C8C8B8; font-family:'JetBrains Mono', monospace;
-                            font-size:12px; font-weight:700; letter-spacing:0.08em;
-                            text-transform:uppercase; cursor:pointer;">
-                ANIMA
-              </label>
-      
-              <input type="radio" name="sede" id="f-sede-eco"    value="ECO POST."
-                     class="pill-radio-input" hidden>
-              <label for="f-sede-eco" class="pill-radio"
-                     style="display:flex; align-items:center; justify-content:center;
-                            min-height:48px; padding:10px 8px;
-                            background:#0A0A0A; border:1px solid #2D2D2D;
-                            color:#C8C8B8; font-family:'JetBrains Mono', monospace;
-                            font-size:12px; font-weight:700; letter-spacing:0.08em;
-                            text-transform:uppercase; cursor:pointer;">
-                ECO POST.
-              </label>
-      
-              <input type="radio" name="sede" id="f-sede-altro"  value="ALTRO"
-                     class="pill-radio-input" hidden>
-              <label for="f-sede-altro" class="pill-radio"
-                     style="display:flex; align-items:center; justify-content:center;
-                            min-height:48px; padding:10px 8px;
-                            background:#0A0A0A; border:1px solid #2D2D2D;
-                            color:#C8C8B8; font-family:'JetBrains Mono', monospace;
-                            font-size:12px; font-weight:700; letter-spacing:0.08em;
-                            text-transform:uppercase; cursor:pointer;">
-                ALTRO
-              </label>
+            <div class="form-group">
+              <label class="label" for="firma">Firma Operatore</label>
+              <input class="input"
+                     id="firma"
+                     name="firma"
+                     type="text"
+                     value="LP"
+                     autocomplete="off"
+                     autocapitalize="characters">
             </div>
           </div>
         </fieldset>
       
-        <!-- =====================================================================
-             STEP 2 · BINARIO   (hidden placeholder)
-             ===================================================================== -->
-        <fieldset class="form-step" data-step="2" id="step-2-panel"
-                  role="tabpanel" aria-labelledby="tab-binario" hidden>
-          <legend class="sect"><span>▸ STEP 2 · BINARIO</span></legend>
-          <div class="text-muted text-xs uc" style="padding:16px 8px;">
-            ▸ DA DEFINIRE
+        <!-- =================================================================
+             SEZIONE 6 · FIRMA (canvas)
+             ================================================================= -->
+        <fieldset class="form-step">
+          <legend class="sect"><span>Firma</span></legend>
+      
+          <div class="form-group">
+            <span class="label">Disegna la firma</span>
+            <div class="sig-canvas-wrap">
+              <canvas class="sig-canvas"
+                      id="sig-canvas"
+                      width="280"
+                      height="100"
+                      aria-label="Area firma"></canvas>
+              <span class="sig-placeholder" id="sig-placeholder">Firma qui</span>
+            </div>
+            <div class="btn-row">
+              <button class="btn-ghost" type="button" data-action="sig-clear">Cancella</button>
+              <button class="btn-secondary" type="button" data-action="sig-load-profile">Carica firma da profilo</button>
+            </div>
           </div>
         </fieldset>
-      
-        <!-- =====================================================================
-             STEP 3 · SALDATURA   (hidden placeholder)
-             ===================================================================== -->
-        <fieldset class="form-step" data-step="3" id="step-3-panel"
-                  role="tabpanel" aria-labelledby="tab-saldatura" hidden>
-          <legend class="sect"><span>▸ STEP 3 · SALDATURA</span></legend>
-          <div class="text-muted text-xs uc" style="padding:16px 8px;">
-            ▸ DA DEFINIRE
-          </div>
-        </fieldset>
-      
-        <!-- =====================================================================
-             STEP 4 · FIRMA   (hidden placeholder)
-             ===================================================================== -->
-        <fieldset class="form-step" data-step="4" id="step-4-panel"
-                  role="tabpanel" aria-labelledby="tab-firma" hidden>
-          <legend class="sect"><span>▸ STEP 4 · FIRMA</span></legend>
-          <div class="text-muted text-xs uc" style="padding:16px 8px;">
-            ▸ DA DEFINIRE
-          </div>
-        </fieldset>
-      
       </form>
       
       <!-- ─────────────────────────────────────────────────────────────────────
-           POPOVER WARNING · sticky sopra footer · 3 campi mancanti
-           NEED_CLASS: .warning-popover (card amber outline non bloccante)
+           PREVIEW PANEL · placeholder (vuoto, hidden)
            ───────────────────────────────────────────────────────────────────── -->
-      <aside class="warning-popover" role="status" aria-live="polite"
-             style="position:fixed; left:0; right:0; bottom:128px; z-index:39;
-                    max-width:420px; margin:0 auto; padding:0 8px;">
-        <div class="pill-amber"
-             style="display:flex; align-items:center; gap:8px;
-                    background:#0F0F0F; border:1px solid #F0A028;
-                    padding:10px 12px;
-                    font-family:'JetBrains Mono', monospace;
-                    font-size:11px; font-weight:700; letter-spacing:0.08em;
-                    text-transform:uppercase; color:#F0A028;">
-          <span aria-hidden="true">⚠</span>
-          <span style="flex:1; line-height:1.3;">
-            3 CAMPI MANCANTI · Sonda · Fondo scala · Sede
-          </span>
-          <button type="button" class="btn-ghost"
-                  data-action="warning-jump"
-                  style="background:transparent; border:1px solid #F0A028;
-                         color:#F0A028; font-family:'Inter', sans-serif;
-                         font-weight:700; font-size:11px; letter-spacing:0.08em;
-                         text-transform:uppercase; padding:6px 8px; min-height:32px;
-                         white-space:nowrap;">
-            ▸ COMPILA ORA →
-          </button>
-        </div>
-      </aside>
+      <section id="scheda-preview-panel"
+               role="tabpanel"
+               aria-labelledby="scheda-tab-preview"
+               hidden>
+        <!-- preview render in produzione -->
+      </section>
       
       <!-- ─────────────────────────────────────────────────────────────────────
-           STICKY FOOTER · ANTEPRIMA PDF (ghost) · ▸ SALVA (primary amber)
-           NEED_CLASS: .scheda-foot (barra sticky bottom modal-full)
+           FOOTER STICKY · 2 col (Anteprima PDF · Salva)
            ───────────────────────────────────────────────────────────────────── -->
-      <div class="scheda-foot" role="group" aria-label="Azioni scheda"
-           style="position:fixed; left:0; right:0; bottom:0; z-index:40;
-                  max-width:420px; margin:0 auto;
-                  background:#0F0F0F; border-top:1px solid #2D2D2D;
-                  padding:8px; display:grid; grid-template-columns:1fr 1fr; gap:8px;">
-        <button type="button" class="btn-ghost text-mono" data-action="anteprima-pdf">
-          ANTEPRIMA PDF
-        </button>
-        <button type="button" class="btn-primary" data-action="salva-scheda">
-          ▸ SALVA
-        </button>
-      </div>
+      <footer class="scheda-foot" role="contentinfo">
+        <button class="btn-ghost" type="button" data-action="scheda-preview-pdf">Anteprima PDF</button>
+        <button class="btn-primary" type="submit" form="scheda-form-panel" data-action="scheda-save">Salva</button>
+      </footer>
     </section>
 
     <!-- =====================================================================
@@ -2962,7 +3123,7 @@
   <!-- TOAST CONTAINER -->
   <div id="toast-container" aria-live="polite" aria-atomic="false"></div>
 
-  <script src="mockup.js?v=8"></script>
+  <script src="mockup.js?v=9"></script>
 
   <!-- Extra overlay modals -->
   <!--
