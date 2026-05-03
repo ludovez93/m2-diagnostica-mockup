@@ -1,6 +1,5 @@
 <!-- =====================================================================
-     SCREEN 6 · RISULTATI
-     Concept D — Operations Terminal
+     SCREEN 6 · RISULTATI — 2026 cleanup
      Vista post-elaborazione: hero difetti, lista saldature per binario,
      riepilogo WhatsApp, export, sticky chiudi notte.
      ===================================================================== -->
@@ -11,32 +10,26 @@
 <header class="page-head">
   <button class="back" type="button" data-action="back" aria-label="Indietro">‹</button>
   <div class="flex-1">
-    <h1 class="text-amber uc">▸ RISULTATI NOTTE</h1>
-    <div class="h-sub">13→14 APR · LASPEZIA-ARCOLA</div>
+    <h1>Risultati notte</h1>
+    <div class="h-sub">13 → 14 Apr · La Spezia – Arcola</div>
   </div>
   <div class="actions">
-    <!-- NEED_CLASS: .save-dot (green dot indicator stato salvato) -->
     <span class="save-dot" aria-label="Salvato" title="Tutto salvato"></span>
   </div>
 </header>
 
 <!-- ─────────────────────────────────────────────────────────────────────
-     HERO DIFETTI — banner danger pieno + card grande
+     HERO DIFETTI
      ───────────────────────────────────────────────────────────────────── -->
-<!-- NEED_CLASS: .sect-danger (variante .sect con background danger pieno) -->
 <div class="sect sect-danger">
-  <span>▸ 3 DIFETTI TROVATI</span>
+  <span>3 difetti trovati</span>
 </div>
 
-<!-- NEED_CLASS: .hero-difetti (card stretta numero gigante) -->
-<!-- NEED_CLASS: .hero-difetti-num (font-size >=44px, danger color, mono, tnum) -->
-<!-- NEED_CLASS: .hero-difetti-sub (etichetta muted sotto numero) -->
-<!-- NEED_CLASS: .hero-difetti-cta (riga amber call-to-action sotto card) -->
 <div class="hero-difetti">
   <div class="hero-difetti-num text-danger">3</div>
-  <div class="hero-difetti-sub text-muted uc">1/3 SCHEDE COMPILATE</div>
+  <div class="hero-difetti-sub text-muted">1 di 3 schede compilate</div>
 </div>
-<div class="hero-difetti-cta text-amber uc">▸ COMPILA SCHEDA I.1 PER OGNUNO</div>
+<div class="hero-difetti-cta text-amber">Compila la scheda I.1 per ognuno</div>
 
 <!-- ─────────────────────────────────────────────────────────────────────
      STAT STRIP — 4 cell riepilogo
@@ -44,34 +37,25 @@
 <div class="fbar mt-2">
   <div class="fbar-cell green">
     <strong>12</strong>
-    OK
+    Conformi
   </div>
   <div class="fbar-cell danger">
     <strong>3</strong>
-    DIFF
+    Difetti
   </div>
   <div class="fbar-cell amber">
     <strong>2</strong>
-    NDC
+    No DAC
   </div>
   <div class="fbar-cell">
     <strong>145m</strong>
-    TOT
+    Totale
   </div>
 </div>
 
 <!-- ─────────────────────────────────────────────────────────────────────
      SALDATURE — DISPARI (open) / PARI (collapsed)
      ───────────────────────────────────────────────────────────────────── -->
-
-<!-- NEED_CLASS: .group (wrapper <details> binario) -->
-<!-- NEED_CLASS: .group-summary (riga summary cliccabile, stile sect-q) -->
-<!-- NEED_CLASS: .table-sald (override grid 5 col: KM / LATO / TIPO / STATO / SCHEDA) -->
-<!-- NEED_CLASS: .row-sald (row variante con border-left status) -->
-<!-- NEED_CLASS: .row-sald.is-diff (border-left rossa per difetti) -->
-<!-- NEED_CLASS: .row-sald.is-ndc (border-left amber per NDC) -->
-<!-- NEED_CLASS: .col-km / .col-lato / .col-tipo / .col-stato / .col-scheda (allineamento) -->
-<!-- NEED_CLASS: .scheda-mark (✓ verde compilata / "—" muted) -->
 
 <div class="sect sect-q">
   <span>Saldature controllate · 16</span>
@@ -89,15 +73,15 @@
 
   <button class="row row-sald is-diff" type="button" data-action="open-scheda" data-id="d1" style="grid-template-columns: 60px 1fr auto 60px 36px;">
     <div class="col-km">165+700</div>
-    <div><span class="pill pill-mute">DISP</span> · DX</div>
+    <div><span class="pill pill-mute">Disp</span> · DX</div>
     <div class="col-tipo">211</div>
-    <div class="right"><span class="pill pill-danger">DIFF</span></div>
+    <div class="right"><span class="pill pill-danger">Difetto</span></div>
     <div class="right scheda-mark text-green">✓</div>
   </button>
 
   <button class="row row-sald" type="button" data-action="open-saldatura" data-id="s2" style="grid-template-columns: 60px 1fr auto 60px 36px;">
     <div class="col-km">166+450</div>
-    <div><span class="pill pill-mute">DISP</span> · SX</div>
+    <div><span class="pill pill-mute">Disp</span> · SX</div>
     <div class="col-tipo">TR</div>
     <div class="right"><span class="pill pill-green">OK</span></div>
     <div class="right scheda-mark text-muted">—</div>
@@ -105,31 +89,31 @@
 
   <button class="row row-sald is-diff" type="button" data-action="open-scheda" data-id="d2" style="grid-template-columns: 60px 1fr auto 60px 36px;">
     <div class="col-km">167+200</div>
-    <div><span class="pill pill-mute">DISP</span> · DX</div>
+    <div><span class="pill pill-mute">Disp</span> · DX</div>
     <div class="col-tipo">113</div>
-    <div class="right"><span class="pill pill-danger">DIFF</span></div>
+    <div class="right"><span class="pill pill-danger">Difetto</span></div>
     <div class="right scheda-mark text-muted">—</div>
   </button>
 
   <button class="row row-sald" type="button" data-action="open-saldatura" data-id="s4" style="grid-template-columns: 60px 1fr auto 60px 36px;">
     <div class="col-km">167+800</div>
-    <div><span class="pill pill-mute">DISP</span> · SX</div>
-    <div class="col-tipo">ALL</div>
+    <div><span class="pill pill-mute">Disp</span> · SX</div>
+    <div class="col-tipo">All</div>
     <div class="right"><span class="pill pill-green">OK</span></div>
     <div class="right scheda-mark text-muted">—</div>
   </button>
 
   <button class="row row-sald is-ndc" type="button" data-action="open-saldatura" data-id="s5" style="grid-template-columns: 60px 1fr auto 60px 36px;">
     <div class="col-km">168+150</div>
-    <div><span class="pill pill-mute">DISP</span> · DX</div>
+    <div><span class="pill pill-mute">Disp</span> · DX</div>
     <div class="col-tipo">TR</div>
-    <div class="right"><span class="pill pill-warn">NDC</span></div>
+    <div class="right"><span class="pill pill-warn">No DAC</span></div>
     <div class="right scheda-mark text-muted">—</div>
   </button>
 
   <button class="row row-sald" type="button" data-action="open-saldatura" data-id="s6" style="grid-template-columns: 60px 1fr auto 60px 36px;">
     <div class="col-km">169+300</div>
-    <div><span class="pill pill-mute">DISP</span> · SX</div>
+    <div><span class="pill pill-mute">Disp</span> · SX</div>
     <div class="col-tipo">TR</div>
     <div class="right"><span class="pill pill-green">OK</span></div>
     <div class="right scheda-mark text-muted">—</div>
@@ -137,15 +121,15 @@
 
   <button class="row row-sald is-diff" type="button" data-action="open-scheda" data-id="d3" style="grid-template-columns: 60px 1fr auto 60px 36px;">
     <div class="col-km">170+100</div>
-    <div><span class="pill pill-mute">PARI</span> · SX</div>
+    <div><span class="pill pill-mute">Pari</span> · SX</div>
     <div class="col-tipo">211</div>
-    <div class="right"><span class="pill pill-danger">DIFF</span></div>
+    <div class="right"><span class="pill pill-danger">Difetto</span></div>
     <div class="right scheda-mark text-muted">—</div>
   </button>
 
   <button class="row row-sald" type="button" data-action="open-saldatura" data-id="s8" style="grid-template-columns: 60px 1fr auto 60px 36px;">
     <div class="col-km">170+800</div>
-    <div><span class="pill pill-mute">PARI</span> · DX</div>
+    <div><span class="pill pill-mute">Pari</span> · DX</div>
     <div class="col-tipo">TR</div>
     <div class="right"><span class="pill pill-green">OK</span></div>
     <div class="right scheda-mark text-muted">—</div>
@@ -156,40 +140,36 @@
      RIEPILOGO WHATSAPP
      ───────────────────────────────────────────────────────────────────── -->
 
-<!-- NEED_CLASS: .wa-card (wrapper card preview WhatsApp) -->
-<!-- NEED_CLASS: .wa-pre (block <pre> mono, scrollable, bg secondary) -->
-<!-- NEED_CLASS: .wa-copy (bottone COPIA in fondo a card) -->
-
 <details class="group mt-3">
   <summary class="sect sect-q group-summary">
-    <span>▸ RIEPILOGO WHATSAPP</span>
-    <span class="text-muted">▸</span>
+    <span>Riepilogo WhatsApp</span>
+    <span class="text-muted">›</span>
   </summary>
 
   <div class="wa-card">
     <div class="sect sect-q">
-      <span>▸ FORMATO M2</span>
+      <span>Formato M2</span>
     </div>
     <pre class="wa-pre">Notte 13 → 14 Aprile 2026
 Linea: 33/26 La Spezia - Arcola
-Binario: DISPARI E PARI
-Da Km: 171+000
-a Km: 161+000
+Binario: Dispari e Pari
+Da km: 171+000
+A km: 161+000
 Operatori: LP CA
 Km percorsi: 8.50
 Saldature controllate: 16
 Saldature difettose: 3 + 2 No DAC</pre>
-    <button class="btn-secondary btn-block wa-copy" type="button" data-action="copy-wa" data-format="m2">COPIA</button>
+    <button class="btn-secondary btn-block wa-copy" type="button" data-action="copy-wa" data-format="m2">Copia</button>
   </div>
 
   <div class="wa-card mt-2">
     <div class="sect sect-q">
-      <span>▸ FORMATO GFC</span>
+      <span>Formato GFC</span>
     </div>
-    <pre class="wa-pre">M2 CONTROLLO SALDATURE
+    <pre class="wa-pre">M2 Controllo saldature
 13 Aprile 2026
 Linea: La Spezia Arcola
-Binario DISPARI E PARI
+Binario Dispari e Pari
 Da km 171+000
 A km 161+000
 Nr. Saldature controllate: 16
@@ -197,7 +177,7 @@ Nr. Saldature difettose: 3
 167+200 DX alluminotermica
 170+100 SX alluminotermica
 165+700 DX scintillio</pre>
-    <button class="btn-secondary btn-block wa-copy" type="button" data-action="copy-wa" data-format="gfc">COPIA</button>
+    <button class="btn-secondary btn-block wa-copy" type="button" data-action="copy-wa" data-format="gfc">Copia</button>
   </div>
 </details>
 
@@ -205,7 +185,7 @@ Nr. Saldature difettose: 3
      EXPORT BAR
      ───────────────────────────────────────────────────────────────────── -->
 <div class="sect sect-q mt-3">
-  <span>▸ EXPORT</span>
+  <span>Esporta</span>
 </div>
 <div class="btn-row">
   <button class="btn-secondary" type="button" data-action="export-tsv">TSV</button>
@@ -215,7 +195,6 @@ Nr. Saldature difettose: 3
 <!-- ─────────────────────────────────────────────────────────────────────
      STICKY BOTTOM — CHIUDI NOTTE (double-tap conferma)
      ───────────────────────────────────────────────────────────────────── -->
-<!-- NEED_CLASS: .sticky-foot (barra fixed sopra .nav, fullwidth, bg primary, border-top) -->
 <div class="sticky-foot">
   <button
     class="btn-danger btn-block"
@@ -223,6 +202,6 @@ Nr. Saldature difettose: 3
     data-action="chiudi-notte"
     data-confirm="double-tap"
     aria-label="Chiudi notte (tap due volte per confermare)">
-    ▸ CHIUDI NOTTE
+    Chiudi notte
   </button>
 </div>

@@ -11,22 +11,22 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
 
-  <link rel="stylesheet" href="style.css?v=9">
+  <link rel="stylesheet" href="style.css?v=10">
 </head>
 <body>
 
   <!-- DEV NAV (jump screen) -->
   <label class="visually-hidden" for="dev-nav-select" hidden>Vai a vista</label>
   <select id="dev-nav-select" class="dev-nav" aria-label="DEV: vai a vista">
-    <option value="login">DEV ▸ LOGIN</option>
-    <option value="dashboard">DEV ▸ DASHBOARD</option>
-    <option value="cantiere">DEV ▸ CANTIERE</option>
-    <option value="form-cantiere">DEV ▸ FORM CANTIERE</option>
-    <option value="notte">DEV ▸ NOTTE</option>
-    <option value="risultati">DEV ▸ RISULTATI</option>
-    <option value="scheda">DEV ▸ SCHEDA</option>
-    <option value="panoramica">DEV ▸ PANORAMICA</option>
-    <option value="profilo">DEV ▸ PROFILO</option>
+    <option value="login">DEV · Login</option>
+    <option value="dashboard">DEV · Dashboard</option>
+    <option value="cantiere">DEV · Cantiere</option>
+    <option value="form-cantiere">DEV · Form cantiere</option>
+    <option value="notte">DEV · Notte</option>
+    <option value="risultati">DEV · Risultati</option>
+    <option value="scheda">DEV · Scheda</option>
+    <option value="panoramica">DEV · Panoramica</option>
+    <option value="profilo">DEV · Profilo</option>
   </select>
 
   <main id="app">
@@ -45,26 +45,20 @@
       
       <div class="login-wrap login-crt" data-state="select">
       
-        <!-- Bloomberg-style ticker (header monospace) -->
-        <div class="ticker" role="status" aria-live="polite">
-          <span>READY <span class="ok blink">●</span> LOGIN REQUIRED</span>
-          <span data-clock>22:14:08</span>
-        </div>
-      
-        <!-- BRAND HEADER (titolo monospace amber + sigla muted) -->
+        <!-- BRAND HEADER -->
         <header class="login-brand">
           <div class="logo-mark">M2</div>
-          <h1 class="text-mono uc text-amber">M2 DIAGNOSTICA</h1>
-          <div class="sub">v2.0 · TERMINAL</div>
+          <h1 class="text-amber">M2 Diagnostica</h1>
+          <div class="sub">v2.0</div>
         </header>
-      
+
         <!-- ================================================================
              STATE A · USER SELECT
              Visibile quando data-state="select"
              ================================================================ -->
         <div class="login-card login-step login-step-user" data-step="user">
-      
-          <div class="divider-label">▸ SELECT OPERATOR</div>
+
+          <div class="divider-label">Seleziona operatore</div>
       
           <div class="user-list">
       
@@ -76,11 +70,11 @@
               <span class="user-sigla">LP</span>
               <span class="user-body">
                 <span class="user-name">Ludovico</span>
-                <span class="user-meta">OPERATORE · GRUPPO G</span>
+                <span class="user-meta">Operatore · Gruppo G</span>
               </span>
               <span class="user-arrow" aria-hidden="true">›</span>
             </button>
-      
+
             <button type="button"
                     class="user-card"
                     data-action="select-user"
@@ -89,7 +83,7 @@
               <span class="user-sigla">CA</span>
               <span class="user-body">
                 <span class="user-name">Cristopher</span>
-                <span class="user-meta">OPERATORE · GRUPPO B</span>
+                <span class="user-meta">Operatore · Gruppo B</span>
               </span>
               <span class="user-arrow" aria-hidden="true">›</span>
             </button>
@@ -106,11 +100,11 @@
         <div class="login-card login-step login-step-pin" data-step="pin" hidden>
       
           <div class="divider-label">
-            ▸ PIN
+            PIN
             <button type="button"
                     class="pin-back"
                     data-action="back-to-user"
-                    aria-label="Cambia operatore">‹ CAMBIA</button>
+                    aria-label="Cambia operatore">‹ Cambia</button>
           </div>
       
           <!-- PIN DOTS (4 cifre, status live) -->
@@ -149,7 +143,7 @@
         </div>
       
         <!-- FOOTER -->
-        <div class="login-foot">M2 RAIL GROUP · TERMINAL ID 001</div>
+        <div class="login-foot">M2 Rail Group</div>
       
       </div>
       
@@ -254,77 +248,81 @@
            Coerente con _reference.html, classi da style.css
            ===================================================================== -->
       
-      <!-- Bloomberg-style ticker -->
-      <div class="ticker">
-        <span>M2.DIAG <span class="ok blink">●</span> SYNCED 22:14:08</span>
-        <span>LP/G · 04 cant. · 11 diff</span>
+      <!-- 2026 dashboard header -->
+      <div class="d-header">
+        <div class="d-header-text">
+          <div class="d-header-greet">Buonasera, Ludovico</div>
+          <div class="d-header-sub">Sabato 2 Maggio · LP</div>
+        </div>
+        <div class="d-header-avatar" aria-hidden="true">LP</div>
       </div>
-      
-      <!-- Function bar 4-cell -->
+
+      <!-- Stat tiles 4-cell -->
       <div class="fbar">
         <button class="fbar-cell amber" type="button" data-action="filter-da-aprire">
           <strong>1</strong>
-          DA APRIRE
+          Da aprire
         </button>
         <button class="fbar-cell green" type="button" data-action="filter-attivi">
           <strong>3</strong>
-          ATTIVI
+          Attivi
         </button>
         <button class="fbar-cell" type="button" data-action="filter-difetti">
           <strong>11</strong>
-          DIFETTI
+          Difetti
         </button>
         <button class="fbar-cell" type="button" data-action="filter-schede">
           <strong>5</strong>
-          SCHEDE
+          Schede
         </button>
       </div>
-      
+
       <!-- ─────────────────────────────────────────────────────────────────────
-           STASERA · LIVE — command hero
+           Stasera — command hero
            ───────────────────────────────────────────────────────────────────── -->
       <div class="sect">
-        <span>▸ STASERA · LIVE</span>
+        <span>Stasera</span>
+        <span class="pill pill-green">In corso</span>
       </div>
       <div class="cmd-stasera">
-        <div class="cmd-line">OPEN 22:30 · LASPEZIA-ARCOLA</div>
+        <div class="cmd-line">Apertura 22:30</div>
         <div class="cmd-name">La Spezia – Arcola</div>
-        <div class="cmd-tratta">33/26 · DISPARI 171→163 · PARI 171→161 · TRATTA SARZ-LASP</div>
-      
+        <div class="cmd-tratta">33/26 · Dispari 171→163 · Pari 171→161 · Tratta Sarzana – La Spezia</div>
+
         <div class="cmd-grid">
           <div class="cmd-cell">
-            <div class="cmd-cell-lab">AVANZ</div>
+            <div class="cmd-cell-lab">Avanzamento</div>
             <div class="cmd-cell-val amber">58%</div>
           </div>
           <div class="cmd-cell">
-            <div class="cmd-cell-lab">SALD</div>
+            <div class="cmd-cell-lab">Saldature</div>
             <div class="cmd-cell-val">418</div>
           </div>
           <div class="cmd-cell">
-            <div class="cmd-cell-lab">DIFF</div>
+            <div class="cmd-cell-lab">Difetti</div>
             <div class="cmd-cell-val danger">11</div>
           </div>
           <div class="cmd-cell">
-            <div class="cmd-cell-lab">METEO</div>
+            <div class="cmd-cell-lab">Meteo</div>
             <div class="cmd-cell-val green">3°</div>
           </div>
         </div>
-      
-        <button class="cmd-cta" type="button" data-action="open-notte" data-id="2">APRI NOTTE →</button>
+
+        <button class="cmd-cta" type="button" data-action="open-notte" data-id="2">Apri notte</button>
       </div>
-      
+
       <!-- ─────────────────────────────────────────────────────────────────────
-           ATTIVI / 3
+           Attivi · 3
            ───────────────────────────────────────────────────────────────────── -->
       <div class="sect sect-q">
-        <span>▸ ATTIVI / 3</span>
+        <span>Attivi · 3</span>
       </div>
       <div class="table">
         <div class="table-head">
           <div></div>
-          <div>CANTIERE</div>
-          <div class="right">SALD</div>
-          <div class="right">DIFF</div>
+          <div>Cantiere</div>
+          <div class="right">Sald</div>
+          <div class="right">Diff</div>
           <div class="right">%</div>
         </div>
       
@@ -332,41 +330,41 @@
           <div class="row-dot"></div>
           <div>
             <div class="row-name">Empoli – San Miniato</div>
-            <div class="row-codice">26/26 · DISP 39→26</div>
+            <div class="row-codice">26/26 · Disp 39→26</div>
           </div>
           <div class="col-num">237</div>
           <div class="col-num">3</div>
           <div class="col-num amber">30%</div>
         </button>
-      
+
         <button class="row" type="button" data-action="open-cantiere" data-id="genova">
           <div class="row-dot warn"></div>
           <div>
             <div class="row-name">Genova</div>
-            <div class="row-codice">SCAD. · PARI 10→11</div>
+            <div class="row-codice">Scaduto · Pari 10→11</div>
           </div>
           <div class="col-num">0</div>
           <div class="col-num">0</div>
           <div class="col-num warn">0%</div>
         </button>
-      
+
         <button class="row" type="button" data-action="open-cantiere" data-id="test">
           <div class="row-dot zero"></div>
           <div>
             <div class="row-name">Test</div>
-            <div class="row-codice">DISP 100→120</div>
+            <div class="row-codice">Disp 100→120</div>
           </div>
           <div class="col-num">0</div>
           <div class="col-num">0</div>
           <div class="col-num zero">2%</div>
         </button>
       </div>
-      
+
       <!-- ─────────────────────────────────────────────────────────────────────
-           PAUSA / 3
+           In pausa · 3
            ───────────────────────────────────────────────────────────────────── -->
       <div class="sect sect-q">
-        <span>▸ PAUSA / 3</span>
+        <span>In pausa · 3</span>
       </div>
       <div class="table">
         <button class="row" type="button" data-action="open-cantiere" data-id="brescia">
@@ -379,7 +377,7 @@
           <div class="col-num">1</div>
           <div class="col-num zero">28%</div>
         </button>
-      
+
         <button class="row" type="button" data-action="open-cantiere" data-id="chiusi">
           <div class="row-dot zero"></div>
           <div>
@@ -390,7 +388,7 @@
           <div class="col-num">9</div>
           <div class="col-num zero">25%</div>
         </button>
-      
+
         <button class="row" type="button" data-action="open-cantiere" data-id="merano">
           <div class="row-dot zero"></div>
           <div>
@@ -404,10 +402,10 @@
       </div>
       
       <!-- ─────────────────────────────────────────────────────────────────────
-           COMPLETATI / 1
+           Completati · 1
            ───────────────────────────────────────────────────────────────────── -->
       <div class="sect sect-q">
-        <span>▸ COMPLETATI / 1</span>
+        <span>Completati · 1</span>
       </div>
       <div class="table">
         <button class="row" type="button" data-action="open-cantiere" data-id="laquila">
@@ -421,12 +419,12 @@
           <div class="col-num">100%</div>
         </button>
       </div>
-      
+
       <!-- ─────────────────────────────────────────────────────────────────────
-           ARCHIVIATI / 1
+           Archiviati · 1
            ───────────────────────────────────────────────────────────────────── -->
       <div class="sect sect-q">
-        <span>▸ ARCHIVIATI / 1</span>
+        <span>Archiviati · 1</span>
       </div>
       <div class="table">
         <button class="row" type="button" data-action="open-cantiere" data-id="ravenna">
@@ -481,7 +479,7 @@
           <h1 class="cant-head-name">La Spezia – Arcola</h1>
           <div class="cant-head-meta">
             <span class="text-mono cant-head-code">33/26</span>
-            <span class="pill pill-amber cant-head-status">● ATTIVO</span>
+            <span class="pill pill-green cant-head-status">Attivo</span>
           </div>
         </div>
       
@@ -505,19 +503,19 @@
         <div class="cant-menu-panel">
           <button type="button" class="cant-menu-item" data-action="edit-cantiere" role="menuitem">
             <span class="cant-menu-ic">✎</span>
-            <span class="cant-menu-lab">MODIFICA</span>
+            <span class="cant-menu-lab">Modifica</span>
           </button>
           <button type="button" class="cant-menu-item" data-action="pause-cantiere" role="menuitem">
             <span class="cant-menu-ic">‖</span>
-            <span class="cant-menu-lab">PAUSA</span>
+            <span class="cant-menu-lab">Metti in pausa</span>
           </button>
           <button type="button" class="cant-menu-item" data-action="complete-cantiere" role="menuitem">
             <span class="cant-menu-ic">✓</span>
-            <span class="cant-menu-lab">COMPLETA</span>
+            <span class="cant-menu-lab">Completa</span>
           </button>
           <button type="button" class="cant-menu-item" data-action="archive-cantiere" role="menuitem">
             <span class="cant-menu-ic">▣</span>
-            <span class="cant-menu-lab">ARCHIVIA</span>
+            <span class="cant-menu-lab">Archivia</span>
           </button>
           <button type="button"
                   class="cant-menu-item cant-menu-item-danger"
@@ -525,8 +523,8 @@
                   data-confirm="double-tap"
                   role="menuitem">
             <span class="cant-menu-ic">✕</span>
-            <span class="cant-menu-lab">ELIMINA</span>
-            <span class="cant-menu-hint">DOPPIO TAP</span>
+            <span class="cant-menu-lab">Elimina</span>
+            <span class="cant-menu-hint">doppio tap</span>
           </button>
         </div>
       </div>
@@ -535,49 +533,52 @@
            2. HERO STASERA (LEARNED #98 — sempre primo dopo page-head)
            command-style card · grid 4 cell · CTA amber fullwidth
            ============================================================ -->
-      <div class="sect">▸ STASERA · 22:30 LIVE</div>
+      <div class="sect">
+        <span>Stasera</span>
+        <span class="pill pill-green">In corso</span>
+      </div>
       <div class="cmd-stasera cant-hero">
-        <div class="cmd-line">APRI NOTTE 22:30 · LASPEZIA-ARCOLA</div>
+        <div class="cmd-line">Apertura 22:30</div>
         <div class="cmd-name">La Spezia – Arcola</div>
-        <div class="cmd-tratta">DISPARI 171→163 · PARI 171→161 · TRATTA SARZ-LASP</div>
-      
+        <div class="cmd-tratta">Dispari 171→163 · Pari 171→161 · Tratta Sarzana – La Spezia</div>
+
         <div class="cmd-grid">
           <div class="cmd-cell">
-            <div class="cmd-cell-lab">AVANZ</div>
+            <div class="cmd-cell-lab">Avanzamento</div>
             <div class="cmd-cell-val amber">58%</div>
           </div>
           <div class="cmd-cell">
-            <div class="cmd-cell-lab">SALD</div>
+            <div class="cmd-cell-lab">Saldature</div>
             <div class="cmd-cell-val">418</div>
           </div>
           <div class="cmd-cell">
-            <div class="cmd-cell-lab">DIFF</div>
+            <div class="cmd-cell-lab">Difetti</div>
             <div class="cmd-cell-val danger">3</div>
           </div>
           <div class="cmd-cell">
-            <div class="cmd-cell-lab">METEO</div>
+            <div class="cmd-cell-lab">Meteo</div>
             <div class="cmd-cell-val green">3°</div>
           </div>
         </div>
-      
-        <button type="button" class="cmd-cta" data-action="open-notte">› APRI NOTTE</button>
+
+        <button type="button" class="cmd-cta" data-action="open-notte">Apri notte</button>
       </div>
-      
+
       <!-- ============================================================
            3. AVANZAMENTO
            display 58% mono enorme + barre per binario
            ============================================================ -->
-      <div class="sect sect-q">▸ AVANZAMENTO</div>
+      <div class="sect sect-q">Avanzamento</div>
       <div class="cant-progress">
-      
+
         <div class="cant-progress-hero">
           <div class="cant-progress-num">58<span class="cant-progress-pct">%</span></div>
-          <div class="cant-progress-sub">COMPLETATO · 244 / 418 SALD</div>
+          <div class="cant-progress-sub">Completato · 244 / 418 saldature</div>
         </div>
-      
+
         <div class="cant-bin">
           <div class="cant-bin-head">
-            <span class="cant-bin-name">DISPARI</span>
+            <span class="cant-bin-name">Dispari</span>
             <span class="cant-bin-range text-mono">171 → 163</span>
             <span class="cant-bin-pct text-amber">60%</span>
           </div>
@@ -585,10 +586,10 @@
             <div class="cant-bar-fill" style="width:60%;"></div>
           </div>
         </div>
-      
+
         <div class="cant-bin">
           <div class="cant-bin-head">
-            <span class="cant-bin-name">PARI</span>
+            <span class="cant-bin-name">Pari</span>
             <span class="cant-bin-range text-mono">171 → 161</span>
             <span class="cant-bin-pct text-amber">56%</span>
           </div>
@@ -596,7 +597,7 @@
             <div class="cant-bar-fill" style="width:56%;"></div>
           </div>
         </div>
-      
+
       </div>
       
       <!-- ============================================================
@@ -605,93 +606,93 @@
            ============================================================ -->
       <details class="cant-det" open>
         <summary class="sect sect-q">
-          <span>▸ LAVORAZIONI · 5 ATTIVE</span>
+          <span>Lavorazioni · 5 attive</span>
           <span class="cant-det-caret" aria-hidden="true">▾</span>
         </summary>
         <div class="cant-chips">
           <div class="cant-chip cant-chip-cyan">
-            <div class="cant-chip-lab">LINEA DISP</div>
+            <div class="cant-chip-lab">Linea Dispari</div>
             <div class="cant-chip-val text-mono">30/52</div>
           </div>
           <div class="cant-chip cant-chip-cyan">
-            <div class="cant-chip-lab">LINEA PARI</div>
+            <div class="cant-chip-lab">Linea Pari</div>
             <div class="cant-chip-val text-mono">30/52</div>
           </div>
           <div class="cant-chip cant-chip-amber">
-            <div class="cant-chip-lab">DEVIATOI</div>
+            <div class="cant-chip-lab">Deviatoi</div>
             <div class="cant-chip-val text-mono">4/8</div>
           </div>
           <div class="cant-chip cant-chip-green">
-            <div class="cant-chip-lab">REGOLAZIONI</div>
+            <div class="cant-chip-lab">Regolazioni</div>
             <div class="cant-chip-val text-mono">6/12</div>
           </div>
           <div class="cant-chip cant-chip-danger">
-            <div class="cant-chip-lab">RICONTROLLO</div>
+            <div class="cant-chip-lab">Ricontrollo</div>
             <div class="cant-chip-val text-mono">1/3</div>
           </div>
         </div>
       </details>
-      
+
       <!-- ============================================================
            5. NOTTI / 12 (tabella ultime 5 + bottone "mostra tutte")
            ============================================================ -->
       <details class="cant-det">
         <summary class="sect sect-q">
-          <span>▸ NOTTI / 12</span>
+          <span>Notti · 12</span>
           <span class="cant-det-caret" aria-hidden="true">▾</span>
         </summary>
         <div class="table cant-notti-table">
           <div class="table-head cant-notti-head">
-            <div>DATA</div>
-            <div>TRATTA</div>
-            <div style="text-align:right;">SALD</div>
-            <div style="text-align:right;">DIFF</div>
-            <div style="text-align:center;">ST</div>
+            <div>Data</div>
+            <div>Tratta</div>
+            <div style="text-align:right;">Sald</div>
+            <div style="text-align:right;">Diff</div>
+            <div style="text-align:center;">Stato</div>
           </div>
       
           <button type="button" class="row cant-notti-row" data-action="open-notte-detail" data-night="2026-04-30">
             <div class="text-mono cant-notti-date">30/04</div>
-            <div class="cant-notti-tratta">DISP 168→165</div>
+            <div class="cant-notti-tratta">Disp 168→165</div>
             <div class="col-num">42</div>
             <div class="col-num danger">1</div>
             <div class="cant-notti-st"><span class="pill pill-green">OK</span></div>
           </button>
-      
+
           <button type="button" class="row cant-notti-row" data-action="open-notte-detail" data-night="2026-04-29">
             <div class="text-mono cant-notti-date">29/04</div>
-            <div class="cant-notti-tratta">PARI 169→167</div>
+            <div class="cant-notti-tratta">Pari 169→167</div>
             <div class="col-num">38</div>
             <div class="col-num">0</div>
             <div class="cant-notti-st"><span class="pill pill-green">OK</span></div>
           </button>
-      
+
           <button type="button" class="row cant-notti-row" data-action="open-notte-detail" data-night="2026-04-28">
             <div class="text-mono cant-notti-date">28/04</div>
-            <div class="cant-notti-tratta">DISP 170→168</div>
+            <div class="cant-notti-tratta">Disp 170→168</div>
             <div class="col-num">36</div>
             <div class="col-num danger">2</div>
-            <div class="cant-notti-st"><span class="pill pill-warn">DIFF</span></div>
+            <div class="cant-notti-st"><span class="pill pill-warn">Difetto</span></div>
           </button>
-      
+
           <button type="button" class="row cant-notti-row" data-action="open-notte-detail" data-night="2026-04-27">
             <div class="text-mono cant-notti-date">27/04</div>
-            <div class="cant-notti-tratta">PARI 170→169</div>
+            <div class="cant-notti-tratta">Pari 170→169</div>
             <div class="col-num">29</div>
             <div class="col-num">0</div>
             <div class="cant-notti-st"><span class="pill pill-green">OK</span></div>
           </button>
-      
+
           <button type="button" class="row cant-notti-row" data-action="open-notte-detail" data-night="2026-04-26">
             <div class="text-mono cant-notti-date">26/04</div>
-            <div class="cant-notti-tratta">DEV · POSA 5</div>
+            <div class="cant-notti-tratta">Dev · Posa 5</div>
             <div class="col-num">18</div>
             <div class="col-num">0</div>
             <div class="cant-notti-st"><span class="pill pill-green">OK</span></div>
           </button>
         </div>
-      
+
         <button type="button" class="btn-ghost btn-block cant-notti-more" data-action="show-all-nights">
-          ▸ MOSTRA TUTTE (12)
+          Mostra tutte (12)
         </button>
       </details>
       
@@ -703,51 +704,51 @@
            ============================================================ -->
       <details class="cant-det" open>
         <summary class="sect sect-q">
-          <span>▸ DIFETTI APERTI / 3</span>
+          <span>Difetti aperti · 3</span>
           <span class="cant-det-caret" aria-hidden="true">▾</span>
         </summary>
         <div class="table cant-diff-table">
           <div class="table-head cant-diff-head">
             <div></div>
-            <div>KM</div>
-            <div>BIN</div>
-            <div>COD</div>
-            <div style="text-align:center;">SCHEDA</div>
+            <div>Km</div>
+            <div>Bin</div>
+            <div>Cod</div>
+            <div style="text-align:center;">Scheda</div>
           </div>
-      
+
           <button type="button" class="row cant-diff-row" data-action="open-scheda" data-diff="d-001">
             <div class="row-dot danger"></div>
             <div class="text-mono cant-diff-km">165+700</div>
-            <div><span class="pill pill-mute">DISP</span></div>
+            <div><span class="pill pill-mute">Disp</span></div>
             <div><span class="pill pill-danger">211</span></div>
             <div class="cant-diff-scheda text-green">✓</div>
           </button>
-      
+
           <button type="button" class="row cant-diff-row" data-action="open-scheda" data-diff="d-002">
             <div class="row-dot danger"></div>
             <div class="text-mono cant-diff-km">167+340</div>
-            <div><span class="pill pill-mute">PARI</span></div>
+            <div><span class="pill pill-mute">Pari</span></div>
             <div><span class="pill pill-danger">113</span></div>
             <div class="cant-diff-scheda text-green">✓</div>
           </button>
-      
+
           <button type="button" class="row cant-diff-row" data-action="open-scheda" data-diff="d-003">
             <div class="row-dot danger"></div>
             <div class="text-mono cant-diff-km">168+910</div>
-            <div><span class="pill pill-mute">DISP</span></div>
+            <div><span class="pill pill-mute">Disp</span></div>
             <div><span class="pill pill-danger">121</span></div>
             <div class="cant-diff-scheda text-muted">—</div>
           </button>
         </div>
       </details>
-      
+
       <!-- ============================================================
            7. LAVORAZIONI CONFIG / 4
            4 righe slot configurati con bottone edit (matita) doppio-tap
            ============================================================ -->
       <details class="cant-det">
         <summary class="sect sect-q">
-          <span>▸ LAVORAZIONI CONFIG / 4</span>
+          <span>Lavorazioni configurate · 4</span>
           <span class="cant-det-caret" aria-hidden="true">▾</span>
         </summary>
         <div class="table cant-conf-table">
@@ -756,7 +757,7 @@
             <div class="row-dot"></div>
             <div>
               <div class="row-name">Linea Dispari</div>
-              <div class="row-codice">SLOT 50 · 30 USATI</div>
+              <div class="row-codice">Slot 50 · 30 usati</div>
             </div>
             <div class="col-num text-mono">50</div>
             <div class="cant-conf-actions">
@@ -773,7 +774,7 @@
             <div class="row-dot"></div>
             <div>
               <div class="row-name">Linea Pari</div>
-              <div class="row-codice">SLOT 48 · 30 USATI</div>
+              <div class="row-codice">Slot 48 · 30 usati</div>
             </div>
             <div class="col-num text-mono">48</div>
             <div class="cant-conf-actions">
@@ -790,7 +791,7 @@
             <div class="row-dot warn"></div>
             <div>
               <div class="row-name">Deviatoi</div>
-              <div class="row-codice">SLOT 8 · 4 USATI</div>
+              <div class="row-codice">Slot 8 · 4 usati</div>
             </div>
             <div class="col-num text-mono">8</div>
             <div class="cant-conf-actions">
@@ -807,7 +808,7 @@
             <div class="row-dot danger"></div>
             <div>
               <div class="row-name">Ricontrollo</div>
-              <div class="row-codice">SLOT 3 · 1 USATO</div>
+              <div class="row-codice">Slot 3 · 1 usato</div>
             </div>
             <div class="col-num text-mono">3</div>
             <div class="cant-conf-actions">
@@ -828,18 +829,18 @@
            ============================================================ -->
       <details class="cant-det">
         <summary class="sect sect-q">
-          <span>▸ ELEMENTI / 2</span>
+          <span>Elementi · 2</span>
           <span class="cant-det-caret" aria-hidden="true">▾</span>
         </summary>
         <div class="table cant-elem-table">
           <div class="table-head cant-elem-head">
             <div></div>
-            <div>KM</div>
-            <div>LATO</div>
-            <div>TIPO</div>
-            <div style="text-align:center;">ST</div>
+            <div>Km</div>
+            <div>Lato</div>
+            <div>Tipo</div>
+            <div style="text-align:center;">Stato</div>
           </div>
-      
+
           <button type="button" class="row cant-elem-row" data-action="open-elemento" data-el="e-001">
             <div class="row-dot"></div>
             <div class="text-mono">168+200</div>
@@ -847,7 +848,7 @@
             <div class="row-name cant-elem-tipo">Regolazione</div>
             <div class="cant-elem-st text-green">✓</div>
           </button>
-      
+
           <button type="button" class="row cant-elem-row" data-action="open-elemento" data-el="e-002">
             <div class="row-dot warn"></div>
             <div class="text-mono">169+450</div>
@@ -856,58 +857,58 @@
             <div class="cant-elem-st text-danger">✗</div>
           </button>
         </div>
-      
+
         <button type="button" class="btn-secondary btn-block cant-elem-add" data-action="add-elemento">
-          + AGGIUNGI ELEMENTO
+          + Aggiungi elemento
         </button>
       </details>
-      
+
       <!-- ============================================================
            9. INFO CANTIERE (kv list mono + toggle Urgente)
            ============================================================ -->
       <details class="cant-det">
         <summary class="sect sect-q">
-          <span>▸ INFO CANTIERE</span>
+          <span>Info cantiere</span>
           <span class="cant-det-caret" aria-hidden="true">▾</span>
         </summary>
         <div class="kv cant-info-kv">
-      
+
           <div class="kv-row">
-            <div class="k">TRATTA</div>
-            <div class="v">SARZ – LASP</div>
+            <div class="k">Tratta</div>
+            <div class="v">Sarzana – La Spezia</div>
           </div>
-      
+
           <div class="kv-row">
-            <div class="k">DEADLINE</div>
-            <div class="v text-warn">15/04/26 · SCADUTA 17g</div>
+            <div class="k">Consegna</div>
+            <div class="v text-warn">15/04/26 · scaduta 17g</div>
           </div>
-      
+
           <div class="kv-row">
-            <div class="k">ORARIO</div>
+            <div class="k">Orario</div>
             <div class="v text-mono">22:30 → 05:00</div>
           </div>
-      
+
           <div class="kv-row">
-            <div class="k">TIPO</div>
-            <div class="v">CONTROLLO ULTRASUONI</div>
+            <div class="k">Tipo</div>
+            <div class="v">Controllo ultrasuoni</div>
           </div>
-      
+
           <div class="kv-row">
-            <div class="k">CODICE</div>
+            <div class="k">Codice</div>
             <div class="v text-mono">33/26</div>
           </div>
-      
+
           <div class="kv-row">
-            <div class="k">URGENTE</div>
+            <div class="k">Urgente</div>
             <div class="v">
               <label class="toggle cant-info-toggle">
                 <input type="checkbox" data-action="toggle-urgente" checked>
                 <span class="toggle-track" aria-hidden="true"></span>
-                <span class="toggle-label">SI</span>
+                <span class="toggle-label">Sì</span>
               </label>
             </div>
           </div>
-      
+
         </div>
       </details>
       
@@ -1241,8 +1242,8 @@
       <header class="page-head">
         <button class="back" type="button" data-action="back" aria-label="Indietro">‹</button>
         <div style="flex:1;">
-          <h1 class="text-amber uc">▸ NUOVO CANTIERE</h1>
-          <div class="h-sub">STEP 2 / 4 · BINARI</div>
+          <h1>Nuovo cantiere</h1>
+          <div class="h-sub">Step 2 di 4 · Binari</div>
         </div>
         <!-- NEED_CLASS: .step-dots / .step-dot / .step-dot.active -->
         <div class="step-dots" role="tablist" aria-label="Avanzamento step">
@@ -1259,20 +1260,20 @@
              STEP 1 · INFO BASE   (hidden)
              ===================================================================== -->
         <fieldset class="form-step" data-step="1" hidden>
-          <legend class="sect"><span>▸ STEP 1 · INFO BASE</span></legend>
-      
+          <legend class="sect"><span>Step 1 · Info base</span></legend>
+
           <div class="form-group">
-            <label class="label" for="f-nome">NOME CANTIERE <span class="req">*</span></label>
+            <label class="label" for="f-nome">Nome cantiere <span class="req">*</span></label>
             <input class="input" id="f-nome" name="nome" type="text"
                    value="Bologna - Modena"
-                   placeholder="ES. LA SPEZIA – ARCOLA"
+                   placeholder="es. La Spezia – Arcola"
                    style="font-size:16px;">
           </div>
-      
+
           <div class="input-row">
             <div class="form-group">
               <label class="label" for="f-codice">
-                CODICE M2
+                Codice M2
                 <span class="hint">es. 33/26</span>
               </label>
               <input class="input" id="f-codice" name="codice" type="text"
@@ -1283,40 +1284,40 @@
                      style="font-size:16px;">
             </div>
             <div class="form-group">
-              <label class="label" for="f-tratta">TRATTA</label>
+              <label class="label" for="f-tratta">Tratta</label>
               <input class="input" id="f-tratta" name="tratta" type="text"
                      value="BO-MO"
-                     placeholder="ES. BO-MO"
+                     placeholder="es. BO-MO"
                      style="font-size:16px;">
             </div>
           </div>
-      
+
           <div class="form-group">
-            <label class="label" for="f-data-fine">DATA FINE <span class="req">*</span></label>
+            <label class="label" for="f-data-fine">Data fine <span class="req">*</span></label>
             <input class="input" id="f-data-fine" name="data_fine" type="date"
                    value="2026-06-30"
                    style="font-size:16px;">
           </div>
-      
+
           <div class="form-group">
-            <span class="label">TIPO</span>
+            <span class="label">Tipo</span>
             <!-- pill group amber -->
             <div class="segmented" role="radiogroup" aria-label="Tipo cantiere">
-              <button type="button" class="active" role="radio" aria-checked="true"  data-value="notturno">NOTTURNO</button>
-              <button type="button"                role="radio" aria-checked="false" data-value="diurno">DIURNO</button>
+              <button type="button" class="active" role="radio" aria-checked="true"  data-value="notturno">Notturno</button>
+              <button type="button"                role="radio" aria-checked="false" data-value="diurno">Diurno</button>
             </div>
           </div>
-      
+
           <div class="form-group">
             <label class="toggle" for="f-urgente">
               <input type="checkbox" id="f-urgente" name="urgente">
               <span class="toggle-track" aria-hidden="true"></span>
-              <span class="toggle-label">URGENTE</span>
+              <span class="toggle-label">Urgente</span>
             </label>
           </div>
-      
+
           <div class="form-group">
-            <span class="label">GIORNI ATTIVI</span>
+            <span class="label">Giorni attivi</span>
             <!-- NEED_CLASS: .day-circles / .day-circle / .day-circle.active -->
             <div class="day-circles" role="group" aria-label="Giorni della settimana attivi">
               <button type="button" class="day-circle"        aria-pressed="false" data-day="0">D</button>
@@ -1334,31 +1335,31 @@
              STEP 2 · BINARI   (visibile)
              ===================================================================== -->
         <fieldset class="form-step" data-step="2">
-          <legend class="sect"><span>▸ STEP 2 · BINARI</span></legend>
-      
+          <legend class="sect"><span>Step 2 · Binari</span></legend>
+
           <!-- Lista binari aggiunti -->
           <div class="table">
             <div class="table-head" style="grid-template-columns: 8px 80px 1fr 88px;">
               <div></div>
-              <div>TIPO</div>
-              <div>RANGE KM</div>
-              <div class="right">AZIONE</div>
+              <div>Tipo</div>
+              <div>Range km</div>
+              <div class="right">Azione</div>
             </div>
-      
+
             <!-- NEED_CLASS: .binario-row (estende .row con grid 4 col) -->
             <div class="row binario-row" style="grid-template-columns: 8px 80px 1fr 88px;">
               <div class="row-dot"></div>
-              <div class="text-mono text-amber" style="font-weight:700; letter-spacing:0.08em;">DISPARI</div>
+              <div class="text-amber" style="font-weight:600;">Dispari</div>
               <div class="text-mono text-primary">171+000 → 163+000</div>
               <div class="right" style="display:flex; gap:4px; justify-content:flex-end;">
                 <button type="button" class="btn-icon" data-action="binario-edit"   data-id="1" aria-label="Modifica binario">✎</button>
                 <button type="button" class="btn-icon" data-action="binario-remove" data-id="1" aria-label="Rimuovi binario">×</button>
               </div>
             </div>
-      
+
             <div class="row binario-row" style="grid-template-columns: 8px 80px 1fr 88px;">
               <div class="row-dot"></div>
-              <div class="text-mono text-amber" style="font-weight:700; letter-spacing:0.08em;">PARI</div>
+              <div class="text-amber" style="font-weight:600;">Pari</div>
               <div class="text-mono text-primary">171+000 → 161+000</div>
               <div class="right" style="display:flex; gap:4px; justify-content:flex-end;">
                 <button type="button" class="btn-icon" data-action="binario-edit"   data-id="2" aria-label="Modifica binario">✎</button>
@@ -1366,25 +1367,25 @@
               </div>
             </div>
           </div>
-      
+
           <!-- Mini-form inline aggiungi binario -->
           <!-- NEED_CLASS: .binario-form (card inline aperta sotto la lista) -->
-          <div class="binario-form" style="margin-top:8px; background:#0A0A0A; border:1px solid #2D2D2D; padding:8px;">
-            <div class="divider-label" style="margin-top:0;">▸ AGGIUNGI BINARIO</div>
-      
+          <div class="binario-form" style="margin-top:8px; background:#0A0A0A; border:1px solid #2D2D2D; padding:12px; border-radius:10px;">
+            <div class="divider-label" style="margin-top:0;">Aggiungi binario</div>
+
             <div class="form-group">
-              <span class="label">TIPO</span>
+              <span class="label">Tipo</span>
               <div class="segmented" role="radiogroup" aria-label="Tipo binario">
-                <button type="button" class="active" role="radio" aria-checked="true"  data-value="dispari">DISPARI</button>
-                <button type="button"                role="radio" aria-checked="false" data-value="pari">PARI</button>
-                <button type="button"                role="radio" aria-checked="false" data-value="unico">UNICO</button>
-                <button type="button"                role="radio" aria-checked="false" data-value="interconnessione">INTERC.</button>
+                <button type="button" class="active" role="radio" aria-checked="true"  data-value="dispari">Dispari</button>
+                <button type="button"                role="radio" aria-checked="false" data-value="pari">Pari</button>
+                <button type="button"                role="radio" aria-checked="false" data-value="unico">Unico</button>
+                <button type="button"                role="radio" aria-checked="false" data-value="interconnessione">Interc.</button>
               </div>
             </div>
-      
+
             <div class="input-row">
               <div class="form-group">
-                <label class="label" for="f-km-da">KM DA</label>
+                <label class="label" for="f-km-da">Km da</label>
                 <input class="input text-mono" id="f-km-da" name="km_da" type="text"
                        inputmode="numeric"
                        pattern="\d+\+\d{3}"
@@ -1392,7 +1393,7 @@
                        style="font-size:16px;">
               </div>
               <div class="form-group">
-                <label class="label" for="f-km-a">KM A</label>
+                <label class="label" for="f-km-a">Km a</label>
                 <input class="input text-mono" id="f-km-a" name="km_a" type="text"
                        inputmode="numeric"
                        pattern="\d+\+\d{3}"
@@ -1400,37 +1401,37 @@
                        style="font-size:16px;">
               </div>
             </div>
-      
-            <div class="text-muted text-xs uc" style="margin-top:-4px; margin-bottom:8px;">
-              ▸ KM IN ORDINE REALE DEL LAVORO
+
+            <div class="text-muted text-xs" style="margin-top:-4px; margin-bottom:8px;">
+              Inserisci i km in ordine reale del lavoro
             </div>
-      
+
             <div class="btn-row" style="margin-top:0;">
-              <button type="button" class="btn-ghost"   data-action="binario-cancel">ANNULLA</button>
-              <button type="button" class="btn-primary" data-action="binario-add">AGGIUNGI</button>
+              <button type="button" class="btn-ghost"   data-action="binario-cancel">Annulla</button>
+              <button type="button" class="btn-primary" data-action="binario-add">Aggiungi</button>
             </div>
           </div>
         </fieldset>
-      
+
         <!-- =====================================================================
              STEP 3 · LAVORAZIONI   (hidden)
              ===================================================================== -->
         <fieldset class="form-step" data-step="3" hidden>
-          <legend class="sect"><span>▸ STEP 3 · LAVORAZIONI</span></legend>
+          <legend class="sect"><span>Step 3 · Lavorazioni</span></legend>
           <!-- placeholder -->
-          <div class="text-muted text-xs uc" style="padding:16px 8px;">
-            ▸ DA DEFINIRE
+          <div class="text-muted text-xs" style="padding:16px 8px;">
+            Da definire
           </div>
         </fieldset>
-      
+
         <!-- =====================================================================
              STEP 4 · RIEPILOGO   (hidden)
              ===================================================================== -->
         <fieldset class="form-step" data-step="4" hidden>
-          <legend class="sect"><span>▸ STEP 4 · RIEPILOGO</span></legend>
+          <legend class="sect"><span>Step 4 · Riepilogo</span></legend>
           <!-- placeholder -->
-          <div class="text-muted text-xs uc" style="padding:16px 8px;">
-            ▸ DA DEFINIRE
+          <div class="text-muted text-xs" style="padding:16px 8px;">
+            Da definire
           </div>
         </fieldset>
       
@@ -1445,8 +1446,8 @@
                   max-width:420px; margin:0 auto;
                   background:#0F0F0F; border-top:1px solid #2D2D2D;
                   padding:8px; display:grid; grid-template-columns:1fr 1fr; gap:8px;">
-        <button type="button" class="btn-ghost"   data-action="step-prev">‹ INDIETRO</button>
-        <button type="button" class="btn-primary" data-action="step-next">AVANTI →</button>
+        <button type="button" class="btn-ghost"   data-action="step-prev">‹ Indietro</button>
+        <button type="button" class="btn-primary" data-action="step-next">Avanti</button>
       </div>
     </section>
 
@@ -1468,41 +1469,40 @@
           <button class="back" type="button" data-action="back" aria-label="Indietro">‹</button>
           <div class="flex-1">
             <h1>La Spezia – Arcola</h1>
-            <div class="h-sub text-mono">13→14 APR 2026</div>
+            <div class="h-sub text-mono">13 → 14 Apr 2026</div>
           </div>
           <div class="actions">
-            <span class="night-save-dot text-green" aria-live="polite" title="Salvato">● SAVED</span>
+            <span class="night-save-dot text-green" aria-live="polite" title="Salvato">● Salvato</span>
             <button class="btn-icon night-menu-btn" type="button" data-action="open-menu" aria-label="Menu">…</button>
           </div>
         </div>
         <div class="night-head-row night-head-row-2">
           <button class="pill pill-amber night-binario-pill" type="button" data-action="toggle-binario" aria-label="Cambia binario">
-            <span class="text-amber">DISPARI</span>
+            <span class="text-amber">Dispari</span>
             <span class="text-muted"> ⇄</span>
           </button>
-          <span class="night-elapsed text-mono text-muted">▸ EDITING · 14:23 elapsed</span>
         </div>
       </header>
-      
+
       <!-- ─────────────────────────────────────────────────────────────────────
            COUNTER STRIP · sticky sotto header (mini fbar)
            ───────────────────────────────────────────────────────────────────── -->
       <div class="fbar night-counter-strip" role="group" aria-label="Contatori sessione">
         <div class="fbar-cell green">
           <strong>12</strong>
-          OK
+          Conformi
         </div>
         <div class="fbar-cell danger">
           <strong>3</strong>
-          DIFF
+          Difetti
         </div>
         <div class="fbar-cell">
           <strong>2</strong>
-          NDC
+          No DAC
         </div>
         <div class="fbar-cell amber">
           <strong>145<span class="text-xs">m</span></strong>
-          TOT
+          Totale
         </div>
       </div>
       
@@ -1537,7 +1537,7 @@
         </div>
       
         <div class="night-editor-line night-editor-line--sep">
-          <span class="text-amber">▸ BINARIO PARI</span>
+          <span class="text-amber">Binario Pari</span>
         </div>
       
         <div class="night-editor-line">
@@ -1555,24 +1555,24 @@
           <span class="night-caret" aria-hidden="true">▌</span>
         </div>
       
-        <p class="night-editor-foot text-muted text-xs">▸ EDITOR — non funzionale nel mockup</p>
+        <p class="night-editor-foot text-muted text-xs">Editor — non funzionale nel mockup</p>
       </div>
-      
+
       <!-- ─────────────────────────────────────────────────────────────────────
            MINI-CALC TRAVERSE · sticky bottom-1 (sopra CTA)
            ───────────────────────────────────────────────────────────────────── -->
       <aside class="night-calc" aria-label="Calcolatrice traverse">
-      
+
         <div class="night-calc-head">
-          <span class="text-mono text-xs text-muted">ULTIMO KM</span>
+          <span class="text-xs text-muted">Ultimo km</span>
           <span class="text-mono text-amber">162+800</span>
           <span class="night-calc-result text-mono">+ 0,3m × 5 = <strong class="text-amber">164m</strong></span>
         </div>
-      
+
         <div class="night-calc-chips">
-          <button class="pill pill-amber" type="button" data-tipo="all">ALL</button>
-          <button class="pill pill-mute" type="button" data-tipo="scin">SCIN</button>
-          <button class="pill pill-mute" type="button" data-tipo="gr">GR</button>
+          <button class="pill pill-amber" type="button" data-tipo="all">All</button>
+          <button class="pill pill-mute" type="button" data-tipo="scin">Scin</button>
+          <button class="pill pill-mute" type="button" data-tipo="gr">Gr</button>
         </div>
       
         <div class="night-numpad" role="group" aria-label="Numpad">
@@ -1593,17 +1593,17 @@
         <div class="night-side-row">
           <button class="btn-ghost" type="button" data-side="dx">DX</button>
           <button class="btn-ghost" type="button" data-side="sx">SX</button>
-          <button class="btn-ghost" type="button" data-side="both">DX&amp;SX</button>
+          <button class="btn-ghost" type="button" data-side="both">DX & SX</button>
         </div>
-      
+
       </aside>
-      
+
       <!-- ─────────────────────────────────────────────────────────────────────
            STICKY BOTTOM CTA · elabora risultati
            ───────────────────────────────────────────────────────────────────── -->
       <div class="night-cta-bottom">
         <button class="btn-primary btn-block" type="button" data-action="elabora-risultati">
-          ▸ ELABORA RISULTATI →
+          Elabora
         </button>
       </div>
     </section>
@@ -1625,52 +1625,47 @@
       <header class="page-head">
         <button class="back" type="button" data-action="back" aria-label="Indietro">‹</button>
         <div class="flex-1">
-          <h1 class="text-amber uc">▸ RISULTATI NOTTE</h1>
-          <div class="h-sub">13→14 APR · LASPEZIA-ARCOLA</div>
+          <h1>Risultati notte</h1>
+          <div class="h-sub">13 → 14 Apr · La Spezia – Arcola</div>
         </div>
         <div class="actions">
           <!-- NEED_CLASS: .save-dot (green dot indicator stato salvato) -->
           <span class="save-dot" aria-label="Salvato" title="Tutto salvato"></span>
         </div>
       </header>
-      
+
       <!-- ─────────────────────────────────────────────────────────────────────
-           HERO DIFETTI — banner danger pieno + card grande
+           HERO DIFETTI
            ───────────────────────────────────────────────────────────────────── -->
-      <!-- NEED_CLASS: .sect-danger (variante .sect con background danger pieno) -->
       <div class="sect sect-danger">
-        <span>▸ 3 DIFETTI TROVATI</span>
+        <span>3 difetti trovati</span>
       </div>
-      
-      <!-- NEED_CLASS: .hero-difetti (card stretta numero gigante) -->
-      <!-- NEED_CLASS: .hero-difetti-num (font-size >=44px, danger color, mono, tnum) -->
-      <!-- NEED_CLASS: .hero-difetti-sub (etichetta muted sotto numero) -->
-      <!-- NEED_CLASS: .hero-difetti-cta (riga amber call-to-action sotto card) -->
+
       <div class="hero-difetti">
         <div class="hero-difetti-num text-danger">3</div>
-        <div class="hero-difetti-sub text-muted uc">1/3 SCHEDE COMPILATE</div>
+        <div class="hero-difetti-sub text-muted">1 di 3 schede compilate</div>
       </div>
-      <div class="hero-difetti-cta text-amber uc">▸ COMPILA SCHEDA I.1 PER OGNUNO</div>
-      
+      <div class="hero-difetti-cta text-amber">Compila la scheda I.1 per ognuno</div>
+
       <!-- ─────────────────────────────────────────────────────────────────────
            STAT STRIP — 4 cell riepilogo
            ───────────────────────────────────────────────────────────────────── -->
       <div class="fbar mt-2">
         <div class="fbar-cell green">
           <strong>12</strong>
-          OK
+          Conformi
         </div>
         <div class="fbar-cell danger">
           <strong>3</strong>
-          DIFF
+          Difetti
         </div>
         <div class="fbar-cell amber">
           <strong>2</strong>
-          NDC
+          No DAC
         </div>
         <div class="fbar-cell">
           <strong>145m</strong>
-          TOT
+          Totale
         </div>
       </div>
       
@@ -1700,66 +1695,66 @@
           <div class="right">Stato</div>
           <div class="right">I.1</div>
         </div>
-      
+
         <button class="row row-sald is-diff" type="button" data-action="open-scheda" data-id="d1" style="grid-template-columns: 60px 1fr auto 60px 36px;">
           <div class="col-km">165+700</div>
-          <div><span class="pill pill-mute">DISP</span> · DX</div>
+          <div><span class="pill pill-mute">Disp</span> · DX</div>
           <div class="col-tipo">211</div>
-          <div class="right"><span class="pill pill-danger">DIFF</span></div>
+          <div class="right"><span class="pill pill-danger">Difetto</span></div>
           <div class="right scheda-mark text-green">✓</div>
         </button>
-      
+
         <button class="row row-sald" type="button" data-action="open-saldatura" data-id="s2" style="grid-template-columns: 60px 1fr auto 60px 36px;">
           <div class="col-km">166+450</div>
-          <div><span class="pill pill-mute">DISP</span> · SX</div>
+          <div><span class="pill pill-mute">Disp</span> · SX</div>
           <div class="col-tipo">TR</div>
           <div class="right"><span class="pill pill-green">OK</span></div>
           <div class="right scheda-mark text-muted">—</div>
         </button>
-      
+
         <button class="row row-sald is-diff" type="button" data-action="open-scheda" data-id="d2" style="grid-template-columns: 60px 1fr auto 60px 36px;">
           <div class="col-km">167+200</div>
-          <div><span class="pill pill-mute">DISP</span> · DX</div>
+          <div><span class="pill pill-mute">Disp</span> · DX</div>
           <div class="col-tipo">113</div>
-          <div class="right"><span class="pill pill-danger">DIFF</span></div>
+          <div class="right"><span class="pill pill-danger">Difetto</span></div>
           <div class="right scheda-mark text-muted">—</div>
         </button>
-      
+
         <button class="row row-sald" type="button" data-action="open-saldatura" data-id="s4" style="grid-template-columns: 60px 1fr auto 60px 36px;">
           <div class="col-km">167+800</div>
-          <div><span class="pill pill-mute">DISP</span> · SX</div>
-          <div class="col-tipo">ALL</div>
+          <div><span class="pill pill-mute">Disp</span> · SX</div>
+          <div class="col-tipo">All</div>
           <div class="right"><span class="pill pill-green">OK</span></div>
           <div class="right scheda-mark text-muted">—</div>
         </button>
-      
+
         <button class="row row-sald is-ndc" type="button" data-action="open-saldatura" data-id="s5" style="grid-template-columns: 60px 1fr auto 60px 36px;">
           <div class="col-km">168+150</div>
-          <div><span class="pill pill-mute">DISP</span> · DX</div>
+          <div><span class="pill pill-mute">Disp</span> · DX</div>
           <div class="col-tipo">TR</div>
-          <div class="right"><span class="pill pill-warn">NDC</span></div>
+          <div class="right"><span class="pill pill-warn">No DAC</span></div>
           <div class="right scheda-mark text-muted">—</div>
         </button>
-      
+
         <button class="row row-sald" type="button" data-action="open-saldatura" data-id="s6" style="grid-template-columns: 60px 1fr auto 60px 36px;">
           <div class="col-km">169+300</div>
-          <div><span class="pill pill-mute">DISP</span> · SX</div>
+          <div><span class="pill pill-mute">Disp</span> · SX</div>
           <div class="col-tipo">TR</div>
           <div class="right"><span class="pill pill-green">OK</span></div>
           <div class="right scheda-mark text-muted">—</div>
         </button>
-      
+
         <button class="row row-sald is-diff" type="button" data-action="open-scheda" data-id="d3" style="grid-template-columns: 60px 1fr auto 60px 36px;">
           <div class="col-km">170+100</div>
-          <div><span class="pill pill-mute">PARI</span> · SX</div>
+          <div><span class="pill pill-mute">Pari</span> · SX</div>
           <div class="col-tipo">211</div>
-          <div class="right"><span class="pill pill-danger">DIFF</span></div>
+          <div class="right"><span class="pill pill-danger">Difetto</span></div>
           <div class="right scheda-mark text-muted">—</div>
         </button>
-      
+
         <button class="row row-sald" type="button" data-action="open-saldatura" data-id="s8" style="grid-template-columns: 60px 1fr auto 60px 36px;">
           <div class="col-km">170+800</div>
-          <div><span class="pill pill-mute">PARI</span> · DX</div>
+          <div><span class="pill pill-mute">Pari</span> · DX</div>
           <div class="col-tipo">TR</div>
           <div class="right"><span class="pill pill-green">OK</span></div>
           <div class="right scheda-mark text-muted">—</div>
@@ -1776,34 +1771,34 @@
       
       <details class="group mt-3">
         <summary class="sect sect-q group-summary">
-          <span>▸ RIEPILOGO WHATSAPP</span>
-          <span class="text-muted">▸</span>
+          <span>Riepilogo WhatsApp</span>
+          <span class="text-muted">›</span>
         </summary>
-      
+
         <div class="wa-card">
           <div class="sect sect-q">
-            <span>▸ FORMATO M2</span>
+            <span>Formato M2</span>
           </div>
           <pre class="wa-pre">Notte 13 → 14 Aprile 2026
       Linea: 33/26 La Spezia - Arcola
-      Binario: DISPARI E PARI
-      Da Km: 171+000
-      a Km: 161+000
+      Binario: Dispari e Pari
+      Da km: 171+000
+      A km: 161+000
       Operatori: LP CA
       Km percorsi: 8.50
       Saldature controllate: 16
       Saldature difettose: 3 + 2 No DAC</pre>
-          <button class="btn-secondary btn-block wa-copy" type="button" data-action="copy-wa" data-format="m2">COPIA</button>
+          <button class="btn-secondary btn-block wa-copy" type="button" data-action="copy-wa" data-format="m2">Copia</button>
         </div>
-      
+
         <div class="wa-card mt-2">
           <div class="sect sect-q">
-            <span>▸ FORMATO GFC</span>
+            <span>Formato GFC</span>
           </div>
-          <pre class="wa-pre">M2 CONTROLLO SALDATURE
+          <pre class="wa-pre">M2 Controllo saldature
       13 Aprile 2026
       Linea: La Spezia Arcola
-      Binario DISPARI E PARI
+      Binario Dispari e Pari
       Da km 171+000
       A km 161+000
       Nr. Saldature controllate: 16
@@ -1811,25 +1806,24 @@
       167+200 DX alluminotermica
       170+100 SX alluminotermica
       165+700 DX scintillio</pre>
-          <button class="btn-secondary btn-block wa-copy" type="button" data-action="copy-wa" data-format="gfc">COPIA</button>
+          <button class="btn-secondary btn-block wa-copy" type="button" data-action="copy-wa" data-format="gfc">Copia</button>
         </div>
       </details>
-      
+
       <!-- ─────────────────────────────────────────────────────────────────────
            EXPORT BAR
            ───────────────────────────────────────────────────────────────────── -->
       <div class="sect sect-q mt-3">
-        <span>▸ EXPORT</span>
+        <span>Esporta</span>
       </div>
       <div class="btn-row">
         <button class="btn-secondary" type="button" data-action="export-tsv">TSV</button>
         <button class="btn-secondary" type="button" data-action="export-pdf">PDF</button>
       </div>
-      
+
       <!-- ─────────────────────────────────────────────────────────────────────
            STICKY BOTTOM — CHIUDI NOTTE (double-tap conferma)
            ───────────────────────────────────────────────────────────────────── -->
-      <!-- NEED_CLASS: .sticky-foot (barra fixed sopra .nav, fullwidth, bg primary, border-top) -->
       <div class="sticky-foot">
         <button
           class="btn-danger btn-block"
@@ -1837,7 +1831,7 @@
           data-action="chiudi-notte"
           data-confirm="double-tap"
           aria-label="Chiudi notte (tap due volte per confermare)">
-          ▸ CHIUDI NOTTE
+          Chiudi notte
         </button>
       </div>
     </section>
@@ -1859,11 +1853,8 @@
            ───────────────────────────────────────────────────────────────────── -->
       <header class="sheet-head" id="scheda-head">
         <button class="close" type="button" data-action="close-scheda" aria-label="Chiudi scheda">&times;</button>
-        <span id="scheda-title" style="flex:1; text-align:left; padding-left:8px;">SCHEDA I.1</span>
-        <span class="ticker" style="padding:0; margin:0; gap:6px;">
-          <span class="ok blink" style="color:#000;">&#9679;</span>
-          <span style="color:#000;">M2-2026-0142</span>
-        </span>
+        <span id="scheda-title" style="flex:1; text-align:left; padding-left:8px;">Scheda I.1</span>
+        <span class="text-mono text-muted" style="font-size:11px;">M2-2026-0142</span>
       </header>
       
       <!-- ─────────────────────────────────────────────────────────────────────
@@ -2307,7 +2298,7 @@
               <label class="pill-radio" for="sald-rfi">RFI</label>
       
               <input class="pill-radio-input" type="radio" name="saldatura" id="sald-ditta" value="ditta" checked>
-              <label class="pill-radio" for="sald-ditta">DITTA</label>
+              <label class="pill-radio" for="sald-ditta">Ditta</label>
             </div>
           </div>
       
@@ -2463,30 +2454,30 @@
       <!-- ─────────────────────────────────────────────────────────────────────
            HEADER · titolo MESE + nav mese + OGGI
            ───────────────────────────────────────────────────────────────────── -->
-      <header class="page-head mese-head"><!-- NEED_CLASS .mese-head -->
+      <header class="page-head mese-head">
         <div class="flex-1">
-          <h1 class="text-amber uc">▸ MESE</h1>
-          <div class="h-sub text-mono">MAGGIO 2026 · SETT 18-22</div>
+          <h1>Mese</h1>
+          <div class="h-sub">Maggio 2026 · sett. 18-22</div>
         </div>
-        <div class="actions mese-nav"><!-- NEED_CLASS .mese-nav -->
-          <button class="mese-nav-btn text-mono" type="button" data-action="mese-prev-next" aria-label="Cambia mese">
-            &lt; MAGGIO 2026 &gt;
-          </button><!-- NEED_CLASS .mese-nav-btn -->
-          <button class="mese-today-btn text-mono" type="button" data-action="mese-today" aria-label="Vai a oggi">
-            OGGI
-          </button><!-- NEED_CLASS .mese-today-btn -->
+        <div class="actions mese-nav">
+          <button class="mese-nav-btn" type="button" data-action="mese-prev-next" aria-label="Cambia mese">
+            &lt; Maggio 2026 &gt;
+          </button>
+          <button class="mese-today-btn" type="button" data-action="mese-today" aria-label="Vai a oggi">
+            Oggi
+          </button>
         </div>
       </header>
-      
+
       <!-- ─────────────────────────────────────────────────────────────────────
            FILTER CHIP · scrollabili orizzontali
            ───────────────────────────────────────────────────────────────────── -->
-      <div class="chip-row" role="group" aria-label="Filtra per cantiere"><!-- NEED_CLASS .chip-row (overflow-x:auto) -->
-        <button class="chip chip-amber active" type="button" data-action="filter-cantiere" data-id="all">TUTTI</button>
-        <button class="chip chip-cyan" type="button" data-action="filter-cantiere" data-id="laspezia">LA SPEZIA</button>
-        <button class="chip chip-green" type="button" data-action="filter-cantiere" data-id="empoli">EMPOLI</button>
-        <button class="chip chip-warn" type="button" data-action="filter-cantiere" data-id="brescia">BRESCIA</button>
-        <button class="chip chip-danger" type="button" data-action="filter-cantiere" data-id="genova">GENOVA</button>
+      <div class="chip-row" role="group" aria-label="Filtra per cantiere">
+        <button class="chip chip-amber active" type="button" data-action="filter-cantiere" data-id="all">Tutti</button>
+        <button class="chip chip-cyan" type="button" data-action="filter-cantiere" data-id="laspezia">La Spezia</button>
+        <button class="chip chip-green" type="button" data-action="filter-cantiere" data-id="empoli">Empoli</button>
+        <button class="chip chip-warn" type="button" data-action="filter-cantiere" data-id="brescia">Brescia</button>
+        <button class="chip chip-danger" type="button" data-action="filter-cantiere" data-id="genova">Genova</button>
       </div>
       <!-- NEED_CLASS .chip, .chip.active, .chip-amber, .chip-cyan, .chip-green, .chip-warn, .chip-danger -->
       
@@ -2658,14 +2649,14 @@
       <!-- ─────────────────────────────────────────────────────────────────────
            LEGENDA · inline mini mono
            ───────────────────────────────────────────────────────────────────── -->
-      <div class="cal-legend text-mono"><!-- NEED_CLASS .cal-legend (flex wrap, mini muted) -->
-        <span class="legend-item"><span class="dot dot-cyan"></span>LASPEZIA</span>
+      <div class="cal-legend">
+        <span class="legend-item"><span class="dot dot-cyan"></span>La Spezia</span>
         <span class="legend-sep">·</span>
-        <span class="legend-item"><span class="dot"></span>EMPOLI</span>
+        <span class="legend-item"><span class="dot"></span>Empoli</span>
         <span class="legend-sep">·</span>
-        <span class="legend-item"><span class="dot warn"></span>BRESCIA</span>
+        <span class="legend-item"><span class="dot warn"></span>Brescia</span>
         <span class="legend-sep">·</span>
-        <span class="legend-item"><span class="dot danger"></span>GENOVA</span>
+        <span class="legend-item"><span class="dot danger"></span>Genova</span>
       </div>
       <!-- NEED_CLASS .legend-item, .legend-sep -->
       
@@ -2673,101 +2664,100 @@
            PROSSIME NOTTI / 4 · agenda mono
            ───────────────────────────────────────────────────────────────────── -->
       <div class="sect sect-q">
-        <span>▸ PROSSIME NOTTI / 4</span>
+        <span>Prossime notti · 4</span>
       </div>
-      <div class="table table-agenda"><!-- NEED_CLASS .table-agenda (override grid 3-col data/ora/cantiere) -->
+      <div class="table table-agenda">
         <div class="table-head">
-          <div>DATA</div>
-          <div>ORA</div>
-          <div>CANTIERE</div>
+          <div>Data</div>
+          <div>Ora</div>
+          <div>Cantiere</div>
         </div>
-      
+
         <button class="row" type="button" data-action="open-day" data-date="2026-05-05">
-          <div class="row-data text-mono text-amber">LUN 5 MAG</div><!-- NEED_CLASS .row-data -->
-          <div class="row-ora text-mono">22:00</div><!-- NEED_CLASS .row-ora -->
-          <div class="row-cant text-mono">LASPEZIA-ARCOLA</div><!-- NEED_CLASS .row-cant -->
-        </button>
-      
-        <button class="row" type="button" data-action="open-day" data-date="2026-05-08">
-          <div class="row-data text-mono text-amber">GIO 8 MAG</div>
-          <div class="row-ora text-mono">21:30</div>
-          <div class="row-cant text-mono">EMPOLI</div>
-        </button>
-      
-        <button class="row" type="button" data-action="open-day" data-date="2026-05-12">
-          <div class="row-data text-mono text-amber">LUN 12 MAG</div>
+          <div class="row-data text-amber">Lun 5 Mag</div>
           <div class="row-ora text-mono">22:00</div>
-          <div class="row-cant text-mono">LASPEZIA</div>
+          <div class="row-cant">La Spezia – Arcola</div>
         </button>
-      
+
+        <button class="row" type="button" data-action="open-day" data-date="2026-05-08">
+          <div class="row-data text-amber">Gio 8 Mag</div>
+          <div class="row-ora text-mono">21:30</div>
+          <div class="row-cant">Empoli</div>
+        </button>
+
+        <button class="row" type="button" data-action="open-day" data-date="2026-05-12">
+          <div class="row-data text-amber">Lun 12 Mag</div>
+          <div class="row-ora text-mono">22:00</div>
+          <div class="row-cant">La Spezia</div>
+        </button>
+
         <button class="row row-multi" type="button" data-action="open-day" data-date="2026-05-12">
-          <!-- NEED_CLASS .row-multi (border-left amber, indica multi-cantiere stessa notte) -->
-          <div class="row-data text-mono text-amber">LUN 12 MAG</div>
+          <div class="row-data text-amber">Lun 12 Mag</div>
           <div class="row-ora text-mono">23:00</div>
-          <div class="row-cant text-mono">
-            BRESCIA
-            <span class="pill pill-amber">MULTI</span>
+          <div class="row-cant">
+            Brescia
+            <span class="pill pill-amber">Multi</span>
           </div>
         </button>
       </div>
-      
+
       <!-- ─────────────────────────────────────────────────────────────────────
            CANTIERI ATTIVI / 4 · mini-card stile dashboard
            ───────────────────────────────────────────────────────────────────── -->
       <div class="sect sect-q">
-        <span>▸ CANTIERI ATTIVI / 4</span>
+        <span>Cantieri attivi · 4</span>
       </div>
       <div class="table">
         <div class="table-head">
           <div></div>
-          <div>CANTIERE</div>
-          <div class="right">NOTTI</div>
-          <div class="right">PROX</div>
-          <div class="right">STATO</div>
+          <div>Cantiere</div>
+          <div class="right">Notti</div>
+          <div class="right">Prox</div>
+          <div class="right">Stato</div>
         </div>
-      
+
         <button class="row" type="button" data-action="open-cantiere" data-id="laspezia">
           <div class="row-dot"></div>
           <div>
             <div class="row-name">La Spezia – Arcola</div>
-            <div class="row-codice">DISP 171→163 · PARI 171→161</div>
+            <div class="row-codice">Disp 171→163 · Pari 171→161</div>
           </div>
           <div class="col-num amber">4</div>
           <div class="col-num">5/5</div>
-          <div class="col-num"><span class="pill pill-green">ON</span></div>
+          <div class="col-num"><span class="pill pill-green">Attivo</span></div>
         </button>
-      
+
         <button class="row" type="button" data-action="open-cantiere" data-id="empoli">
           <div class="row-dot"></div>
           <div>
             <div class="row-name">Empoli – San Miniato</div>
-            <div class="row-codice">26/26 · DISP 39→26</div>
+            <div class="row-codice">26/26 · Disp 39→26</div>
           </div>
           <div class="col-num amber">2</div>
           <div class="col-num">8/5</div>
-          <div class="col-num"><span class="pill pill-green">ON</span></div>
+          <div class="col-num"><span class="pill pill-green">Attivo</span></div>
         </button>
-      
+
         <button class="row" type="button" data-action="open-cantiere" data-id="brescia">
           <div class="row-dot zero"></div>
           <div>
             <div class="row-name">Brescia – Verona AV</div>
-            <div class="row-codice">39/25 · IN PAUSA</div>
+            <div class="row-codice">39/25 · in pausa</div>
           </div>
           <div class="col-num zero">0</div>
           <div class="col-num zero">—</div>
-          <div class="col-num"><span class="pill pill-mute">PAUSA</span></div>
+          <div class="col-num"><span class="pill pill-mute">In pausa</span></div>
         </button>
-      
+
         <button class="row" type="button" data-action="open-cantiere" data-id="genova">
           <div class="row-dot warn"></div>
           <div>
             <div class="row-name">Genova</div>
-            <div class="row-codice">SCAD. · PARI 10→11</div>
+            <div class="row-codice">Scaduto · Pari 10→11</div>
           </div>
           <div class="col-num amber">1</div>
           <div class="col-num">22/5</div>
-          <div class="col-num"><span class="pill pill-warn">WRN</span></div>
+          <div class="col-num"><span class="pill pill-warn">Attenzione</span></div>
         </button>
       </div>
       
@@ -2828,8 +2818,8 @@
       <header class="page-head">
         <button class="back" type="button" data-action="back" aria-label="Indietro">‹</button>
         <div class="flex-1">
-          <h1 class="text-amber uc">▸ PROFILO</h1>
-          <div class="h-sub">OPERATORE · SESSIONE LOCALE</div>
+          <h1>Profilo</h1>
+          <div class="h-sub">Operatore · sessione locale</div>
         </div>
       </header>
       
@@ -2846,34 +2836,34 @@
         <div class="ident-avatar" aria-hidden="true">LP</div>
         <div class="ident-body">
           <div class="ident-name">Ludovico Paulon</div>
-          <div class="ident-code text-muted uc">OPER. LP · STRUMENTO G · M2RAILGROUP</div>
+          <div class="ident-code text-muted">Operatore LP · Strumento G · M2 Rail Group</div>
         </div>
-        <button class="btn-ghost" type="button" data-action="edit-profilo">▸ MODIFICA</button>
+        <button class="btn-ghost" type="button" data-action="edit-profilo">Modifica</button>
       </div>
-      
+
       <!-- ─────────────────────────────────────────────────────────────────────
            STATISTICHE — section bar + 4 cell mono numeri grandi
            ───────────────────────────────────────────────────────────────────── -->
       <div class="sect sect-q mt-2">
-        <span>▸ STATISTICHE</span>
+        <span>Statistiche</span>
       </div>
-      
+
       <div class="stat-grid">
         <div class="stat">
           <div class="stat-val amber">247</div>
-          <div class="stat-lab">NOTTI</div>
+          <div class="stat-lab">Notti</div>
         </div>
         <div class="stat">
           <div class="stat-val">8.450</div>
-          <div class="stat-lab">SALD</div>
+          <div class="stat-lab">Saldature</div>
         </div>
         <div class="stat">
           <div class="stat-val danger">12</div>
-          <div class="stat-lab">DIFETTI</div>
+          <div class="stat-lab">Difetti</div>
         </div>
         <div class="stat">
           <div class="stat-val">67%</div>
-          <div class="stat-lab">AVANZ MEDIO</div>
+          <div class="stat-lab">Avanz. medio</div>
         </div>
       </div>
       
@@ -2890,17 +2880,17 @@
       
       <details class="group" open>
         <summary class="sect sect-q group-summary">
-          <span>▸ SICUREZZA</span>
+          <span>Sicurezza</span>
           <span class="text-muted">▾</span>
         </summary>
         <div class="group-body">
-      
+
           <div class="pin-row">
-            <span class="text-muted uc text-xs">PIN ATTUALE</span>
+            <span class="text-muted text-xs">PIN attuale</span>
             <span class="pin-dots text-primary text-mono">●●●●</span>
-            <button class="btn-mini" type="button" data-action="cambia-pin">CAMBIA</button>
+            <button class="btn-mini" type="button" data-action="cambia-pin">Cambia</button>
           </div>
-      
+
           <button
             class="btn-danger btn-block mt-2"
             type="button"
@@ -2908,9 +2898,9 @@
             data-confirm="double-tap"
             data-confirm-state="2"
             aria-label="Esci dall'app (tap due volte per confermare)">
-            ▸ CONFERMA USCITA
+            Conferma uscita
           </button>
-      
+
         </div>
       </details>
       
@@ -2924,21 +2914,21 @@
       
       <details class="group">
         <summary class="sect sect-q group-summary">
-          <span>▸ FIRMA OPERATORE</span>
-          <span class="text-muted">▸</span>
+          <span>Firma operatore</span>
+          <span class="text-muted">›</span>
         </summary>
         <div class="group-body">
-      
+
           <div class="sig-canvas-wrap">
             <canvas class="sig-canvas" width="280" height="100" aria-label="Area firma operatore"></canvas>
-            <span class="sig-placeholder text-muted uc">▸ DISEGNA LA FIRMA</span>
+            <span class="sig-placeholder text-muted">Disegna la firma</span>
           </div>
-      
+
           <div class="btn-row">
-            <button class="btn-ghost" type="button" data-action="firma-cancella">CANCELLA</button>
-            <button class="btn-secondary" type="button" data-action="firma-carica">CARICA DA PROFILO</button>
+            <button class="btn-ghost" type="button" data-action="firma-cancella">Cancella</button>
+            <button class="btn-secondary" type="button" data-action="firma-carica">Carica da profilo</button>
           </div>
-      
+
         </div>
       </details>
       
@@ -2952,13 +2942,13 @@
       
       <details class="group" open>
         <summary class="sect sect-q group-summary">
-          <span>▸ PREFERENZE</span>
+          <span>Preferenze</span>
           <span class="text-muted">▾</span>
         </summary>
         <div class="group-body">
-      
+
           <div class="pref-row">
-            <span class="pref-row-label uc">MODALITÀ FRONTALE (HEADLAMP)</span>
+            <span class="pref-row-label">Modalità frontale</span>
             <button
               class="toggle"
               type="button"
@@ -2968,9 +2958,9 @@
               <span class="toggle-track" aria-hidden="true"></span>
             </button>
           </div>
-      
+
           <div class="pref-row">
-            <span class="pref-row-label uc">VIBRAZIONE (HAPTIC)</span>
+            <span class="pref-row-label">Vibrazione</span>
             <button
               class="toggle"
               type="button"
@@ -2980,12 +2970,12 @@
               <span class="toggle-track" aria-hidden="true"></span>
             </button>
           </div>
-      
+
           <div class="pref-row">
-            <span class="pref-row-label uc">LINGUA</span>
-            <span class="pref-row-value text-muted">ITALIANO</span>
+            <span class="pref-row-label">Lingua</span>
+            <span class="pref-row-value text-muted">Italiano</span>
           </div>
-      
+
         </div>
       </details>
       
@@ -2995,31 +2985,31 @@
       
       <details class="group">
         <summary class="sect sect-q group-summary">
-          <span>▸ INFO APP</span>
-          <span class="text-muted">▸</span>
+          <span>Info app</span>
+          <span class="text-muted">›</span>
         </summary>
-      
+
         <div class="kv">
           <div class="kv-row">
-            <span class="k">VERSIONE</span>
+            <span class="k">Versione</span>
             <span class="v">2.0 (build 263)</span>
           </div>
           <div class="kv-row">
-            <span class="k">ULTIMA SYNC</span>
-            <span class="v">2 MAG 2026 · 19:30</span>
+            <span class="k">Ultima sync</span>
+            <span class="v">2 Mag 2026 · 19:30</span>
           </div>
           <div class="kv-row">
-            <span class="k">SERVER</span>
+            <span class="k">Server</span>
             <span class="v">92.4.172.126</span>
           </div>
           <div class="kv-row">
-            <span class="k">DEBUG</span>
+            <span class="k">Debug</span>
             <span class="v">
               <button class="btn-mini" type="button" data-action="debug">?debug=1</button>
             </span>
           </div>
         </div>
-      
+
       </details>
     </section>
 
@@ -3027,10 +3017,10 @@
 
   <!-- BOTTOM NAV -->
   <nav class="nav" id="bottom-nav" aria-label="Navigazione principale">
-    <button class="nav-tab" data-nav="dashboard"  type="button">▸ HOME</button>
-    <button class="nav-tab" data-nav="panoramica" type="button">MESE</button>
-    <button class="nav-tab" data-nav="profilo"    type="button">PROF</button>
-    <button class="nav-tab" data-nav="headlamp"   type="button" aria-label="Tap-and-hold per attivare modalità frontale">FRONT</button>
+    <button class="nav-tab" data-nav="dashboard"  type="button">Home</button>
+    <button class="nav-tab" data-nav="panoramica" type="button">Mese</button>
+    <button class="nav-tab" data-nav="profilo"    type="button">Profilo</button>
+    <button class="nav-tab" data-nav="headlamp"   type="button" aria-label="Tap-and-hold per attivare modalità frontale">Frontale</button>
   </nav>
 
   <!-- =======================================================================
@@ -3041,15 +3031,15 @@
   <dialog id="_unused-edit-notte" aria-labelledby="sheet-edit-notte-title">
     <div class="sheet" role="document">
       <header class="sheet-head">
-        <span id="sheet-edit-notte-title">▸ EDIT NOTTE</span>
+        <span id="sheet-edit-notte-title">Modifica notte</span>
         <button class="close" type="button" data-close-sheet aria-label="Chiudi">×</button>
       </header>
       <div class="sheet-body">
         <!-- view content here -->
       </div>
       <footer class="sheet-foot">
-        <button class="btn-ghost btn-block" type="button" data-close-sheet>ANNULLA</button>
-        <button class="btn-primary btn-block" type="button">SALVA</button>
+        <button class="btn-ghost btn-block" type="button" data-close-sheet>Annulla</button>
+        <button class="btn-primary btn-block" type="button">Salva</button>
       </footer>
     </div>
   </dialog>
@@ -3058,15 +3048,15 @@
   <dialog id="_unused-add-elemento" aria-labelledby="sheet-add-elemento-title">
     <div class="sheet" role="document">
       <header class="sheet-head">
-        <span id="sheet-add-elemento-title">▸ NUOVO ELEMENTO</span>
+        <span id="sheet-add-elemento-title">Nuovo elemento</span>
         <button class="close" type="button" data-close-sheet aria-label="Chiudi">×</button>
       </header>
       <div class="sheet-body">
         <!-- view content here -->
       </div>
       <footer class="sheet-foot">
-        <button class="btn-ghost btn-block" type="button" data-close-sheet>ANNULLA</button>
-        <button class="btn-primary btn-block" type="button">AGGIUNGI</button>
+        <button class="btn-ghost btn-block" type="button" data-close-sheet>Annulla</button>
+        <button class="btn-primary btn-block" type="button">Aggiungi</button>
       </footer>
     </div>
   </dialog>
@@ -3075,15 +3065,15 @@
   <dialog id="_unused-edit-saldatura" aria-labelledby="sheet-edit-saldatura-title">
     <div class="sheet" role="document">
       <header class="sheet-head">
-        <span id="sheet-edit-saldatura-title">▸ EDIT SALDATURA</span>
+        <span id="sheet-edit-saldatura-title">Modifica saldatura</span>
         <button class="close" type="button" data-close-sheet aria-label="Chiudi">×</button>
       </header>
       <div class="sheet-body">
         <!-- view content here -->
       </div>
       <footer class="sheet-foot">
-        <button class="btn-ghost btn-block" type="button" data-close-sheet>ANNULLA</button>
-        <button class="btn-primary btn-block" type="button">SALVA</button>
+        <button class="btn-ghost btn-block" type="button" data-close-sheet>Annulla</button>
+        <button class="btn-primary btn-block" type="button">Salva</button>
       </footer>
     </div>
   </dialog>
@@ -3092,15 +3082,15 @@
   <dialog id="_unused-calendar-day" aria-labelledby="sheet-calendar-day-title">
     <div class="sheet" role="document">
       <header class="sheet-head">
-        <span id="sheet-calendar-day-title">▸ GIORNO</span>
+        <span id="sheet-calendar-day-title">Giorno</span>
         <button class="close" type="button" data-close-sheet aria-label="Chiudi">×</button>
       </header>
       <div class="sheet-body">
         <!-- view content here -->
       </div>
       <footer class="sheet-foot">
-        <button class="btn-ghost btn-block" type="button" data-close-sheet>CHIUDI</button>
-        <button class="btn-primary btn-block" type="button">APRI CANTIERE</button>
+        <button class="btn-ghost btn-block" type="button" data-close-sheet>Chiudi</button>
+        <button class="btn-primary btn-block" type="button">Apri cantiere</button>
       </footer>
     </div>
   </dialog>
@@ -3111,7 +3101,7 @@
   <dialog id="modal-scheda" aria-labelledby="modal-scheda-title">
     <div class="modal-full" role="document">
       <header class="sheet-head">
-        <span id="modal-scheda-title">▸ SCHEDA I.1</span>
+        <span id="modal-scheda-title">Scheda I.1</span>
         <button class="close" type="button" data-close-sheet aria-label="Chiudi">×</button>
       </header>
       <div class="sheet-body">
@@ -3123,7 +3113,7 @@
   <!-- TOAST CONTAINER -->
   <div id="toast-container" aria-live="polite" aria-atomic="false"></div>
 
-  <script src="mockup.js?v=9"></script>
+  <script src="mockup.js?v=10"></script>
 
   <!-- Extra overlay modals -->
   <!--
@@ -3152,28 +3142,28 @@
 
   <div class="sheet" role="document">
     <header class="sheet-head">
-      <span id="sheet-edit-notte-mockup-title">▸ MODIFICA NOTTE</span>
+      <span id="sheet-edit-notte-mockup-title">Modifica notte</span>
       <button class="close" type="button" data-action="close-sheet" data-target="sheet-edit-notte-mockup" aria-label="Chiudi">×</button>
     </header>
 
     <div class="sheet-body">
 
       <div class="form-group">
-        <label class="label" for="en-data">DATA NOTTE</label>
+        <label class="label" for="en-data">Data notte</label>
         <input id="en-data" class="input text-mono" type="date" value="2026-05-05">
       </div>
 
       <div class="form-group">
-        <span class="label">STATO</span>
+        <span class="label">Stato</span>
         <div class="segmented" role="tablist" aria-label="Stato notte">
-          <button type="button" class="active" data-value="programmata">PROGRAMMATA</button>
-          <button type="button" data-value="saltata">SALTATA</button>
-          <button type="button" data-value="completata">COMPLETATA</button>
+          <button type="button" class="active" data-value="programmata">Programmata</button>
+          <button type="button" data-value="saltata">Saltata</button>
+          <button type="button" data-value="completata">Completata</button>
         </div>
       </div>
 
       <div class="form-group" data-cond="stato=saltata">
-        <label class="label" for="en-motivo">MOTIVO SALTO</label>
+        <label class="label" for="en-motivo">Motivo salto</label>
         <select id="en-motivo" class="input">
           <option value="" disabled selected>— Seleziona motivo —</option>
           <option value="pioggia">Pioggia</option>
@@ -3184,16 +3174,16 @@
       </div>
 
       <div class="form-group">
-        <label class="label" for="en-note">NOTE</label>
+        <label class="label" for="en-note">Note</label>
         <textarea id="en-note" class="input" placeholder="Note operative, contatti, decisioni…" rows="4"></textarea>
       </div>
 
     </div>
 
     <footer class="sheet-foot sheet-foot-3">
-      <button class="btn-danger" type="button" data-action="confirm-delete" data-step="1">ELIMINA</button>
-      <button class="btn-ghost" type="button" data-action="close-sheet" data-target="sheet-edit-notte-mockup">ANNULLA</button>
-      <button class="btn-primary" type="button">▸ SALVA</button>
+      <button class="btn-danger" type="button" data-action="confirm-delete" data-step="1">Elimina</button>
+      <button class="btn-ghost" type="button" data-action="close-sheet" data-target="sheet-edit-notte-mockup">Annulla</button>
+      <button class="btn-primary" type="button">Salva</button>
     </footer>
   </div>
 </div>
@@ -3207,23 +3197,23 @@
 
   <div class="sheet" role="document">
     <header class="sheet-head">
-      <span id="sheet-add-elemento-title">▸ AGGIUNGI ELEMENTO</span>
+      <span id="sheet-add-elemento-title">Aggiungi elemento</span>
       <button class="close" type="button" data-action="close-sheet" data-target="sheet-add-elemento" aria-label="Chiudi">×</button>
     </header>
 
     <div class="sheet-body">
 
       <div class="form-group">
-        <span class="label">TIPO</span>
+        <span class="label">Tipo</span>
         <div class="segmented" role="tablist" aria-label="Tipo elemento">
-          <button type="button" class="active seg-success" data-value="regolazione">REGOLAZIONE</button>
-          <button type="button" class="seg-warn" data-value="deviatoio">DEVIATOIO</button>
-          <button type="button" class="seg-danger" data-value="ricontrollo">RICONTROLLO</button>
+          <button type="button" class="active seg-success" data-value="regolazione">Regolazione</button>
+          <button type="button" class="seg-warn" data-value="deviatoio">Deviatoio</button>
+          <button type="button" class="seg-danger" data-value="ricontrollo">Ricontrollo</button>
         </div>
       </div>
 
       <div class="form-group">
-        <label class="label" for="ae-km">KM</label>
+        <label class="label" for="ae-km">Km</label>
         <input id="ae-km" class="input text-mono" type="text"
                inputmode="numeric"
                pattern="\d+\+\d{3}"
@@ -3233,24 +3223,24 @@
       </div>
 
       <div class="form-group">
-        <span class="label">LATO</span>
+        <span class="label">Lato</span>
         <div class="segmented" role="tablist" aria-label="Lato">
           <button type="button" class="active" data-value="dx">DX</button>
           <button type="button" data-value="sx">SX</button>
-          <button type="button" data-value="entrambi">ENTRAMBI</button>
+          <button type="button" data-value="entrambi">Entrambi</button>
         </div>
       </div>
 
       <div class="form-group">
-        <label class="label" for="ae-note">NOTE <span class="hint">(opzionale)</span></label>
+        <label class="label" for="ae-note">Note <span class="hint">(opzionale)</span></label>
         <textarea id="ae-note" class="input" placeholder="Dettagli aggiuntivi…" rows="3"></textarea>
       </div>
 
     </div>
 
     <footer class="sheet-foot">
-      <button class="btn-ghost" type="button" data-action="close-sheet" data-target="sheet-add-elemento">ANNULLA</button>
-      <button class="btn-primary" type="button">▸ AGGIUNGI</button>
+      <button class="btn-ghost" type="button" data-action="close-sheet" data-target="sheet-add-elemento">Annulla</button>
+      <button class="btn-primary" type="button">Aggiungi</button>
     </footer>
   </div>
 </div>
@@ -3264,14 +3254,14 @@
 
   <div class="sheet" role="document">
     <header class="sheet-head">
-      <span id="sheet-edit-saldatura-title">▸ MODIFICA SALDATURA</span>
+      <span id="sheet-edit-saldatura-title">Modifica saldatura</span>
       <button class="close" type="button" data-action="close-sheet" data-target="sheet-edit-saldatura" aria-label="Chiudi">×</button>
     </header>
 
     <div class="sheet-body">
 
       <div class="form-group">
-        <label class="label" for="es-km">KM</label>
+        <label class="label" for="es-km">Km</label>
         <input id="es-km" class="input text-mono" type="text"
                inputmode="numeric"
                pattern="\d+\+\d{3}"
@@ -3281,7 +3271,7 @@
       </div>
 
       <div class="form-group">
-        <span class="label">LATO</span>
+        <span class="label">Lato</span>
         <div class="segmented" role="tablist" aria-label="Lato">
           <button type="button" class="active" data-value="dx">DX</button>
           <button type="button" data-value="sx">SX</button>
@@ -3289,26 +3279,26 @@
       </div>
 
       <div class="form-group">
-        <span class="label">TIPO</span>
+        <span class="label">Tipo</span>
         <div class="segmented" role="tablist" aria-label="Tipo saldatura">
           <button type="button" class="active" data-value="tr">TR</button>
-          <button type="button" data-value="all">ALL</button>
-          <button type="button" data-value="scin">SCIN</button>
-          <button type="button" data-value="altro">ALTRO</button>
+          <button type="button" data-value="all">All</button>
+          <button type="button" data-value="scin">Scin</button>
+          <button type="button" data-value="altro">Altro</button>
         </div>
       </div>
 
       <div class="form-group">
-        <span class="label">STATO</span>
+        <span class="label">Stato</span>
         <div class="segmented" role="tablist" aria-label="Stato saldatura">
           <button type="button" class="active seg-success" data-value="ok">OK</button>
-          <button type="button" class="seg-danger" data-value="difetto">DIFETTO</button>
-          <button type="button" class="seg-mute" data-value="nodac">NO DAC</button>
+          <button type="button" class="seg-danger" data-value="difetto">Difetto</button>
+          <button type="button" class="seg-mute" data-value="nodac">No DAC</button>
         </div>
       </div>
 
       <div class="form-group" data-cond="stato=difetto">
-        <label class="label" for="es-codice">CODICE DIFETTO <span class="hint">(autocomplete)</span></label>
+        <label class="label" for="es-codice">Codice difetto <span class="hint">(autocomplete)</span></label>
         <input id="es-codice" class="input text-mono" type="text"
                inputmode="numeric"
                list="es-codici-difetto"
@@ -3328,9 +3318,9 @@
     </div>
 
     <footer class="sheet-foot sheet-foot-3">
-      <button class="btn-danger" type="button" data-action="confirm-delete" data-step="1">ELIMINA</button>
-      <button class="btn-ghost" type="button" data-action="close-sheet" data-target="sheet-edit-saldatura">ANNULLA</button>
-      <button class="btn-primary" type="button">▸ SALVA</button>
+      <button class="btn-danger" type="button" data-action="confirm-delete" data-step="1">Elimina</button>
+      <button class="btn-ghost" type="button" data-action="close-sheet" data-target="sheet-edit-saldatura">Annulla</button>
+      <button class="btn-primary" type="button">Salva</button>
     </footer>
   </div>
 </div>
@@ -3344,15 +3334,15 @@
 
   <div class="sheet" role="document">
     <header class="sheet-head">
-      <span id="sheet-calendar-day-title">▸ LUN 5 MAGGIO 2026</span>
+      <span id="sheet-calendar-day-title">Lun 5 Maggio 2026</span>
       <button class="close" type="button" data-action="close-sheet" data-target="sheet-calendar-day" aria-label="Chiudi">×</button>
     </header>
 
     <div class="sheet-body sheet-body-flush">
 
       <div class="sect sect-q">
-        <span>▸ NOTTI / 2</span>
-        <span class="text-muted text-xs">TAP per aprire</span>
+        <span>Notti · 2</span>
+        <span class="text-muted text-xs">tocca per aprire</span>
       </div>
 
       <div class="table table-simple">
@@ -3360,7 +3350,7 @@
           <div class="row-dot"></div>
           <div>
             <div class="row-name">La Spezia – Arcola</div>
-            <div class="row-codice">LASPEZIA-ARCOLA · 22:00 · DISP 171→163</div>
+            <div class="row-codice">22:00 · Disp 171→163</div>
           </div>
           <div class="col-num text-amber">›</div>
         </button>
@@ -3369,14 +3359,14 @@
           <div class="row-dot warn"></div>
           <div>
             <div class="row-name">Empoli – San Miniato</div>
-            <div class="row-codice">EMPOLI · 21:30 · DISP 39→26</div>
+            <div class="row-codice">21:30 · Disp 39→26</div>
           </div>
           <div class="col-num text-amber">›</div>
         </button>
       </div>
 
       <button class="btn-ghost btn-block mt-3" type="button" data-action="new-notte" data-date="2026-05-05">
-        + PROGRAMMA NUOVA NOTTE
+        + Programma nuova notte
       </button>
 
     </div>

@@ -1,80 +1,83 @@
 <!-- =====================================================================
      SCREEN 2 · DASHBOARD
-     Concept D — Operations Terminal
-     Coerente con _reference.html, classi da style.css
+     Concept D — 2026 cleanup
      ===================================================================== -->
 
-<!-- Bloomberg-style ticker -->
-<div class="ticker">
-  <span>M2.DIAG <span class="ok blink">●</span> SYNCED 22:14:08</span>
-  <span>LP/G · 04 cant. · 11 diff</span>
+<!-- 2026 dashboard header -->
+<div class="d-header">
+  <div class="d-header-text">
+    <div class="d-header-greet">Buonasera, Ludovico</div>
+    <div class="d-header-sub">Sabato 2 Maggio · LP</div>
+  </div>
+  <div class="d-header-avatar" aria-hidden="true">LP</div>
 </div>
 
-<!-- Function bar 4-cell -->
+<!-- Stat tiles 4-cell -->
 <div class="fbar">
   <button class="fbar-cell amber" type="button" data-action="filter-da-aprire">
     <strong>1</strong>
-    DA APRIRE
+    Da aprire
   </button>
   <button class="fbar-cell green" type="button" data-action="filter-attivi">
     <strong>3</strong>
-    ATTIVI
+    Attivi
   </button>
   <button class="fbar-cell" type="button" data-action="filter-difetti">
     <strong>11</strong>
-    DIFETTI
+    Difetti
   </button>
   <button class="fbar-cell" type="button" data-action="filter-schede">
     <strong>5</strong>
-    SCHEDE
+    Schede
   </button>
 </div>
 
 <!-- ─────────────────────────────────────────────────────────────────────
-     STASERA · LIVE — command hero
+     Stasera — command hero
      ───────────────────────────────────────────────────────────────────── -->
 <div class="sect">
-  <span>▸ STASERA · LIVE</span>
+  <span>Stasera</span>
+  <span class="pill pill-green">In corso</span>
 </div>
 <div class="cmd-stasera">
-  <div class="cmd-line">OPEN 22:30 · LASPEZIA-ARCOLA</div>
+  <div class="cmd-line">Apertura 22:30</div>
   <div class="cmd-name">La Spezia – Arcola</div>
-  <div class="cmd-tratta">33/26 · DISPARI 171→163 · PARI 171→161 · TRATTA SARZ-LASP</div>
+  <div class="cmd-tratta">33/26 · Dispari 171→163 · Pari 171→161 · Tratta Sarzana – La Spezia</div>
 
   <div class="cmd-grid">
     <div class="cmd-cell">
-      <div class="cmd-cell-lab">AVANZ</div>
+      <div class="cmd-cell-lab">Avanzamento</div>
       <div class="cmd-cell-val amber">58%</div>
     </div>
     <div class="cmd-cell">
-      <div class="cmd-cell-lab">SALD</div>
+      <div class="cmd-cell-lab">Saldature</div>
       <div class="cmd-cell-val">418</div>
     </div>
     <div class="cmd-cell">
-      <div class="cmd-cell-lab">DIFF</div>
+      <div class="cmd-cell-lab">Difetti</div>
       <div class="cmd-cell-val danger">11</div>
     </div>
     <div class="cmd-cell">
-      <div class="cmd-cell-lab">METEO</div>
+      <div class="cmd-cell-lab">Meteo</div>
       <div class="cmd-cell-val green">3°</div>
     </div>
   </div>
 
-  <button class="cmd-cta" type="button" data-action="open-notte" data-id="2">APRI NOTTE →</button>
+  <button class="cmd-cta" type="button" data-action="open-notte" data-id="2">Apri notte</button>
 </div>
 
 <!-- ─────────────────────────────────────────────────────────────────────
-     ATTIVI / 3
+     Attivi · 3
      ───────────────────────────────────────────────────────────────────── -->
 <div class="sect sect-q">
-  <span>▸ ATTIVI / 3</span>
+  <span>Attivi · 3</span>
 </div>
 <div class="table">
   <div class="table-head">
     <div></div>
-    <div>CANTIERE</div>
-    <div class="right">SALD</div>
-    <div class="right">DIFF</div>
+    <div>Cantiere</div>
+    <div class="right">Sald</div>
+    <div class="right">Diff</div>
     <div class="right">%</div>
   </div>
 
@@ -82,7 +85,7 @@
     <div class="row-dot"></div>
     <div>
       <div class="row-name">Empoli – San Miniato</div>
-      <div class="row-codice">26/26 · DISP 39→26</div>
+      <div class="row-codice">26/26 · Disp 39→26</div>
     </div>
     <div class="col-num">237</div>
     <div class="col-num">3</div>
@@ -93,7 +96,7 @@
     <div class="row-dot warn"></div>
     <div>
       <div class="row-name">Genova</div>
-      <div class="row-codice">SCAD. · PARI 10→11</div>
+      <div class="row-codice">Scaduto · Pari 10→11</div>
     </div>
     <div class="col-num">0</div>
     <div class="col-num">0</div>
@@ -104,7 +107,7 @@
     <div class="row-dot zero"></div>
     <div>
       <div class="row-name">Test</div>
-      <div class="row-codice">DISP 100→120</div>
+      <div class="row-codice">Disp 100→120</div>
     </div>
     <div class="col-num">0</div>
     <div class="col-num">0</div>
@@ -113,10 +116,10 @@
 </div>
 
 <!-- ─────────────────────────────────────────────────────────────────────
-     PAUSA / 3
+     In pausa · 3
      ───────────────────────────────────────────────────────────────────── -->
 <div class="sect sect-q">
-  <span>▸ PAUSA / 3</span>
+  <span>In pausa · 3</span>
 </div>
 <div class="table">
   <button class="row" type="button" data-action="open-cantiere" data-id="brescia">
@@ -154,10 +157,10 @@
 </div>
 
 <!-- ─────────────────────────────────────────────────────────────────────
-     COMPLETATI / 1
+     Completati · 1
      ───────────────────────────────────────────────────────────────────── -->
 <div class="sect sect-q">
-  <span>▸ COMPLETATI / 1</span>
+  <span>Completati · 1</span>
 </div>
 <div class="table">
   <button class="row" type="button" data-action="open-cantiere" data-id="laquila">
@@ -173,10 +176,10 @@
 </div>
 
 <!-- ─────────────────────────────────────────────────────────────────────
-     ARCHIVIATI / 1
+     Archiviati · 1
      ───────────────────────────────────────────────────────────────────── -->
 <div class="sect sect-q">
-  <span>▸ ARCHIVIATI / 1</span>
+  <span>Archiviati · 1</span>
 </div>
 <div class="table">
   <button class="row" type="button" data-action="open-cantiere" data-id="ravenna">

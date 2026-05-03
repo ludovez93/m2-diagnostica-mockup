@@ -9,30 +9,30 @@
 <!-- ─────────────────────────────────────────────────────────────────────
      HEADER · titolo MESE + nav mese + OGGI
      ───────────────────────────────────────────────────────────────────── -->
-<header class="page-head mese-head"><!-- NEED_CLASS .mese-head -->
+<header class="page-head mese-head">
   <div class="flex-1">
-    <h1 class="text-amber uc">▸ MESE</h1>
-    <div class="h-sub text-mono">MAGGIO 2026 · SETT 18-22</div>
+    <h1>Mese</h1>
+    <div class="h-sub">Maggio 2026 · sett. 18-22</div>
   </div>
-  <div class="actions mese-nav"><!-- NEED_CLASS .mese-nav -->
-    <button class="mese-nav-btn text-mono" type="button" data-action="mese-prev-next" aria-label="Cambia mese">
-      &lt; MAGGIO 2026 &gt;
-    </button><!-- NEED_CLASS .mese-nav-btn -->
-    <button class="mese-today-btn text-mono" type="button" data-action="mese-today" aria-label="Vai a oggi">
-      OGGI
-    </button><!-- NEED_CLASS .mese-today-btn -->
+  <div class="actions mese-nav">
+    <button class="mese-nav-btn" type="button" data-action="mese-prev-next" aria-label="Cambia mese">
+      &lt; Maggio 2026 &gt;
+    </button>
+    <button class="mese-today-btn" type="button" data-action="mese-today" aria-label="Vai a oggi">
+      Oggi
+    </button>
   </div>
 </header>
 
 <!-- ─────────────────────────────────────────────────────────────────────
      FILTER CHIP · scrollabili orizzontali
      ───────────────────────────────────────────────────────────────────── -->
-<div class="chip-row" role="group" aria-label="Filtra per cantiere"><!-- NEED_CLASS .chip-row (overflow-x:auto) -->
-  <button class="chip chip-amber active" type="button" data-action="filter-cantiere" data-id="all">TUTTI</button>
-  <button class="chip chip-cyan" type="button" data-action="filter-cantiere" data-id="laspezia">LA SPEZIA</button>
-  <button class="chip chip-green" type="button" data-action="filter-cantiere" data-id="empoli">EMPOLI</button>
-  <button class="chip chip-warn" type="button" data-action="filter-cantiere" data-id="brescia">BRESCIA</button>
-  <button class="chip chip-danger" type="button" data-action="filter-cantiere" data-id="genova">GENOVA</button>
+<div class="chip-row" role="group" aria-label="Filtra per cantiere">
+  <button class="chip chip-amber active" type="button" data-action="filter-cantiere" data-id="all">Tutti</button>
+  <button class="chip chip-cyan" type="button" data-action="filter-cantiere" data-id="laspezia">La Spezia</button>
+  <button class="chip chip-green" type="button" data-action="filter-cantiere" data-id="empoli">Empoli</button>
+  <button class="chip chip-warn" type="button" data-action="filter-cantiere" data-id="brescia">Brescia</button>
+  <button class="chip chip-danger" type="button" data-action="filter-cantiere" data-id="genova">Genova</button>
 </div>
 <!-- NEED_CLASS .chip, .chip.active, .chip-amber, .chip-cyan, .chip-green, .chip-warn, .chip-danger -->
 
@@ -204,14 +204,14 @@
 <!-- ─────────────────────────────────────────────────────────────────────
      LEGENDA · inline mini mono
      ───────────────────────────────────────────────────────────────────── -->
-<div class="cal-legend text-mono"><!-- NEED_CLASS .cal-legend (flex wrap, mini muted) -->
-  <span class="legend-item"><span class="dot dot-cyan"></span>LASPEZIA</span>
+<div class="cal-legend">
+  <span class="legend-item"><span class="dot dot-cyan"></span>La Spezia</span>
   <span class="legend-sep">·</span>
-  <span class="legend-item"><span class="dot"></span>EMPOLI</span>
+  <span class="legend-item"><span class="dot"></span>Empoli</span>
   <span class="legend-sep">·</span>
-  <span class="legend-item"><span class="dot warn"></span>BRESCIA</span>
+  <span class="legend-item"><span class="dot warn"></span>Brescia</span>
   <span class="legend-sep">·</span>
-  <span class="legend-item"><span class="dot danger"></span>GENOVA</span>
+  <span class="legend-item"><span class="dot danger"></span>Genova</span>
 </div>
 <!-- NEED_CLASS .legend-item, .legend-sep -->
 
@@ -219,40 +219,39 @@
      PROSSIME NOTTI / 4 · agenda mono
      ───────────────────────────────────────────────────────────────────── -->
 <div class="sect sect-q">
-  <span>▸ PROSSIME NOTTI / 4</span>
+  <span>Prossime notti · 4</span>
 </div>
-<div class="table table-agenda"><!-- NEED_CLASS .table-agenda (override grid 3-col data/ora/cantiere) -->
+<div class="table table-agenda">
   <div class="table-head">
-    <div>DATA</div>
-    <div>ORA</div>
-    <div>CANTIERE</div>
+    <div>Data</div>
+    <div>Ora</div>
+    <div>Cantiere</div>
   </div>
 
   <button class="row" type="button" data-action="open-day" data-date="2026-05-05">
-    <div class="row-data text-mono text-amber">LUN 5 MAG</div><!-- NEED_CLASS .row-data -->
-    <div class="row-ora text-mono">22:00</div><!-- NEED_CLASS .row-ora -->
-    <div class="row-cant text-mono">LASPEZIA-ARCOLA</div><!-- NEED_CLASS .row-cant -->
+    <div class="row-data text-amber">Lun 5 Mag</div>
+    <div class="row-ora text-mono">22:00</div>
+    <div class="row-cant">La Spezia – Arcola</div>
   </button>
 
   <button class="row" type="button" data-action="open-day" data-date="2026-05-08">
-    <div class="row-data text-mono text-amber">GIO 8 MAG</div>
+    <div class="row-data text-amber">Gio 8 Mag</div>
     <div class="row-ora text-mono">21:30</div>
-    <div class="row-cant text-mono">EMPOLI</div>
+    <div class="row-cant">Empoli</div>
   </button>
 
   <button class="row" type="button" data-action="open-day" data-date="2026-05-12">
-    <div class="row-data text-mono text-amber">LUN 12 MAG</div>
+    <div class="row-data text-amber">Lun 12 Mag</div>
     <div class="row-ora text-mono">22:00</div>
-    <div class="row-cant text-mono">LASPEZIA</div>
+    <div class="row-cant">La Spezia</div>
   </button>
 
   <button class="row row-multi" type="button" data-action="open-day" data-date="2026-05-12">
-    <!-- NEED_CLASS .row-multi (border-left amber, indica multi-cantiere stessa notte) -->
-    <div class="row-data text-mono text-amber">LUN 12 MAG</div>
+    <div class="row-data text-amber">Lun 12 Mag</div>
     <div class="row-ora text-mono">23:00</div>
-    <div class="row-cant text-mono">
-      BRESCIA
-      <span class="pill pill-amber">MULTI</span>
+    <div class="row-cant">
+      Brescia
+      <span class="pill pill-amber">Multi</span>
     </div>
   </button>
 </div>
@@ -261,59 +260,59 @@
      CANTIERI ATTIVI / 4 · mini-card stile dashboard
      ───────────────────────────────────────────────────────────────────── -->
 <div class="sect sect-q">
-  <span>▸ CANTIERI ATTIVI / 4</span>
+  <span>Cantieri attivi · 4</span>
 </div>
 <div class="table">
   <div class="table-head">
     <div></div>
-    <div>CANTIERE</div>
-    <div class="right">NOTTI</div>
-    <div class="right">PROX</div>
-    <div class="right">STATO</div>
+    <div>Cantiere</div>
+    <div class="right">Notti</div>
+    <div class="right">Prox</div>
+    <div class="right">Stato</div>
   </div>
 
   <button class="row" type="button" data-action="open-cantiere" data-id="laspezia">
     <div class="row-dot"></div>
     <div>
       <div class="row-name">La Spezia – Arcola</div>
-      <div class="row-codice">DISP 171→163 · PARI 171→161</div>
+      <div class="row-codice">Disp 171→163 · Pari 171→161</div>
     </div>
     <div class="col-num amber">4</div>
     <div class="col-num">5/5</div>
-    <div class="col-num"><span class="pill pill-green">ON</span></div>
+    <div class="col-num"><span class="pill pill-green">Attivo</span></div>
   </button>
 
   <button class="row" type="button" data-action="open-cantiere" data-id="empoli">
     <div class="row-dot"></div>
     <div>
       <div class="row-name">Empoli – San Miniato</div>
-      <div class="row-codice">26/26 · DISP 39→26</div>
+      <div class="row-codice">26/26 · Disp 39→26</div>
     </div>
     <div class="col-num amber">2</div>
     <div class="col-num">8/5</div>
-    <div class="col-num"><span class="pill pill-green">ON</span></div>
+    <div class="col-num"><span class="pill pill-green">Attivo</span></div>
   </button>
 
   <button class="row" type="button" data-action="open-cantiere" data-id="brescia">
     <div class="row-dot zero"></div>
     <div>
       <div class="row-name">Brescia – Verona AV</div>
-      <div class="row-codice">39/25 · IN PAUSA</div>
+      <div class="row-codice">39/25 · in pausa</div>
     </div>
     <div class="col-num zero">0</div>
     <div class="col-num zero">—</div>
-    <div class="col-num"><span class="pill pill-mute">PAUSA</span></div>
+    <div class="col-num"><span class="pill pill-mute">In pausa</span></div>
   </button>
 
   <button class="row" type="button" data-action="open-cantiere" data-id="genova">
     <div class="row-dot warn"></div>
     <div>
       <div class="row-name">Genova</div>
-      <div class="row-codice">SCAD. · PARI 10→11</div>
+      <div class="row-codice">Scaduto · Pari 10→11</div>
     </div>
     <div class="col-num amber">1</div>
     <div class="col-num">22/5</div>
-    <div class="col-num"><span class="pill pill-warn">WRN</span></div>
+    <div class="col-num"><span class="pill pill-warn">Attenzione</span></div>
   </button>
 </div>
 

@@ -1,6 +1,5 @@
 <!-- =====================================================================
-     SCREEN 4 · FORM CANTIERE (creazione / edit)
-     Concept D — Operations Terminal
+     SCREEN 4 · FORM CANTIERE (creazione / edit) — 2026 cleanup
      Stepwise 4 step (Info / Binari / Lavorazioni / Riepilogo)
      ===================================================================== -->
 
@@ -10,10 +9,9 @@
 <header class="page-head">
   <button class="back" type="button" data-action="back" aria-label="Indietro">‹</button>
   <div style="flex:1;">
-    <h1 class="text-amber uc">▸ NUOVO CANTIERE</h1>
-    <div class="h-sub">STEP 2 / 4 · BINARI</div>
+    <h1>Nuovo cantiere</h1>
+    <div class="h-sub">Step 2 di 4 · Binari</div>
   </div>
-  <!-- NEED_CLASS: .step-dots / .step-dot / .step-dot.active -->
   <div class="step-dots" role="tablist" aria-label="Avanzamento step">
     <span class="step-dot done" aria-current="false">●</span>
     <span class="step-dot active" aria-current="step">●</span>
@@ -28,20 +26,20 @@
        STEP 1 · INFO BASE   (hidden)
        ===================================================================== -->
   <fieldset class="form-step" data-step="1" hidden>
-    <legend class="sect"><span>▸ STEP 1 · INFO BASE</span></legend>
+    <legend class="sect"><span>Step 1 · Info base</span></legend>
 
     <div class="form-group">
-      <label class="label" for="f-nome">NOME CANTIERE <span class="req">*</span></label>
+      <label class="label" for="f-nome">Nome cantiere <span class="req">*</span></label>
       <input class="input" id="f-nome" name="nome" type="text"
              value="Bologna - Modena"
-             placeholder="ES. LA SPEZIA – ARCOLA"
+             placeholder="es. La Spezia – Arcola"
              style="font-size:16px;">
     </div>
 
     <div class="input-row">
       <div class="form-group">
         <label class="label" for="f-codice">
-          CODICE M2
+          Codice M2
           <span class="hint">es. 33/26</span>
         </label>
         <input class="input" id="f-codice" name="codice" type="text"
@@ -52,27 +50,26 @@
                style="font-size:16px;">
       </div>
       <div class="form-group">
-        <label class="label" for="f-tratta">TRATTA</label>
+        <label class="label" for="f-tratta">Tratta</label>
         <input class="input" id="f-tratta" name="tratta" type="text"
                value="BO-MO"
-               placeholder="ES. BO-MO"
+               placeholder="es. BO-MO"
                style="font-size:16px;">
       </div>
     </div>
 
     <div class="form-group">
-      <label class="label" for="f-data-fine">DATA FINE <span class="req">*</span></label>
+      <label class="label" for="f-data-fine">Data fine <span class="req">*</span></label>
       <input class="input" id="f-data-fine" name="data_fine" type="date"
              value="2026-06-30"
              style="font-size:16px;">
     </div>
 
     <div class="form-group">
-      <span class="label">TIPO</span>
-      <!-- pill group amber -->
+      <span class="label">Tipo</span>
       <div class="segmented" role="radiogroup" aria-label="Tipo cantiere">
-        <button type="button" class="active" role="radio" aria-checked="true"  data-value="notturno">NOTTURNO</button>
-        <button type="button"                role="radio" aria-checked="false" data-value="diurno">DIURNO</button>
+        <button type="button" class="active" role="radio" aria-checked="true"  data-value="notturno">Notturno</button>
+        <button type="button"                role="radio" aria-checked="false" data-value="diurno">Diurno</button>
       </div>
     </div>
 
@@ -80,13 +77,12 @@
       <label class="toggle" for="f-urgente">
         <input type="checkbox" id="f-urgente" name="urgente">
         <span class="toggle-track" aria-hidden="true"></span>
-        <span class="toggle-label">URGENTE</span>
+        <span class="toggle-label">Urgente</span>
       </label>
     </div>
 
     <div class="form-group">
-      <span class="label">GIORNI ATTIVI</span>
-      <!-- NEED_CLASS: .day-circles / .day-circle / .day-circle.active -->
+      <span class="label">Giorni attivi</span>
       <div class="day-circles" role="group" aria-label="Giorni della settimana attivi">
         <button type="button" class="day-circle"        aria-pressed="false" data-day="0">D</button>
         <button type="button" class="day-circle active" aria-pressed="true"  data-day="1">L</button>
@@ -103,21 +99,20 @@
        STEP 2 · BINARI   (visibile)
        ===================================================================== -->
   <fieldset class="form-step" data-step="2">
-    <legend class="sect"><span>▸ STEP 2 · BINARI</span></legend>
+    <legend class="sect"><span>Step 2 · Binari</span></legend>
 
     <!-- Lista binari aggiunti -->
     <div class="table">
       <div class="table-head" style="grid-template-columns: 8px 80px 1fr 88px;">
         <div></div>
-        <div>TIPO</div>
-        <div>RANGE KM</div>
-        <div class="right">AZIONE</div>
+        <div>Tipo</div>
+        <div>Range km</div>
+        <div class="right">Azione</div>
       </div>
 
-      <!-- NEED_CLASS: .binario-row (estende .row con grid 4 col) -->
       <div class="row binario-row" style="grid-template-columns: 8px 80px 1fr 88px;">
         <div class="row-dot"></div>
-        <div class="text-mono text-amber" style="font-weight:700; letter-spacing:0.08em;">DISPARI</div>
+        <div class="text-amber" style="font-weight:600;">Dispari</div>
         <div class="text-mono text-primary">171+000 → 163+000</div>
         <div class="right" style="display:flex; gap:4px; justify-content:flex-end;">
           <button type="button" class="btn-icon" data-action="binario-edit"   data-id="1" aria-label="Modifica binario">✎</button>
@@ -127,7 +122,7 @@
 
       <div class="row binario-row" style="grid-template-columns: 8px 80px 1fr 88px;">
         <div class="row-dot"></div>
-        <div class="text-mono text-amber" style="font-weight:700; letter-spacing:0.08em;">PARI</div>
+        <div class="text-amber" style="font-weight:600;">Pari</div>
         <div class="text-mono text-primary">171+000 → 161+000</div>
         <div class="right" style="display:flex; gap:4px; justify-content:flex-end;">
           <button type="button" class="btn-icon" data-action="binario-edit"   data-id="2" aria-label="Modifica binario">✎</button>
@@ -137,23 +132,22 @@
     </div>
 
     <!-- Mini-form inline aggiungi binario -->
-    <!-- NEED_CLASS: .binario-form (card inline aperta sotto la lista) -->
-    <div class="binario-form" style="margin-top:8px; background:#0A0A0A; border:1px solid #2D2D2D; padding:8px;">
-      <div class="divider-label" style="margin-top:0;">▸ AGGIUNGI BINARIO</div>
+    <div class="binario-form" style="margin-top:8px; background:#0A0A0A; border:1px solid #2D2D2D; padding:12px; border-radius:10px;">
+      <div class="divider-label" style="margin-top:0;">Aggiungi binario</div>
 
       <div class="form-group">
-        <span class="label">TIPO</span>
+        <span class="label">Tipo</span>
         <div class="segmented" role="radiogroup" aria-label="Tipo binario">
-          <button type="button" class="active" role="radio" aria-checked="true"  data-value="dispari">DISPARI</button>
-          <button type="button"                role="radio" aria-checked="false" data-value="pari">PARI</button>
-          <button type="button"                role="radio" aria-checked="false" data-value="unico">UNICO</button>
-          <button type="button"                role="radio" aria-checked="false" data-value="interconnessione">INTERC.</button>
+          <button type="button" class="active" role="radio" aria-checked="true"  data-value="dispari">Dispari</button>
+          <button type="button"                role="radio" aria-checked="false" data-value="pari">Pari</button>
+          <button type="button"                role="radio" aria-checked="false" data-value="unico">Unico</button>
+          <button type="button"                role="radio" aria-checked="false" data-value="interconnessione">Interc.</button>
         </div>
       </div>
 
       <div class="input-row">
         <div class="form-group">
-          <label class="label" for="f-km-da">KM DA</label>
+          <label class="label" for="f-km-da">Km da</label>
           <input class="input text-mono" id="f-km-da" name="km_da" type="text"
                  inputmode="numeric"
                  pattern="\d+\+\d{3}"
@@ -161,7 +155,7 @@
                  style="font-size:16px;">
         </div>
         <div class="form-group">
-          <label class="label" for="f-km-a">KM A</label>
+          <label class="label" for="f-km-a">Km a</label>
           <input class="input text-mono" id="f-km-a" name="km_a" type="text"
                  inputmode="numeric"
                  pattern="\d+\+\d{3}"
@@ -170,13 +164,13 @@
         </div>
       </div>
 
-      <div class="text-muted text-xs uc" style="margin-top:-4px; margin-bottom:8px;">
-        ▸ KM IN ORDINE REALE DEL LAVORO
+      <div class="text-muted text-xs" style="margin-top:-4px; margin-bottom:8px;">
+        Inserisci i km in ordine reale del lavoro
       </div>
 
       <div class="btn-row" style="margin-top:0;">
-        <button type="button" class="btn-ghost"   data-action="binario-cancel">ANNULLA</button>
-        <button type="button" class="btn-primary" data-action="binario-add">AGGIUNGI</button>
+        <button type="button" class="btn-ghost"   data-action="binario-cancel">Annulla</button>
+        <button type="button" class="btn-primary" data-action="binario-add">Aggiungi</button>
       </div>
     </div>
   </fieldset>
@@ -185,10 +179,9 @@
        STEP 3 · LAVORAZIONI   (hidden)
        ===================================================================== -->
   <fieldset class="form-step" data-step="3" hidden>
-    <legend class="sect"><span>▸ STEP 3 · LAVORAZIONI</span></legend>
-    <!-- placeholder -->
-    <div class="text-muted text-xs uc" style="padding:16px 8px;">
-      ▸ DA DEFINIRE
+    <legend class="sect"><span>Step 3 · Lavorazioni</span></legend>
+    <div class="text-muted text-xs" style="padding:16px 8px;">
+      Da definire
     </div>
   </fieldset>
 
@@ -196,10 +189,9 @@
        STEP 4 · RIEPILOGO   (hidden)
        ===================================================================== -->
   <fieldset class="form-step" data-step="4" hidden>
-    <legend class="sect"><span>▸ STEP 4 · RIEPILOGO</span></legend>
-    <!-- placeholder -->
-    <div class="text-muted text-xs uc" style="padding:16px 8px;">
-      ▸ DA DEFINIRE
+    <legend class="sect"><span>Step 4 · Riepilogo</span></legend>
+    <div class="text-muted text-xs" style="padding:16px 8px;">
+      Da definire
     </div>
   </fieldset>
 
@@ -207,13 +199,12 @@
 
 <!-- ─────────────────────────────────────────────────────────────────────
      STICKY BOTTOM CTA · INDIETRO / AVANTI
-     NEED_CLASS: .form-foot (barra sticky bottom, sopra .nav)
      ───────────────────────────────────────────────────────────────────── -->
 <div class="form-foot" role="group" aria-label="Navigazione step"
      style="position:fixed; left:0; right:0; bottom:56px; z-index:40;
             max-width:420px; margin:0 auto;
             background:#0F0F0F; border-top:1px solid #2D2D2D;
             padding:8px; display:grid; grid-template-columns:1fr 1fr; gap:8px;">
-  <button type="button" class="btn-ghost"   data-action="step-prev">‹ INDIETRO</button>
-  <button type="button" class="btn-primary" data-action="step-next">AVANTI →</button>
+  <button type="button" class="btn-ghost"   data-action="step-prev">‹ Indietro</button>
+  <button type="button" class="btn-primary" data-action="step-next">Avanti</button>
 </div>

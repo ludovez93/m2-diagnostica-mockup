@@ -266,7 +266,7 @@
     if (el.dataset.confirm === 'double-tap' && el.dataset.confirmState !== '2') {
       el.dataset.confirmState = '2';
       var orig = el.textContent;
-      el.textContent = '▸ CONFERMA';
+      el.textContent = 'Conferma';
       setTimeout(function () {
         if (el.dataset.confirmState === '2') {
           el.dataset.confirmState = '';
