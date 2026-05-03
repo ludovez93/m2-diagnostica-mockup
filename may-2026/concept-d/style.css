@@ -3848,3 +3848,32 @@ button[data-action="add-elemento"] {
 .table ~ button.btn-secondary {
   margin-top: 12px !important;
 }
+
+/* Fix v=21 — bordi mancanti / radius mancanti / overflow tabelle */
+.cant-progress {
+  border: 1px solid var(--border-default) !important;
+}
+.stat-grid {
+  border-radius: 12px !important;
+  overflow: hidden;
+}
+.stat-grid > .stat {
+  border-radius: 0 !important;
+  border: 0 !important;
+  border-right: 1px solid var(--border-subtle) !important;
+  border-bottom: 1px solid var(--border-subtle) !important;
+}
+.stat-grid > .stat:nth-child(2n) { border-right: 0 !important; }
+.stat-grid > .stat:nth-last-child(-n+2) { border-bottom: 0 !important; }
+
+/* Panoramica tabella overflow: col-num più larga + grid auto-adattivo */
+[data-screen="panoramica"] .table-head,
+[data-screen="panoramica"] .row {
+  grid-template-columns: minmax(60px, auto) 1fr 70px 60px 70px !important;
+  gap: 6px !important;
+}
+[data-screen="panoramica"] .col-num {
+  min-width: 50px;
+  text-align: right;
+  white-space: nowrap;
+}
