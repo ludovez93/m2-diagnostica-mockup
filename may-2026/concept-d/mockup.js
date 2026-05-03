@@ -434,6 +434,82 @@
     boot();
   }
 
+  /* ---------- MINI-EDITOR PARSER (mockup notte, no app live) ---------- */
+  // Riconosce: km lato [tipo] [codice] [N progr] [data] [op]
+  // Tipi: TR / ALL / SCIN / GR / N
+  // Sub-attributi (Profondità/Altezza/Db) restano testuali muted
+  function colorizeLine(line) {
+    var raw = line;
+    var trimmed = raw.trim();
+    if (!trimmed) return '<div class="night-editor-line"><span class="night-editor-tok">&nbsp;</span></div>';
+
+    // Separatore "Binario Pari/Dispari/Unico"
+    var binMatch = trimmed.match(/^(binario\s+(?:pari|dispari|unico|interconnessione\s+\w+))$/i);
+    if (binMatch) {
+      return '<div class="night-editor-line night-editor-line--sep"><span class="text-amber">' + escHtml(trimmed) + '</span></div>';
+    }
+
+    // Sub-attributi: profondità/altezza/db/percorso/palo
+    if (/^(profondit|altezza|db|percorso|palo|fungo|gambo|suola|hs|ps|bc|cc)/i.test(trimmed)) {
+      return '<div class="night-editor-line night-editor-line--sub"><span class="night-editor-tok night-editor-tok--sub">' + escHtml(trimmed) + '</span></div>';
+    }
+
+    // Riga saldatura standard: km, lato, tokens
+    var m = trimmed.match(/^(\d+\+\d+)\s+(DX|SX)\s*(.*)$/i);
+    if (!m) {
+      return '<div class="night-editor-line"><span class="night-editor-tok">' + escHtml(trimmed) + '</span></div>';
+    }
+    var km = m[1], lato = m[2].toUpperCase(), rest = m[3];
+    var html = '<div class="night-editor-line';
+    if (/\b\d{2,3}\b/.test(rest) && /\bN\b/i.test(rest)) html += ' night-editor-line--diff';
+    html += '">';
+    html += '<span class="night-editor-tok night-editor-tok--km">' + km + '</span>';
+    html += '<span class="night-editor-tok night-editor-tok--lato">' + lato + '</span>';
+
+    // Tokenize il resto
+    var parts = rest.trim().split(/\s+/).filter(Boolean);
+    parts.forEach(function (p) {
+      var pUp = p.toUpperCase();
+      if (/^(TR|ALL|SCIN|GR)$/i.test(p)) {
+        html += '<span class="night-editor-tok night-editor-tok--tipo">' + pUp + '</span>';
+      } else if (/^\d{2,3}$/.test(p)) {
+        // codice difetto
+        html += '<span class="night-editor-tok night-editor-tok--codice">' + p + '</span>';
+      } else if (/^N$/i.test(p)) {
+        html += '<span class="night-editor-tok night-editor-tok--codice" style="background:transparent;border:1px solid var(--color-warn);color:var(--color-warn);">N</span>';
+      } else if (/^\d{1,2}\/\d{1,2}\/\d{2,4}$/.test(p)) {
+        html += '<span class="night-editor-tok night-editor-tok--data">' + p + '</span>';
+      } else if (/^[A-Z]{2,3}$/.test(pUp) && parts.indexOf(p) === parts.length - 1) {
+        // operatore (sigla 2-3 lettere alla fine)
+        html += '<span class="night-editor-tok night-editor-tok--op">' + pUp + '</span>';
+      } else {
+        html += '<span class="night-editor-tok">' + escHtml(p) + '</span>';
+      }
+    });
+    html += '</div>';
+    return html;
+  }
+  function escHtml(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+  function renderEditor() {
+    var input = document.getElementById('mockup-editor-input');
+    var preview = document.getElementById('mockup-editor-preview');
+    if (!input || !preview) return;
+    var lines = input.value.split('\n');
+    if (!lines.length || (lines.length === 1 && !lines[0].trim())) {
+      preview.innerHTML = '<span class="night-editor-preview-empty">Anteprima colorata — scrivi sopra per vedere i token</span>';
+      return;
+    }
+    preview.innerHTML = lines.map(colorizeLine).join('');
+  }
+  document.addEventListener('input', function (ev) {
+    if (ev.target && ev.target.id === 'mockup-editor-input') renderEditor();
+  });
+  // initial render after DOM ready
+  if (document.readyState !== 'loading') setTimeout(renderEditor, 100);
+  else document.addEventListener('DOMContentLoaded', function () { setTimeout(renderEditor, 100); });
+
   /* ---------- EXPORTS ---------- */
   window.showScreen = showScreen;
   window.openSheet  = openSheet;

@@ -11,12 +11,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
 
-  <link rel="stylesheet" href="style.css?v=23">
+  <link rel="stylesheet" href="style.css?v=24">
 </head>
 <body>
 
   <!-- VERSION BADGE (cache check) -->
-  <div style="position:fixed;top:8px;left:8px;background:#3B82F6;color:#fff;padding:4px 10px;border-radius:999px;font-family:Inter,sans-serif;font-size:11px;font-weight:700;z-index:9999;letter-spacing:0.04em;box-shadow:0 2px 8px rgba(59,130,246,0.4);" aria-hidden="true">v23</div>
+  <div style="position:fixed;top:8px;left:8px;background:#3B82F6;color:#fff;padding:4px 10px;border-radius:999px;font-family:Inter,sans-serif;font-size:11px;font-weight:700;z-index:9999;letter-spacing:0.04em;box-shadow:0 2px 8px rgba(59,130,246,0.4);" aria-hidden="true">v24</div>
 
   <!-- DEV NAV (jump screen) -->
   <label class="visually-hidden" for="dev-nav-select" hidden>Vai a vista</label>
@@ -1415,53 +1415,30 @@
       <!-- ─────────────────────────────────────────────────────────────────────
            EDITOR BODY · PLACEHOLDER STATICO (non funzionale)
            ───────────────────────────────────────────────────────────────────── -->
-      <div class="night-editor" role="presentation" aria-hidden="false">
-      
-        <div class="night-editor-line night-editor-line--diff">
-          <span class="night-editor-tok night-editor-tok--km">165+700</span>
-          <span class="night-editor-tok night-editor-tok--lato">DX</span>
-          <span class="night-editor-tok night-editor-tok--codice">211</span>
-          <span class="night-editor-tok night-editor-tok--tipo">N</span>
-          <span class="night-editor-tok">17</span>
-          <span class="night-editor-tok night-editor-tok--data">13/04/2026</span>
-          <span class="night-editor-tok night-editor-tok--op">LP</span>
-        </div>
-        <div class="night-editor-line night-editor-line--sub">
-          <span class="night-editor-tok night-editor-tok--sub">Profondità 12 mm</span>
-        </div>
-        <div class="night-editor-line night-editor-line--sub">
-          <span class="night-editor-tok night-editor-tok--sub">Altezza 25 mm</span>
-        </div>
-        <div class="night-editor-line night-editor-line--sub">
-          <span class="night-editor-tok night-editor-tok--sub">Db 8</span>
-        </div>
-      
-        <div class="night-editor-line">
-          <span class="night-editor-tok night-editor-tok--km">166+450</span>
-          <span class="night-editor-tok night-editor-tok--lato">SX</span>
-          <span class="night-editor-tok night-editor-tok--tipo">TR</span>
-        </div>
-      
-        <div class="night-editor-line night-editor-line--sep">
-          <span class="text-amber">Binario Pari</span>
-        </div>
-      
-        <div class="night-editor-line">
-          <span class="night-editor-tok night-editor-tok--km">162+800</span>
-          <span class="night-editor-tok night-editor-tok--lato">DX</span>
-          <span class="night-editor-tok night-editor-tok--tipo">ALL</span>
-        </div>
-        <div class="night-editor-line">
-          <span class="night-editor-tok night-editor-tok--km">163+200</span>
-          <span class="night-editor-tok night-editor-tok--lato">SX</span>
-          <span class="night-editor-tok night-editor-tok--tipo">TR</span>
-        </div>
-      
-        <div class="night-editor-line night-editor-line--caret">
-          <span class="night-caret" aria-hidden="true">▌</span>
-        </div>
-      
-        <p class="night-editor-foot text-muted text-xs">Editor — non funzionale nel mockup</p>
+      <div class="night-editor-wrap">
+        <textarea
+          class="night-editor-input"
+          id="mockup-editor-input"
+          spellcheck="false"
+          autocomplete="off"
+          autocapitalize="off"
+          aria-label="Inserisci righe saldature"
+          placeholder="Scrivi righe come:&#10;165+700 DX 211 N 17 13/04/2026 LP&#10;166+450 SX TR&#10;Binario Pari&#10;162+800 DX ALL"
+        >Binario Dispari
+165+700 DX 211 N 17 13/04/2026 LP
+Profondità 12 mm
+Altezza 25 mm
+Db 8
+166+450 SX TR
+Binario Pari
+162+800 DX ALL
+163+200 SX TR</textarea>
+        <div class="night-editor-preview" id="mockup-editor-preview" aria-live="polite"></div>
+        <p class="night-editor-info">
+          Mini-editor di prova. Scrivi righe tipo <code>km lato tipo</code>.
+          Sigle: <strong>TR</strong>=standard · <strong>ALL</strong>=alluminotermica · <strong>SCIN</strong>=scintillio · <strong>GR</strong>=regolazione · <strong>N</strong>=NO DAC.
+          Codici difetto: 113/121/211/etc.
+        </p>
       </div>
 
       <!-- ─────────────────────────────────────────────────────────────────────
@@ -3019,7 +2996,7 @@
   <!-- TOAST CONTAINER -->
   <div id="toast-container" aria-live="polite" aria-atomic="false"></div>
 
-  <script src="mockup.js?v=23"></script>
+  <script src="mockup.js?v=24"></script>
 
   <!-- Extra overlay modals -->
   <!--
