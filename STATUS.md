@@ -1,37 +1,37 @@
-# STATUS — M2 Diagnostica
+# STATUS — M2 Diagnostica Mockup
 
 ## Stato attuale
-- Data: 12/04/2026
-- Fase: mockup completato, piano approvato
+- Data: 04/05/2026
+- Fase: redesign 2026 Concept D — pagina Notte funzionante (editor live)
+- Live: https://ludovez93.github.io/m2-diagnostica-mockup/may-2026/concept-d/?v=36
 
-## Sessione 11-12/04/2026 — Progettazione e mockup
+## Sessione 02-04/05/2026 — Concept D + editor notte
 
 ### Cosa fatto
-- Discussione architetturale: unione M2 Tool v2 + Cantieri Tool in app unica
-- Decisione: nuovo progetto separato, non toccare le app esistenti
-- PLAN-INTEGRAZIONE.md scritto e iterato (8 fasi, tutte le feature)
-- Mockup HTML completo su GitHub Pages: ludovez93.github.io/m2-diagnostica-mockup/
-- 9 schermate: Dashboard, Cantiere (avanzamento km + difetti + NO DAC separati), Editor da campo (collaborativo LP/CA), Risultati, Difetti + Scheda I.1, Riepiloghi WhatsApp (formato M2 + GFC), Tabella Excel (colonne identiche a M2 v2), Panoramica mese (calendario + filtri operatore/cantiere/periodo), Profilo, Nuovo cantiere, Notte passata
-- Feature nuove discusse e pianificate: editor da campo, offline, sync collaborativo, riepiloghi WhatsApp auto, barra avanzamento km, export Excel, profilo operatore
+- Concept D "Operations Terminal" completo, 9 viste integrate
+- Pagina Notte con editor syntax-highlight funzionante:
+  - Textarea trasparente sopra + div colorato sotto
+  - Token: km cyan, lato amber, codice danger, N giallo, data muted, op verde
+  - Calcolatore traverse identico ad app live (parseInt traverse, decimali sul km)
+  - Auto-sync "Ultimo km" dall'editor
+  - Counter Conformi/Difetti/NoDAC
+  - Esempio lungo per stress-test scroll
+- Highlight intere righe difetto (rosso) / NoDAC (giallo) via wrapping span inline
+- Cursor alignment risolto definitivamente (vedi LEARNED)
 
-### Decisioni prese
-- Nome: M2 Diagnostica
-- Server: Oracle porta 3002 (Cantieri Tool resta su 3001)
-- DB: copia dati esistenti Cantieri Tool + nuove colonne
-- NO DAC non sono difetti — tracciati separatamente
-- Operatori: LP (strumento G), CA (strumento B)
-- Sync collaborativo a intervalli (opzione B, non real-time)
-- Offline con Service Worker + IndexedDB
-- Excel solo su richiesta esplicita, mai automatico
-- Scheda I.1 prende dati dal parser (non dal profilo)
+### Versioni iterate
+- v32: token character-perfect (no padding/box su token)
+- v33: font-weight uniforme 600 + JetBrains Mono wght 600
+- v34: line-height in px assoluti (28px, no unitless 1.7)
+- v35: rendering highlight con \n literal (no &lt;div&gt; per riga) — fix drift verticale
+- v36: highlight riga difetto/NoDAC
 
 ### Problemi aperti
-- Nessuno
+- Nessuno sulla notte. In attesa feedback per passare alle altre viste (Risultati, Scheda I.1, Cantiere, Mese, Profilo)
 
 ## Prossimo step
-1. Creare cartella m2-diagnostica/ con CLAUDE.md, STATUS.md, LEARNED.md
-2. Scrivere PLAN.md definitivo nella cartella progetto
-3. Fase 0 approvata (mockup) — passare a Fase 1: setup progetto + copia base
+- Continuare review schermata-per-schermata della pagina Notte oppure passare alle altre viste in ordine
 
 ## Storico sessioni
-- 12/04/2026: progettazione architettura, piano integrazione, mockup completo 9 schermate
+- 12/04/2026: progettazione, piano, mockup 9 schermate iniziali
+- 02-04/05/2026: redesign Concept D, editor notte funzionante con cursor alignment perfetto
