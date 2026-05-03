@@ -499,9 +499,28 @@
     }
     updateCounters();
   }
+  function syncLastKm() {
+    var ta = document.getElementById('mockup-editor-input');
+    var travKm = document.getElementById('trav-km');
+    if (!ta || !travKm) return;
+    // Trova l'ultima riga con km valido (anche con decimali)
+    var lines = ta.value.split('\n');
+    for (var i = lines.length - 1; i >= 0; i--) {
+      var m = lines[i].match(/(\d+\+\d+(?:[.,]\d+)?)/);
+      if (m) {
+        // Update solo se diverso (e l'utente non sta editando trav-km)
+        if (document.activeElement !== travKm && travKm.value !== m[1]) {
+          travKm.value = m[1];
+          updateTrav();
+        }
+        return;
+      }
+    }
+  }
   function updateCounters() {
     var ta = document.getElementById('mockup-editor-input');
     if (!ta) return;
+    syncLastKm();
     var lines = ta.value.split('\n').map(function (l) { return l.trim(); }).filter(Boolean);
     var controllate = 0, conformi = 0, difetti = 0, nodac = 0;
     var kmList = [];
@@ -570,6 +589,74 @@
     var nuovoKm = ultimo + add;
     out.innerHTML = '+ ' + addStr + ' → <strong class="text-amber">' + travFmtKm(nuovoKm) + '</strong>';
   }
+  // Editor clear / load-long
+  document.addEventListener('click', function (ev) {
+    var el = ev.target.closest('[data-action]');
+    if (!el) return;
+    var act = el.getAttribute('data-action');
+    var ta = document.getElementById('mockup-editor-input');
+    if (!ta) return;
+    if (act === 'editor-clear') {
+      ta.value = '';
+      colorizeEditor();
+      ev.preventDefault();
+      return;
+    }
+    if (act === 'editor-load-long') {
+      ta.value = LONG_EXAMPLE;
+      colorizeEditor();
+      ev.preventDefault();
+      return;
+    }
+  });
+  var LONG_EXAMPLE = [
+    'Binario Dispari',
+    '171+000 DX TR',
+    '171+050 SX TR',
+    '171+100 DX TR',
+    '171+150 SX TR',
+    '171+200 DX ALL',
+    '171+250 SX TR',
+    '171+300 DX TR',
+    '171+350 SX TR',
+    '171+400 DX 211 N 17 13/04/2026 LP',
+    'Profondità 12 mm',
+    'Altezza 25 mm',
+    'Db 8',
+    '171+450 SX TR',
+    '171+500 DX TR',
+    '171+550 SX ALL',
+    '171+600 DX TR',
+    '171+650 SX 113 N 18 13/04/2026 LP',
+    'Profondità 8 mm',
+    'Altezza 15 mm',
+    '171+700 DX TR',
+    '171+750 SX TR',
+    '171+800 DX SCIN',
+    '171+850 SX TR',
+    '171+900 DX N',
+    '171+950 SX TR',
+    'Binario Pari',
+    '171+000 DX TR',
+    '171+050 SX TR',
+    '171+100 DX TR',
+    '171+150 SX TR',
+    '171+200 DX TR',
+    '171+250 SX ALL',
+    '171+300 DX TR',
+    '171+350 SX TR',
+    '171+400 DX TR',
+    '171+450 SX 121 N 19 13/04/2026 CA',
+    'Profondità 15 mm',
+    'Altezza 30 mm',
+    'Db 10',
+    '171+500 DX TR',
+    '171+550 SX TR',
+    '171+600 DX TR',
+    '171+650 SX TR',
+    '171+700 DX TR'
+  ].join('\n');
+
   // Calc add line from traverse calculator
   document.addEventListener('click', function (ev) {
     var el = ev.target.closest('.trav-add-btn');
