@@ -3820,3 +3820,31 @@ html.headlamp-mode .ident-avatar { border-radius: 50%; }
 .cant-diff-row .col-tipo, .row-sald .col-tipo {
   margin-left: 4px;
 }
+
+/* Fix v=20 — separazione card da label sezione */
+.sect + .cant-progress,
+.sect-q + .cant-progress {
+  margin-top: 12px !important;
+}
+.cant-progress {
+  border-radius: 12px !important;
+  overflow: hidden;
+  padding: 16px !important;
+}
+
+/* Fix v=20 — bottone "+ Aggiungi elemento" staccato dalla tabella */
+.cant-elem-table + button,
+.cant-elem-table + .btn-secondary,
+.cant-elem-table ~ button[class*="btn-"],
+.cant-elem-add,
+button[data-action="add-elemento"] {
+  margin-top: 12px !important;
+}
+
+/* Tabelle che precedono bottoni "+" mantengono spacing */
+.table + button[class*="btn-"],
+.table + .btn-block,
+.table + .btn-secondary,
+.table ~ button.btn-secondary {
+  margin-top: 12px !important;
+}
