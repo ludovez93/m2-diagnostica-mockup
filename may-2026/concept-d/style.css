@@ -3670,3 +3670,136 @@ html.headlamp-mode .ident-avatar { border-radius: 50%; }
   color: var(--accent-amber); margin-left: 8px; opacity: 0.85;
   white-space: nowrap;
 }
+
+/* ============================================================
+   CANTIERE — 4 stat boxes top (Notti/Controllate/Difetti/Consegna)
+   ============================================================ */
+.cant-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin: 12px 0 16px;
+}
+.cant-stat {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 10px 8px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  min-height: 76px;
+  gap: 2px;
+}
+.cant-stat-k {
+  font-family: var(--ff-display); font-size: 10px; font-weight: 600;
+  color: var(--text-muted); letter-spacing: 0.04em;
+}
+.cant-stat-v {
+  font-family: var(--ff-mono); font-size: 22px; font-weight: 700;
+  color: var(--text-primary); line-height: 1;
+}
+.cant-stat-tot {
+  font-size: 12px; color: var(--text-muted); font-weight: 500;
+}
+.cant-stat-sub {
+  font-size: 10px; color: var(--text-muted); font-weight: 500;
+}
+
+/* ============================================================
+   SEGMENTED CONTROLS (no più tasti attaccati squadrati 1980)
+   pill-toggle, segmented, pill-radio in row con gap e radius
+   ============================================================ */
+.pill-group, .segmented {
+  display: flex !important;
+  gap: 6px !important;
+  flex-wrap: wrap;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+}
+.pill-group > *, .segmented > button {
+  border-radius: 999px !important;
+  border: 1px solid var(--border-default) !important;
+  background: var(--bg-surface) !important;
+  padding: 8px 14px !important;
+  min-height: 40px;
+  font-family: var(--ff-display) !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  color: var(--text-body) !important;
+  transition: all 150ms !important;
+  flex: 0 0 auto !important;
+}
+.pill-group > *:hover, .segmented > button:hover {
+  border-color: var(--accent-amber) !important;
+  background: rgba(59,130,246,0.05) !important;
+}
+.pill-group input[type="radio"]:checked + label,
+.pill-group input[type="checkbox"]:checked + label,
+.pill-radio-input:checked + .pill-radio-label,
+.segmented > button.active,
+.segmented > button[aria-checked="true"] {
+  background: var(--accent-amber) !important;
+  border-color: var(--accent-amber) !important;
+  color: #fff !important;
+  box-shadow: 0 2px 8px rgba(59,130,246,0.3) !important;
+}
+
+/* numpad PIN login + numpad mini-calc notte: tasti separati con gap */
+.numpad, .numpad-grid, .night-numpad {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 6px !important;
+  background: transparent !important;
+  border: 0 !important;
+  padding: 4px !important;
+}
+.numkey, .night-numpad-key {
+  background: var(--bg-surface) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 12px !important;
+  min-height: 56px !important;
+  font-family: var(--ff-mono) !important;
+  font-size: 22px !important;
+  font-weight: 600 !important;
+  transition: all 100ms !important;
+}
+.numkey:active, .night-numpad-key:active {
+  background: var(--accent-amber-soft) !important;
+  border-color: var(--accent-amber) !important;
+  transform: scale(0.96);
+}
+.numkey-ok, .night-numpad-key.numkey-ok {
+  background: var(--accent-amber) !important;
+  color: #fff !important;
+  border-color: var(--accent-amber) !important;
+}
+
+/* day-circles (D L M M G V S in form-cantiere): gap + cerchi */
+.day-circles, .days-group {
+  display: flex !important;
+  gap: 8px !important;
+  background: transparent !important;
+  border: 0 !important;
+}
+.day-circle {
+  width: 44px !important; height: 44px !important;
+  min-width: 44px !important;
+  border-radius: 50% !important;
+  border: 1px solid var(--border-default) !important;
+  background: var(--bg-surface) !important;
+  display: inline-flex !important;
+  align-items: center; justify-content: center;
+  font-family: var(--ff-display) !important;
+  font-size: 13px; font-weight: 600;
+  cursor: pointer;
+}
+.day-circle:has(input:checked), .day-circle.active {
+  background: var(--accent-amber) !important;
+  border-color: var(--accent-amber) !important;
+  color: #fff !important;
+}
