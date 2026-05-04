@@ -4329,11 +4329,10 @@ html.headlamp-mode .botnav-tab { color: #C8C8C8; }
 html.headlamp-mode .botnav-tab.is-active { color: #FFFFFF; }
 
 /* E10.2 HEADLAMP MODE ESTENSIONE ---------------------------------------- */
+/* Font scaling rimosso (decisione utente 2026-05-04): font invariato.
+   Restano: touch target +17%, padding +33%, no anim, no backdrop, bottoni solidi. */
 html.headlamp-mode {
   --tt: 56px;
-  --fs-xxs: 10px; --fs-xs: 12px; --fs-sm: 13px; --fs-base: 14px; --fs-md: 15px;
-  --fs-lg: 16px; --fs-xl: 18px; --fs-2xl: 19px; --fs-3xl: 23px;
-  --fs-num-lg: 25px; --fs-num-xl: 32px;
 }
 html.headlamp-mode * { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
 html.headlamp-mode *,
