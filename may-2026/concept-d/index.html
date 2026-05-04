@@ -11,12 +11,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
 
-  <link rel="stylesheet" href="style.css?v=38">
+  <link rel="stylesheet" href="style.css?v=39">
 </head>
 <body>
 
   <!-- VERSION BADGE (cache check) -->
-  <div style="position:fixed;top:8px;left:8px;background:#3B82F6;color:#fff;padding:4px 10px;border-radius:999px;font-family:Inter,sans-serif;font-size:11px;font-weight:700;z-index:9999;letter-spacing:0.04em;box-shadow:0 2px 8px rgba(59,130,246,0.4);" aria-hidden="true">v38</div>
+  <div style="position:fixed;top:8px;left:8px;background:#3B82F6;color:#fff;padding:4px 10px;border-radius:999px;font-family:Inter,sans-serif;font-size:11px;font-weight:700;z-index:9999;letter-spacing:0.04em;box-shadow:0 2px 8px rgba(59,130,246,0.4);" aria-hidden="true">v39</div>
 
   <!-- DEV NAV (jump screen) -->
   <label class="visually-hidden" for="dev-nav-select" hidden>Vai a vista</label>
@@ -3218,7 +3218,7 @@ Difetti:
   <!-- TOAST CONTAINER -->
   <div id="toast-container" aria-live="polite" aria-atomic="false"></div>
 
-  <script src="mockup.js?v=38"></script>
+  <script src="mockup.js?v=39"></script>
 
   <!-- Extra overlay modals -->
   <!--
@@ -3530,10 +3530,7 @@ Difetti:
         CODICE DIFETTO solo se stato=difetto). Default: visibile in mockup.
 ========================================================================= -->
 
-  <!-- HEADLAMP INDICATOR -->
-  <div class="headlamp-indicator">MODALITÀ FRONTALE</div>
-
-  <!-- BOTTOM NAV (4 tab fixed bottom) -->
+  <!-- BOTTOM NAV (3 tab fixed bottom — torcia/headlamp rimossa per ora) -->
   <nav class="botnav" id="botnav" aria-label="Navigazione principale">
     <button type="button" class="botnav-tab" id="botnav-home" data-screen="dashboard" aria-label="Home">
       <span class="botnav-indicator" aria-hidden="true"></span>
@@ -3565,18 +3562,6 @@ Difetti:
         </svg>
       </span>
       <span class="botnav-label">Profilo</span>
-    </button>
-    <button type="button" class="botnav-tab botnav-tab--torch" id="botnav-torcia" data-action="toggle-headlamp" aria-label="Torcia (tieni premuto per attivare)" aria-pressed="false">
-      <span class="botnav-indicator" aria-hidden="true"></span>
-      <span class="botnav-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M7 3h10l-1.5 4.5h-7L7 3z"/>
-          <path d="M8.5 7.5h7L14 21h-4L8.5 7.5z"/>
-          <path d="M11 12.5h2"/>
-        </svg>
-      </span>
-      <span class="botnav-label">Torcia</span>
-      <span class="botnav-tooltip" id="botnav-torcia-tip" role="status" aria-hidden="true">Tieni premuto per attivare modalità frontale</span>
     </button>
   </nav>
 
