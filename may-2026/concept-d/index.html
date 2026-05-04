@@ -11,12 +11,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
 
-  <link rel="stylesheet" href="style.css?v=36">
+  <link rel="stylesheet" href="style.css?v=37">
 </head>
 <body>
 
   <!-- VERSION BADGE (cache check) -->
-  <div style="position:fixed;top:8px;left:8px;background:#3B82F6;color:#fff;padding:4px 10px;border-radius:999px;font-family:Inter,sans-serif;font-size:11px;font-weight:700;z-index:9999;letter-spacing:0.04em;box-shadow:0 2px 8px rgba(59,130,246,0.4);" aria-hidden="true">v36</div>
+  <div style="position:fixed;top:8px;left:8px;background:#3B82F6;color:#fff;padding:4px 10px;border-radius:999px;font-family:Inter,sans-serif;font-size:11px;font-weight:700;z-index:9999;letter-spacing:0.04em;box-shadow:0 2px 8px rgba(59,130,246,0.4);" aria-hidden="true">v37</div>
 
   <!-- DEV NAV (jump screen) -->
   <label class="visually-hidden" for="dev-nav-select" hidden>Vai a vista</label>
@@ -603,8 +603,19 @@
             <span class="cant-bin-range text-mono">171 → 163</span>
             <span class="cant-bin-pct text-amber">60%</span>
           </div>
-          <div class="cant-bar">
-            <div class="cant-bar-fill" style="width:60%;"></div>
+          <div class="bar-segments" role="img" aria-label="Avanzamento Dispari: 60% — 5 tratte controllate">
+            <div class="bar-track">
+              <span class="bar-seg" style="--left:0%; --width:18%"></span>
+              <span class="bar-seg" style="--left:24%; --width:12%"></span>
+              <span class="bar-seg" style="--left:42%; --width:22%"></span>
+              <span class="bar-seg" style="--left:70%; --width:8%"></span>
+              <span class="bar-seg" style="--left:84%; --width:6%"></span>
+            </div>
+            <div class="bar-meta">
+              <span class="bar-from">171+800</span>
+              <span class="bar-pct">60%</span>
+              <span class="bar-to">163+200</span>
+            </div>
           </div>
         </div>
 
@@ -614,8 +625,18 @@
             <span class="cant-bin-range text-mono">171 → 161</span>
             <span class="cant-bin-pct text-amber">56%</span>
           </div>
-          <div class="cant-bar">
-            <div class="cant-bar-fill" style="width:56%;"></div>
+          <div class="bar-segments" role="img" aria-label="Avanzamento Pari: 56% — 4 tratte controllate">
+            <div class="bar-track">
+              <span class="bar-seg" style="--left:2%; --width:14%"></span>
+              <span class="bar-seg" style="--left:22%; --width:20%"></span>
+              <span class="bar-seg" style="--left:48%; --width:10%"></span>
+              <span class="bar-seg" style="--left:64%; --width:12%"></span>
+            </div>
+            <div class="bar-meta">
+              <span class="bar-from">171+800</span>
+              <span class="bar-pct">56%</span>
+              <span class="bar-to">161+400</span>
+            </div>
           </div>
         </div>
 
@@ -1324,9 +1345,125 @@
              ===================================================================== -->
         <fieldset class="form-step" data-step="3" hidden>
           <legend class="sect"><span>Step 3 · Lavorazioni</span></legend>
-          <!-- placeholder -->
-          <div class="text-muted text-xs" style="padding:16px 8px;">
-            Da definire
+
+          <div class="fc-step3 fc-tipo-linea">
+
+            <div class="form-group">
+              <span class="label">Tipo lavorazione</span>
+              <div class="segmented fc-step3-tipo" role="radiogroup" aria-label="Tipo lavorazione">
+                <button type="button" class="active" role="radio" aria-checked="true"  data-value="linea">Linea</button>
+                <button type="button"                role="radio" aria-checked="false" data-value="regolazioni">Regol.</button>
+                <button type="button"                role="radio" aria-checked="false" data-value="deviatoi">Deviatoi</button>
+                <button type="button"                role="radio" aria-checked="false" data-value="ricontrollo">Ricontr.</button>
+              </div>
+            </div>
+
+            <div class="fc-step3-params" data-tipo="linea">
+              <div class="input-row">
+                <div class="form-group">
+                  <label class="label" for="f-lav-linea-da">Km da</label>
+                  <input class="input text-mono" id="f-lav-linea-da" name="lav_linea_da" type="text"
+                         inputmode="numeric" pattern="\d+\+\d{3}"
+                         placeholder="000+000" style="font-size:16px;">
+                </div>
+                <div class="form-group">
+                  <label class="label" for="f-lav-linea-a">Km a</label>
+                  <input class="input text-mono" id="f-lav-linea-a" name="lav_linea_a" type="text"
+                         inputmode="numeric" pattern="\d+\+\d{3}"
+                         placeholder="000+000" style="font-size:16px;">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="label" for="f-lav-linea-step">Step (m)</label>
+                <input class="input text-mono" id="f-lav-linea-step" name="lav_linea_step" type="number"
+                       inputmode="numeric" value="500" min="50" step="50" style="font-size:16px;">
+              </div>
+            </div>
+
+            <div class="fc-step3-params" data-tipo="regolazioni">
+              <div class="input-row">
+                <div class="form-group">
+                  <label class="label" for="f-lav-reg-da">Km da</label>
+                  <input class="input text-mono" id="f-lav-reg-da" name="lav_reg_da" type="text"
+                         inputmode="numeric" pattern="\d+\+\d{3}"
+                         placeholder="000+000" style="font-size:16px;">
+                </div>
+                <div class="form-group">
+                  <label class="label" for="f-lav-reg-a">Km a</label>
+                  <input class="input text-mono" id="f-lav-reg-a" name="lav_reg_a" type="text"
+                         inputmode="numeric" pattern="\d+\+\d{3}"
+                         placeholder="000+000" style="font-size:16px;">
+                </div>
+              </div>
+              <div class="text-muted text-xs" style="margin-top:-4px; margin-bottom:8px;">
+                Le regolazioni si scoprono dal testo del cantiere.
+              </div>
+            </div>
+
+            <div class="fc-step3-params" data-tipo="deviatoi">
+              <div class="form-group">
+                <label class="label" for="f-lav-dev-nome">Nome deviatoio</label>
+                <input class="input text-mono" id="f-lav-dev-nome" name="lav_dev_nome" type="text"
+                       placeholder="es. DEV 1" style="font-size:16px;">
+              </div>
+              <div class="form-group">
+                <label class="label" for="f-lav-dev-n">Nr elementi</label>
+                <input class="input text-mono" id="f-lav-dev-n" name="lav_dev_n" type="number"
+                       inputmode="numeric" value="25" min="1" step="1" style="font-size:16px;">
+              </div>
+            </div>
+
+            <div class="fc-step3-params" data-tipo="ricontrollo">
+              <div class="fc-step3-info">
+                Si popola automaticamente quando trovi difetti.
+              </div>
+            </div>
+
+            <div class="btn-row" style="grid-template-columns:1fr; margin-bottom:12px;">
+              <button type="button" class="btn-secondary" data-action="add-lavorazione">+ Aggiungi lavorazione</button>
+            </div>
+
+            <div class="divider-label">Lavorazioni aggiunte</div>
+            <div class="table">
+              <div class="table-head fc-step3-grid">
+                <div></div>
+                <div>Tipo</div>
+                <div>Range / Nome</div>
+                <div class="right">Az.</div>
+              </div>
+
+              <div class="row fc-step3-grid">
+                <div class="row-dot"></div>
+                <div><span class="fc-step3-badge fc-badge-linea">Linea</span></div>
+                <div class="text-mono text-primary">165+700 → 171+200<br><span class="text-muted text-xs">12 slot generati</span></div>
+                <div class="right">
+                  <button type="button" class="btn-icon" data-action="del-lavorazione" data-id="1" aria-label="Elimina">×</button>
+                </div>
+              </div>
+
+              <div class="row fc-step3-grid">
+                <div class="row-dot"></div>
+                <div><span class="fc-step3-badge fc-badge-deviatoi">Deviatoi</span></div>
+                <div class="text-mono text-primary">DEV 4<br><span class="text-muted text-xs">25 elementi</span></div>
+                <div class="right">
+                  <button type="button" class="btn-icon" data-action="del-lavorazione" data-id="2" aria-label="Elimina">×</button>
+                </div>
+              </div>
+
+              <div class="row fc-step3-grid">
+                <div class="row-dot"></div>
+                <div><span class="fc-step3-badge fc-badge-regolazioni">Regol.</span></div>
+                <div class="text-mono text-primary">167+200 → 168+800<br><span class="text-muted text-xs">4 slot</span></div>
+                <div class="right">
+                  <button type="button" class="btn-icon" data-action="del-lavorazione" data-id="3" aria-label="Elimina">×</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="text-muted text-xs" style="margin-top:8px;">
+              Le lavorazioni si possono modificare anche dopo la creazione dal cantiere.
+            </div>
+
           </div>
         </fieldset>
 
@@ -1335,9 +1472,97 @@
              ===================================================================== -->
         <fieldset class="form-step" data-step="4" hidden>
           <legend class="sect"><span>Step 4 · Riepilogo</span></legend>
-          <!-- placeholder -->
-          <div class="text-muted text-xs" style="padding:16px 8px;">
-            Da definire
+
+          <div class="fc-step4">
+
+            <div class="divider-label" style="margin-top:0;">Info cantiere</div>
+            <div class="table">
+              <div class="row fc-step4-kv">
+                <div class="fc-step4-k">Nome cantiere</div>
+                <div class="fc-step4-v text-primary">Castel Nuovo</div>
+              </div>
+              <div class="row fc-step4-kv">
+                <div class="fc-step4-k">Codice M2</div>
+                <div class="fc-step4-v text-mono text-amber">44/26</div>
+              </div>
+              <div class="row fc-step4-kv">
+                <div class="fc-step4-k">Tratta</div>
+                <div class="fc-step4-v">Castel Nuovo Magra</div>
+              </div>
+              <div class="row fc-step4-kv">
+                <div class="fc-step4-k">Data inizio prevista</div>
+                <div class="fc-step4-v text-mono">8 Mag 2026</div>
+              </div>
+              <div class="row fc-step4-kv">
+                <div class="fc-step4-k">Data fine prevista</div>
+                <div class="fc-step4-v text-mono">23 Mag 2026</div>
+              </div>
+              <div class="row fc-step4-kv">
+                <div class="fc-step4-k">Tipo turno</div>
+                <div class="fc-step4-v"><span class="fc-step4-pill">Notturno</span></div>
+              </div>
+              <div class="row fc-step4-kv">
+                <div class="fc-step4-k">Urgente</div>
+                <div class="fc-step4-v"><span class="fc-step4-pill fc-pill-warn">Sì</span></div>
+              </div>
+              <div class="row fc-step4-kv">
+                <div class="fc-step4-k">Giorni attivi</div>
+                <div class="fc-step4-v">
+                  <span class="fc-step4-day">D</span>
+                  <span class="fc-step4-day">L</span>
+                  <span class="fc-step4-day is-on">M</span>
+                  <span class="fc-step4-day is-on">M</span>
+                  <span class="fc-step4-day is-on">G</span>
+                  <span class="fc-step4-day is-on">V</span>
+                  <span class="fc-step4-day">S</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="divider-label">Binari</div>
+            <div class="table">
+              <div class="row fc-step4-bin">
+                <div class="row-dot"></div>
+                <div class="text-amber" style="font-weight:600;">Pari</div>
+                <div class="text-mono text-primary">165+700 → 171+200</div>
+                <div class="right text-muted text-xs">5.500 m</div>
+              </div>
+              <div class="row fc-step4-bin">
+                <div class="row-dot"></div>
+                <div class="text-amber" style="font-weight:600;">Dispari</div>
+                <div class="text-mono text-primary">165+700 → 171+800</div>
+                <div class="right text-muted text-xs">6.100 m</div>
+              </div>
+            </div>
+
+            <div class="divider-label">Lavorazioni</div>
+            <div class="table">
+              <div class="row fc-step4-lav">
+                <div class="row-dot"></div>
+                <div><span class="fc-step3-badge fc-badge-linea">Linea</span></div>
+                <div class="text-mono text-primary">165+700 → 171+200</div>
+              </div>
+              <div class="row fc-step4-lav">
+                <div class="row-dot"></div>
+                <div><span class="fc-step3-badge fc-badge-deviatoi">Deviatoi</span></div>
+                <div class="text-mono text-primary">DEV 4 · 25 el.</div>
+              </div>
+              <div class="row fc-step4-lav">
+                <div class="row-dot"></div>
+                <div><span class="fc-step3-badge fc-badge-regolazioni">Regol.</span></div>
+                <div class="text-mono text-primary">167+200 → 168+800</div>
+              </div>
+            </div>
+
+            <div class="fc-step4-cta">
+              <div class="text-muted text-xs fc-step4-cta-hint">
+                Verifica i dati prima di confermare. Potrai modificarli dopo.
+              </div>
+              <button type="button" class="btn-primary btn-block fc-step4-confirm" data-action="confirm-create">
+                Crea cantiere
+              </button>
+            </div>
+
           </div>
         </fieldset>
       
@@ -1559,7 +1784,7 @@
           <div class="right">I.1</div>
         </div>
 
-        <button class="row row-sald is-diff" type="button" data-action="open-scheda" data-id="d1" style="grid-template-columns: 60px 1fr auto 60px 36px;">
+        <button class="row row-sald is-diff" type="button" data-action="open-saldatura-edit" data-saldatura-id="1" data-bsheet-open="saldatura-edit" style="grid-template-columns: 60px 1fr auto 60px 36px;">
           <div class="col-km">165+700</div>
           <div><span class="pill pill-mute">Disp</span> · DX</div>
           <div class="col-tipo">211</div>
@@ -1567,7 +1792,7 @@
           <div class="right scheda-mark text-green">✓</div>
         </button>
 
-        <button class="row row-sald" type="button" data-action="open-saldatura" data-id="s2" style="grid-template-columns: 60px 1fr auto 60px 36px;">
+        <button class="row row-sald" type="button" data-action="open-saldatura-edit" data-saldatura-id="2" data-bsheet-open="saldatura-edit" style="grid-template-columns: 60px 1fr auto 60px 36px;">
           <div class="col-km">166+450</div>
           <div><span class="pill pill-mute">Disp</span> · SX</div>
           <div class="col-tipo">TR</div>
@@ -1575,7 +1800,7 @@
           <div class="right scheda-mark text-muted">—</div>
         </button>
 
-        <button class="row row-sald is-diff" type="button" data-action="open-scheda" data-id="d2" style="grid-template-columns: 60px 1fr auto 60px 36px;">
+        <button class="row row-sald is-diff" type="button" data-action="open-saldatura-edit" data-saldatura-id="3" data-bsheet-open="saldatura-edit" style="grid-template-columns: 60px 1fr auto 60px 36px;">
           <div class="col-km">167+200</div>
           <div><span class="pill pill-mute">Disp</span> · DX</div>
           <div class="col-tipo">113</div>
@@ -1583,7 +1808,7 @@
           <div class="right scheda-mark text-muted">—</div>
         </button>
 
-        <button class="row row-sald" type="button" data-action="open-saldatura" data-id="s4" style="grid-template-columns: 60px 1fr auto 60px 36px;">
+        <button class="row row-sald" type="button" data-action="open-saldatura-edit" data-saldatura-id="4" data-bsheet-open="saldatura-edit" style="grid-template-columns: 60px 1fr auto 60px 36px;">
           <div class="col-km">167+800</div>
           <div><span class="pill pill-mute">Disp</span> · SX</div>
           <div class="col-tipo">All</div>
@@ -1591,7 +1816,7 @@
           <div class="right scheda-mark text-muted">—</div>
         </button>
 
-        <button class="row row-sald is-ndc" type="button" data-action="open-saldatura" data-id="s5" style="grid-template-columns: 60px 1fr auto 60px 36px;">
+        <button class="row row-sald is-ndc" type="button" data-action="open-saldatura-edit" data-saldatura-id="5" data-bsheet-open="saldatura-edit" style="grid-template-columns: 60px 1fr auto 60px 36px;">
           <div class="col-km">168+150</div>
           <div><span class="pill pill-mute">Disp</span> · DX</div>
           <div class="col-tipo">TR</div>
@@ -1599,7 +1824,7 @@
           <div class="right scheda-mark text-muted">—</div>
         </button>
 
-        <button class="row row-sald" type="button" data-action="open-saldatura" data-id="s6" style="grid-template-columns: 60px 1fr auto 60px 36px;">
+        <button class="row row-sald" type="button" data-action="open-saldatura-edit" data-saldatura-id="6" data-bsheet-open="saldatura-edit" style="grid-template-columns: 60px 1fr auto 60px 36px;">
           <div class="col-km">169+300</div>
           <div><span class="pill pill-mute">Disp</span> · SX</div>
           <div class="col-tipo">TR</div>
@@ -1607,7 +1832,7 @@
           <div class="right scheda-mark text-muted">—</div>
         </button>
 
-        <button class="row row-sald is-diff" type="button" data-action="open-scheda" data-id="d3" style="grid-template-columns: 60px 1fr auto 60px 36px;">
+        <button class="row row-sald is-diff" type="button" data-action="open-saldatura-edit" data-saldatura-id="7" data-bsheet-open="saldatura-edit" style="grid-template-columns: 60px 1fr auto 60px 36px;">
           <div class="col-km">170+100</div>
           <div><span class="pill pill-mute">Pari</span> · SX</div>
           <div class="col-tipo">211</div>
@@ -1615,7 +1840,7 @@
           <div class="right scheda-mark text-muted">—</div>
         </button>
 
-        <button class="row row-sald" type="button" data-action="open-saldatura" data-id="s8" style="grid-template-columns: 60px 1fr auto 60px 36px;">
+        <button class="row row-sald" type="button" data-action="open-saldatura-edit" data-saldatura-id="8" data-bsheet-open="saldatura-edit" style="grid-template-columns: 60px 1fr auto 60px 36px;">
           <div class="col-km">170+800</div>
           <div><span class="pill pill-mute">Pari</span> · DX</div>
           <div class="col-tipo">TR</div>
@@ -1625,63 +1850,71 @@
       </div>
       
       <!-- ─────────────────────────────────────────────────────────────────────
-           RIEPILOGO WHATSAPP
-           ───────────────────────────────────────────────────────────────────── -->
-      
-      <!-- NEED_CLASS: .wa-card (wrapper card preview WhatsApp) -->
-      <!-- NEED_CLASS: .wa-pre (block <pre> mono, scrollable, bg secondary) -->
-      <!-- NEED_CLASS: .wa-copy (bottone COPIA in fondo a card) -->
-      
-      <details class="group mt-3">
-        <summary class="sect sect-q group-summary">
-          <span>Riepilogo WhatsApp</span>
-          <span class="text-muted">›</span>
-        </summary>
-
-        <div class="wa-card">
-          <div class="sect sect-q">
-            <span>Formato M2</span>
-          </div>
-          <pre class="wa-pre">Notte 13 → 14 Aprile 2026
-      Linea: 33/26 La Spezia - Arcola
-      Binario: Dispari e Pari
-      Da km: 171+000
-      A km: 161+000
-      Operatori: LP CA
-      Km percorsi: 8.50
-      Saldature controllate: 16
-      Saldature difettose: 3 + 2 No DAC</pre>
-          <button class="btn-secondary btn-block wa-copy" type="button" data-action="copy-wa" data-format="m2">Copia</button>
-        </div>
-
-        <div class="wa-card mt-2">
-          <div class="sect sect-q">
-            <span>Formato GFC</span>
-          </div>
-          <pre class="wa-pre">M2 Controllo saldature
-      13 Aprile 2026
-      Linea: La Spezia Arcola
-      Binario Dispari e Pari
-      Da km 171+000
-      A km 161+000
-      Nr. Saldature controllate: 16
-      Nr. Saldature difettose: 3
-      167+200 DX alluminotermica
-      170+100 SX alluminotermica
-      165+700 DX scintillio</pre>
-          <button class="btn-secondary btn-block wa-copy" type="button" data-action="copy-wa" data-format="gfc">Copia</button>
-        </div>
-      </details>
-
-      <!-- ─────────────────────────────────────────────────────────────────────
-           EXPORT BAR
+           ESPORTA DATI · grid 3 col
            ───────────────────────────────────────────────────────────────────── -->
       <div class="sect sect-q mt-3">
-        <span>Esporta</span>
+        <span>Esporta dati</span>
       </div>
-      <div class="btn-row">
-        <button class="btn-secondary" type="button" data-action="export-tsv">TSV</button>
-        <button class="btn-secondary" type="button" data-action="export-pdf">PDF</button>
+      <div class="ris-export-grid" role="group" aria-label="Esporta dati">
+        <button class="btn-secondary ris-export-btn" type="button" data-action="export-tsv" aria-label="Esporta TSV lista saldature">
+          <span class="ris-export-ico" aria-hidden="true">📋</span>
+          <span class="ris-export-lbl">TSV</span>
+          <span class="ris-export-cap">Lista saldature</span>
+        </button>
+        <button class="btn-secondary ris-export-btn" type="button" data-action="export-pdf" aria-label="Esporta PDF schede I.1">
+          <span class="ris-export-ico" aria-hidden="true">📄</span>
+          <span class="ris-export-lbl">PDF</span>
+          <span class="ris-export-cap">Schede I.1</span>
+        </button>
+        <button class="btn-secondary ris-export-btn" type="button" data-action="export-excel" aria-label="Esporta Excel riepilogo">
+          <span class="ris-export-ico" aria-hidden="true">📊</span>
+          <span class="ris-export-lbl">Excel</span>
+          <span class="ris-export-cap">Riepilogo</span>
+        </button>
+      </div>
+
+      <!-- ─────────────────────────────────────────────────────────────────────
+           RIEPILOGHI WHATSAPP · 2 card affiancate (stack su mobile)
+           ───────────────────────────────────────────────────────────────────── -->
+      <div class="sect sect-q mt-3">
+        <span>Riepiloghi WhatsApp</span>
+      </div>
+      <div class="ris-wa-grid">
+
+        <article class="card ris-wa-card" aria-labelledby="ris-wa-m2-h">
+          <header class="ris-wa-head">
+            <h3 class="ris-wa-title" id="ris-wa-m2-h">Formato M2</h3>
+            <button class="btn-secondary ris-wa-copy" type="button" data-action="copy-m2" aria-label="Copia riepilogo M2">Copia</button>
+          </header>
+          <textarea class="ris-wa-text" id="ris-wa-m2-txt" readonly rows="11" aria-label="Testo riepilogo M2">*Notte 13→14 Aprile 2026*
+Cantiere: La Spezia – Arcola (33/26)
+Operatori: LP (DX), CA (SX) — Strumento G+B
+
+Binario PARI 171+800→163+200
+Saldature controllate: 17 (12 conformi · 3 difetti · 2 NoDAC)
+Km percorsi: 145m
+
+⚠️ Difetti:
+- 165+700 DX cod 211 (S1)
+- 167+200 SX cod 113 (A1)
+- 168+450 DX cod 235 (B2)</textarea>
+        </article>
+
+        <article class="card ris-wa-card" aria-labelledby="ris-wa-gfc-h">
+          <header class="ris-wa-head">
+            <h3 class="ris-wa-title" id="ris-wa-gfc-h">Formato GFC</h3>
+            <button class="btn-secondary ris-wa-copy" type="button" data-action="copy-gfc" aria-label="Copia riepilogo GFC">Copia</button>
+          </header>
+          <textarea class="ris-wa-text" id="ris-wa-gfc-txt" readonly rows="9" aria-label="Testo riepilogo GFC">M2 CONTROLLO SALDATURE
+La Spezia – Arcola
+13/04/2026
+
+Difetti:
+165+700 DX – cod 211
+167+200 SX – cod 113
+168+450 DX – cod 235</textarea>
+        </article>
+
       </div>
 
       <!-- ─────────────────────────────────────────────────────────────────────
@@ -2729,7 +2962,16 @@
           <div class="stat-lab">Avanz. medio</div>
         </div>
       </div>
-      
+
+      <div class="stat-row">
+        <span class="stat-row-lab">Media saldature/notte</span>
+        <span class="stat-row-val">23,4</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-row-lab">Notte più produttiva</span>
+        <span class="stat-row-val">12 Apr · 47 sald.</span>
+      </div>
+
       <!-- ─────────────────────────────────────────────────────────────────────
            SICUREZZA — pin + esci (mostrato in stato CONFERMA)
            ───────────────────────────────────────────────────────────────────── -->
@@ -2976,7 +3218,7 @@
   <!-- TOAST CONTAINER -->
   <div id="toast-container" aria-live="polite" aria-atomic="false"></div>
 
-  <script src="mockup.js?v=36"></script>
+  <script src="mockup.js?v=37"></script>
 
   <!-- Extra overlay modals -->
   <!--
@@ -3288,6 +3530,191 @@
         CODICE DIFETTO solo se stato=difetto). Default: visibile in mockup.
 ========================================================================= -->
 
+  <!-- HEADLAMP INDICATOR -->
+  <div class="headlamp-indicator">MODALITÀ FRONTALE</div>
+
+  <!-- BOTTOM NAV (4 tab fixed bottom) -->
+  <nav class="botnav" id="botnav" aria-label="Navigazione principale">
+    <button type="button" class="botnav-tab" id="botnav-home" data-screen="dashboard" aria-label="Home">
+      <span class="botnav-indicator" aria-hidden="true"></span>
+      <span class="botnav-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 11.5 12 4l9 7.5"/>
+          <path d="M5 10v9a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1v-9"/>
+        </svg>
+      </span>
+      <span class="botnav-label">Home</span>
+    </button>
+    <button type="button" class="botnav-tab" id="botnav-mese" data-screen="panoramica" aria-label="Mese">
+      <span class="botnav-indicator" aria-hidden="true"></span>
+      <span class="botnav-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3.5" y="5" width="17" height="15" rx="2"/>
+          <path d="M3.5 10h17"/>
+          <path d="M8 3v4M16 3v4"/>
+        </svg>
+      </span>
+      <span class="botnav-label">Mese</span>
+    </button>
+    <button type="button" class="botnav-tab" id="botnav-profilo" data-screen="profilo" aria-label="Profilo">
+      <span class="botnav-indicator" aria-hidden="true"></span>
+      <span class="botnav-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="8.5" r="3.8"/>
+          <path d="M4.5 20c1.4-3.6 4.3-5.4 7.5-5.4S18.1 16.4 19.5 20"/>
+        </svg>
+      </span>
+      <span class="botnav-label">Profilo</span>
+    </button>
+    <button type="button" class="botnav-tab botnav-tab--torch" id="botnav-torcia" data-action="toggle-headlamp" aria-label="Torcia (tieni premuto per attivare)" aria-pressed="false">
+      <span class="botnav-indicator" aria-hidden="true"></span>
+      <span class="botnav-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M7 3h10l-1.5 4.5h-7L7 3z"/>
+          <path d="M8.5 7.5h7L14 21h-4L8.5 7.5z"/>
+          <path d="M11 12.5h2"/>
+        </svg>
+      </span>
+      <span class="botnav-label">Torcia</span>
+      <span class="botnav-tooltip" id="botnav-torcia-tip" role="status" aria-hidden="true">Tieni premuto per attivare modalità frontale</span>
+    </button>
+  </nav>
+
+  <!-- BOTTOM-SHEETS (3 modali) -->
+  <div class="bsheet-backdrop" data-action="close-bsheet" hidden></div>
+
+  <aside class="bsheet" id="bsheet-saldatura-edit" data-bsheet="saldatura-edit"
+         hidden role="dialog" aria-labelledby="bsheet-saldatura-edit-title" aria-modal="true">
+    <div class="bsheet-handle" aria-hidden="true"></div>
+    <header class="bsheet-head">
+      <h2 class="bsheet-title" id="bsheet-saldatura-edit-title">Modifica saldatura</h2>
+      <button class="bsheet-close" type="button" data-action="close-bsheet" data-bsheet-target="saldatura-edit" aria-label="Chiudi">&#10005;</button>
+    </header>
+    <div class="bsheet-body">
+      <div class="bsheet-fgroup">
+        <label class="label" for="bs-sal-km">Km</label>
+        <input id="bs-sal-km" class="input text-mono" type="text" inputmode="numeric" placeholder="100+250" autocomplete="off" spellcheck="false">
+      </div>
+      <div class="bsheet-fgroup">
+        <span class="label">Lato</span>
+        <div class="pill-group" role="radiogroup" aria-label="Lato">
+          <button type="button" class="pill pill-mute is-active" data-value="dx" role="radio" aria-checked="true">DX</button>
+          <button type="button" class="pill pill-mute" data-value="sx" role="radio" aria-checked="false">SX</button>
+          <button type="button" class="pill pill-mute" data-value="none" role="radio" aria-checked="false">&mdash;</button>
+        </div>
+      </div>
+      <div class="bsheet-fgroup">
+        <span class="label">Tipo</span>
+        <div class="pill-group" role="radiogroup" aria-label="Tipo saldatura">
+          <button type="button" class="pill pill-mute is-active" data-value="all" role="radio" aria-checked="true">Alluminotermica</button>
+          <button type="button" class="pill pill-mute" data-value="scin" role="radio" aria-checked="false">Scintillio</button>
+        </div>
+      </div>
+      <div class="bsheet-fgroup">
+        <span class="label">Stato</span>
+        <div class="pill-group" role="radiogroup" aria-label="Stato saldatura">
+          <button type="button" class="pill pill-green is-active" data-value="ok" role="radio" aria-checked="true">OK</button>
+          <button type="button" class="pill pill-danger" data-value="difetto" role="radio" aria-checked="false">Difetto</button>
+          <button type="button" class="pill pill-mute" data-value="nodac" role="radio" aria-checked="false">NoDAC</button>
+        </div>
+      </div>
+      <div class="bsheet-fgroup">
+        <span class="label">Binario</span>
+        <div class="pill-group" role="radiogroup" aria-label="Binario">
+          <button type="button" class="pill pill-mute is-active" data-value="pari" role="radio" aria-checked="true">Pari</button>
+          <button type="button" class="pill pill-mute" data-value="dispari" role="radio" aria-checked="false">Dispari</button>
+          <button type="button" class="pill pill-mute" data-value="unico" role="radio" aria-checked="false">Unico</button>
+          <button type="button" class="pill pill-mute" data-value="interc" role="radio" aria-checked="false">Interconnessione</button>
+        </div>
+      </div>
+      <div class="bsheet-fgroup">
+        <label class="label" for="bs-sal-note">Note</label>
+        <textarea id="bs-sal-note" class="input" rows="3" placeholder="Note operative, riferimenti, contatti…"></textarea>
+      </div>
+    </div>
+    <footer class="bsheet-foot">
+      <button class="btn-secondary bsheet-btn-danger" type="button" data-action="bsheet-delete">Elimina</button>
+      <button class="btn-primary" type="button" data-action="close-bsheet" data-bsheet-target="saldatura-edit">Salva</button>
+    </footer>
+  </aside>
+
+  <aside class="bsheet" id="bsheet-notte-edit" data-bsheet="notte-edit"
+         hidden role="dialog" aria-labelledby="bsheet-notte-edit-title" aria-modal="true">
+    <div class="bsheet-handle" aria-hidden="true"></div>
+    <header class="bsheet-head">
+      <h2 class="bsheet-title" id="bsheet-notte-edit-title">Modifica notte</h2>
+      <button class="bsheet-close" type="button" data-action="close-bsheet" data-bsheet-target="notte-edit" aria-label="Chiudi">&#10005;</button>
+    </header>
+    <div class="bsheet-body">
+      <div class="bsheet-fgroup">
+        <label class="label" for="bs-notte-data">Data</label>
+        <input id="bs-notte-data" class="input text-mono" type="date" value="2026-05-05">
+      </div>
+      <div class="bsheet-fgroup">
+        <span class="label">Stato</span>
+        <div class="pill-group" role="radiogroup" aria-label="Stato notte" data-bsheet-state-group>
+          <button type="button" class="pill pill-amber is-active" data-value="programmata" role="radio" aria-checked="true">Programmata</button>
+          <button type="button" class="pill pill-green" data-value="completata" role="radio" aria-checked="false">Completata</button>
+          <button type="button" class="pill pill-danger" data-value="saltata" role="radio" aria-checked="false">Saltata</button>
+        </div>
+      </div>
+      <div class="bsheet-fgroup" data-bsheet-cond="saltata" hidden>
+        <label class="label" for="bs-notte-motivo">Motivo salto</label>
+        <textarea id="bs-notte-motivo" class="input" rows="2" placeholder="Pioggia, allerta meteo, indisponibilità…"></textarea>
+      </div>
+      <div class="bsheet-fgroup">
+        <label class="label" for="bs-notte-note">Note</label>
+        <textarea id="bs-notte-note" class="input" rows="3" placeholder="Decisioni operative, contatti…"></textarea>
+      </div>
+    </div>
+    <footer class="bsheet-foot">
+      <button class="btn-secondary bsheet-btn-danger" type="button" data-action="bsheet-delete-confirm">Elimina</button>
+      <button class="btn-primary" type="button" data-action="close-bsheet" data-bsheet-target="notte-edit">Salva</button>
+    </footer>
+  </aside>
+
+  <aside class="bsheet" id="bsheet-calendar-day" data-bsheet="calendar-day"
+         hidden role="dialog" aria-labelledby="bsheet-calendar-day-title" aria-modal="true">
+    <div class="bsheet-handle" aria-hidden="true"></div>
+    <header class="bsheet-head">
+      <h2 class="bsheet-title" id="bsheet-calendar-day-title">Sabato 2 Maggio &middot; 3 notti</h2>
+      <button class="bsheet-close" type="button" data-action="close-bsheet" data-bsheet-target="calendar-day" aria-label="Chiudi">&#10005;</button>
+    </header>
+    <div class="bsheet-body">
+      <ul class="bsheet-list" role="list">
+        <li>
+          <button type="button" class="bsheet-night" data-action="open-cantiere" data-bsheet-target="calendar-day" data-id="laspezia-arcola">
+            <div class="bsheet-night-main">
+              <span class="bsheet-night-cant">La Spezia &ndash; Arcola</span>
+              <span class="bsheet-night-meta">Disp &middot; 167+850 → 168+400 &middot; 22:00</span>
+            </div>
+            <span class="pill pill-green">OK</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="bsheet-night" data-action="open-cantiere" data-bsheet-target="calendar-day" data-id="empoli-sanminiato">
+            <div class="bsheet-night-main">
+              <span class="bsheet-night-cant">Empoli &ndash; San Miniato</span>
+              <span class="bsheet-night-meta">Pari &middot; 39+000 → 26+500 &middot; 21:30</span>
+            </div>
+            <span class="pill pill-warn">In corso</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="bsheet-night" data-action="open-cantiere" data-bsheet-target="calendar-day" data-id="pisa-livorno">
+            <div class="bsheet-night-main">
+              <span class="bsheet-night-cant">Pisa &ndash; Livorno</span>
+              <span class="bsheet-night-meta">Unico &middot; 12+200 → 14+800 &middot; 23:00</span>
+            </div>
+            <span class="pill pill-mute">Programmata</span>
+          </button>
+        </li>
+      </ul>
+    </div>
+    <footer class="bsheet-foot bsheet-foot-1">
+      <button class="btn-secondary" type="button" data-action="add-night" data-bsheet-target="calendar-day">+ Aggiungi notte qui</button>
+    </footer>
+  </aside>
 
 </body>
 </html>

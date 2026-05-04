@@ -737,3 +737,206 @@
     SCREENS:     SCREENS.slice()
   };
 })();
+
+/* =========================================================================
+   BOTTOM NAV (botnav) wiring — additivo (wave 2026-05-04)
+   ========================================================================= */
+(function () {
+  'use strict';
+  function $(s, r) { return (r || document).querySelector(s); }
+  function $$(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+  var HOLD_MS = 500;
+  var HIDE_ON = ['login', 'notte'];
+  function syncActive(screen) {
+    $$('#botnav .botnav-tab').forEach(function (btn) {
+      if (btn.id === 'botnav-torcia') return;
+      var target = btn.getAttribute('data-screen');
+      var on = target === screen;
+      btn.classList.toggle('is-active', on);
+      if (on) btn.setAttribute('aria-current', 'page');
+      else    btn.removeAttribute('aria-current');
+    });
+    var nav = document.getElementById('botnav');
+    if (nav) nav.hidden = HIDE_ON.indexOf(screen) !== -1;
+  }
+  function syncTorch() {
+    var btn = document.getElementById('botnav-torcia');
+    if (!btn) return;
+    var on = document.documentElement.classList.contains('headlamp-mode');
+    btn.classList.toggle('is-active', on);
+    btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+  function showTooltip(btn) {
+    var tip = btn.querySelector('.botnav-tooltip');
+    if (!tip) return;
+    tip.classList.add('is-visible');
+    tip.setAttribute('aria-hidden', 'false');
+    clearTimeout(btn._tipTimer);
+    btn._tipTimer = setTimeout(function () {
+      tip.classList.remove('is-visible');
+      tip.setAttribute('aria-hidden', 'true');
+    }, 1600);
+  }
+  function attachTorch(btn) {
+    if (!btn) return;
+    var timer = null, fired = false;
+    function start() {
+      fired = false;
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        fired = true;
+        var on = !document.documentElement.classList.contains('headlamp-mode');
+        if (window.M2D && typeof window.M2D.setHeadlamp === 'function') {
+          window.M2D.setHeadlamp(on);
+        } else {
+          document.documentElement.classList.toggle('headlamp-mode', on);
+        }
+        syncTorch();
+        if (navigator.vibrate) { try { navigator.vibrate(20); } catch (e) {} }
+      }, HOLD_MS);
+    }
+    function cancel() { clearTimeout(timer); timer = null; }
+    function onClick(ev) {
+      if (fired) { ev.preventDefault(); ev.stopPropagation(); return; }
+      showTooltip(btn);
+    }
+    btn.addEventListener('touchstart', start, { passive: true });
+    btn.addEventListener('touchend', cancel);
+    btn.addEventListener('touchcancel', cancel);
+    btn.addEventListener('mousedown', start);
+    btn.addEventListener('mouseup', cancel);
+    btn.addEventListener('mouseleave', cancel);
+    btn.addEventListener('click', onClick, true);
+  }
+  function attachNavTab(btn) {
+    btn.addEventListener('click', function () {
+      var target = btn.getAttribute('data-screen');
+      if (!target) return;
+      if (window.showScreen) window.showScreen(target);
+    });
+  }
+  function init() {
+    var nav = document.getElementById('botnav');
+    if (!nav) return;
+    $$('#botnav .botnav-tab').forEach(function (btn) {
+      if (btn.id === 'botnav-torcia') attachTorch(btn);
+      else attachNavTab(btn);
+    });
+    document.addEventListener('m2d:screenchange', function (ev) {
+      var name = ev && ev.detail && ev.detail.screen;
+      if (name) syncActive(name);
+    });
+    var current = document.querySelector('.screen:not([hidden])');
+    if (current) syncActive(current.getAttribute('data-screen'));
+    syncTorch();
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+
+/* =========================================================================
+   BOTTOM-SHEETS .bsheet-* (wave 2026-05-04)
+   ========================================================================= */
+(function () {
+  'use strict';
+  function $(s, r) { return (r || document).querySelector(s); }
+  function $$(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+  function getBackdrop() { return $('.bsheet-backdrop'); }
+  function getSheet(id) {
+    if (!id) return null;
+    return document.getElementById('bsheet-' + id) || $('[data-bsheet="' + id + '"]');
+  }
+  function openBsheet(id) {
+    var sheet = getSheet(id); var bd = getBackdrop();
+    if (!sheet) return;
+    if (bd) { bd.hidden = false; void bd.offsetWidth; bd.classList.add('is-open'); bd.setAttribute('data-bsheet-target', id); }
+    sheet.hidden = false; void sheet.offsetWidth;
+    sheet.classList.add('is-open');
+    sheet.style.transform = '';
+    document.body.style.overflow = 'hidden';
+  }
+  function closeBsheet(id) {
+    var sheet = id ? getSheet(id) : $('.bsheet.is-open');
+    var bd = getBackdrop();
+    if (sheet) {
+      sheet.classList.remove('is-open');
+      sheet.style.transform = '';
+      setTimeout(function () { sheet.hidden = true; }, 260);
+    }
+    if (bd) {
+      bd.classList.remove('is-open');
+      setTimeout(function () { bd.hidden = true; bd.removeAttribute('data-bsheet-target'); }, 220);
+    }
+    if (!$$('.bsheet.is-open').length) document.body.style.overflow = '';
+  }
+  document.addEventListener('click', function (e) {
+    var t = e.target.closest('[data-bsheet-open]');
+    if (t) { e.preventDefault(); openBsheet(t.getAttribute('data-bsheet-open')); return; }
+    var c = e.target.closest('[data-action="close-bsheet"]');
+    if (c) { e.preventDefault(); closeBsheet(c.getAttribute('data-bsheet-target')); return; }
+    var bd = e.target.closest('.bsheet-backdrop');
+    if (bd) { e.preventDefault(); closeBsheet(bd.getAttribute('data-bsheet-target')); return; }
+    var pill = e.target.closest('.bsheet .pill-group .pill');
+    if (pill) {
+      e.preventDefault();
+      var group = pill.parentElement;
+      $$('.pill', group).forEach(function (p) {
+        p.classList.remove('is-active');
+        p.setAttribute('aria-checked', 'false');
+      });
+      pill.classList.add('is-active');
+      pill.setAttribute('aria-checked', 'true');
+      var sheet = pill.closest('.bsheet');
+      if (sheet && group.hasAttribute('data-bsheet-state-group')) {
+        var v = pill.getAttribute('data-value');
+        $$('[data-bsheet-cond]', sheet).forEach(function (el) {
+          el.hidden = (el.getAttribute('data-bsheet-cond') !== v);
+        });
+      }
+      return;
+    }
+    var nightBtn = e.target.closest('.bsheet-night[data-action="open-cantiere"]');
+    if (nightBtn) {
+      e.preventDefault();
+      var id = nightBtn.getAttribute('data-id');
+      closeBsheet(nightBtn.getAttribute('data-bsheet-target'));
+      if (typeof window.showScreen === 'function') {
+        setTimeout(function () { window.showScreen('cantiere', { id: id }); }, 260);
+      }
+    }
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && $('.bsheet.is-open')) closeBsheet();
+  });
+  function bindSwipe(sheet) {
+    var startY = 0, dy = 0, dragging = false;
+    var handle = sheet.querySelector('.bsheet-handle');
+    var head = sheet.querySelector('.bsheet-head');
+    var grip = handle || head; if (!grip) return;
+    grip.addEventListener('touchstart', function (e) {
+      if (!sheet.classList.contains('is-open')) return;
+      startY = e.touches[0].clientY; dy = 0; dragging = true;
+      sheet.classList.add('is-dragging');
+    }, { passive: true });
+    grip.addEventListener('touchmove', function (e) {
+      if (!dragging) return;
+      dy = e.touches[0].clientY - startY;
+      if (dy > 0) sheet.style.transform = 'translate(-50%, ' + dy + 'px)';
+    }, { passive: true });
+    grip.addEventListener('touchend', function () {
+      if (!dragging) return;
+      dragging = false;
+      sheet.classList.remove('is-dragging');
+      if (dy > 50) closeBsheet(sheet.getAttribute('data-bsheet'));
+      else sheet.style.transform = '';
+    });
+  }
+  document.addEventListener('DOMContentLoaded', function () {
+    $$('.bsheet').forEach(bindSwipe);
+  });
+  window.openBsheet = openBsheet;
+  window.closeBsheet = closeBsheet;
+})();
