@@ -4329,11 +4329,9 @@ html.headlamp-mode .botnav-tab { color: #C8C8C8; }
 html.headlamp-mode .botnav-tab.is-active { color: #FFFFFF; }
 
 /* E10.2 HEADLAMP MODE ESTENSIONE ---------------------------------------- */
-/* Font scaling rimosso (decisione utente 2026-05-04): font invariato.
-   Restano: touch target +17%, padding +33%, no anim, no backdrop, bottoni solidi. */
-html.headlamp-mode {
-  --tt: 56px;
-}
+/* Font + dimensioni bottoni invariati (decisione utente 2026-05-04).
+   Restano solo: colori contrastati (definiti nel blocco base righe 92-115),
+   no animazioni, no backdrop-filter, bottoni a colore solido. */
 html.headlamp-mode * { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
 html.headlamp-mode *,
 html.headlamp-mode *::before,
@@ -4341,12 +4339,6 @@ html.headlamp-mode *::after { animation: none !important; transition: none !impo
 html.headlamp-mode button[class*="btn"],
 html.headlamp-mode .btn-primary,
 html.headlamp-mode .btn-secondary { background: var(--accent-amber) !important; background-image: none !important; }
-html.headlamp-mode .card,
-html.headlamp-mode .table,
-html.headlamp-mode .botnav-tab { padding: calc(var(--sp-3) + 4px) !important; }
-html.headlamp-mode button,
-html.headlamp-mode .btn,
-html.headlamp-mode .pill { min-height: var(--tt); }
 .headlamp-indicator {
   position: fixed; top: 8px; right: 8px; z-index: 9998;
   padding: 4px 10px; background: #FFB020; color: #000;
