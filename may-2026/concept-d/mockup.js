@@ -940,3 +940,26 @@
   window.openBsheet = openBsheet;
   window.closeBsheet = closeBsheet;
 })();
+
+/* =========================================================================
+   FORM-CANTIERE STEP 3 — toggle classe wrapper al click tipo lavorazione
+   ========================================================================= */
+(function () {
+  'use strict';
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.fc-step3-tipo button[data-value]');
+    if (!btn) return;
+    e.preventDefault();
+    var wrap = btn.closest('.fc-step3');
+    if (!wrap) return;
+    var v = btn.getAttribute('data-value');
+    var tipi = ['linea', 'regolazioni', 'deviatoi', 'ricontrollo'];
+    tipi.forEach(function (t) { wrap.classList.remove('fc-tipo-' + t); });
+    wrap.classList.add('fc-tipo-' + v);
+    Array.prototype.forEach.call(wrap.querySelectorAll('.fc-step3-tipo button'), function (b) {
+      var on = b === btn;
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-checked', on ? 'true' : 'false');
+    });
+  });
+})();

@@ -11,12 +11,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
 
-  <link rel="stylesheet" href="style.css?v=41">
+  <link rel="stylesheet" href="style.css?v=42">
 </head>
 <body>
 
   <!-- VERSION BADGE (cache check) -->
-  <div style="position:fixed;top:8px;left:8px;background:#3B82F6;color:#fff;padding:4px 10px;border-radius:999px;font-family:Inter,sans-serif;font-size:11px;font-weight:700;z-index:9999;letter-spacing:0.04em;box-shadow:0 2px 8px rgba(59,130,246,0.4);" aria-hidden="true">v41</div>
+  <div style="position:fixed;top:8px;left:8px;background:#3B82F6;color:#fff;padding:4px 10px;border-radius:999px;font-family:Inter,sans-serif;font-size:11px;font-weight:700;z-index:9999;letter-spacing:0.04em;box-shadow:0 2px 8px rgba(59,130,246,0.4);" aria-hidden="true">v42</div>
 
   <!-- DEV NAV (jump screen) -->
   <label class="visually-hidden" for="dev-nav-select" hidden>Vai a vista</label>
@@ -659,7 +659,7 @@
             <div style="text-align:center;">Stato</div>
           </div>
       
-          <button type="button" class="row cant-notti-row" data-action="open-notte-detail" data-night="2026-04-30">
+          <button type="button" class="row cant-notti-row" data-action="open-notte-detail" data-bsheet-open="notte-edit" data-night="2026-04-30">
             <div class="text-mono cant-notti-date">30/04</div>
             <div class="cant-notti-tratta">Disp 168→165</div>
             <div class="col-num">42</div>
@@ -667,7 +667,7 @@
             <div class="cant-notti-st"><span class="pill pill-green">OK</span></div>
           </button>
 
-          <button type="button" class="row cant-notti-row" data-action="open-notte-detail" data-night="2026-04-29">
+          <button type="button" class="row cant-notti-row" data-action="open-notte-detail" data-bsheet-open="notte-edit" data-night="2026-04-29">
             <div class="text-mono cant-notti-date">29/04</div>
             <div class="cant-notti-tratta">Pari 169→167</div>
             <div class="col-num">38</div>
@@ -675,7 +675,7 @@
             <div class="cant-notti-st"><span class="pill pill-green">OK</span></div>
           </button>
 
-          <button type="button" class="row cant-notti-row" data-action="open-notte-detail" data-night="2026-04-28">
+          <button type="button" class="row cant-notti-row" data-action="open-notte-detail" data-bsheet-open="notte-edit" data-night="2026-04-28">
             <div class="text-mono cant-notti-date">28/04</div>
             <div class="cant-notti-tratta">Disp 170→168</div>
             <div class="col-num">36</div>
@@ -683,7 +683,7 @@
             <div class="cant-notti-st"><span class="pill pill-warn">Difetto</span></div>
           </button>
 
-          <button type="button" class="row cant-notti-row" data-action="open-notte-detail" data-night="2026-04-27">
+          <button type="button" class="row cant-notti-row" data-action="open-notte-detail" data-bsheet-open="notte-edit" data-night="2026-04-27">
             <div class="text-mono cant-notti-date">27/04</div>
             <div class="cant-notti-tratta">Pari 170→169</div>
             <div class="col-num">29</div>
@@ -691,7 +691,7 @@
             <div class="cant-notti-st"><span class="pill pill-green">OK</span></div>
           </button>
 
-          <button type="button" class="row cant-notti-row" data-action="open-notte-detail" data-night="2026-04-26">
+          <button type="button" class="row cant-notti-row" data-action="open-notte-detail" data-bsheet-open="notte-edit" data-night="2026-04-26">
             <div class="text-mono cant-notti-date">26/04</div>
             <div class="cant-notti-tratta">Dev · Posa 5</div>
             <div class="col-num">18</div>
@@ -2601,96 +2601,96 @@ Difetti:
       
         <!-- MAGGIO 2026 -->
         <!-- Settimana 1: ven 1 → dom 3 -->
-        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-01">
+        <button class="cal-day" type="button" data-action="open-day" data-bsheet-open="calendar-day" data-date="2026-05-01">
           <span class="d">1</span>
         </button>
-        <button class="cal-day today cal-day-today-soft" type="button" data-action="open-day" data-date="2026-05-02" aria-label="Sabato 2 maggio (oggi)">
+        <button class="cal-day today cal-day-today-soft" type="button" data-action="open-day" data-bsheet-open="calendar-day" data-date="2026-05-02" aria-label="Sabato 2 maggio (oggi)">
           <!-- NEED_CLASS .cal-day-today-soft (bg amber soft fill, oltre outline esistente) -->
           <span class="d">2</span>
           <div class="dots">
             <span class="dot dot-cyan" title="La Spezia"></span><!-- NEED_CLASS .dot.dot-cyan -->
           </div>
         </button>
-        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-03">
+        <button class="cal-day" type="button" data-action="open-day" data-bsheet-open="calendar-day" data-date="2026-05-03">
           <span class="d">3</span>
         </button>
       
         <!-- Settimana 2: lun 4 → dom 10 -->
-        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-04">
+        <button class="cal-day" type="button" data-action="open-day" data-bsheet-open="calendar-day" data-date="2026-05-04">
           <span class="d">4</span>
         </button>
-        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-05">
+        <button class="cal-day" type="button" data-action="open-day" data-bsheet-open="calendar-day" data-date="2026-05-05">
           <span class="d">5</span>
           <div class="dots">
             <span class="dot dot-cyan" title="La Spezia"></span>
           </div>
         </button>
-        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-06">
+        <button class="cal-day" type="button" data-action="open-day" data-bsheet-open="calendar-day" data-date="2026-05-06">
           <span class="d">6</span>
         </button>
-        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-07">
+        <button class="cal-day" type="button" data-action="open-day" data-bsheet-open="calendar-day" data-date="2026-05-07">
           <span class="d">7</span>
         </button>
-        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-08">
+        <button class="cal-day" type="button" data-action="open-day" data-bsheet-open="calendar-day" data-date="2026-05-08">
           <span class="d">8</span>
           <div class="dots">
             <span class="dot" title="Empoli"></span>
           </div>
         </button>
-        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-09">
+        <button class="cal-day" type="button" data-action="open-day" data-bsheet-open="calendar-day" data-date="2026-05-09">
           <span class="d">9</span>
         </button>
-        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-10">
+        <button class="cal-day" type="button" data-action="open-day" data-bsheet-open="calendar-day" data-date="2026-05-10">
           <span class="d">10</span>
         </button>
       
         <!-- Settimana 3: lun 11 → dom 17 -->
-        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-11">
+        <button class="cal-day" type="button" data-action="open-day" data-bsheet-open="calendar-day" data-date="2026-05-11">
           <span class="d">11</span>
         </button>
-        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-12">
+        <button class="cal-day" type="button" data-action="open-day" data-bsheet-open="calendar-day" data-date="2026-05-12">
           <span class="d">12</span>
           <div class="dots">
             <span class="dot dot-cyan" title="La Spezia"></span>
             <span class="dot warn" title="Brescia"></span>
           </div>
         </button>
-        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-13">
+        <button class="cal-day" type="button" data-action="open-day" data-bsheet-open="calendar-day" data-date="2026-05-13">
           <span class="d">13</span>
         </button>
-        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-14">
+        <button class="cal-day" type="button" data-action="open-day" data-bsheet-open="calendar-day" data-date="2026-05-14">
           <span class="d">14</span>
         </button>
-        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-15">
+        <button class="cal-day" type="button" data-action="open-day" data-bsheet-open="calendar-day" data-date="2026-05-15">
           <span class="d">15</span>
           <div class="dots">
             <span class="dot dot-cyan" title="La Spezia"></span>
           </div>
         </button>
-        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-16">
+        <button class="cal-day" type="button" data-action="open-day" data-bsheet-open="calendar-day" data-date="2026-05-16">
           <span class="d">16</span>
         </button>
-        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-17">
+        <button class="cal-day" type="button" data-action="open-day" data-bsheet-open="calendar-day" data-date="2026-05-17">
           <span class="d">17</span>
         </button>
       
         <!-- Settimana 4: lun 18 → dom 24 -->
-        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-18">
+        <button class="cal-day" type="button" data-action="open-day" data-bsheet-open="calendar-day" data-date="2026-05-18">
           <span class="d">18</span>
         </button>
-        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-19">
+        <button class="cal-day" type="button" data-action="open-day" data-bsheet-open="calendar-day" data-date="2026-05-19">
           <span class="d">19</span>
           <div class="dots">
             <span class="dot" title="Empoli"></span>
           </div>
         </button>
-        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-20">
+        <button class="cal-day" type="button" data-action="open-day" data-bsheet-open="calendar-day" data-date="2026-05-20">
           <span class="d">20</span>
         </button>
-        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-21">
+        <button class="cal-day" type="button" data-action="open-day" data-bsheet-open="calendar-day" data-date="2026-05-21">
           <span class="d">21</span>
         </button>
-        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-22">
+        <button class="cal-day" type="button" data-action="open-day" data-bsheet-open="calendar-day" data-date="2026-05-22">
           <span class="d">22</span>
           <div class="dots">
             <span class="dot dot-cyan" title="La Spezia"></span>
@@ -2699,36 +2699,36 @@ Difetti:
             <span class="dot-more">+1</span><!-- NEED_CLASS .dot-more (mini text overflow) -->
           </div>
         </button>
-        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-23">
+        <button class="cal-day" type="button" data-action="open-day" data-bsheet-open="calendar-day" data-date="2026-05-23">
           <span class="d">23</span>
         </button>
-        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-24">
+        <button class="cal-day" type="button" data-action="open-day" data-bsheet-open="calendar-day" data-date="2026-05-24">
           <span class="d">24</span>
         </button>
       
         <!-- Settimana 5: lun 25 → dom 31 -->
-        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-25">
+        <button class="cal-day" type="button" data-action="open-day" data-bsheet-open="calendar-day" data-date="2026-05-25">
           <span class="d">25</span>
         </button>
-        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-26">
+        <button class="cal-day" type="button" data-action="open-day" data-bsheet-open="calendar-day" data-date="2026-05-26">
           <span class="d">26</span>
         </button>
-        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-27">
+        <button class="cal-day" type="button" data-action="open-day" data-bsheet-open="calendar-day" data-date="2026-05-27">
           <span class="d">27</span>
         </button>
-        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-28">
+        <button class="cal-day" type="button" data-action="open-day" data-bsheet-open="calendar-day" data-date="2026-05-28">
           <span class="d">28</span>
           <div class="dots">
             <span class="dot warn" title="Brescia"></span>
           </div>
         </button>
-        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-29">
+        <button class="cal-day" type="button" data-action="open-day" data-bsheet-open="calendar-day" data-date="2026-05-29">
           <span class="d">29</span>
         </button>
-        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-30">
+        <button class="cal-day" type="button" data-action="open-day" data-bsheet-open="calendar-day" data-date="2026-05-30">
           <span class="d">30</span>
         </button>
-        <button class="cal-day" type="button" data-action="open-day" data-date="2026-05-31">
+        <button class="cal-day" type="button" data-action="open-day" data-bsheet-open="calendar-day" data-date="2026-05-31">
           <span class="d">31</span>
         </button>
       
@@ -2769,25 +2769,25 @@ Difetti:
           <div>Cantiere</div>
         </div>
 
-        <button class="row" type="button" data-action="open-day" data-date="2026-05-05">
+        <button class="row" type="button" data-action="open-day" data-bsheet-open="calendar-day" data-date="2026-05-05">
           <div class="row-data text-amber">Lun 5 Mag</div>
           <div class="row-ora text-mono">22:00</div>
           <div class="row-cant">La Spezia – Arcola</div>
         </button>
 
-        <button class="row" type="button" data-action="open-day" data-date="2026-05-08">
+        <button class="row" type="button" data-action="open-day" data-bsheet-open="calendar-day" data-date="2026-05-08">
           <div class="row-data text-amber">Gio 8 Mag</div>
           <div class="row-ora text-mono">21:30</div>
           <div class="row-cant">Empoli</div>
         </button>
 
-        <button class="row" type="button" data-action="open-day" data-date="2026-05-12">
+        <button class="row" type="button" data-action="open-day" data-bsheet-open="calendar-day" data-date="2026-05-12">
           <div class="row-data text-amber">Lun 12 Mag</div>
           <div class="row-ora text-mono">22:00</div>
           <div class="row-cant">La Spezia</div>
         </button>
 
-        <button class="row row-multi" type="button" data-action="open-day" data-date="2026-05-12">
+        <button class="row row-multi" type="button" data-action="open-day" data-bsheet-open="calendar-day" data-date="2026-05-12">
           <div class="row-data text-amber">Lun 12 Mag</div>
           <div class="row-ora text-mono">23:00</div>
           <div class="row-cant">
@@ -3120,13 +3120,7 @@ Difetti:
 
   </main>
 
-  <!-- BOTTOM NAV -->
-  <nav class="nav" id="bottom-nav" aria-label="Navigazione principale">
-    <button class="nav-tab" data-nav="dashboard"  type="button">Home</button>
-    <button class="nav-tab" data-nav="panoramica" type="button">Mese</button>
-    <button class="nav-tab" data-nav="profilo"    type="button">Profilo</button>
-    <button class="nav-tab" data-nav="headlamp"   type="button" aria-label="Tap-and-hold per attivare modalità frontale">Frontale</button>
-  </nav>
+  <!-- (nav vecchia rimossa wave 2026-05-04: usata solo .botnav nuova in fondo al body) -->
 
   <!-- =======================================================================
        MODALI (sheet bottom-up)
@@ -3218,7 +3212,7 @@ Difetti:
   <!-- TOAST CONTAINER -->
   <div id="toast-container" aria-live="polite" aria-atomic="false"></div>
 
-  <script src="mockup.js?v=41"></script>
+  <script src="mockup.js?v=42"></script>
 
   <!-- Extra overlay modals -->
   <!--
