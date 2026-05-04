@@ -4286,7 +4286,7 @@ button[data-action="add-elemento"] {
 .botnav {
   position: fixed; left: 50%; bottom: 0; transform: translateX(-50%);
   width: 100%; max-width: 420px; height: var(--nav-h, 56px);
-  display: grid; grid-template-columns: repeat(3, 1fr); align-items: stretch;
+  display: grid; grid-template-columns: repeat(4, 1fr); align-items: stretch;
   background: var(--bg-secondary);
   border-top: 1px solid rgba(255,255,255,0.06);
   padding-bottom: env(safe-area-inset-bottom, 0px);
