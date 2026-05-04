@@ -963,3 +963,50 @@
     });
   });
 })();
+
+/* =========================================================================
+   OFFLINE / SYNC GLOBALS — demo API (wave 2026-05-04)
+   Test via console: M2D.showOfflineToast() / showOnlineToast() / showSyncBanner(12) / hideSyncBanner()
+   ========================================================================= */
+(function () {
+  var M2D = window.M2D = window.M2D || {};
+  var toastTimer = null;
+  function showToast(id, ms) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.hidden = false;
+    void el.offsetWidth;
+    el.classList.add('is-visible');
+    if (toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () {
+      el.classList.remove('is-visible');
+      setTimeout(function () { el.hidden = true; }, 240);
+    }, ms || 3000);
+  }
+  M2D.showOfflineToast = function () {
+    showToast('toast-offline', 3000);
+    var ic = document.getElementById('offline-icon');
+    if (ic) { ic.hidden = false; ic.classList.add('is-visible'); }
+    document.documentElement.classList.add('is-offline');
+  };
+  M2D.showOnlineToast = function () {
+    showToast('toast-online', 3000);
+    var ic = document.getElementById('offline-icon');
+    if (ic) { ic.classList.remove('is-visible'); ic.hidden = true; }
+    document.documentElement.classList.remove('is-offline');
+  };
+  M2D.showSyncBanner = function (n) {
+    var el = document.getElementById('sync-banner');
+    var c  = document.getElementById('sync-count');
+    if (!el) return;
+    if (c) c.textContent = String(n != null ? n : 0);
+    el.hidden = false;
+    el.classList.add('is-visible');
+  };
+  M2D.hideSyncBanner = function () {
+    var el = document.getElementById('sync-banner');
+    if (!el) return;
+    el.classList.remove('is-visible');
+    el.hidden = true;
+  };
+})();

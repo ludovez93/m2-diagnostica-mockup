@@ -11,12 +11,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
 
-  <link rel="stylesheet" href="style.css?v=42">
+  <link rel="stylesheet" href="style.css?v=43">
 </head>
 <body>
 
   <!-- VERSION BADGE (cache check) -->
-  <div style="position:fixed;top:8px;left:8px;background:#3B82F6;color:#fff;padding:4px 10px;border-radius:999px;font-family:Inter,sans-serif;font-size:11px;font-weight:700;z-index:9999;letter-spacing:0.04em;box-shadow:0 2px 8px rgba(59,130,246,0.4);" aria-hidden="true">v42</div>
+  <div style="position:fixed;top:8px;left:8px;background:#3B82F6;color:#fff;padding:4px 10px;border-radius:999px;font-family:Inter,sans-serif;font-size:11px;font-weight:700;z-index:9999;letter-spacing:0.04em;box-shadow:0 2px 8px rgba(59,130,246,0.4);" aria-hidden="true">v43</div>
 
   <!-- DEV NAV (jump screen) -->
   <label class="visually-hidden" for="dev-nav-select" hidden>Vai a vista</label>
@@ -120,7 +120,10 @@
             <span class="pin-dot" data-filled="false">●</span>
             <span class="pin-dot" data-filled="false">●</span>
           </div>
-      
+
+          <!-- ERROR MESSAGE (default hidden, mostrato in stato .is-error) -->
+          <div class="pin-error" role="alert" id="pin-error" hidden>PIN errato. Tentativi rimasti: 2/3</div>
+
           <!-- NUMPAD 3x4 monospace -->
           <div class="numpad" role="group" aria-label="Tastiera numerica PIN">
       
@@ -249,7 +252,27 @@
            Concept D — Operations Terminal
            Coerente con _reference.html, classi da style.css
            ===================================================================== -->
-      
+
+      <!-- Empty state · 0 cantieri (default hidden, mostrato dal router se cantieri.length === 0) -->
+      <div class="d-empty" data-empty-state hidden>
+        <div class="d-empty-header">
+          <div class="d-empty-greet">Buonasera, Ludovico</div>
+          <div class="d-empty-sub">Sabato 2 Maggio · LP</div>
+        </div>
+        <div class="d-empty-stage">
+          <div class="d-empty-glyph" aria-hidden="true">
+            <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+              <rect x="6" y="6" width="52" height="52" rx="3" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 4"/>
+              <path d="M32 22V42M22 32H42" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"/>
+            </svg>
+          </div>
+          <h2 class="d-empty-title">Nessun cantiere attivo</h2>
+          <p class="d-empty-text">Crea il primo cantiere per iniziare a tracciare ispezioni e notti.</p>
+          <button class="d-empty-cta btn-primary" type="button" data-action="open-form-cantiere" data-screen-target="form-cantiere">+ Crea cantiere</button>
+          <button class="d-empty-link" type="button" data-action="import-csv">Importa da CSV</button>
+        </div>
+      </div>
+
       <!-- 2026 dashboard header -->
       <div class="d-header">
         <div class="d-header-text">
@@ -3212,7 +3235,7 @@ Difetti:
   <!-- TOAST CONTAINER -->
   <div id="toast-container" aria-live="polite" aria-atomic="false"></div>
 
-  <script src="mockup.js?v=42"></script>
+  <script src="mockup.js?v=43"></script>
 
   <!-- Extra overlay modals -->
   <!--
@@ -3526,6 +3549,30 @@ Difetti:
 
   <!-- HEADLAMP INDICATOR -->
   <div class="headlamp-indicator">MODALITÀ FRONTALE</div>
+
+  <!-- TOAST OFFLINE / ONLINE + ICONA + BANNER SYNC -->
+  <div id="toast-offline" class="toast toast-offline" role="status" aria-live="polite" aria-atomic="true" hidden>
+    <svg class="toast-ico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <line x1="1" y1="1" x2="23" y2="23"/><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/><path d="M10.71 5.05A16 16 0 0 1 22.58 9"/><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/>
+    </svg>
+    <span class="toast-msg">Connessione persa</span>
+  </div>
+  <div id="toast-online" class="toast toast-online" role="status" aria-live="polite" aria-atomic="true" hidden>
+    <svg class="toast-ico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/>
+    </svg>
+    <span class="toast-msg">Connessione ripristinata</span>
+  </div>
+  <div id="offline-icon" class="offline-icon" role="img" aria-label="Modalità offline attiva" hidden>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <line x1="1" y1="1" x2="23" y2="23"/><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/><path d="M10.71 5.05A16 16 0 0 1 22.58 9"/><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/>
+    </svg>
+  </div>
+  <div id="sync-banner" class="sync-banner" role="alert" aria-live="assertive" hidden>
+    <span class="sync-ico" aria-hidden="true">⏳</span>
+    <span class="sync-msg"><span id="sync-count">0</span> modifiche in coda — sync in corso<span class="sync-dots">...</span></span>
+    <span class="sync-spinner" aria-hidden="true"></span>
+  </div>
 
   <!-- BOTTOM NAV (4 tab fixed bottom) -->
   <nav class="botnav" id="botnav" aria-label="Navigazione principale">

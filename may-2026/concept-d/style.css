@@ -4526,3 +4526,132 @@ html:not(.headlamp-mode) .headlamp-indicator { display: none; }
 }
 .stat-row-lab { color: var(--text-secondary); font-size: var(--fs-sm); }
 .stat-row-val { color: var(--text-primary); font-family: var(--ff-mono); font-weight: 600; font-feature-settings: 'tnum' 1; }
+
+/* =========================================================================
+   E11. WAVE 2026-05-04 (parte 2) — empty state, login error, offline banners
+   ========================================================================= */
+
+/* E11.1 DASHBOARD EMPTY STATE ----------------------------------------- */
+.d-empty {
+  display: flex; flex-direction: column;
+  min-height: calc(100vh - var(--nav-h) - 80px);
+  padding: var(--sp-4) var(--sp-3) var(--sp-8);
+}
+.d-empty-header { font-family: var(--ff-display); margin-bottom: var(--sp-8); }
+.d-empty-greet { font-size: var(--fs-xl); font-weight: 600; color: var(--text-primary); letter-spacing: -0.01em; }
+.d-empty-sub {
+  font-family: var(--ff-mono); font-size: var(--fs-sm); color: var(--text-muted);
+  text-transform: uppercase; letter-spacing: var(--ls-base); margin-top: var(--sp-1);
+}
+.d-empty-stage {
+  flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: var(--sp-4); max-width: 320px; width: 100%; margin: 0 auto;
+  padding: var(--sp-8) var(--sp-4); text-align: center;
+}
+.d-empty-glyph { width: 64px; height: 64px; color: var(--accent-amber); opacity: 0.85; margin-bottom: var(--sp-2); }
+.d-empty-title {
+  font-family: var(--ff-display); font-size: var(--fs-3xl); font-weight: 600;
+  color: var(--text-primary); letter-spacing: -0.01em; line-height: var(--lh-tight); margin: 0;
+}
+.d-empty-text {
+  font-family: var(--ff-display); font-size: var(--fs-md);
+  color: var(--text-secondary); line-height: var(--lh-relaxed); margin: 0 0 var(--sp-4) 0;
+}
+.d-empty-cta {
+  min-height: var(--tt); width: 100%;
+  font-family: var(--ff-mono); font-size: var(--fs-md);
+  letter-spacing: var(--ls-base); text-transform: uppercase;
+}
+.d-empty-link {
+  background: transparent; border: 0;
+  padding: var(--sp-2) var(--sp-3);
+  font-family: var(--ff-mono); font-size: var(--fs-sm);
+  color: var(--text-muted); letter-spacing: var(--ls-base); text-transform: uppercase;
+  cursor: pointer; text-decoration: underline; text-underline-offset: 3px;
+  text-decoration-color: var(--border-default);
+}
+.d-empty-link:hover { color: var(--text-secondary); }
+
+/* E11.2 LOGIN PIN ERROR ----------------------------------------------- */
+.login-step-pin.is-error .pin-dot { color: var(--color-danger); }
+.login-step-pin.is-error .pin-dots {
+  animation: pin-shake 400ms ease-in-out;
+  border-bottom-color: var(--color-danger);
+}
+.pin-error {
+  font-family: var(--ff-mono); font-size: var(--fs-sm);
+  color: var(--color-danger); text-align: center;
+  letter-spacing: var(--ls-base); text-transform: uppercase;
+  padding: var(--sp-2) 0 var(--sp-3); margin-top: -8px;
+}
+@keyframes pin-shake {
+  0%   { transform: translateX(0); }
+  20%  { transform: translateX(-6px); }
+  40%  { transform: translateX(6px); }
+  60%  { transform: translateX(-6px); }
+  80%  { transform: translateX(6px); }
+  100% { transform: translateX(0); }
+}
+.login-step-pin.is-locked .numpad {
+  opacity: 0.4; pointer-events: none; filter: grayscale(0.6);
+}
+.login-step-pin.is-locked .pin-back {
+  background: var(--accent-amber-soft);
+  border: 1px solid var(--accent-amber-bord);
+  padding: 4px 8px; margin-left: auto;
+}
+
+/* E11.3 OFFLINE / SYNC GLOBALS -------------------------------------- */
+.toast {
+  position: fixed; top: 0; left: 50%; z-index: 10000;
+  display: inline-flex; align-items: center; gap: var(--sp-2);
+  padding: 10px 16px; max-width: calc(100vw - 32px);
+  font-family: var(--ff-mono); font-size: var(--fs-sm); font-weight: 600;
+  letter-spacing: var(--ls-base); text-transform: uppercase;
+  color: #fff; border-radius: 0 0 var(--r-sm) var(--r-sm);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+  transform: translate(-50%, -120%);
+  transition: transform 220ms ease-out;
+  pointer-events: none;
+}
+.toast[hidden] { display: none; }
+.toast.is-visible { transform: translate(-50%, 8px); }
+.toast-offline { background: var(--color-danger); }
+.toast-online  { background: var(--color-success); }
+.toast-ico { flex: 0 0 auto; }
+.offline-icon {
+  position: fixed; top: 36px; right: 8px; z-index: 9998;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 22px; height: 22px; padding: 4px;
+  color: var(--color-warn); background: rgba(15,15,15,0.8);
+  border: 1px solid rgba(240,160,40,0.4); border-radius: 999px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
+.offline-icon[hidden] { display: none; }
+.offline-icon.is-visible { display: inline-flex; }
+.sync-banner {
+  position: sticky; top: 0; z-index: 90;
+  display: flex; align-items: center; gap: var(--sp-2);
+  padding: 8px 12px;
+  font-family: var(--ff-mono); font-size: var(--fs-sm); font-weight: 500;
+  letter-spacing: var(--ls-tight); color: var(--text-primary);
+  background: rgba(240,160,40,0.12);
+  border-bottom: 1px solid rgba(240,160,40,0.4);
+}
+.sync-banner[hidden] { display: none; }
+.sync-banner.is-visible { display: flex; }
+.sync-ico { font-size: 14px; }
+.sync-msg { flex: 1 1 auto; }
+.sync-spinner {
+  flex: 0 0 auto; width: 12px; height: 12px;
+  border: 2px solid rgba(240,160,40,0.25);
+  border-top-color: var(--color-warn);
+  border-radius: 50%;
+  animation: sync-spin 1s linear infinite;
+}
+@keyframes sync-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .login-step-pin.is-error .pin-dots { animation: none; }
+  .toast { transition: none; }
+  .sync-spinner { animation: none; border-top-color: rgba(240,160,40,0.6); }
+}
